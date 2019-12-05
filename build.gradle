@@ -1,0 +1,130 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'forge'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+        maven {
+            name = 'sonatype'
+            url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+		classpath "de.undercouch:gradle-download-task:3.1.2"
+    }
+}
+
+import de.undercouch.gradle.tasks.download.Download
+apply plugin: 'forge'
+apply plugin: 'signing'
+apply plugin: 'idea'
+idea{
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+
+ext.configFile = file 'build.properties'
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+version = config.majorUpdate + '.' + config.minorUpdate + '.' + config.buildNumber
+group = 'com.bitbucket.basdxz.gtppnt' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'gtppnt' + '[' + config.minecraft.version + ']'
+
+minecraft {
+    version = "${config.minecraft.version}-${config.forge.version}-${config.minecraft.version}"
+	replaceIn "MainMod.java"
+	replace "@version@", project.version
+    runDir = 'eclipse'
+}
+
+configurations {
+    provided
+    embedded
+    compile.extendsFrom provided, embedded
+}
+
+repositories {
+	maven {	//Applecore, NEI, chicken core and lib
+		name = "GregTech maven"
+		url = "https://gregtech.overminddl1.com/"
+	}
+    maven { //IC2
+        name = "IC2 maven"
+        url = "http://maven.ic2.player.to/"
+    }
+	maven { // OpenComputers
+        name "OpenComputers maven"
+        url "http://maven.cil.li/"
+    }
+	maven { // EnderIO
+        name "Tterrag maven"
+        url "https://maven.tterrag.com/"
+    }
+}
+
+dependencies {
+    compile "codechicken:CodeChickenLib:${config.minecraft.version}-${config.codechickenlib.version}:dev"
+    compile "codechicken:CodeChickenCore:${config.minecraft.version}-${config.codechickencore.version}:dev"
+    compile "codechicken:NotEnoughItems:${config.minecraft.version}-${config.nei.version}:dev"
+    compile "net.industrial-craft:industrialcraft-2:${config.ic2.version}:dev"
+    compile "micdoodle8.mods:MicdoodleCore:${config.galacticraft.version}:Dev"
+    compile "micdoodle8.mods:GalacticraftCore:${config.galacticraft.version}:Dev"
+    compile "micdoodle8.mods:Galacticraft-Planets:${config.galacticraft.version}:Dev"
+    compile "li.cil.oc:OpenComputers:MC${config.minecraft.version}-${config.opencomputers.version}:dev"
+	compile "mcp.mobius.waila:Waila:${config.waila.version}_${config.minecraft.version}"
+    compileOnly "applecore:AppleCore:${config.applecore.version}:api"
+    compileOnly "com.enderio.core:EnderCore:${config.minecraft.version}-${config.endercore.version}:dev"
+    compileOnly "com.enderio:EnderIO:${config.minecraft.version}-${config.enderio.version}:dev"
+}
+
+task getGregTech(type: Download) {
+    onlyIf {
+        !file("libs/gregtech-${config.gregtech.version}-dev.jar").exists()
+    }
+    src "http://jenkins.usrv.eu:8080/job/Gregtech-5-Unofficial/${config.gregtech.jenkinsbuild}/artifact/build/libs/gregtech-${config.gregtech.version}-dev.jar"
+    dest file("libs/gregtech-${config.gregtech.version}-dev.jar")
+    mustRunAfter "deobfBinJar"
+    mustRunAfter "repackMinecraft"
+    delete fileTree("$projectDir/libs/") {
+        include 'gregtech-*-dev.jar'
+        exclude "gregtech-${config.gregtech.version}-dev.jar"
+    }
+}
+
+tasks.setupCIWorkspace.dependsOn getGregTech
+tasks.setupDevWorkspace.dependsOn getGregTech
+
+processResources
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}

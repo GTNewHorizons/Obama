@@ -1,0 +1,16 @@
+[
+{
+  "modid": "gtppnt",
+  "name": "GT-AF",
+  "description": "An alkaline free addon for GregTech 5u",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["basdxz"],
+  "credits": "basdxz",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
