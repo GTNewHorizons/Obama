@@ -7,8 +7,13 @@
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["basdxz"],
-  "credits": "basdxz",
+  "authorList": [
+    "basdxz",
+    "bartimaeusnek",
+    "tec",
+    "DreamMasterXXL"
+  ],
+  "credits": "basdxz, bartimaeusnek, tec, DreamMasterXXL, bigbass",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
