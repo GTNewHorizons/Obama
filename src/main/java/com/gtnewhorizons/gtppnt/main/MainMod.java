@@ -22,6 +22,8 @@ package com.gtnewhorizons.gtppnt.main;
 
 import com.github.bartimaeusnek.bartworks.API.WerkstoffAdderRegistry;
 import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass;
+import com.gtnewhorizons.gtppnt.main.config.ConfigHandler;
+import com.gtnewhorizons.gtppnt.main.loaders.SingleBlockLoadingClass;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.*;
@@ -44,12 +46,13 @@ public class MainMod {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
         WerkstoffAdderRegistry.addWerkstoffAdder(new MaterialsClass());
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-
+        SingleBlockLoadingClass.load();
     }
 
     @EventHandler
