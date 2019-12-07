@@ -23,10 +23,9 @@ package com.gtnewhorizons.gtppnt.main.compat.bartworks;
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
 import com.github.bartimaeusnek.bartworks.util.Pair;
 
-import static com.github.bartimaeusnek.bartworks.system.material.Werkstoff.Types.MIXTURE;
+import static com.github.bartimaeusnek.bartworks.system.material.Werkstoff.Types.*;
 import static gregtech.api.enums.Materials.*;
-import static gregtech.api.enums.TextureSet.SET_DULL;
-import static gregtech.api.enums.TextureSet.SET_METALLIC;
+import static gregtech.api.enums.TextureSet.*;
 
 
 @SuppressWarnings("ALL")

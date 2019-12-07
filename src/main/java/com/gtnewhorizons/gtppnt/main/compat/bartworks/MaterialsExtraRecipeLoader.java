@@ -23,12 +23,13 @@ package com.gtnewhorizons.gtppnt.main.compat.bartworks;
 
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
 
-import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.Tumbaga;
-import static gregtech.api.enums.GT_Values.NI;
-import static gregtech.api.enums.GT_Values.RA;
-import static gregtech.api.enums.Materials.Copper;
-import static gregtech.api.enums.Materials.Gold;
-import static gregtech.api.enums.OrePrefixes.dust;
+import static com.github.technus.tectech.recipe.TT_recipeAdder.*;
+import static com.github.bartimaeusnek.bartworks.API.BioRecipeAdder.*;
+import static com.github.bartimaeusnek.bartworks.util.BWRecipes.*;
+import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.*;
+import static gregtech.api.enums.GT_Values.*;
+import static gregtech.api.enums.Materials.*;
+import static gregtech.api.enums.OrePrefixes.*;
 
 //DO NOT REMOVE THESE IMPORTS!
 
