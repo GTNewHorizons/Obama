@@ -22,6 +22,7 @@ package com.gtnewhorizons.gtppnt.main.tileentites.single;
 
 import com.gtnewhorizons.gtppnt.main.client.guicontainers.GT_GUIContainer_TieredBoiler;
 import com.gtnewhorizons.gtppnt.main.server.container.GT_Container_TieredBoiler;
+import cpw.mods.fml.common.Loader;
 import gregtech.GT_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Materials;
@@ -54,27 +55,38 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
 
     //TODO: MAKE PROPPER GUI OR REUSE EXISTING BOILER GUI
 
+    public static int cBaseSteam = 150;
+    public static int cBaseTickrate = 20;
+    public static int cBasePollution = 15;
+    public static int cPollutionIncrease = 5;
+
+
     public int mTemperature = 20;
     public int mProcessingEnergy = 0;
     public int mLossTimer = 0;
     public FluidStack mSteam = null;
     public boolean mHadNoWater = false;
     private long steamPerTier = steamPerTier(this.mTier);
-
-    public GT_MetaTileEntity_TieredBoiler(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 4, new String[]{"A Tiered Boiler", "Produces " + (int) (steamPerTier((byte) aTier) * (20f / (float) calculateSteamRateAndPollution(aTier)[0])) + "L of Steam per second", "Causes " + calculateSteamRateAndPollution(aTier)[1] + " Pollution per second"});
-    }
+    private float efficiency = calculateEfficiency(this.mTier);
 
     public GT_MetaTileEntity_TieredBoiler(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
         super(aName, aTier, 4, aDescription, aTextures);
     }
 
-    private static int[] calculateSteamRateAndPollution(int aTier) {
-        return new int[]{20 - aTier, 15 + (aTier * aTier * 5)};
+    public GT_MetaTileEntity_TieredBoiler(int aID, String aName, String aNameRegional, int aTier) {
+        super(aID, aName, aNameRegional, aTier, 4, new String[]{"A Tiered Boiler", "Produces " + (int) (steamPerTier((byte) aTier) * (20f / (float) calculateSteamRateAndPollution(aTier)[0])) + "L of Steam per second", "Causes " + calculateSteamRateAndPollution(aTier)[1] + " Pollution per second", "Has an efficiency of " + (calculateVisualEfficency(aTier)) + "% compared to regular small boilers!"});
     }
 
-    private static long steamPerTier(byte atier) {
-        return (long) Math.ceil((150f * (float) (atier + 1)) / 4f * 3f);
+    private static float calculateEfficiency(int aTier) {
+        return (float) (1.065f - (Math.pow(0.065d, aTier + 1)));
+    }
+
+    private static int[] calculateSteamRateAndPollution(int aTier) {
+        return new int[]{cBaseTickrate, cBasePollution + (aTier * aTier * cPollutionIncrease)};
+    }
+
+    private static long steamPerTier(int atier) {
+        return (long) Math.ceil(((float) cBaseSteam * (1f + 0.5f * (float) (atier + 1))));
     }
 
     @Override
@@ -82,9 +94,13 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
         return new GT_Container_TieredBoiler(aPlayerInventory, aBaseMetaTileEntity, this.getCapacity());
     }
 
-    @Override
-    public Object getClientGUI(int aID, InventoryPlayer aPlayerInventory, IGregTechTileEntity aBaseMetaTileEntity) {
-        return new GT_GUIContainer_TieredBoiler(aPlayerInventory, aBaseMetaTileEntity, this.getLocalName(), this.getCapacity());
+    private static int calculateVisualEfficency(int aTier) {
+        float effAdjudste = calculateEfficiency(aTier);
+        float pulses = effAdjudste * calculateSteamRateAndPollution(aTier)[0];
+        float steamOverall = pulses * steamPerTier(aTier);
+        float repulses = calculateSteamRateAndPollution(0)[0];
+        float resteamOverall = repulses * steamPerTier(0);
+        return (int) (100f * (resteamOverall / steamOverall));
     }
 
     @Override
@@ -246,11 +262,15 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
                 this.getBaseMetaTileEntity().getWorld().spawnParticle("largesmoke", aX - 0.5D + (double) XSTR.XSTR_INSTANCE.nextFloat(), aY, aZ - 0.5D + (double) XSTR.XSTR_INSTANCE.nextFloat(), 0.0D, 0.0D, 0.0D);
             }
         }
+    }
 
+    @Override
+    public Object getClientGUI(int aID, InventoryPlayer aPlayerInventory, IGregTechTileEntity aBaseMetaTileEntity) {
+        return new GT_GUIContainer_TieredBoiler(aPlayerInventory, aBaseMetaTileEntity, "SteelBoiler.png", this.getCapacity());
     }
 
     public int getCapacity() {
-        return 8000 * (mTier + 1) * 2;
+        return 8000 * (mTier + 1) * 4;
     }
 
     public int getTankPressure() {
@@ -294,8 +314,9 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
                 if (this.mTemperature > 100) {
                     if (GT_ModHandler.isWater(this.mFluid) && this.mFluid.amount > 0) {
                         if (this.mHadNoWater) {
-                            GT_Log.exp.println("Boiler " + this.mName + " had no Water!");
-                            aBaseMetaTileEntity.doExplosion(2048L);
+                            if (Loader.isModLoaded("dreamcraft"))
+                                GT_Log.exp.println("Boiler " + this.mName + " had no Water!");
+                            aBaseMetaTileEntity.doExplosion(2048L * (mTier + 1));
                             return;
                         }
 
@@ -326,19 +347,19 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
                 if ((!GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Coal) || GT_Utility.isPartOfOrePrefix(this.mInventory[2], OrePrefixes.block)) && (!GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Charcoal) || GT_Utility.isPartOfOrePrefix(this.mInventory[2], OrePrefixes.block)) && (!GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Lignite) || GT_Utility.isPartOfOrePrefix(this.mInventory[2], OrePrefixes.block)) && (!GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Diamond) || GT_Utility.isPartOfOrePrefix(this.mInventory[2], OrePrefixes.block)) && !GT_OreDictUnificator.isItemStackInstanceOf(this.mInventory[2], "fuelCoke")) {
                     if (!GT_OreDictUnificator.isItemStackInstanceOf(this.mInventory[2], OrePrefixes.block.get(Materials.Coal)) && !GT_OreDictUnificator.isItemStackInstanceOf(this.mInventory[2], OrePrefixes.block.get(Materials.Lignite)) && !GT_OreDictUnificator.isItemStackInstanceOf(this.mInventory[2], OrePrefixes.block.get(Materials.Charcoal)) && !GT_OreDictUnificator.isItemStackInstanceOf(this.mInventory[2], OrePrefixes.block.get(Materials.Diamond)) && (Block.getBlockFromItem(this.mInventory[2].getItem()) == null || !Block.getBlockFromItem(this.mInventory[2].getItem()).getUnlocalizedName().toLowerCase().contains("tile") || !Block.getBlockFromItem(this.mInventory[2].getItem()).getUnlocalizedName().toLowerCase().contains("charcoal") && !Block.getBlockFromItem(this.mInventory[2].getItem()).getUnlocalizedName().toLowerCase().contains("coal") && !Block.getBlockFromItem(this.mInventory[2].getItem()).getUnlocalizedName().toLowerCase().contains("diamond") && !Block.getBlockFromItem(this.mInventory[2].getItem()).getUnlocalizedName().toLowerCase().contains("coke") && !Block.getBlockFromItem(this.mInventory[2].getItem()).getUnlocalizedName().toLowerCase().contains("railcraft.cube") && !Block.getBlockFromItem(this.mInventory[2].getItem()).getUnlocalizedName().toLowerCase().contains("lignite"))) {
                         if (TileEntityFurnace.getItemBurnTime(this.mInventory[2]) >= 2000 && !this.mInventory[2].getUnlocalizedName().toLowerCase().contains("bucket") && !this.mInventory[2].getUnlocalizedName().toLowerCase().contains("cell")) {
-                            this.mProcessingEnergy += TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10;
+                            this.mProcessingEnergy += TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10f * efficiency;
                             aBaseMetaTileEntity.decrStackSize(2, 1);
                             if (XSTR.XSTR_INSTANCE.nextInt(2) == 0) {
                                 aBaseMetaTileEntity.addStackToSlot(3, GT_OreDictUnificator.get(TileEntityFurnace.getItemBurnTime(this.mInventory[2]) >= 10000 ? (TileEntityFurnace.getItemBurnTime(this.mInventory[2]) >= 100000 ? OrePrefixes.dust : OrePrefixes.dustSmall) : OrePrefixes.dustTiny, Materials.Ash, 1L));
                             }
                         }
-                    } else if (TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10 > 0) {
-                        this.mProcessingEnergy += TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10;
+                    } else if (TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10f * efficiency > 0) {
+                        this.mProcessingEnergy += TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10f * efficiency;
                         aBaseMetaTileEntity.decrStackSize(2, 1);
                         aBaseMetaTileEntity.addStackToSlot(3, GT_OreDictUnificator.get(OrePrefixes.dust, !GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Lignite) && !GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Coal) && !Block.getBlockFromItem(this.mInventory[2].getItem()).getUnlocalizedName().toLowerCase().contains("coal") && !Block.getBlockFromItem(this.mInventory[2].getItem()).getUnlocalizedName().toLowerCase().contains("lignite") ? Materials.Ash : Materials.DarkAsh, 1L));
                     }
-                } else if (TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10 > 0) {
-                    this.mProcessingEnergy += TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10;
+                } else if (TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10f * efficiency > 0) {
+                    this.mProcessingEnergy += TileEntityFurnace.getItemBurnTime(this.mInventory[2]) / 10f * efficiency;
                     aBaseMetaTileEntity.decrStackSize(2, 1);
                     if (XSTR.XSTR_INSTANCE.nextInt(!GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Coal) && !GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Charcoal) ? (GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Lignite) ? 8 : 2) : 3) == 0) {
                         aBaseMetaTileEntity.addStackToSlot(3, GT_OreDictUnificator.get(OrePrefixes.dustTiny, !GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Lignite) && !GT_Utility.isPartOfMaterials(this.mInventory[2], Materials.Coal) ? Materials.Ash : Materials.DarkAsh, 1L));
