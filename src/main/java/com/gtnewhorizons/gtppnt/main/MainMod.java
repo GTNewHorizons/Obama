@@ -22,6 +22,7 @@ package com.gtnewhorizons.gtppnt.main;
 
 import com.github.bartimaeusnek.bartworks.API.WerkstoffAdderRegistry;
 import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass;
+import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsExtraRecipeLoader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.*;
@@ -54,7 +55,7 @@ public class MainMod {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
+        MaterialsExtraRecipeLoader.executeExtraRecipes();
     }
 
     @Mod.EventHandler
