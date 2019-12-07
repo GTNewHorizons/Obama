@@ -52,6 +52,8 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank {
 
+    //TODO: MAKE PROPPER GUI OR REUSE EXISTING BOILER GUI
+
     public int mTemperature = 20;
     public int mProcessingEnergy = 0;
     public int mLossTimer = 0;
