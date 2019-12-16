@@ -23,13 +23,11 @@ package com.gtnewhorizons.gtppnt.main.compat.bartworks;
 
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
 
-import static com.github.technus.tectech.recipe.TT_recipeAdder.*;
-import static com.github.bartimaeusnek.bartworks.API.BioRecipeAdder.*;
-import static com.github.bartimaeusnek.bartworks.util.BWRecipes.*;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.*;
-import static gregtech.api.enums.GT_Values.*;
 import static gregtech.api.enums.Materials.*;
 import static gregtech.api.enums.OrePrefixes.*;
+import static gregtech.api.util.GT_ModHandler.RecipeBits;
+import static gregtech.api.util.GT_ModHandler.addShapelessCraftingRecipe;
 
 //DO NOT REMOVE THESE IMPORTS!
 
@@ -44,7 +42,7 @@ public class MaterialsExtraRecipeLoader {
     }
 
     public static void executeExtraRecipes() {
-        RA.addCentrifugeRecipe(Tumbaga.get(dust, 10), 0, Gold.getDust(7), Copper.getDust(3), NI, NI, NI, NI, getTimeFromWerkStoffForCentrifuge(Tumbaga), getEUTFromWerkStoffForCentrifuge(Tumbaga));
+        //RA.addCentrifugeRecipe(Tumbaga.get(dust, 10), 0, Gold.getDust(7), Copper.getDust(3), NI, NI, NI, NI, getTimeFromWerkStoffForCentrifuge(Tumbaga), getEUTFromWerkStoffForCentrifuge(Tumbaga));
         //RA.addCannerRecipe()                          adds a GT recipe
         //addResearchableAssemblylineRecipe()           adds a TT Research station recipe
         //instance.addBioLabRecipeIncubation()          adds a BW Bio Recipe
@@ -52,5 +50,17 @@ public class MaterialsExtraRecipeLoader {
         //                                                                    prefered way if you dont know,
         //                                                                    what you are doing!)
 
+        //TU
+        addShapelessCraftingRecipe(TumbagaMix.get(dust, 5),
+                RecipeBits.BUFFERED | RecipeBits.NOT_REMOVABLE,
+                new Object[]{Gold.getDust(1), Gold.getDust(1), Gold.getDust(1), Copper.getDust(1), Copper.getDust(1)});// 3 Gold, 2 Copper
+
+        addShapelessCraftingRecipe(Tumbaga.get(dust, 2),
+                RecipeBits.BUFFERED | RecipeBits.NOT_REMOVABLE,
+                new Object[]{TumbagaMix.get(dust, 1), RoseGold.getDust(1)});
+
+        addShapelessCraftingRecipe(Tumbaga.get(dust, 8),
+                RecipeBits.BUFFERED | RecipeBits.NOT_REMOVABLE,
+                new Object[]{TumbagaMix.get(dust, 4), RoseGold.getDust(4)});
     }
 }
