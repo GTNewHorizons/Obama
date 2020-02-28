@@ -32,9 +32,9 @@ import static gregtech.api.enums.TextureSet.*;
 @SuppressWarnings("ALL")
 public class MaterialsClass implements Runnable {
 
-    /*TODO: Some examples how to create Materials
-      TODO: use material range from 30000-Short.MAX_VALUE-1
-      TODO: use Hexadecimal shorts for the color. It looks nicer.
+    /*TODO: Some examples how to create Materials (Done)
+      TODO: use material range from 30000-Short.MAX_VALUE-1 (Done)
+      TODO: use Hexadecimal shorts for the color. It looks nicer. (Done)
     */
     /*public static final Werkstoff AlkalineFree = new Werkstoff(
             new short[]{0xFF, 0x00, 0xFF},//color IN HEXADECIMAL!
@@ -44,7 +44,7 @@ public class MaterialsClass implements Runnable {
             MIXTURE, // default stats, currently used in just a few things, basically,
             // use MIXTURE for ALLOYS and COMPOUND or BIOLOGICAL for materials that should be electrolysed.
             // this also controls a bit of the tiering in the Mixer/Centrifuge/Electrolyser/Chemreactor!
-            new Werkstoff.GenerationFeatures().addMetalItems().addMixerRecipes(),//this controlls the generation features, set the flag .enforceUnification() to override existing materials!
+            new Werkstoff.GenerationFeatures().addMetalItems().addCraftingMetalWorkingItems().addMixerRecipes(),//this controlls the generation features, set the flag .enforceUnification() to override existing materials!
             30000,             // Meta ID, we use 30000-Short.MAX_VALUE-1
             SET_EMERALD, // GT Texture Set
             Arrays.asList(Diamond, CubicZirconia), //Ore Byeproducts as a List, 3 at Max
@@ -59,13 +59,13 @@ public class MaterialsClass implements Runnable {
     // Needed are: color, defaultName, Werkstoff.Types, Werkstoff.GenerationFeatures, Meta ID, TextureSet texSet
 
     //https://www.globalsecurity.org/military/systems/munitions/du.htm
-    //TODO Add Stakalloy (8 Uranium, 1 Niobium, 1 Vanadium)
+    //TODO (low prio) Add Stakalloy (8 Uranium, 1 Niobium, 1 Vanadium)
     public static final Werkstoff Staballoy = new Werkstoff(
             new short[]{0x56, 0x76, 0x61},
             "Staballoy",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3725).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30000,
             SET_METALLIC,
             new Pair<>(Uranium, 9),
@@ -80,7 +80,7 @@ public class MaterialsClass implements Runnable {
             "Atysal 60",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3300).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30001,
             SET_METALLIC,
             new Pair<>(Tantalum, 23),
@@ -93,7 +93,7 @@ public class MaterialsClass implements Runnable {
             "Atysal 61",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3305).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30002,
             SET_METALLIC,
             new Pair<>(Atysal, 1),
@@ -115,13 +115,13 @@ public class MaterialsClass implements Runnable {
             new Pair<>(Copper, 2)
     );
 
-    //Same ref as above.
+    //Same ref as above
     public static final Werkstoff Tumbaga = new Werkstoff(
             new short[]{0xEF, 0xB1, 0x10},
             "Tumbago",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30004,
             SET_SHINY,
             new Pair<>(Gold, 7),
@@ -134,7 +134,7 @@ public class MaterialsClass implements Runnable {
             "Potin",
             new Werkstoff.Stats().setCentrifuge(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30005,
             SET_DULL,
             new Pair<>(Bronze, 2),
@@ -150,7 +150,7 @@ public class MaterialsClass implements Runnable {
             "Hereford 625",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30006,
             SET_METALLIC,
             new Pair<>(Nichrome, 13),
@@ -166,7 +166,7 @@ public class MaterialsClass implements Runnable {
             "Hereford 690",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3700).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30007,
             SET_METALLIC,
             new Pair<>(Nichrome, 3),
@@ -181,7 +181,7 @@ public class MaterialsClass implements Runnable {
             "Hereford 792",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3700).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30008,
             SET_METALLIC,
             new Pair<>(Nickel, 2),
@@ -196,7 +196,7 @@ public class MaterialsClass implements Runnable {
             "Nitinol 60",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(5925).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30009,
             SET_METALLIC,
             new Pair<>(Titanium, 3),
@@ -210,7 +210,7 @@ public class MaterialsClass implements Runnable {
             "Rezron 100",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(6375).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30010,
             SET_METALLIC,
             new Pair<>(Steel, 20),
@@ -227,7 +227,7 @@ public class MaterialsClass implements Runnable {
             "Maraging Steel 250",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2685).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30011,
             SET_METALLIC,
             new Pair<>(Steel, 16),
@@ -243,7 +243,7 @@ public class MaterialsClass implements Runnable {
             "Maraging Steel 300",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2685).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30012,
             SET_METALLIC,
             new Pair<>(Steel, 16),
@@ -259,7 +259,7 @@ public class MaterialsClass implements Runnable {
             "Maraging Steel 350",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2685).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30013,
             SET_METALLIC,
             new Pair<>(Steel, 16),
@@ -276,7 +276,7 @@ public class MaterialsClass implements Runnable {
             "Aquatic Steel",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2945).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30014,
             SET_METALLIC,
             new Pair<>(Steel, 12),
@@ -296,7 +296,7 @@ public class MaterialsClass implements Runnable {
             "Elwoodite",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(4585).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30015,
             SET_METALLIC,
             new Pair<>(Cobalt, 7),
@@ -313,7 +313,7 @@ public class MaterialsClass implements Runnable {
             "Claworite",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3725).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30016,
             SET_METALLIC,
             new Pair<>(Cobalt, 4),
@@ -329,7 +329,7 @@ public class MaterialsClass implements Runnable {
             "Nickmol W",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3625).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30017,
             SET_METALLIC,
             new Pair<>(Nickel, 31),
@@ -345,7 +345,7 @@ public class MaterialsClass implements Runnable {
             "Nickmol X",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3625).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30018,
             SET_METALLIC,
             new Pair<>(Nickel, 24),
@@ -362,7 +362,7 @@ public class MaterialsClass implements Runnable {
             "Nickmol Y",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(4625).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30019,
             SET_METALLIC,
             new Pair<>(Nickel, 15),
@@ -378,7 +378,7 @@ public class MaterialsClass implements Runnable {
             "Nickmol C276",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(4625).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30020,
             SET_METALLIC,
             new Pair<>(Nickel, 32),
@@ -396,7 +396,7 @@ public class MaterialsClass implements Runnable {
             "Deroloy 020",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3700).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30021,
             SET_METALLIC,
             new Pair<>(Iron, 10),
@@ -411,7 +411,7 @@ public class MaterialsClass implements Runnable {
             "Deroloy DS",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3700).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30022,
             SET_METALLIC,
             new Pair<>(Iron, 23),
@@ -427,7 +427,7 @@ public class MaterialsClass implements Runnable {
             "Deroloy MA956",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(4700).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30023,
             SET_METALLIC,
             new Pair<>(Iron, 16),
@@ -443,7 +443,7 @@ public class MaterialsClass implements Runnable {
             "Tungsten Titanium Carbide",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
             COMPOUND,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30025,
             SET_METALLIC,
             new Pair<>(TungstenCarbide, 7),
@@ -456,7 +456,7 @@ public class MaterialsClass implements Runnable {
             "Silicon Carbide",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
             COMPOUND,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30026,
             SET_METALLIC,
             new Pair<>(Silicon, 1),
@@ -470,7 +470,7 @@ public class MaterialsClass implements Runnable {
             "Tantalum Carbide",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
             COMPOUND,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30027,
             SET_METALLIC,
             new Pair<>(Tantalum, 1),
@@ -483,7 +483,7 @@ public class MaterialsClass implements Runnable {
             "Zirconium Carbide",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
             COMPOUND,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30028,
             SET_METALLIC,
             new Pair<>(Zirconium, 1),
@@ -496,12 +496,399 @@ public class MaterialsClass implements Runnable {
             "Niobium Carbide",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
             COMPOUND,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30029,
             SET_METALLIC,
             new Pair<>(Niobium, 1),
             new Pair<>(Carbon, 1)
     );
+
+    //Fictional alloy
+    //Named after the github complaints text channel (may it rest in android hell)
+    public static final Werkstoff Complainium = new Werkstoff(
+            new short[]{0xE7, 0x9D, 0x73},
+            "Complainium",
+            new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(4125).setBlastFurnace(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            30030,
+            SET_DULL,
+            new Pair<>(Carbon, 9),
+            new Pair<>(Lithium, 9),
+            new Pair<>(Potassium, 9),
+            new Pair<>(Sulfur, 9),
+            new Pair<>(Titanium, 9),
+            new Pair<>(Hydrogen, 5)
+    ).addAdditionalOreDict("Grisium");
+
+    //https://patents.google.com/patent/US7537727B2/en
+    public static final Werkstoff EglinSteelBaseMixture = new Werkstoff(
+            new short[]{0x9B, 0x9F, 0x7D},
+            "Eglin Steel Base Mixture",
+            new Werkstoff.Stats().setCentrifuge(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMixerRecipes().enforceUnification(),
+            30031,
+            SET_METALLIC,
+            new Pair<>(Invar, 5),
+            new Pair<>(Iron, 4),
+            new Pair<>(Kanthal, 1)
+    ).addAdditionalOreDict("EglinSteelBaseCompound");
+
+    //Same ref as above
+    public static final Werkstoff EglinSteel = new Werkstoff(
+            new short[]{0x60, 0x2E, 0x0D},
+            "Eglin Steel",
+            new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            30032,
+            SET_METALLIC,
+            new Pair<>(EglinSteelBaseMixture, 10),
+            new Pair<>(Silicon, 4),
+            new Pair<>(Carbon, 9),
+            new Pair<>(Sulfur, 9)
+    );
+
+    //Master of teallc
+    public static final Werkstoff TriniumTitaniumAlloy = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Trinium Titanium Alloy",
+            new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(4025).setBlastFurnace(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            30033,
+            SET_METALLIC,
+            new Pair<>(Trinium, 3),
+            new Pair<>(Titanium, 7)
+    );
+
+    //Carterium
+    public static final Werkstoff TriniumNaquadahAlloy = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Trinium Naquadah Alloy",
+            new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(6775).setBlastFurnace(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            30034,
+            SET_METALLIC,
+            new Pair<>(Trinium, 5),
+            new Pair<>(Naquadah, 9)
+    );
+
+    //onnelium
+    public static final Werkstoff TriniumNaquadahCarbonite = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Trinium Naquadah Carbonite",
+            new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(5200).setBlastFurnace(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            30035,
+            SET_METALLIC,
+            new Pair<>(TriniumNaquadahAlloy, 9),
+            new Pair<>(Carbon, 1)
+    );
+
+    //
+    public static final Werkstoff TriniumReinforcedSteel = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Trinium Reinforced Steel",
+            new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(7830).setBlastFurnace(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            30036,
+            SET_METALLIC,
+            new Pair<>(MaragingSteel350, 4),
+            new Pair<>(Trinium, 3),
+            new Pair<>(TungstenSteel, 2),
+            new Pair<>(Osmiridium, 1),
+            new Pair<>(Strontium, 1)
+    );
+
+    //0lafe Compound
+    public static final Werkstoff Lafium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Lafium",
+            new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(7025).setBlastFurnace(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            30037,
+            SET_METALLIC,
+            new Pair<>(NickmolY, 4),
+            new Pair<>(Nickel, 4),
+            new Pair<>(Aluminium, 3),
+            new Pair<>(Naquadah, 2),
+            new Pair<>(Tungsten, 2),
+            new Pair<>(Argon, 1),
+            new Pair<>(Carbon, 1),
+            new Pair<>(Samarium, 1)
+    );
+
+    //Cinobi Alloy
+    public static final Werkstoff CinobiteA243 = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "CinobiteA243",
+            new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(7625).setBlastFurnace(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            30038,
+            SET_METALLIC,
+            new Pair<>(Rezron100, 16),
+            new Pair<>(Titanium, 12),
+            new Pair<>(Osmiridium, 6),
+            new Pair<>(Naquadria, 7),
+            new Pair<>(Gadolinium, 5),
+            new Pair<>(Aluminium, 3),
+            new Pair<>(Mercury, 2),
+            new Pair<>(Tin, 2)
+    );
+
+    //Piky Alloy
+    public static final Werkstoff Pikyonium64B = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Pikyonium 64B",
+            new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(8125).setBlastFurnace(true),
+            MIXTURE,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            30039,
+            SET_METALLIC,
+            new Pair<>(Hereford792, 8),
+            new Pair<>(EglinSteel, 5),
+            new Pair<>(NaquadahEnriched, 4),
+            new Pair<>(TungstenSteel, 4),
+            new Pair<>(Cerium, 3),
+            new Pair<>(Antimony, 2),
+            new Pair<>(Platinum, 2),
+            new Pair<>(Ytterbium, 1)
+    );
+
+    //Germanium
+    public static final Werkstoff Germanium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Germanium",
+            "Ge",
+            new Werkstoff.Stats().setMass(73).setProtons(32),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
+            30040,
+            SET_METALLIC
+    );
+
+    //Iodine
+    public static final Werkstoff Iodine = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Iodine",
+            "I",
+            new Werkstoff.Stats().setMass(127).setProtons(53),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
+            30041,
+            SET_METALLIC
+    );
+
+    //Selenium
+    public static final Werkstoff Selenium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Selenium",
+            "Se",
+            new Werkstoff.Stats().setMass(79).setProtons(34),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
+            30042,
+            SET_METALLIC
+    );
+
+    //Bromine
+    public static final Werkstoff Bromine = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Bromine",
+            "Br",
+            new Werkstoff.Stats().setMass(80).setProtons(35),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().addMolten().enforceUnification(),
+            30043,
+            SET_METALLIC
+    );
+
+    //Dysprosium
+    public static final Werkstoff Dysprosium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Dysprosium",
+            new Werkstoff.Stats().setMass(163).setProtons(66),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
+            30044,
+            SET_METALLIC
+    );
+
+    //Terbium
+    public static final Werkstoff Terbium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Terbium",
+            "Dy",
+            new Werkstoff.Stats().setMass(159).setProtons(65),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
+            30045,
+            SET_METALLIC
+    );
+
+    //Hafnium
+    public static final Werkstoff Hafnium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Hafnium",
+            "Hf",
+            new Werkstoff.Stats().setMass(178).setProtons(72).setMeltingPoint(2506).setBlastFurnace(true),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
+            30046,
+            SET_METALLIC
+    );
+
+    //Thallium
+    public static final Werkstoff Thallium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Thallium",
+            "Tl",
+            new Werkstoff.Stats().setMass(204).setProtons(81),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
+            30047,
+            SET_METALLIC
+    );
+
+    //Polonium
+    public static final Werkstoff Polonium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Polonium",
+            "Po",
+            new Werkstoff.Stats().setMass(209).setProtons(84),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30048,
+            SET_METALLIC
+    );
+
+    //Astatine
+    public static final Werkstoff Astatine = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Astatine",
+            "At",
+            new Werkstoff.Stats().setMass(210).setProtons(85),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30049,
+            SET_METALLIC
+    );
+
+    //Francium
+    public static final Werkstoff Francium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Francium",
+            "Fr",
+            new Werkstoff.Stats().setMass(223).setProtons(87),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30050,
+            SET_METALLIC
+    );
+
+    //Actinium
+    public static final Werkstoff Actinium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Actinium",
+            "Ac",
+            new Werkstoff.Stats().setMass(227).setProtons(89),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30051,
+            SET_METALLIC
+    );
+
+    //Protactinium
+    public static final Werkstoff Protactinium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Protactinium",
+            "Pa",
+            new Werkstoff.Stats().setMass(231).setProtons(91).setMeltingPoint(1841).setBlastFurnace(true),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30052,
+            SET_METALLIC
+    );
+
+    //Neptunium
+    public static final Werkstoff Neptunium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Neptunium",
+            "Np",
+            new Werkstoff.Stats().setMass(237).setProtons(93),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
+            30053,
+            SET_METALLIC
+    );
+
+    //Curium
+    public static final Werkstoff Curium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Curium",
+            "Cm",
+            new Werkstoff.Stats().setMass(247).setProtons(96),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30054,
+            SET_METALLIC
+    );
+
+    //Berkelium
+    public static final Werkstoff Berkelium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Berkelium",
+            "Bk",
+            new Werkstoff.Stats().setMass(247).setProtons(97),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30055,
+            SET_METALLIC
+    );
+
+    //Einsteinium
+    public static final Werkstoff Einsteinium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Einsteinium",
+            "Es",
+            new Werkstoff.Stats().setMass(252).setProtons(99),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30056,
+            SET_METALLIC
+    );
+
+    //Fermium
+    public static final Werkstoff Fermium = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Fermium",
+            "Fm",
+            new Werkstoff.Stats().setMass(257).setProtons(100),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30057,
+            SET_METALLIC
+    );
+
+    //TODO Add listed isotopes
+    //TODO Add colors to new materials
+    //
+    //ADD
+    //LITHIUM7
+    //URANIUM232
+    //URANIUM233
+    //PLUTONIUM238
+    //PLUTONIUM239
+    //STRONTIUM90
+    //POLONIUM210
+    //AMERICIUM241
 
     @Override
     public void run() {
