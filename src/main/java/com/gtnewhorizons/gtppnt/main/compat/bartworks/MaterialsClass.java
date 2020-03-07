@@ -877,18 +877,106 @@ public class MaterialsClass implements Runnable {
             SET_METALLIC
     );
 
-    //TODO Add listed isotopes
-    //TODO Add colors to new materials
-    //
-    //ADD
-    //LITHIUM7
-    //URANIUM232
-    //URANIUM233
-    //PLUTONIUM238
-    //PLUTONIUM239
-    //STRONTIUM90
-    //POLONIUM210
-    //AMERICIUM241
+    //Lithium 7
+    public static final Werkstoff Lithium7 = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Lithium 7",
+            "Li-7",
+            new Werkstoff.Stats().setMass(7).setProtons(3),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30058,
+            SET_METALLIC
+    );
+
+    //Uranium 232
+    public static final Werkstoff Uranium232 = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Uranium 232",
+            "U-232",
+            new Werkstoff.Stats().setMass(232).setProtons(92),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30059,
+            SET_METALLIC
+    );
+
+    //Uranium 233
+    public static final Werkstoff Uranium233 = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Uranium 233",
+            "U-233",
+            new Werkstoff.Stats().setMass(233).setProtons(92),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30060,
+            SET_METALLIC
+    );
+
+    //Plutonium 238
+    public static final Werkstoff Plutonium238 = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Plutonium 238",
+            "Pu-238",
+            new Werkstoff.Stats().setMass(238).setProtons(94),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30061,
+            SET_METALLIC
+    );
+
+    //Plutonium 239
+    public static final Werkstoff Plutonium239 = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Plutonium 239",
+            "Pu-239",
+            new Werkstoff.Stats().setMass(239).setProtons(94),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30062,
+            SET_METALLIC
+    );
+
+    //Strontium 90
+    public static final Werkstoff Strontium90 = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Strontium 90",
+            "Sr-90",
+            new Werkstoff.Stats().setMass(90).setProtons(38),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30063,
+            SET_METALLIC
+    );
+
+    //Polonium 210
+    public static final Werkstoff Polonium210 = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Polonium 210",
+            "Po-210",
+            new Werkstoff.Stats().setMass(210).setProtons(84),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30064,
+            SET_METALLIC
+    );
+
+    //Americium241
+    public static final Werkstoff Americium241 = new Werkstoff(
+            new short[]{0x00, 0x00, 0x00},
+            "Americium 241",
+            "Am-241",
+            new Werkstoff.Stats().setMass(241).setProtons(95),
+            ELEMENT,
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
+            30065,
+            SET_METALLIC
+    );
+
+
+    //TODO Add colors to new materials (33~ ones with no color)
+    //TODO Check Mixing recipes
+    //TODO Check generated metal parts to match GTpp
 
     @Override
     public void run() {
