@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 The GTNH Team
+ * Copyright 2020 The GTNH Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,7 +20,7 @@
 
 package com.gtnewhorizons.gtppnt.main.config;
 
-import com.gtnewhorizons.gtppnt.main.tileentites.single.GT_MetaTileEntity_TieredBoiler;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.generators.GT_MetaTileEntity_TieredBoiler;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 The GTNH Team
+ * Copyright 2020 The GTNH Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -22,8 +22,10 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 
 import com.gtnewhorizons.gtppnt.main.MainMod;
 import com.gtnewhorizons.gtppnt.main.config.ConfigHandler;
-import com.gtnewhorizons.gtppnt.main.tileentites.single.GT_MetaTileEntity_TieredBoiler;
-import com.gtnewhorizons.gtppnt.main.tileentites.single.GT_MetaTileEntity_TieredTank;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.generators.GT_MetaTileEntity_SemiFluidGenerator;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.generators.GT_MetaTileEntity_TieredBoiler;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.storage.GT_MetaTileEntity_TieredTank;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.storage.GT_MetaTileEntity_TiredChest;
 import com.gtnewhorizons.gtppnt.main.utils.GTAFRecipes;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine_GT_Recipe;
 import net.minecraft.item.ItemStack;
@@ -35,9 +37,12 @@ import static gregtech.api.enums.GT_Values.VOLTAGE_NAMES;
 public class SingleBlockLoadingClass {
 
     public static ItemStack[] GTBasicTanks = new ItemStack[VN.length];
+    private static final String[] MACHINE_PREFIXES = {"Primitive", "Basic", "Advanced", "Turbo", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
     public static ItemStack[] GTTieredBoilers = new ItemStack[VN.length];
     private static final String[] ROMAN_LETTERS = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
+    public static ItemStack[] GTBasicChests = new ItemStack[VN.length];
     public static ItemStack[] SimpleWashing = new ItemStack[VN.length];
+    public static ItemStack[] SemiFluidGenerator = new ItemStack[3];
 
     public static void load() {
         try {
@@ -58,6 +63,13 @@ public class SingleBlockLoadingClass {
                 GTTieredBoilers[i] = new GT_MetaTileEntity_TieredBoiler(752 + i, "GTAF.tiered.boiler." + i, VOLTAGE_NAMES[i] + " Boiler", i).getStackForm(1L);
         }
         SimpleWashing[0] = new GT_MetaTileEntity_BasicMachine_GT_Recipe(767, "GTAF.simple.washer.0", "Simple Washer " + ROMAN_LETTERS[0], 0, "", GTAFRecipes.SIMPLE_WASHER_MAP, 1, 1, 8000, 0, 0, "Default.png", "", false, false, 0, "", null).getStackForm(1);
+        for (int i = 0; i < 3; i++) {
+            SemiFluidGenerator[i] = new GT_MetaTileEntity_SemiFluidGenerator(837 + i, "GTAF.generator.semifluid." + i + 1, MACHINE_PREFIXES[i + 1] + " Semi-Fluid Generator", i + 1, "Burns all the impure Fuels! Why? Cause f*** the enviroment!").getStackForm(1L);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            GTBasicChests[i] = new GT_MetaTileEntity_TiredChest(946 + i, "GTAF.basic.chest." + i, VOLTAGE_NAMES[i] + " Chest", i).getStackForm(1L);
+        }
     }
 
     public static void loadNewIDs() throws Exception {
@@ -65,6 +77,9 @@ public class SingleBlockLoadingClass {
             GTBasicTanks[i] = new GT_MetaTileEntity_TieredTank(ConfigHandler.IDOFFSET - 4 + i, "GTAF.basic.tank." + i, VOLTAGE_NAMES[i] + " Fluid Tank", i).getStackForm(1L);
             GTTieredBoilers[i] = new GT_MetaTileEntity_TieredBoiler(ConfigHandler.IDOFFSET + 9 + i, "GTAF.tiered.boiler." + i, VOLTAGE_NAMES[i] + " Boiler", i).getStackForm(1L);
             SimpleWashing[i] = new GT_MetaTileEntity_BasicMachine_GT_Recipe(ConfigHandler.IDOFFSET + 21 + i, "GTAF.simple.washer." + (i), "Simple Washer " + ROMAN_LETTERS[i], i, "", GTAFRecipes.SIMPLE_WASHER_MAP, 1, 1, 8000 * i, 0, 0, "Default.png", "", false, false, 0, "", null).getStackForm(1);
+
+            if (i != 4)
+                GTBasicChests[i] = new GT_MetaTileEntity_TiredChest(ConfigHandler.IDOFFSET + 33 + i, "GTAF.basic.chest." + i, VOLTAGE_NAMES[i] + " Chest", i).getStackForm(1L);
         }
         GTTieredBoilers[0] = new GT_MetaTileEntity_TieredBoiler(ConfigHandler.IDOFFSET + 12, "GTAF.tiered.boiler.0", VOLTAGE_NAMES[0] + " Boiler", 0).getStackForm(1L);
 

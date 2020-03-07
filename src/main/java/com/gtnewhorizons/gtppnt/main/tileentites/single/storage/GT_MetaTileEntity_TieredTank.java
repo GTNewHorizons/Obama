@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 The GTNH Team
+ * Copyright 2020 The GTNH Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -18,7 +18,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtnewhorizons.gtppnt.main.tileentites.single;
+package com.gtnewhorizons.gtppnt.main.tileentites.single.storage;
 
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
