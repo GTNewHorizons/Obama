@@ -883,7 +883,7 @@ public class MaterialsClass implements Runnable {
             "Lithium 7",
             "Li-7",
             new Werkstoff.Stats().setMass(7).setProtons(3),
-            ELEMENT,
+            ISOTOPE,
             new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
             30058,
             SET_METALLIC
@@ -895,7 +895,7 @@ public class MaterialsClass implements Runnable {
             "Uranium 232",
             "U-232",
             new Werkstoff.Stats().setMass(232).setProtons(92),
-            ELEMENT,
+            ISOTOPE,
             new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
             30059,
             SET_METALLIC
@@ -907,7 +907,7 @@ public class MaterialsClass implements Runnable {
             "Uranium 233",
             "U-233",
             new Werkstoff.Stats().setMass(233).setProtons(92),
-            ELEMENT,
+            ISOTOPE,
             new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
             30060,
             SET_METALLIC
@@ -919,7 +919,7 @@ public class MaterialsClass implements Runnable {
             "Plutonium 238",
             "Pu-238",
             new Werkstoff.Stats().setMass(238).setProtons(94),
-            ELEMENT,
+            ISOTOPE,
             new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
             30061,
             SET_METALLIC
@@ -931,7 +931,7 @@ public class MaterialsClass implements Runnable {
             "Plutonium 239",
             "Pu-239",
             new Werkstoff.Stats().setMass(239).setProtons(94),
-            ELEMENT,
+            ISOTOPE,
             new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
             30062,
             SET_METALLIC
@@ -943,7 +943,7 @@ public class MaterialsClass implements Runnable {
             "Strontium 90",
             "Sr-90",
             new Werkstoff.Stats().setMass(90).setProtons(38),
-            ELEMENT,
+            ISOTOPE,
             new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
             30063,
             SET_METALLIC
@@ -955,7 +955,7 @@ public class MaterialsClass implements Runnable {
             "Polonium 210",
             "Po-210",
             new Werkstoff.Stats().setMass(210).setProtons(84),
-            ELEMENT,
+            ISOTOPE,
             new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
             30064,
             SET_METALLIC
@@ -967,7 +967,7 @@ public class MaterialsClass implements Runnable {
             "Americium 241",
             "Am-241",
             new Werkstoff.Stats().setMass(241).setProtons(95),
-            ELEMENT,
+            ISOTOPE,
             new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().enforceUnification(),
             30065,
             SET_METALLIC
