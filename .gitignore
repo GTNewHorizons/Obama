@@ -1,7 +1,7 @@
 .gradle
 eclipse
 .idea
-libs/gregtech-5.09.33.24-dev.jar
+libs/gregtech*
 *.iml
 *.ipr
 *.iws
