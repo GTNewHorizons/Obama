@@ -36,8 +36,6 @@ public class ConfigHandler {
         GT_MetaTileEntity_TieredBoiler.cPollutionIncrease = configuration.get("Singleblocks.Boiler", "Pollution Increase", 5, "Pollution increase, tier² * this value").getInt(5);
         GT_MetaTileEntity_TieredBoiler.cBaseSteam = configuration.get("Singleblocks.Boiler", "Base Steam Rate", 150, "The Base Steam rate which will be influenced by tier etc.").getInt(150);
         GT_MetaTileEntity_TieredBoiler.cBaseTickrate = configuration.get("Singleblocks.Boiler", "Steam per X Ticks", 20, "How fast boilers will create steam").getInt(20);
-
-
     }
 
 

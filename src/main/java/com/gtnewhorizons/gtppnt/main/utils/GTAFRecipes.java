@@ -20,7 +20,7 @@
 
 package com.gtnewhorizons.gtppnt.main.utils;
 
-import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
+import com.github.bartimaeusnek.bartworks.util.Pair;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GT_OreDictUnificator;
@@ -28,10 +28,10 @@ import gregtech.api.util.GT_Recipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 
+import static com.gtnewhorizons.gtppnt.main.utils.AsyncUtils.applyToAllMaterialsAndWerkstoffeAsync;
 import static gregtech.api.enums.GT_Values.RES_PATH_GUI;
 
 public class GTAFRecipes {
@@ -44,78 +44,32 @@ public class GTAFRecipes {
                     "", 1, "", true, true
             );
 
+    @SuppressWarnings("unchecked")
     public static void fillSimpleWasherMap() {
-        Arrays.stream(Materials.values())
-                .filter(materials ->
-                        Objects.nonNull(GT_OreDictUnificator.get(OrePrefixes.crushed, materials, 1))
-                                && Objects.nonNull(GT_OreDictUnificator.get(OrePrefixes.crushedPurified, materials, 1))
-                ).forEach(materials ->
-                SIMPLE_WASHER_MAP.addRecipe(true,
-                        new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.crushed, materials, 1)},
-                        new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.crushedPurified, materials, 1)},
-                        null,
-                        null,
-                        new FluidStack[]{Materials.Water.getFluid(100)}, null,
-                        10, 7, 0
-                )
-        );
-        Arrays.stream(Materials.values())
-                .filter(materials ->
-                        Objects.nonNull(GT_OreDictUnificator.get(OrePrefixes.dustImpure, materials, 1))
-                                && Objects.nonNull(GT_OreDictUnificator.get(OrePrefixes.dustPure, materials, 1))
-                ).forEach(materials ->
-                SIMPLE_WASHER_MAP.addRecipe(true,
-                        new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.dustImpure, materials, 1)},
-                        new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.dustPure, materials, 1)},
-                        null,
-                        null,
-                        new FluidStack[]{Materials.Water.getFluid(100)}, null,
-                        10, 7, 0
-                )
-        );
-        Arrays.stream(Materials.values())
-                .filter(materials ->
-                        Objects.nonNull(GT_OreDictUnificator.get(OrePrefixes.dustPure, materials, 1))
-                                && Objects.nonNull(GT_OreDictUnificator.get(OrePrefixes.dust, materials, 1))
-                )
-                .forEach(materials ->
-                        SIMPLE_WASHER_MAP.addRecipe(true,
-                                new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.dustPure, materials, 1)},
-                                new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.dust, materials, 1)},
-                                null,
-                                null,
-                                new FluidStack[]{Materials.Water.getFluid(100)}, null,
-                                10, 7, 0
-                        )
+        //create an array of in -> output
+        Pair<OrePrefixes, OrePrefixes>[] arr = new Pair[]{
+                new Pair<>(OrePrefixes.crushed, OrePrefixes.crushedPurified),
+                new Pair<>(OrePrefixes.dustImpure, OrePrefixes.dustPure),
+                new Pair<>(OrePrefixes.dustPure, OrePrefixes.dust),
+        };
+        synchronized (SIMPLE_WASHER_MAP) {//lock the map
+            for (Pair<OrePrefixes, OrePrefixes> orePrefixesPair : arr)
+                applyToAllMaterialsAndWerkstoffeAsync(
+                        //make sure in- & output is not null
+                        materials ->
+                                Objects.nonNull(GT_OreDictUnificator.get(orePrefixesPair.getKey(), materials, 1)) &&
+                                        Objects.nonNull(GT_OreDictUnificator.get(orePrefixesPair.getValue(), materials, 1)),
+                        //add the recipe to the map
+                        materials ->
+                                SIMPLE_WASHER_MAP.addRecipe(true,
+                                        new ItemStack[]{GT_OreDictUnificator.get(orePrefixesPair.getKey(), materials, 1)},
+                                        new ItemStack[]{GT_OreDictUnificator.get(orePrefixesPair.getValue(), materials, 1)},
+                                        null,
+                                        null,
+                                        new FluidStack[]{Materials.Water.getFluid(100)}, null,
+                                        10, 7, 0
+                                )
                 );
-        Werkstoff.werkstoffHashSet.parallelStream()
-                .filter(w -> w.getGenerationFeatures().hasOres())
-                .map(Werkstoff::getBridgeMaterial)
-                .forEach(materials -> {
-                    SIMPLE_WASHER_MAP.addRecipe(true,
-                            new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.dustImpure, materials, 1)},
-                            new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.dustPure, materials, 1)},
-                            null,
-                            null,
-                            new FluidStack[]{Materials.Water.getFluid(100)}, null,
-                            10, 7, 0
-                    );
-                    SIMPLE_WASHER_MAP.addRecipe(true,
-                            new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.dustPure, materials, 1)},
-                            new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.dust, materials, 1)},
-                            null,
-                            null,
-                            new FluidStack[]{Materials.Water.getFluid(100)}, null,
-                            10, 7, 0
-                    );
-                    SIMPLE_WASHER_MAP.addRecipe(true,
-                            new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.crushed, materials, 1)},
-                            new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.crushedPurified, materials, 1)},
-                            null,
-                            null,
-                            new FluidStack[]{Materials.Water.getFluid(100)}, null,
-                            10, 7, 0
-                    );
-                });
+        }
     }
 }
