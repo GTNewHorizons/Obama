@@ -20,6 +20,7 @@
 
 package com.gtnewhorizons.gtppnt.main.tileentites.single.generators;
 
+import com.gtnewhorizons.gtppnt.main.utils.GTAFGeneratorUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ConfigCategories;
@@ -33,7 +34,6 @@ import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_Log;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_Utility;
 import net.minecraft.item.ItemStack;
 
 public class GT_MetaTileEntity_SemiFluidGenerator extends GT_MetaTileEntity_BasicGenerator {
@@ -93,16 +93,13 @@ public class GT_MetaTileEntity_SemiFluidGenerator extends GT_MetaTileEntity_Basi
 
     @Override
     public int getFuelValue(ItemStack aStack) {
-        if (GT_Utility.isStackInvalid(aStack) || getRecipes() == null)
-            return 0;
-        double rValue = Math.max(GT_ModHandler.getFuelCanValue(aStack) * 4D / 5D, super.getFuelValue(aStack));
-        if (ItemList.Fuel_Can_Plastic_Filled.isStackEqual(aStack, false, true)) {
-            rValue = Math.max(rValue, GameRegistry.getFuelValue(aStack) * 1.5D);
-        }
-        if (rValue > Integer.MAX_VALUE) {
-            throw new ArithmeticException("Integer LOOPBACK!");
-        }
-        return (int) Math.floor(rValue);
+        return GTAFGeneratorUtils.getFuelValueGenerator(aStack, this, () -> {
+            double rValue = Math.max(GT_ModHandler.getFuelCanValue(aStack) * 4D / 5D, super.getFuelValue(aStack));
+            if (ItemList.Fuel_Can_Plastic_Filled.isStackEqual(aStack, false, true)) {
+                rValue = Math.max(rValue, GameRegistry.getFuelValue(aStack) * 1.5D);
+            }
+            return rValue;
+        });
     }
 
     @Override

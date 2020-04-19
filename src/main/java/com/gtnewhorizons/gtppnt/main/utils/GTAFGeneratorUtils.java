@@ -18,26 +18,29 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtnewhorizons.gtppnt.main.loaders;
+package com.gtnewhorizons.gtppnt.main.utils;
 
-import com.gtnewhorizons.gtppnt.main.GTAFMod;
+import com.github.bartimaeusnek.bartworks.util.MathUtils;
+import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicGenerator;
+import gregtech.api.util.GT_Utility;
+import net.minecraft.item.ItemStack;
 
-@SuppressWarnings("ALL")
-public class CableAndWireLoader {
+import java.util.function.Supplier;
 
-    public static void load() {
-        try {
-            loadOverrideIDs();
-            loadNewIDs();
-        } catch (Exception e) {
-            GTAFMod.LOGGER.catching(e);
+public class GTAFGeneratorUtils {
+    private GTAFGeneratorUtils() {
+    }
+
+    public static int getFuelValueGenerator(ItemStack aStack, GT_MetaTileEntity_BasicGenerator selfReference, Supplier<Double> customGeneratorLogic) {
+        if (GT_Utility.isStackInvalid(aStack) || selfReference.getRecipes() == null)
+            return 0;
+
+        double rValue = customGeneratorLogic.get();
+
+        if (rValue > Integer.MAX_VALUE) {
+            throw new ArithmeticException("Integer LOOPBACK!");
         }
+        return (int) MathUtils.floor(rValue);
     }
 
-    public static void loadOverrideIDs() throws Exception {
-    }
-
-    public static void loadNewIDs() throws Exception {
-
-    }
 }

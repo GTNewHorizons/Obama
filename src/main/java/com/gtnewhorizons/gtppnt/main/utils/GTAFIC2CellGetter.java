@@ -18,26 +18,45 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtnewhorizons.gtppnt.main.loaders;
+package com.gtnewhorizons.gtppnt.main.utils;
 
-import com.gtnewhorizons.gtppnt.main.GTAFMod;
+import gregtech.api.util.GT_ModHandler;
+import net.minecraft.item.ItemStack;
 
-@SuppressWarnings("ALL")
-public class CableAndWireLoader {
+public enum GTAFIC2CellGetter {
+    EMTPY(0),
+    WATER(1),
+    LAVA(2),
+    UUMATTER(3),
+    CONSTRUCTIONFOAM(4),
+    COMPRESSEDAIR(5),
+    BIOMASS(6),
+    BIOGAS(7),
+    ELECTROLYZED_WATER(8),
+    COOLANT(9),
+    HOT_COOLANT(10),
+    PAHOEHOELAVA(11),
+    DISTILLED_WATER(12),
+    SUPERHEATEDSTEAM(13),
+    STEAM(14);
 
-    public static void load() {
-        try {
-            loadOverrideIDs();
-            loadNewIDs();
-        } catch (Exception e) {
-            GTAFMod.LOGGER.catching(e);
-        }
+    private byte meta;
+
+    GTAFIC2CellGetter(int meta) {
+        this.meta = (byte) meta;
     }
 
-    public static void loadOverrideIDs() throws Exception {
+    public int getMeta() {
+        return meta;
     }
 
-    public static void loadNewIDs() throws Exception {
-
+    ItemStack getCell() {
+        return GT_ModHandler.getIC2Item("cell", 1, meta);
     }
+
+
+    ItemStack getCells(int amount) {
+        return GT_ModHandler.getIC2Item("cell", amount, meta);
+    }
+
 }

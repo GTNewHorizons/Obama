@@ -20,6 +20,7 @@
 
 package com.gtnewhorizons.gtppnt.main.tileentites.single.generators;
 
+import com.github.bartimaeusnek.bartworks.util.MathUtils;
 import com.gtnewhorizons.gtppnt.main.client.guicontainers.GT_GUIContainer_TieredBoiler;
 import com.gtnewhorizons.gtppnt.main.server.container.GT_Container_TieredBoiler;
 import cpw.mods.fml.common.Loader;
@@ -60,7 +61,6 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
     public static int cBasePollution = 15;
     public static int cPollutionIncrease = 5;
 
-
     public int mTemperature = 20;
     public int mProcessingEnergy = 0;
     public int mLossTimer = 0;
@@ -86,7 +86,7 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
     }
 
     private static long steamPerTier(int atier) {
-        return (long) Math.ceil(((float) cBaseSteam * (1f + 0.5f * (float) (atier + 1))));
+        return (long) MathUtils.ceil(((float) cBaseSteam * (1f + 0.5f * (float) (atier + 1))));
     }
 
     @Override

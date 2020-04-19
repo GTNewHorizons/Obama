@@ -20,9 +20,10 @@
 
 package com.gtnewhorizons.gtppnt.main.loaders;
 
-import com.gtnewhorizons.gtppnt.main.MainMod;
+import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.config.ConfigHandler;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.generators.GT_MetaTileEntity_SemiFluidGenerator;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.generators.GT_MetaTileEntity_ThermalGenerator;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.generators.GT_MetaTileEntity_TieredBoiler;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.storage.GT_MetaTileEntity_TieredTank;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.storage.GT_MetaTileEntity_TiredChest;
@@ -37,19 +38,19 @@ import static gregtech.api.enums.GT_Values.VOLTAGE_NAMES;
 public class SingleBlockLoadingClass {
 
     public static ItemStack[] GTBasicTanks = new ItemStack[VN.length];
-    private static final String[] MACHINE_PREFIXES = {"Primitive", "Basic", "Advanced", "Turbo", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
+    private static final String[] MACHINE_PREFIXES = {"Primitive", "Basic", "Advanced", "Turbo", "Special", "Insane", "Uber", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
     public static ItemStack[] GTTieredBoilers = new ItemStack[VN.length];
     private static final String[] ROMAN_LETTERS = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
     public static ItemStack[] GTBasicChests = new ItemStack[VN.length];
     public static ItemStack[] SimpleWashing = new ItemStack[VN.length];
     public static ItemStack[] SemiFluidGenerator = new ItemStack[3];
-
+    public static ItemStack[] ThermalGenerator = new ItemStack[3];
     public static void load() {
         try {
             loadOverrideIDs();
             loadNewIDs();
         } catch (Exception e) {
-            MainMod.LOGGER.catching(e);
+            GTAFMod.LOGGER.catching(e);
         }
     }
 
@@ -65,6 +66,7 @@ public class SingleBlockLoadingClass {
         SimpleWashing[0] = new GT_MetaTileEntity_BasicMachine_GT_Recipe(767, "GTAF.simple.washer.0", "Simple Washer " + ROMAN_LETTERS[0], 0, "", GTAFRecipes.SIMPLE_WASHER_MAP, 1, 1, 8000, 0, 0, "Default.png", "", false, false, 0, "", null).getStackForm(1);
         for (int i = 0; i < 3; i++) {
             SemiFluidGenerator[i] = new GT_MetaTileEntity_SemiFluidGenerator(837 + i, "GTAF.generator.semifluid." + i + 1, MACHINE_PREFIXES[i + 1] + " Semi-Fluid Generator", i + 1, "Burns all the impure Fuels! Why? Cause f*** the enviroment!").getStackForm(1L);
+            ThermalGenerator[i] = new GT_MetaTileEntity_ThermalGenerator(830 + i, "GTAF.generator.thermal." + i + 1, MACHINE_PREFIXES[i + 1] + " Thermal Generator", i + 4, "Cools down hot liquids and makes power.").getStackForm(1L);
         }
 
         for (int i = 0; i < 5; i++) {

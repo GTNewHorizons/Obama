@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 The GTNH Team
+ * Copyright 2020 The GTNH Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -22,27 +22,27 @@ package com.gtnewhorizons.gtppnt.main;
 
 import com.github.bartimaeusnek.bartworks.API.WerkstoffAdderRegistry;
 import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass;
+import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsExtraRecipeLoader;
 import com.gtnewhorizons.gtppnt.main.config.ConfigHandler;
 import com.gtnewhorizons.gtppnt.main.loaders.SingleBlockLoadingClass;
 import com.gtnewhorizons.gtppnt.main.utils.GTAFRecipes;
-import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsExtraRecipeLoader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = MainMod.MODID, name = MainMod.NAME, version = MainMod.VERSION,
+@Mod(modid = GTAFMod.MODID, name = GTAFMod.NAME, version = GTAFMod.VERSION,
         dependencies =
                 "required-after:IC2;"
                         + "required-after:gregtech;"
                         + "required-after:tectech;"
                         + "required-after:bartworks;"
 )
-public class MainMod {
+public class GTAFMod {
 
     static final String NAME = "GT-AF";
-    public static final Logger LOGGER = LogManager.getLogger(MainMod.NAME);
+    public static final Logger LOGGER = LogManager.getLogger(GTAFMod.NAME);
     static final String MODID = "gtppnt";
     static final String VERSION = "@version@";
 
@@ -64,7 +64,7 @@ public class MainMod {
 
     @Mod.EventHandler
     public void onModLoadingComplete(FMLLoadCompleteEvent event) {
-        GTAFRecipes.fillSimpleWasherMap();
+        GTAFRecipes.executeGTAFRecipes();
     }
 
     @EventHandler
