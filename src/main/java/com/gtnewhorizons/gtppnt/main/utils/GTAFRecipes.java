@@ -20,6 +20,7 @@
 
 package com.gtnewhorizons.gtppnt.main.utils;
 
+import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
 import com.github.bartimaeusnek.bartworks.util.NonNullWrappedHashSet;
 import com.github.bartimaeusnek.bartworks.util.Pair;
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
@@ -30,6 +31,7 @@ import gregtech.api.util.GT_Recipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import static com.gtnewhorizons.gtppnt.main.utils.GTAFIC2CellGetter.*;
@@ -54,6 +56,14 @@ public class GTAFRecipes {
                     "Fuel Value: ", 1000, " EU", true, true
             );
 
+    public static final GT_Recipe.GT_Recipe_Map ENHANCED_MIXER_MAP =
+            new GT_Recipe.GT_Recipe_Map(new NonNullWrappedHashSet<>(),
+                    "GTAF.map.enhancedMixer", "Enhanced Mixer Recipes",
+                    "Enhanced Mixer Recipes", RES_PATH_GUI + "basicmachines/Default",
+                    4, 4, 1, 1, 1,
+                    "", 1, "", true, true
+            );
+
     private static void fillThermalGeneratorMap() {
         THERMALGENERATOR_FUELS.addFuel(LAVA.getCell(), PAHOEHOELAVA.getCell(), 20);
         THERMALGENERATOR_FUELS.addFuel(HOT_COOLANT.getCell(), COOLANT.getCell(), 15);
@@ -61,8 +71,24 @@ public class GTAFRecipes {
         THERMALGENERATOR_FUELS.addFuel(STEAM.getCell(), DISTILLED_WATER.getCell(), 5);
     }
 
+
+    private static void fillEnhancedMixerMap() {
+        synchronized (GT_Recipe.GT_Recipe_Map.sMixerRecipes) {
+            ENHANCED_MIXER_MAP.mRecipeList.addAll(GT_Recipe.GT_Recipe_Map.sMixerRecipes.mRecipeList);
+        }
+        ENHANCED_MIXER_MAP.reInit();
+    }
+
     @SuppressWarnings("unchecked")
     private static void fillSimpleWasherMap() {
+        Materials[] bwPlatinumMaterials = new Materials[]{
+                Materials.Platinum,
+                Materials.Osmium,
+                Materials.Iridium,
+                WerkstoffLoader.Rhodium.getBridgeMaterial(),
+                WerkstoffLoader.Ruthenium.getBridgeMaterial()
+        };
+
         Pair<OrePrefixes, OrePrefixes>[] arr = new Pair[]{ //create an array of in -> output
                 new Pair<>(OrePrefixes.crushed, OrePrefixes.crushedPurified),
                 new Pair<>(OrePrefixes.dustImpure, OrePrefixes.dustPure),
@@ -73,7 +99,9 @@ public class GTAFRecipes {
                     //make sure in- & output is not null
                     materials ->
                             Objects.nonNull(GT_OreDictUnificator.get(orePrefixesPair.getKey(), materials, 1)) &&
-                                    Objects.nonNull(GT_OreDictUnificator.get(orePrefixesPair.getValue(), materials, 1)),
+                                    Objects.nonNull(GT_OreDictUnificator.get(orePrefixesPair.getValue(), materials, 1)) &&
+                                    Arrays.stream(bwPlatinumMaterials).noneMatch(bw -> bw == materials),
+
                     //add the recipe to the map
                     materials ->
                             SIMPLE_WASHER_MAP.addRecipe(true,
@@ -91,14 +119,17 @@ public class GTAFRecipes {
         GTAFMod.LOGGER.info("Starting GTAFRecipes");
         synchronized (SIMPLE_WASHER_MAP) {   //lock the maps
             synchronized (THERMALGENERATOR_FUELS) {
-                Thread gtaf_recipe_registration_thread = new Thread(() -> {
-                    fillSimpleWasherMap();
-                    fillThermalGeneratorMap();
-                    GTAFMod.LOGGER.info("GTAF Recipe Registration Thread Ended!");
-                });
-                gtaf_recipe_registration_thread.setName("GTAF Recipe Registration Thread"); //rename the thread
-                gtaf_recipe_registration_thread.start(); //start it in the background
-                GTAFMod.LOGGER.info("GTAF Recipe Registration Thread started!");
+                synchronized (ENHANCED_MIXER_MAP) {
+                    Thread gtaf_recipe_registration_thread = new Thread(() -> {
+                        fillSimpleWasherMap();
+                        fillThermalGeneratorMap();
+                        fillEnhancedMixerMap();
+                        GTAFMod.LOGGER.info("GTAF Recipe Registration Thread Ended!");
+                    });
+                    gtaf_recipe_registration_thread.setName("GTAF Recipe Registration Thread"); //rename the thread
+                    gtaf_recipe_registration_thread.start(); //start it in the background
+                    GTAFMod.LOGGER.info("GTAF Recipe Registration Thread started!");
+                }
             }
         }
     }

@@ -20,43 +20,63 @@
 
 package com.gtnewhorizons.gtppnt.main.utils;
 
+import gregtech.api.enums.Materials;
 import gregtech.api.util.GT_ModHandler;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public enum GTAFIC2CellGetter {
     EMTPY(0),
-    WATER(1),
-    LAVA(2),
-    UUMATTER(3),
-    CONSTRUCTIONFOAM(4),
-    COMPRESSEDAIR(5),
-    BIOMASS(6),
-    BIOGAS(7),
+    WATER(1, FluidRegistry.WATER),
+    LAVA(2, FluidRegistry.LAVA),
+    UUMATTER(3, Materials.UUMatter.getFluid(1).getFluid()),
+    CONSTRUCTIONFOAM(4, Materials.ConstructionFoam.getFluid(1).getFluid()),
+    COMPRESSEDAIR(5, Materials.Air.getFluid(1).getFluid()),
+    BIOMASS(6, "biomass"),
+    BIOGAS(7, "biogas"),
     ELECTROLYZED_WATER(8),
-    COOLANT(9),
-    HOT_COOLANT(10),
-    PAHOEHOELAVA(11),
-    DISTILLED_WATER(12),
-    SUPERHEATEDSTEAM(13),
-    STEAM(14);
+    COOLANT(9, "coolant"),
+    HOT_COOLANT(10, "hotcoolant"),
+    PAHOEHOELAVA(11, "pahoehoelava"),
+    DISTILLED_WATER(12, "distilledwater"),
+    SUPERHEATEDSTEAM(13, "superheatedsteam"),
+    STEAM(14, "steam");
 
-    private byte meta;
+    private final byte META;
+    private final Fluid LINKED_FLUID;
 
-    GTAFIC2CellGetter(int meta) {
-        this.meta = (byte) meta;
+    GTAFIC2CellGetter(int META) {
+        this.META = (byte) META;
+        LINKED_FLUID = null;
+    }
+
+    GTAFIC2CellGetter(int META, Fluid fluid) {
+        this.META = (byte) META;
+        LINKED_FLUID = fluid;
+    }
+
+    GTAFIC2CellGetter(int META, String fluidName) {
+        this.META = (byte) META;
+        LINKED_FLUID = FluidRegistry.getFluid("ic2" + fluidName);
     }
 
     public int getMeta() {
-        return meta;
+        return META;
     }
 
     ItemStack getCell() {
-        return GT_ModHandler.getIC2Item("cell", 1, meta);
+        return GT_ModHandler.getIC2Item("cell", 1, META);
     }
-
 
     ItemStack getCells(int amount) {
-        return GT_ModHandler.getIC2Item("cell", amount, meta);
+        return GT_ModHandler.getIC2Item("cell", amount, META);
     }
 
+    FluidStack getFluidStack(int amount) {
+        if (this.LINKED_FLUID == null)
+            throw new IllegalArgumentException("Cell doesn't has a Linked Fluid!");
+        return new FluidStack(this.LINKED_FLUID, amount);
+    }
 }

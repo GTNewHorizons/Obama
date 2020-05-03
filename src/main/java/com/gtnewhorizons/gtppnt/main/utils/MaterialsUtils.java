@@ -50,7 +50,7 @@ public class MaterialsUtils {
      */
     public static void applyToAllMaterialsAndWerkstoffe(Predicate<Materials> filter, Consumer<Materials> toApply) {
         applyToAllWerkstoffe(filter, toApply);
-        applyToAlMaterials(filter, toApply);
+        applyToAllMaterials(filter, toApply);
     }
 
     /**
@@ -72,7 +72,7 @@ public class MaterialsUtils {
      * @param filter  a Predicate, (a bool function), like "materials -> GT_OreDictUnificator.get(OrePrefixes.rod, materials, 1) != null"
      * @param toApply an Consumer ("a void function"), like "materials -> concurrentmap.add(materials)"
      */
-    public static void applyToAlMaterials(Predicate<Materials> filter, Consumer<Materials> toApply) {
+    public static void applyToAllMaterials(Predicate<Materials> filter, Consumer<Materials> toApply) {
         Materials.getMaterialsMap().values().stream()       //get ALL the Materials
                 .filter(filter)                             //apply the filter (i.e. a nullcheck)
                 .forEach(toApply);                          //apply the action (i.e. add them to a recipe map)
