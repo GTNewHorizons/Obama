@@ -75,7 +75,7 @@ public class GT_MetaTileEntity_ThermalGenerator extends GT_MetaTileEntity_BasicG
 
     @Override
     public GT_Recipe.GT_Recipe_Map getRecipes() {
-        return GTAFRecipes.THERMALGENERATOR_FUELS;
+        return GTAFRecipes.getThermalgeneratorFuels();
     }
 
     @Override
