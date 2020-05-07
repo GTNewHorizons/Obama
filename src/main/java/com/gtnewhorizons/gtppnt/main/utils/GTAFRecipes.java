@@ -32,6 +32,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.gtnewhorizons.gtppnt.main.utils.GTAFIC2CellGetter.*;
@@ -72,22 +74,28 @@ public class GTAFRecipes {
     }
 
 
+    public static Map<Materials, Materials> simpleWasherOverrideMap = new HashMap<>();
+
     private static void fillEnhancedMixerMap() {
         synchronized (GT_Recipe.GT_Recipe_Map.sMixerRecipes) {
             ENHANCED_MIXER_MAP.mRecipeList.addAll(GT_Recipe.GT_Recipe_Map.sMixerRecipes.mRecipeList);
+            ENHANCED_MIXER_MAP.reInit();
         }
-        ENHANCED_MIXER_MAP.reInit();
     }
 
     @SuppressWarnings("unchecked")
     private static void fillSimpleWasherMap() {
-        Materials[] bwPlatinumMaterials = new Materials[]{
-                Materials.Platinum,
-                Materials.Osmium,
-                Materials.Iridium,
-                WerkstoffLoader.Rhodium.getBridgeMaterial(),
-                WerkstoffLoader.Ruthenium.getBridgeMaterial()
+
+        Pair<Materials, Materials>[] pairArr = new Pair[]{
+                new Pair<>(Materials.Platinum, WerkstoffLoader.PTMetallicPowder),
+                new Pair<>(Materials.Palladium, WerkstoffLoader.PDMetallicPowder),
+                new Pair<>(Materials.Osmium, WerkstoffLoader.IrOsLeachResidue),
+                new Pair<>(Materials.Iridium, WerkstoffLoader.IrLeachResidue),
+                new Pair<>(WerkstoffLoader.Rhodium.getBridgeMaterial(), WerkstoffLoader.CrudeRhMetall),
+                new Pair<>(WerkstoffLoader.Ruthenium.getBridgeMaterial(), WerkstoffLoader.LeachResidue),
         };
+
+        Arrays.stream(pairArr).forEach(p -> simpleWasherOverrideMap.put(p.getKey(), p.getValue()));
 
         Pair<OrePrefixes, OrePrefixes>[] arr = new Pair[]{ //create an array of in -> output
                 new Pair<>(OrePrefixes.crushed, OrePrefixes.crushedPurified),
@@ -98,15 +106,30 @@ public class GTAFRecipes {
             applyToAllMaterialsAndWerkstoffe(
                     //make sure in- & output is not null
                     materials ->
-                            Objects.nonNull(GT_OreDictUnificator.get(orePrefixesPair.getKey(), materials, 1)) &&
-                                    Objects.nonNull(GT_OreDictUnificator.get(orePrefixesPair.getValue(), materials, 1)) &&
-                                    Arrays.stream(bwPlatinumMaterials).noneMatch(bw -> bw == materials),
+                            Objects.nonNull(
+                                    GT_OreDictUnificator.get(
+                                            orePrefixesPair.getKey(),
+                                            materials,
+                                            1))
+                                    &&
+                                    Objects.nonNull(
+                                            GT_OreDictUnificator.get(
+                                                    orePrefixesPair.getValue(),
+                                                    simpleWasherOverrideMap.getOrDefault(materials, materials),
+                                                    1)),
 
                     //add the recipe to the map
                     materials ->
                             SIMPLE_WASHER_MAP.addRecipe(true,
-                                    new ItemStack[]{GT_OreDictUnificator.get(orePrefixesPair.getKey(), materials, 1)},
-                                    new ItemStack[]{GT_OreDictUnificator.get(orePrefixesPair.getValue(), materials, 1)},
+                                    new ItemStack[]{
+                                            GT_OreDictUnificator.get(
+                                                    orePrefixesPair.getKey(),
+                                                    materials,
+                                                    1)},
+                                    new ItemStack[]{GT_OreDictUnificator.get(
+                                            orePrefixesPair.getValue(),
+                                            simpleWasherOverrideMap.getOrDefault(materials, materials),
+                                            1)},
                                     null,
                                     null,
                                     new FluidStack[]{Materials.Water.getFluid(100)}, null,
