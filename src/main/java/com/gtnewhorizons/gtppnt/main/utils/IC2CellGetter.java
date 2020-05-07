@@ -27,13 +27,13 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public enum GTAFIC2CellGetter {
+public enum IC2CellGetter {
     EMTPY(0),
     WATER(1, FluidRegistry.WATER),
     LAVA(2, FluidRegistry.LAVA),
-    UUMATTER(3, Materials.UUMatter.getFluid(1).getFluid()),
-    CONSTRUCTIONFOAM(4, Materials.ConstructionFoam.getFluid(1).getFluid()),
-    COMPRESSEDAIR(5, Materials.Air.getFluid(1).getFluid()),
+    UUMATTER(3, Materials.UUMatter),
+    CONSTRUCTIONFOAM(4, Materials.ConstructionFoam),
+    COMPRESSEDAIR(5, Materials.Air),
     BIOMASS(6, "biomass"),
     BIOGAS(7, "biogas"),
     ELECTROLYZED_WATER(8),
@@ -47,17 +47,22 @@ public enum GTAFIC2CellGetter {
     private final byte META;
     private final Fluid LINKED_FLUID;
 
-    GTAFIC2CellGetter(int META) {
+    IC2CellGetter(int META) {
         this.META = (byte) META;
         LINKED_FLUID = null;
     }
 
-    GTAFIC2CellGetter(int META, Fluid fluid) {
+    IC2CellGetter(int META, Fluid fluid) {
         this.META = (byte) META;
         LINKED_FLUID = fluid;
     }
 
-    GTAFIC2CellGetter(int META, String fluidName) {
+    IC2CellGetter(int META, Materials materials) {
+        this.META = (byte) META;
+        this.LINKED_FLUID = MaterialsUtils.getFluidFromMaterials(materials);
+    }
+
+    IC2CellGetter(int META, String fluidName) {
         this.META = (byte) META;
         LINKED_FLUID = FluidRegistry.getFluid("ic2" + fluidName);
     }
@@ -76,7 +81,7 @@ public enum GTAFIC2CellGetter {
 
     FluidStack getFluidStack(int amount) {
         if (this.LINKED_FLUID == null)
-            throw new IllegalArgumentException("Cell doesn't has a Linked Fluid!");
+            throw new IllegalArgumentException("Cell \"" + this.name() + "\" doesn't have a linked Fluid!");
         return new FluidStack(this.LINKED_FLUID, amount);
     }
 }

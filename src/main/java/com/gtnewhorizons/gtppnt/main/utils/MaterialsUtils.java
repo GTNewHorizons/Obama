@@ -22,9 +22,14 @@ package com.gtnewhorizons.gtppnt.main.utils;
 
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
 import gregtech.api.enums.Materials;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class MaterialsUtils {
 
@@ -78,4 +83,26 @@ public class MaterialsUtils {
                 .forEach(toApply);                          //apply the action (i.e. add them to a recipe map)
     }
 
+    /**
+     * Gets a FluidStack from a Material Definition
+     *
+     * @param materials the Materials you want to convert to a FluidStack
+     * @return A FluidStack, a gas or a molten material, in that priority order.
+     */
+    public static FluidStack getFluidStackFromMaterials(Materials materials) {
+        return Stream.of(materials.getFluid(1), materials.getGas(1), materials.getMolten(1))
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    /**
+     * Gets a Fluid from a Material Definition
+     *
+     * @param materials the Materials you want to convert to a Fluid
+     * @return A fluid, a gas or a molten material, in that priority order.
+     */
+    public static Fluid getFluidFromMaterials(Materials materials) {
+        return getFluidStackFromMaterials(materials).getFluid();
+    }
 }
