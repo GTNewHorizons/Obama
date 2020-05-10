@@ -34,11 +34,11 @@ public class GT_Container_TieredBoiler extends GT_ContainerMetaTile_Machine {
     public int mSteamAmount = 0;
     public int mProcessingEnergy = 0;
     public int mTemperature = 2;
-    private int mSteamCapacity;
+    private final int STEAM_CAPACITY;
 
     public GT_Container_TieredBoiler(InventoryPlayer aInventoryPlayer, IGregTechTileEntity aTileEntity, int aSteamCapacity) {
         super(aInventoryPlayer, aTileEntity);
-        this.mSteamCapacity = aSteamCapacity;
+        this.STEAM_CAPACITY = aSteamCapacity;
     }
 
     public void addSlots(InventoryPlayer aInventoryPlayer) {
@@ -64,7 +64,7 @@ public class GT_Container_TieredBoiler extends GT_ContainerMetaTile_Machine {
             this.mSteamAmount = ((GT_MetaTileEntity_TieredBoiler) this.mTileEntity.getMetaTileEntity()).mSteam == null ? 0 : ((GT_MetaTileEntity_TieredBoiler) this.mTileEntity.getMetaTileEntity()).mSteam.amount;
             this.mWaterAmount = ((GT_MetaTileEntity_TieredBoiler) this.mTileEntity.getMetaTileEntity()).mFluid == null ? 0 : ((GT_MetaTileEntity_TieredBoiler) this.mTileEntity.getMetaTileEntity()).mFluid.amount;
             this.mTemperature = Math.min(54, Math.max(0, this.mTemperature * 54 / (((GT_MetaTileEntity_TieredBoiler) this.mTileEntity.getMetaTileEntity()).maxProgresstime() - 10)));
-            this.mSteamAmount = Math.min(54, Math.max(0, this.mSteamAmount * 54 / (this.mSteamCapacity - 100)));
+            this.mSteamAmount = Math.min(54, Math.max(0, this.mSteamAmount * 54 / (this.STEAM_CAPACITY - 100)));
             this.mWaterAmount = Math.min(54, Math.max(0, this.mWaterAmount * 54 / 15900));
             this.mProcessingEnergy = Math.min(14, Math.max(this.mProcessingEnergy > 0 ? 1 : 0, this.mProcessingEnergy * 14 / 1000));
 

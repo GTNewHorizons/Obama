@@ -24,27 +24,34 @@ import com.github.bartimaeusnek.bartworks.API.WerkstoffAdderRegistry;
 import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass;
 import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsExtraRecipeLoader;
 import com.gtnewhorizons.gtppnt.main.config.ConfigHandler;
+import com.gtnewhorizons.gtppnt.main.loaders.CableAndWireLoader;
 import com.gtnewhorizons.gtppnt.main.loaders.SingleBlockLoadingClass;
 import com.gtnewhorizons.gtppnt.main.utils.GTAFRecipes;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.*;
+import gregtech.api.GregTech_API;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.stream.IntStream;
+
+@SuppressWarnings("unused")
 @Mod(modid = GTAFMod.MODID, name = GTAFMod.NAME, version = GTAFMod.VERSION,
         dependencies =
                 "required-after:IC2;"
                         + "required-after:gregtech;"
                         + "required-after:tectech;"
                         + "required-after:bartworks;"
+                        + "required-after:gtppntp1;"
+                        + "required-after:gtppntp2;"
 )
 public class GTAFMod {
-
-    static final String NAME = "GT-AF";
+    public static final String NAME = "GT-AF";
+    public static final String VERSION = "@version@";
     public static final Logger LOGGER = LogManager.getLogger(GTAFMod.NAME);
     static final String MODID = "gtppnt";
-    static final String VERSION = "@version@";
+    private static final boolean DEBUG = true;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -55,6 +62,9 @@ public class GTAFMod {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         SingleBlockLoadingClass.load();
+        CableAndWireLoader.load();
+        if (DEBUG)
+            IntStream.range(0, GregTech_API.METATILEENTITIES.length).filter(i -> GregTech_API.METATILEENTITIES[i] != null).forEach(LOGGER::info);
     }
 
     @EventHandler

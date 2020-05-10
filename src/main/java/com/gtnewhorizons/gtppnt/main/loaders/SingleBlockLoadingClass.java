@@ -37,6 +37,9 @@ import static gregtech.api.enums.GT_Values.VOLTAGE_NAMES;
 @SuppressWarnings("ALL")
 public class SingleBlockLoadingClass {
 
+    private SingleBlockLoadingClass() {
+    }
+
     //Helper Name Arrays
     private static final String[] MACHINE_PREFIXES = {"Primitive", "Basic", "Advanced", "Turbo", "Special", "Insane", "Uber", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
     public static ItemStack[] GTTieredBoilers = new ItemStack[VN.length];
@@ -189,7 +192,7 @@ public class SingleBlockLoadingClass {
             ).getStackForm(1);
 
             GTBasicChests[i] = new GT_MetaTileEntity_TiredChest(
-                    ConfigHandler.IDOFFSET + 32 + i,
+                    ConfigHandler.IDOFFSET + 31 + i,
                     "GTAF.basic.chest." + i,
                     VOLTAGE_NAMES[i] + " Chest",
                     i
