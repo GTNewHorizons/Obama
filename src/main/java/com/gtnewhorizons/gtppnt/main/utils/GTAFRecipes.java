@@ -21,6 +21,7 @@
 package com.gtnewhorizons.gtppnt.main.utils;
 
 import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
+import com.github.bartimaeusnek.bartworks.util.BW_Util;
 import com.github.bartimaeusnek.bartworks.util.NonNullWrappedHashSet;
 import com.github.bartimaeusnek.bartworks.util.Pair;
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
@@ -140,7 +141,7 @@ public class GTAFRecipes {
     /*-------------------- HELPER METHODES --------------------*/
 
     private static void getEnhancedMixerLogic(GT_Recipe recipe) {
-        ItemStack[] cleanedInputs = ArrayUtils.copyAndRemoveNulls(recipe.mInputs, ItemStack.class);
+        ItemStack[] cleanedInputs = BW_Util.copyAndRemoveNulls(recipe.mInputs, ItemStack.class);
         if (cleanedInputs.length <= 4) {
             GT_Recipe recipeToAdd = recipe.copy();
             recipeToAdd.mInputs = cleanedInputs;

@@ -162,7 +162,7 @@ public class CableAndWireLoader {
         String displayName = isMaterials ? GT_LanguageManager.i18nPlaceholder ? "%material" : aMaterial.mDefaultLocalName : ((Werkstoff) stuff).getDefaultName();
         String internalName = isMaterials ? aMaterial.mName : ((Werkstoff) stuff).getVarName();
 
-        generateFluidPipes(aMaterial, internalName, displayName, startID, (int) (baseCapacity / 3.325), meltingPoint, true);
+        generateFluidPipes(aMaterial, internalName, displayName, startID, baseCapacity, meltingPoint, true);
     }
 
     /**
