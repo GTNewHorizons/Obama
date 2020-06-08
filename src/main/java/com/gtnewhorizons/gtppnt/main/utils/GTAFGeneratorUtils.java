@@ -40,7 +40,7 @@ public class GTAFGeneratorUtils {
         if (rValue > Integer.MAX_VALUE) {
             throw new ArithmeticException("Integer LOOPBACK!");
         }
-        return (int) MathUtils.floor(rValue);
+        return MathUtils.floorInt(rValue);
     }
 
 }

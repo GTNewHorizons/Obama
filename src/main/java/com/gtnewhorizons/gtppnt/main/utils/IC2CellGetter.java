@@ -67,19 +67,50 @@ public enum IC2CellGetter {
         LINKED_FLUID = FluidRegistry.getFluid("ic2" + fluidName);
     }
 
+    /**
+     * Gets a IC2-Fluid
+     *
+     * @return the fluid
+     * @throws IllegalArgumentException if no linked fluid is found!
+     */
+    public Fluid getFluid() {
+        if (this.LINKED_FLUID == null)
+            throw new IllegalArgumentException("Cell \"" + this.name() + "\" doesn't have a linked Fluid!");
+        return LINKED_FLUID;
+    }
+
+    /**
+     * @return the meta value of the cell
+     */
     public int getMeta() {
         return META;
     }
 
-    ItemStack getCell() {
-        return GT_ModHandler.getIC2Item("cell", 1, META);
+    /**
+     * @return a stack with a single cell
+     */
+    public ItemStack getCell() {
+        return getCells(1);
     }
 
-    ItemStack getCells(int amount) {
+    /**
+     * Gets IC2 Fluid Cells
+     *
+     * @param amount of cells
+     * @return an item stack consisting of cells
+     */
+    public ItemStack getCells(int amount) {
         return GT_ModHandler.getIC2Item("cell", amount, META);
     }
 
-    FluidStack getFluidStack(int amount) {
+    /**
+     * Gets a IC2-Fluid Stack
+     *
+     * @param amount amount of fluid
+     * @return the stack
+     * @throws IllegalArgumentException if no linked fluid is found!
+     */
+    public FluidStack getFluidStack(int amount) {
         if (this.LINKED_FLUID == null)
             throw new IllegalArgumentException("Cell \"" + this.name() + "\" doesn't have a linked Fluid!");
         return new FluidStack(this.LINKED_FLUID, amount);

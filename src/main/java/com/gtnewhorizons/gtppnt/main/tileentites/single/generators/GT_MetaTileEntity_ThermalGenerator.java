@@ -55,7 +55,7 @@ public class GT_MetaTileEntity_ThermalGenerator extends GT_MetaTileEntity_BasicG
 
     public void onConfigLoad() {
         if (this.mEfficiency == 0)
-            this.mEfficiency = GregTech_API.sMachineFile.get(ConfigCategories.machineconfig, "ThermalGenerator.efficiency.tier." + this.mTier, (int) MathUtils.ceil(-10F * mTier + 123F));
+            this.mEfficiency = GregTech_API.sMachineFile.get(ConfigCategories.machineconfig, "ThermalGenerator.efficiency.tier." + this.mTier, MathUtils.ceilInt(-10F * mTier + 123F));
     }
 
     @Override

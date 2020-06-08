@@ -25,6 +25,7 @@ import com.gtnewhorizons.gtppnt.main.config.ConfigHandler;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.generators.GT_MetaTileEntity_SemiFluidGenerator;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.generators.GT_MetaTileEntity_ThermalGenerator;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.generators.GT_MetaTileEntity_TieredBoiler;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.misc.GT_MetaTileEntity_SteamConverter;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.storage.GT_MetaTileEntity_TieredTank;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.storage.GT_MetaTileEntity_TiredChest;
 import com.gtnewhorizons.gtppnt.main.utils.GTAFRecipes;
@@ -172,6 +173,7 @@ public class SingleBlockLoadingClass {
                             'G', GT_MetaTileEntity_BasicMachine_GT_Recipe.X.GLASS}
             ).getStackForm(1L);
         }
+        new GT_MetaTileEntity_SteamConverter(769, "SteamConderserShitWhatever", "SteamConderserShitWhatever", 0, 3, "");
     }
 
     public static void loadNewIDs() throws Exception {

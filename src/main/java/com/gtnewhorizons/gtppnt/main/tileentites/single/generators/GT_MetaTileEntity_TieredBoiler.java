@@ -66,8 +66,8 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
     public int mLossTimer = 0;
     public FluidStack mSteam = null;
     public boolean mHadNoWater = false;
-    private long steamPerTier = steamPerTier(this.mTier);
-    private float efficiency = calculateEfficiency(this.mTier);
+    private final long steamPerTier = steamPerTier(this.mTier);
+    private final float efficiency = calculateEfficiency(this.mTier);
 
     public GT_MetaTileEntity_TieredBoiler(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
         super(aName, aTier, 4, aDescription, aTextures);
@@ -86,7 +86,7 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
     }
 
     private static long steamPerTier(int atier) {
-        return (long) MathUtils.ceil(((float) cBaseSteam * (1f + 0.5f * (float) (atier + 1))));
+        return MathUtils.ceilLong(((float) cBaseSteam * (1f + 0.5f * (float) (atier + 1))));
     }
 
     @Override

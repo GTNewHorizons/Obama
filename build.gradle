@@ -16,12 +16,11 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-		classpath "de.undercouch:gradle-download-task:3.1.2"
     }
 }
 
 /*
- * Copyright 2019 The GTNH Team
+ * Copyright 2020 The GTNH Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -68,12 +67,12 @@ configFile.withReader {
 }
 
 version = config.majorUpdate + '.' + config.minorUpdate + '.' + config.buildNumber
-group = 'com.bitbucket.basdxz.gtppnt' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.github.gtnh.gtppnt' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'gtppnt' + '[' + config.minecraft.version + ']'
 
 minecraft {
     version = "${config.minecraft.version}-${config.forge.version}-${config.minecraft.version}"
-	replaceIn "MainMod.java"
+	replaceIn "GTAFMod.java"
 	replace "@version@", project.version
     runDir = 'eclipse'
 }
@@ -117,23 +116,6 @@ dependencies {
     compileOnly "com.enderio.core:EnderCore:${config.minecraft.version}-${config.endercore.version}:dev"
     compileOnly "com.enderio:EnderIO:${config.minecraft.version}-${config.enderio.version}:dev"
 }
-
-task getGregTech(type: Download) {
-    onlyIf {
-        !file("libs/gregtech-${config.gregtech.version}-dev.jar").exists()
-    }
-    src "http://jenkins.usrv.eu:8080/job/Gregtech-5-Unofficial/${config.gregtech.jenkinsbuild}/artifact/build/libs/gregtech-${config.gregtech.version}-dev.jar"
-    dest file("libs/gregtech-${config.gregtech.version}-dev.jar")
-    mustRunAfter "deobfBinJar"
-    mustRunAfter "repackMinecraft"
-    delete fileTree("$projectDir/libs/") {
-        include 'gregtech-*-dev.jar'
-        exclude "gregtech-${config.gregtech.version}-dev.jar"
-    }
-}
-
-tasks.setupCIWorkspace.dependsOn getGregTech
-tasks.setupDevWorkspace.dependsOn getGregTech
 
 processResources
 {
