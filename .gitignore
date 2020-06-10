@@ -1,7 +1,6 @@
 .gradle
 eclipse
 .idea
-libs/gregtech*
 *.iml
 *.ipr
 *.iws
