@@ -32,6 +32,7 @@ import gregtech.api.util.GT_Recipe;
 import gregtech.api.util.GT_Utility;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
@@ -40,60 +41,56 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 //TODO: Test this SHIT
-public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_MultiblockBase_EM implements IAddsBlocks {
+public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_MultiblockBase_EM
+        implements IAddsBlocks {
 
-    protected final GT_Recipe.GT_Recipe_Map mRecipeMap;
-    private final TT_Utils.DefaultStructureDefinitions STRUCTURE_DEFINITION;
-    private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
-    private final int maxParalellsPerTier;
     private GT_Recipe buffered_Recipe;
-    private boolean isPerfectOC;
-    private Pair<String, String> tooltip;
+    private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
+
+    private TT_Utils.MultiBlockDefinition multiBlockDefinition;
 
     public GT_MetaTileEntity_MultiMachine_RecipeMap(int aID,
                                                     String aName,
                                                     String aNameRegional,
-                                                    GT_Recipe.GT_Recipe_Map aRecipeMap,
-                                                    boolean perfectOC,
-                                                    TT_Utils.DefaultStructureDefinitions structureDefinition,
-                                                    Pair<String, String> tooltip,
-                                                    int maxParalellsPerTier
-    ) {
+                                                    TT_Utils.MultiBlockDefinition multiBlockDefinition) {
         super(aID, aName, aNameRegional);
-        this.mRecipeMap = aRecipeMap;
-        this.isPerfectOC = perfectOC;
-        this.STRUCTURE_DEFINITION = structureDefinition;
-        this.tooltip = tooltip;
-        this.maxParalellsPerTier = maxParalellsPerTier;
+        this.multiBlockDefinition = multiBlockDefinition;
     }
 
-    public GT_MetaTileEntity_MultiMachine_RecipeMap(String aName,
-                                                    GT_Recipe.GT_Recipe_Map aRecipeMap,
-                                                    TT_Utils.DefaultStructureDefinitions structureDefinition,
-                                                    int maxParalellsPerTier
-    ) {
+    public GT_MetaTileEntity_MultiMachine_RecipeMap(String aName, TT_Utils.MultiBlockDefinition multiBlockDefinition) {
         super(aName);
-        this.mRecipeMap = aRecipeMap;
-        this.STRUCTURE_DEFINITION = structureDefinition;
-        this.maxParalellsPerTier = maxParalellsPerTier;
+        this.multiBlockDefinition = multiBlockDefinition;
     }
 
     public String[] getDescription() {
-        List<String> stringList = STRUCTURE_DEFINITION.generateTooltip();
-        stringList.set(0, tooltip.getKey());
-        stringList.set(1, tooltip.getValue());
-        return stringList.toArray(new String[0]);
+        return multiBlockDefinition.getTooltip();
+    }
+
+    @Override
+    public void saveNBTData(NBTTagCompound aNBT) {
+        super.saveNBTData(aNBT);
+        aNBT.setString("definition", multiBlockDefinition.name());
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound aNBT) {
+        super.loadNBTData(aNBT);
+        multiBlockDefinition = TT_Utils.MultiBlockDefinition.valueOf(aNBT.getString("definition"));
     }
 
     @Override
     protected boolean checkMachine_EM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         this.mSpecialBlocks.clear();
-        return this.structureCheck_EM("main", STRUCTURE_DEFINITION.getHorizontalOffset(), STRUCTURE_DEFINITION.getVerticalOffset(), 0);
+        return this.structureCheck_EM("main",
+                multiBlockDefinition.getStructure().getHorizontalOffset(),
+                multiBlockDefinition.getStructure().getVerticalOffset(),
+                0
+        );
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity iGregTechTileEntity) {
-        return new GT_MetaTileEntity_MultiMachine_RecipeMap(mName, mRecipeMap, STRUCTURE_DEFINITION, maxParalellsPerTier);
+        return new GT_MetaTileEntity_MultiMachine_RecipeMap(mName, multiBlockDefinition);
     }
 
     public byte getTier() {
@@ -135,9 +132,14 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
                         boolean rzz;
                         int i = 0;
                         while (true) {
-                            rzz = recipe.isRecipeInputEqual(true, false, flinputs, itinputs);
+                            rzz = recipe.isRecipeInputEqual(
+                                    true,
+                                    false,
+                                    flinputs,
+                                    itinputs
+                            );
                             i++;
-                            if (rzz && maxParalellsPerTier * this.getTier() < i) {
+                            if (rzz && multiBlockDefinition.getMaxParalellsPerTier() * this.getTier() < i) {
                                 for (int j = 0; j < recipe.mOutputs.length; j++) {
                                     outputItems.add(recipe.getOutput(i));
                                 }
@@ -156,7 +158,12 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
                         this.mOutputItems = MultiBlockUtils.sortItemStacks(outputItems);
                         this.mOutputFluids = MultiBlockUtils.sortFluidStacks(outputFluids);
 
-                        this.calculateOverclockedNessMultiInternal(recipe.mEUt * i, recipe.mDuration, map.mAmperage * i, this.getMaxInputVoltage(), isPerfectOC);
+                        this.calculateOverclockedNessMultiInternal(recipe.mEUt * i,
+                                recipe.mDuration,
+                                map.mAmperage * i,
+                                this.getMaxInputVoltage(),
+                                multiBlockDefinition.isPerfectOC()
+                        );
 
                         if (mMaxProgresstime == Integer.MAX_VALUE - 1 && mEUt == Integer.MAX_VALUE - 1)
                             return;
@@ -175,11 +182,11 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
 
     @Override
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getStructure_EM() {
-        return STRUCTURE_DEFINITION.getStructureDefinition();
+        return multiBlockDefinition.getStructure().getStructureDefinition();
     }
 
     public GT_Recipe.GT_Recipe_Map getRecipeMap() {
-        return mRecipeMap;
+        return multiBlockDefinition.getRecipe_map();
     }
 
     @Override
@@ -189,6 +196,6 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
 
     @Override
     public Pair<Block, Integer> getRequiredSpecialBlock() {
-        return STRUCTURE_DEFINITION.getSpecialBlock();
+        return multiBlockDefinition.getStructure().getSpecialBlock();
     }
 }

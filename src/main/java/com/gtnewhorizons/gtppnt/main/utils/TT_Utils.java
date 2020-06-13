@@ -29,6 +29,7 @@ import com.github.technus.tectech.thing.casing.TT_Container_Casings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import gregtech.api.GregTech_API;
 import gregtech.api.util.GT_LanguageManager;
+import gregtech.api.util.GT_Recipe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -50,6 +51,7 @@ public class TT_Utils {
     public static final char Maintenance = 'm';
     public static final char Block = 'b';
     public static final char SpecialBlock = 's';
+    public static final char defaultInputOutputEnergy = '1';
 
     /**
      * Creates a Multiblock Defintion
@@ -311,14 +313,18 @@ public class TT_Utils {
             return geometrics.verticalOffset;
         }
 
+        public int getDefaultHatches() {
+            return geometrics.getAmount(defaultInputOutputEnergy);
+        }
+
         public List<String> generateTooltip() {
             return Stream.of("<--Filled out by MultiBlockClass-->",
                     "<--Filled out by MultiBlockClass-->",
                     "Size(WxHxD): " + geometrics.getDimensions() + " (Hollow), Controller (Front centered)",
-                    getRequiredInputs() > 0 ? getRequiredInputs() + "x Inputs" : null,
-                    getRequiredOutputs() > 0 ? getRequiredOutputs() + "x Outputs" : null,
+                    getDefaultHatches() + getRequiredInputs() > 0 ? getRequiredInputs() + getDefaultHatches() + "x Inputs" : null,
+                    getDefaultHatches() + getRequiredOutputs() > 0 ? getRequiredOutputs() + getDefaultHatches() + "x Outputs" : null,
                     getRequiredMaintenanceHatches() > 0 ? getRequiredMaintenanceHatches() + "x Maintenance Hatch" : null,
-                    getRequiredEnergyHatches() > 0 ? getRequiredEnergyHatches() + "x Energy Hatch" : null,
+                    getDefaultHatches() + getRequiredEnergyHatches() > 0 ? getRequiredEnergyHatches() + getDefaultHatches() + "x Energy Hatch" : null,
                     getRequiredDynamos() > 0 ? getRequiredDynamos() + "x Dynamo Hatch" : null,
                     getRequiredMufflers() > 0 ? getRequiredMufflers() + "x Muffler Hatch" : null,
                     getRequiredSpecialBlocks() > 0 ? getRequiredSpecialBlocks() + "x " + GT_LanguageManager.getTranslation(GT_LanguageManager.getTranslateableItemStackName(new ItemStack(specialBlock, 1, metaSpecialBlock))) : null,
@@ -382,6 +388,55 @@ public class TT_Utils {
 
         public String getDimensions() {
             return structure.length + "x" + structure[0].length + "x" + structure.length;
+        }
+    }
+
+    public enum MultiBlockDefinition {
+        FREEZER(DefaultStructureDefinitions.FREEZER_ALIKE,
+                GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
+                false,
+                new Pair<>("Freezer!", "Cools down ingots!"),
+                1);
+
+        final DefaultStructureDefinitions structure;
+        final GT_Recipe.GT_Recipe_Map recipe_map;
+        final boolean isPerfectOC;
+        final String[] tooltip;
+        final int maxParalellsPerTier;
+
+        MultiBlockDefinition(DefaultStructureDefinitions structure, GT_Recipe.GT_Recipe_Map recipe_map, boolean isPerfectOC, Pair<String, String> tooltip, int maxParalellsPerTier) {
+            this.structure = structure;
+            this.recipe_map = recipe_map;
+            this.isPerfectOC = isPerfectOC;
+            this.tooltip = getDescription(tooltip);
+            this.maxParalellsPerTier = maxParalellsPerTier;
+        }
+
+        private String[] getDescription(Pair<String, String> tooltip) {
+            List<String> stringList = structure.generateTooltip();
+            stringList.set(0, tooltip.getKey());
+            stringList.set(1, tooltip.getValue());
+            return stringList.toArray(new String[0]);
+        }
+
+        public DefaultStructureDefinitions getStructure() {
+            return structure;
+        }
+
+        public GT_Recipe.GT_Recipe_Map getRecipe_map() {
+            return recipe_map;
+        }
+
+        public boolean isPerfectOC() {
+            return isPerfectOC;
+        }
+
+        public String[] getTooltip() {
+            return tooltip;
+        }
+
+        public int getMaxParalellsPerTier() {
+            return maxParalellsPerTier;
         }
     }
 
