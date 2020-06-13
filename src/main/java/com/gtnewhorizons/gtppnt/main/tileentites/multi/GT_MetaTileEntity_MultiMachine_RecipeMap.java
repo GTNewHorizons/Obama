@@ -21,6 +21,7 @@
 package com.gtnewhorizons.gtppnt.main.tileentites.multi;
 
 import com.github.bartimaeusnek.bartworks.util.Pair;
+import com.github.technus.tectech.mechanics.constructable.IConstructable;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.gtnewhorizons.gtppnt.main.utils.IAddsBlocks;
@@ -42,7 +43,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 //TODO: Test this SHIT
 public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_MultiblockBase_EM
-        implements IAddsBlocks {
+        implements IAddsBlocks, IConstructable/* this interface adds blueprinting option*/ {
 
     private GT_Recipe buffered_Recipe;
     private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
@@ -197,5 +198,15 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     @Override
     public Pair<Block, Integer> getRequiredSpecialBlock() {
         return multiBlockDefinition.getStructure().getSpecialBlock();
+    }
+
+    @Override
+    public void construct(ItemStack itemStack, boolean b) {
+        //todo generic call to construct???
+    }
+
+    @Override
+    public String[] getStructureDescription(ItemStack itemStack) {
+        return new String[0];//todo description on blueprint?
     }
 }

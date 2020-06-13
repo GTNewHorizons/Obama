@@ -23,7 +23,6 @@ package com.gtnewhorizons.gtppnt.main.utils;
 import com.github.bartimaeusnek.bartworks.util.Pair;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.mechanics.structure.StructureDefinition;
-import com.github.technus.tectech.thing.casing.TT_Container_Casings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import gregtech.api.GregTech_API;
 import gregtech.api.util.GT_LanguageManager;
@@ -102,12 +101,10 @@ public class TT_Utils {
                 .addElement('B', ofBlock(setCasing, setMeta, Blocks.air, 0))
                 .addElement('s', ofBlockAdder(IAddsBlocks::addBlockToMachine, 8))
                 .addElement('S', ofBlockAdder(IAddsBlocks::addBlockToMachine, Blocks.air, 0))
-                .addElement('c', ofHatchAdderOptional(
+                .addElement('c', ofHatchAdder(
                         GT_MetaTileEntity_MultiblockBase_EM::addClassicToMachineList,
                         textureIndex,
-                        1,
-                        setCasing,
-                        setMeta))
+                        1))
                 .addElement('i', ofHatchAdder(
                         GT_MetaTileEntity_MultiblockBase_EM::addClassicInputToMachineList,
                         textureIndex,
@@ -132,10 +129,12 @@ public class TT_Utils {
                         GT_MetaTileEntity_MultiblockBase_EM::addClassicMaintenanceToMachineList,
                         textureIndex,
                         7))
-                .addElement('C', ofHatchAdder(
+                .addElement('C', ofHatchAdderOptional(
                         GT_MetaTileEntity_MultiblockBase_EM::addClassicToMachineList,
                         textureIndex,
-                        1))
+                        1,
+                        setCasing,
+                        setMeta))
                 .addElement('I', ofHatchAdderOptional(
                         GT_MetaTileEntity_MultiblockBase_EM::addClassicInputToMachineList,
                         textureIndex,
@@ -272,23 +271,23 @@ public class TT_Utils {
     private enum GeometricInstances {
 
         CUBE_3x3x3(new String[][]{
-                {"111", "111", "111"},
-                {"1~1", "1-1", "111"},
-                {"111", "111", "111"}
+                {"CCC", "CCC", "CCC"},
+                {"C~C", "C-C", "CCC"},
+                {"CCC", "CCC", "CCC"}
         },1,1,0),
 
         CUBE_3x3x3_WithMuffler(new String[][]{
-                {"111", "1P1", "111"},
-                {"1~1", "1-1", "111"},
-                {"111", "111", "111"}
+                {"CCC", "CPC", "CCC"},
+                {"C~C", "C-C", "CCC"},
+                {"CCC", "CCC", "CCC"}
         },1,1,0),
 
         CUBE_5x5x5_WithMuffler(new String[][]{
-                {"11111", "11111", "11P11", "11111", "11111"},
-                {"11111", "-----", "-----", "-----", "11111"},
-                {"11~11", "-----", "-----", "-----", "11111"},
-                {"11111", "-----", "-----", "-----", "11111"},
-                {"11111", "11111", "11111", "11111", "11111"},
+                {"CCCCC", "CCCCC", "CCPCC", "CCCCC", "CCCCC"},
+                {"CCCCC", "-----", "-----", "-----", "CCCCC"},
+                {"CC~CC", "-----", "-----", "-----", "CCCCC"},
+                {"CCCCC", "-----", "-----", "-----", "CCCCC"},
+                {"CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC"},
         },2,2,0);
 
         private final String[][] structure;
