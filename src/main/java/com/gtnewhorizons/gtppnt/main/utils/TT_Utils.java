@@ -22,9 +22,7 @@ package com.gtnewhorizons.gtppnt.main.utils;
 
 import com.github.bartimaeusnek.bartworks.util.Pair;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
-import com.github.technus.tectech.mechanics.structure.IStructureElement;
 import com.github.technus.tectech.mechanics.structure.StructureDefinition;
-import com.github.technus.tectech.mechanics.structure.StructureUtility;
 import com.github.technus.tectech.thing.casing.TT_Container_Casings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import gregtech.api.GregTech_API;
@@ -40,30 +38,32 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
+
 //TODO: Test this SHIT
 public class TT_Utils {
-
-    public static final char Input = 'i';
-    public static final char Output = 'o';
-    public static final char Energy = 'e';
-    public static final char Dynamo = 'd';
-    public static final char Muffler = 'p';
-    public static final char Maintenance = 'm';
-    public static final char Block = 'b';
-    public static final char SpecialBlock = 's';
-    public static final char defaultInputOutputEnergy = '1';
+    public static final char DEFAULT_INPUT_OUTPUT_ENERGY = 'c';
+    public static final char INPUT = 'i';
+    public static final char OUTPUT = 'o';
+    public static final char ENERGY = 'e';
+    public static final char DYNAMO = 'd';
+    public static final char MUFFLER = 'p';
+    public static final char MAINTENANCE = 'm';
+    public static final char BLOCK = 'b';
+    public static final char SPECIAL_BLOCK = 's';
 
     /**
-     * Creates a Multiblock Defintion
+     * Creates a Multiblock Definition
      * <p></p>
      * <p>Hints are: </p>
-     * <p> 0 Input Hatch/Bus</p>
-     * <p> 1 Output Hatch/Bus</p>
-     * <p> 2 Energy Input Hatch</p>
-     * <p> 3 Maintenance Hatch</p>
-     * <p> 4 Muffler Hatch</p>
+     * <p> 1 Any hatch?/Bus</p>
+     * <p> 2 Input Hatch/Bus</p>
+     * <p> 3 Output Hatch/Bus</p>
+     * <p> 4 Energy Hatch</p>
      * <p> 5 Dynamo Hatch</p>
-     * <p> 6 Special Block</p>
+     * <p> 6 Muffler Hatch</p>
+     * <p> 7 Maintenance Hatch</p>
+     * <p> 8 Special Block</p>
      *
      * @param structure    make a new String[][]
      *
@@ -71,7 +71,8 @@ public class TT_Utils {
      *                     <p>each string the blocks of the layer</p>
      *                     <p>each char is a block definition</p>
      *                     <p></p>
-     *                     <p>Allowed Characters, Uppercase is OPTIONAL:</p>
+     *                     <p>Allowed Characters, Uppercase means OPTIONAL:</p>
+     *                     <p>c = any Input/Output Hatch/Bus or Energy Input Hatch</p>
      *                     <p>i = Input Hatch/Bus</p>
      *                     <p>o = Output Hatch/Bus</p>
      *                     <p>e = Energy Input Hatch</p>
@@ -85,165 +86,92 @@ public class TT_Utils {
      *                     <p>+ = non-air</p>
      *                     <p>~ = controller</p>
      *                     <p></p>
-     *                     <p>1 = any Input/Output Hatch/Bus or Energy Input Hatch</p>
-     *                     <p></p>
-     * @param textureIndex the tecture for the hatches
+     * @param textureIndex the texture for the hatches
      * @param setCasing    Casing Block which is used to build the Multiblock
      * @param setMeta      Casing Block Meta which is used to build the Multiblock
      * @return IStructureDefinition for your Multiblock
      */
-    public static IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getDefaultStructureDefinition(String[][] structure, int textureIndex, Block setCasing, int setMeta) {
-        return StructureDefinition.builder().addShape("main", structure)
-                .addElement('1', StructureUtility.ofChain(
-                        new IStructureElement[]{
-                                //(final IHatchAdder<T> iHatchAdder, final int textureIndex, final Block hintBlock, final int hintMeta, final Block placeCasing, final int placeCasingMeta)
-                                StructureUtility.ofHatchAdderOptional(
-                                        GT_MetaTileEntity_MultiblockBase_EM::addEnergyInputToMachineList,
-                                        textureIndex,
-                                        TT_Container_Casings.sHintCasingsTT,
-                                        2,
-                                        setCasing,
-                                        setMeta
-                                ),
-                                StructureUtility.ofHatchAdderOptional(
-                                        GT_MetaTileEntity_MultiblockBase_EM::addClassicInputToMachineList,
-                                        textureIndex,
-                                        TT_Container_Casings.sHintCasingsTT,
-                                        0,
-                                        setCasing,
-                                        setMeta
-                                ),
-                                StructureUtility.ofHatchAdderOptional(
-                                        GT_MetaTileEntity_MultiblockBase_EM::addClassicOutputToMachineList,
-                                        textureIndex,
-                                        TT_Container_Casings.sHintCasingsTT,
-                                        1,
-                                        setCasing,
-                                        setMeta
-                                ),
-                                StructureUtility.ofHatchAdderOptional(
-                                        GT_MetaTileEntity_MultiblockBase_EM::addClassicMaintenanceToMachineList,
-                                        textureIndex,
-                                        TT_Container_Casings.sHintCasingsTT,
-                                        3,
-                                        setCasing,
-                                        setMeta
-                                )
-                        }
-                        )
-                )
-                .addElement('b', StructureUtility.ofBlock(setCasing, setMeta))
-                .addElement('B', StructureUtility.ofBlock(setCasing, setMeta, Blocks.air, 0))
-                .addElement('s', StructureUtility.ofBlockAdder(IAddsBlocks::addBlockToMachine, 6))
-                .addElement('S', StructureUtility.ofBlockAdder(IAddsBlocks::addBlockToMachine, Blocks.air, 0))
-                .addElement(
-                        'i', StructureUtility.ofHatchAdder(
-                                GT_MetaTileEntity_MultiblockBase_EM::addClassicInputToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                0
-                        )
-                )
-                .addElement(
-                        'o', StructureUtility.ofHatchAdder(
-                                GT_MetaTileEntity_MultiblockBase_EM::addClassicOutputToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                1
-                        )
-                )
-                .addElement(
-                        'e', StructureUtility.ofHatchAdder(
-                                GT_MetaTileEntity_MultiblockBase_EM::addEnergyInputToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                2
-                        )
-                )
-                .addElement(
-                        'm', StructureUtility.ofHatchAdder(
-                                GT_MetaTileEntity_MultiblockBase_EM::addClassicMaintenanceToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                3
-                        )
-                )
-                .addElement(
-                        'p', StructureUtility.ofHatchAdder(
-                                GT_MetaTileEntity_MultiblockBase_EM::addClassicMufflerToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                4
-                        )
-                )
-                .addElement(
-                        'd', StructureUtility.ofHatchAdder(
-                                GT_MetaTileEntity_MultiblockBase_EM::addDynamoToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                5
-                        )
-                )
-                .addElement(
-                        'I', StructureUtility.ofHatchAdderOptional(
-                                GT_MetaTileEntity_MultiblockBase_EM::addClassicInputToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                0,
-                                setCasing,
-                                setMeta
-                        )
-                )
-                .addElement(
-                        'O', StructureUtility.ofHatchAdderOptional(
-                                GT_MetaTileEntity_MultiblockBase_EM::addClassicOutputToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                1,
-                                setCasing,
-                                setMeta
-                        )
-                )
-                .addElement(
-                        'E', StructureUtility.ofHatchAdderOptional(
-                                GT_MetaTileEntity_MultiblockBase_EM::addEnergyInputToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                2,
-                                setCasing,
-                                setMeta
-                        )
-                )
-                .addElement(
-                        'M', StructureUtility.ofHatchAdderOptional(
-                                GT_MetaTileEntity_MultiblockBase_EM::addClassicMaintenanceToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                3,
-                                setCasing,
-                                setMeta
-                        )
-                )
-                .addElement(
-                        'P', StructureUtility.ofHatchAdderOptional(
-                                GT_MetaTileEntity_MultiblockBase_EM::addClassicMufflerToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                4,
-                                setCasing,
-                                setMeta
-                        )
-                )
-                .addElement(
-                        'D', StructureUtility.ofHatchAdderOptional(
-                                GT_MetaTileEntity_MultiblockBase_EM::addDynamoToMachineList,
-                                textureIndex,
-                                TT_Container_Casings.sHintCasingsTT,
-                                5,
-                                setCasing,
-                                setMeta
-                        )
-                )
+    public static <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks> IStructureDefinition<T> getDefaultStructureDefinition(
+            String[][] structure,
+            int textureIndex,
+            Block setCasing,
+            int setMeta) {
+        return StructureDefinition.<T>builder()
+                .addShape("main", structure)
+                .addElement('b', ofBlock(setCasing, setMeta))
+                .addElement('B', ofBlock(setCasing, setMeta, Blocks.air, 0))
+                .addElement('s', ofBlockAdder(IAddsBlocks::addBlockToMachine, 8))
+                .addElement('S', ofBlockAdder(IAddsBlocks::addBlockToMachine, Blocks.air, 0))
+                .addElement('c', ofHatchAdderOptional(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicToMachineList,
+                        textureIndex,
+                        1,
+                        setCasing,
+                        setMeta))
+                .addElement('i', ofHatchAdder(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicInputToMachineList,
+                        textureIndex,
+                        2))
+                .addElement('o', ofHatchAdder(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicOutputToMachineList,
+                        textureIndex,
+                        3))
+                .addElement('e', ofHatchAdder(
+                        GT_MetaTileEntity_MultiblockBase_EM::addEnergyInputToMachineList,
+                        textureIndex,
+                        4))
+                .addElement('d', ofHatchAdder(
+                        GT_MetaTileEntity_MultiblockBase_EM::addDynamoToMachineList,
+                        textureIndex,
+                        5))
+                .addElement('p', ofHatchAdder(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicMufflerToMachineList,
+                        textureIndex,
+                        6))
+                .addElement('m', ofHatchAdder(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicMaintenanceToMachineList,
+                        textureIndex,
+                        7))
+                .addElement('C', ofHatchAdder(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicToMachineList,
+                        textureIndex,
+                        1))
+                .addElement('I', ofHatchAdderOptional(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicInputToMachineList,
+                        textureIndex,
+                        2,
+                        setCasing,
+                        setMeta))
+                .addElement('O', ofHatchAdderOptional(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicOutputToMachineList,
+                        textureIndex,
+                        3,
+                        setCasing,
+                        setMeta))
+                .addElement('E', ofHatchAdderOptional(
+                        GT_MetaTileEntity_MultiblockBase_EM::addEnergyInputToMachineList,
+                        textureIndex,
+                        4,
+                        setCasing,
+                        setMeta))
+                .addElement('D', ofHatchAdderOptional(
+                        GT_MetaTileEntity_MultiblockBase_EM::addDynamoToMachineList,
+                        textureIndex,
+                        5,
+                        setCasing,
+                        setMeta))
+                .addElement('P', ofHatchAdderOptional(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicMufflerToMachineList,
+                        textureIndex,
+                        6,
+                        setCasing,
+                        setMeta))
+                .addElement('M', ofHatchAdderOptional(
+                        GT_MetaTileEntity_MultiblockBase_EM::addClassicMaintenanceToMachineList,
+                        textureIndex,
+                        7,
+                        setCasing,
+                        setMeta))
                 .build();
     }
 
@@ -256,53 +184,52 @@ public class TT_Utils {
         private final int metaToBuildWith;
         private final Block specialBlock;
         private final int metaSpecialBlock;
-        private final int textureIndex;
-        private final IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> iStructureDefinition;
+        private final IStructureDefinition<?> iStructureDefinition;
 
         DefaultStructureDefinitions(GeometricInstances geometrics, Block toBuildWith, int metaToBuildWith, Block specialBlock, int metaSpecialBlock, int textureIndex) {
             this.geometrics = geometrics;
             this.toBuildWith = toBuildWith;
             this.metaToBuildWith = metaToBuildWith;
-            this.textureIndex = textureIndex;
-            this.iStructureDefinition = this.geometrics.getDefinition(this.textureIndex, this.toBuildWith, this.metaToBuildWith);
+            this.iStructureDefinition = this.geometrics.getDefinition(textureIndex, this.toBuildWith, this.metaToBuildWith);
             this.specialBlock = specialBlock;
             this.metaSpecialBlock = metaSpecialBlock;
         }
 
-        public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getStructureDefinition() {
-            return iStructureDefinition;
+        @SuppressWarnings("unchecked")
+        public <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks> IStructureDefinition<T> getStructureDefinition() {
+            return (IStructureDefinition<T>) iStructureDefinition;
         }
 
         public int getRequiredMufflers() {
-            return geometrics.getAmount(Muffler);
+            return geometrics.getAmount(MUFFLER);
         }
 
         public int getRequiredEnergyHatches() {
-            return geometrics.getAmount(Energy);
+            return geometrics.getAmount(ENERGY);
         }
 
         public int getRequiredDynamos() {
-            return geometrics.getAmount(Dynamo);
+            return geometrics.getAmount(DYNAMO);
         }
 
         public int getRequiredMaintenanceHatches() {
-            return geometrics.getAmount(Maintenance);
+            return geometrics.getAmount(MAINTENANCE);
         }
 
         public int getRequiredInputs() {
-            return geometrics.getAmount(Input);
+            return geometrics.getAmount(INPUT);
         }
 
         public int getRequiredOutputs() {
-            return geometrics.getAmount(Output);
+            return geometrics.getAmount(OUTPUT);
         }
 
         public int getRequiredBlocks() {
-            return geometrics.getAmount(Block);
+            return geometrics.getAmount(BLOCK);
         }
 
         public int getRequiredSpecialBlocks() {
-            return geometrics.getAmount(SpecialBlock);
+            return geometrics.getAmount(SPECIAL_BLOCK);
         }
 
         public int getHorizontalOffset() {
@@ -313,8 +240,12 @@ public class TT_Utils {
             return geometrics.verticalOffset;
         }
 
+        public int getDepthOffset() {
+            return geometrics.depthOffset;
+        }
+
         public int getDefaultHatches() {
-            return geometrics.getAmount(defaultInputOutputEnergy);
+            return geometrics.getAmount(DEFAULT_INPUT_OUTPUT_ENERGY);
         }
 
         public List<String> generateTooltip() {
@@ -344,13 +275,13 @@ public class TT_Utils {
                 {"111", "111", "111"},
                 {"1~1", "1-1", "111"},
                 {"111", "111", "111"}
-        }),
+        },1,1,0),
 
         CUBE_3x3x3_WithMuffler(new String[][]{
                 {"111", "1P1", "111"},
                 {"1~1", "1-1", "111"},
                 {"111", "111", "111"}
-        }),
+        },1,1,0),
 
         CUBE_5x5x5_WithMuffler(new String[][]{
                 {"11111", "11111", "11P11", "11111", "11111"},
@@ -358,21 +289,18 @@ public class TT_Utils {
                 {"11~11", "-----", "-----", "-----", "11111"},
                 {"11111", "-----", "-----", "-----", "11111"},
                 {"11111", "11111", "11111", "11111", "11111"},
-        });
+        },2,2,0);
 
         private final String[][] structure;
         private final int horizontalOffset;
         private final int verticalOffset;
+        private final int depthOffset;
 
-        GeometricInstances(String[][] structure) {
-            this(structure, 1, 1);
-
-        }
-
-        GeometricInstances(String[][] structure, int horizontalOffset, int verticalOffset) {
+        GeometricInstances(String[][] structure, int horizontalOffset, int verticalOffset, int depthOffset) {
             this.structure = structure;
             this.horizontalOffset = horizontalOffset;
             this.verticalOffset = verticalOffset;
+            this.depthOffset = depthOffset;
         }
 
         private int getAmount(int toCompareAgainst) {
@@ -382,12 +310,12 @@ public class TT_Utils {
                     .filter(c -> c == toCompareAgainst).sum();
         }
 
-        public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getDefinition(int textureIndex, Block setCasing, int setMeta) {
+        public <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks> IStructureDefinition<T> getDefinition(int textureIndex, Block setCasing, int setMeta) {
             return TT_Utils.getDefaultStructureDefinition(structure, textureIndex, setCasing, setMeta);
         }
 
         public String getDimensions() {
-            return structure.length + "x" + structure[0].length + "x" + structure.length;
+            return structure.length + "x" + structure[0].length + "x" + structure[0][0].length();
         }
     }
 
@@ -395,8 +323,8 @@ public class TT_Utils {
         FREEZER(DefaultStructureDefinitions.FREEZER_ALIKE,
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
-                new Pair<>("Freezer!", "Cools down ingots!"),
-                1);
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!"));
 
         final DefaultStructureDefinitions structure;
         final GT_Recipe.GT_Recipe_Map recipe_map;
@@ -404,18 +332,22 @@ public class TT_Utils {
         final String[] tooltip;
         final int maxParalellsPerTier;
 
-        MultiBlockDefinition(DefaultStructureDefinitions structure, GT_Recipe.GT_Recipe_Map recipe_map, boolean isPerfectOC, Pair<String, String> tooltip, int maxParalellsPerTier) {
+        MultiBlockDefinition(
+                DefaultStructureDefinitions structure,
+                GT_Recipe.GT_Recipe_Map recipe_map,
+                boolean isPerfectOC,
+                int maxParalellsPerTier,
+                List<String> tooltipLines) {
             this.structure = structure;
             this.recipe_map = recipe_map;
             this.isPerfectOC = isPerfectOC;
-            this.tooltip = getDescription(tooltip);
+            this.tooltip = getDescription(tooltipLines);
             this.maxParalellsPerTier = maxParalellsPerTier;
         }
 
-        private String[] getDescription(Pair<String, String> tooltip) {
+        private String[] getDescription(List<String> tooltipLines) {
             List<String> stringList = structure.generateTooltip();
-            stringList.set(0, tooltip.getKey());
-            stringList.set(1, tooltip.getValue());
+            stringList.addAll(0,tooltipLines);
             return stringList.toArray(new String[0]);
         }
 

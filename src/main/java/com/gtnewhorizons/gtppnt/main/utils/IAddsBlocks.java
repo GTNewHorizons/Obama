@@ -21,18 +21,17 @@
 package com.gtnewhorizons.gtppnt.main.utils;
 
 import com.github.bartimaeusnek.bartworks.util.Pair;
+import com.github.technus.tectech.mechanics.structure.adders.IBlockAdder;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.block.Block;
 
 import java.util.List;
 
 public interface IAddsBlocks {
-
-    static boolean addBlockToMachine(IGregTechTileEntity iGregTechTileEntity, Block var2, Integer var3) {
-        IAddsBlocks metaMachine = ((IAddsBlocks) iGregTechTileEntity.getMetaTileEntity());
-        Pair<Block, Integer> compareAgainst = metaMachine.getRequiredSpecialBlock();
-        if (var2.equals(compareAgainst.getKey()) && var3.equals(compareAgainst.getValue())) {
-            metaMachine.getSpecialBlocks().add(new Pair<>(var2, var3));
+    default boolean addBlockToMachine(Block block, Integer meta) {
+        Pair<Block, Integer> compareAgainst = getRequiredSpecialBlock();
+        if (meta.equals(compareAgainst.getValue()) && block.equals(compareAgainst.getKey())) {
+            getSpecialBlocks().add(new Pair<>(block, meta));
             return true;
         }
         return false;

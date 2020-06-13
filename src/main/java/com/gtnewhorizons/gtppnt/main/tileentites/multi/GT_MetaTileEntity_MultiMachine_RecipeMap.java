@@ -84,7 +84,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
         return this.structureCheck_EM("main",
                 multiBlockDefinition.getStructure().getHorizontalOffset(),
                 multiBlockDefinition.getStructure().getVerticalOffset(),
-                0
+                multiBlockDefinition.getStructure().getDepthOffset()
         );
     }
 
@@ -181,7 +181,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     }
 
     @Override
-    public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getStructure_EM() {
+    public IStructureDefinition<GT_MetaTileEntity_MultiMachine_RecipeMap> getStructure_EM() {
         return multiBlockDefinition.getStructure().getStructureDefinition();
     }
 
