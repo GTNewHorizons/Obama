@@ -39,7 +39,9 @@ buildscript {
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.undercouch.gradle.tasks.download.Download
+plugins {
+    id "de.undercouch.download" version "4.0.4"
+}
 
 apply plugin: 'forge'
 apply plugin: 'signing'
