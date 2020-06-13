@@ -201,8 +201,12 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     }
 
     @Override
-    public void construct(ItemStack itemStack, boolean b) {
-        //todo generic call to construct???
+    public void construct(ItemStack itemStack, boolean hintsOnly) {
+        structureBuild_EM("main",
+                multiBlockDefinition.getStructure().getHorizontalOffset(),
+                multiBlockDefinition.getStructure().getVerticalOffset(),
+                multiBlockDefinition.getStructure().getDepthOffset(),
+                hintsOnly,itemStack);
     }
 
     @Override
