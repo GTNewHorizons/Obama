@@ -21,15 +21,19 @@
 package com.gtnewhorizons.gtppnt.main.utils;
 
 import com.github.bartimaeusnek.bartworks.util.Pair;
+import com.github.technus.tectech.TecTech;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.mechanics.structure.StructureDefinition;
+import com.github.technus.tectech.mechanics.structure.StructureUtility;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import gregtech.api.GregTech_API;
 import gregtech.api.util.GT_LanguageManager;
 import gregtech.api.util.GT_Recipe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +45,7 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 
 //TODO: Test this SHIT
 public class TT_Utils {
+
     public static final char DEFAULT_INPUT_OUTPUT_ENERGY = 'c';
     public static final char INPUT = 'i';
     public static final char OUTPUT = 'o';
@@ -50,6 +55,16 @@ public class TT_Utils {
     public static final char MAINTENANCE = 'm';
     public static final char BLOCK = 'b';
     public static final char SPECIAL_BLOCK = 's';
+
+    public static final char OPTIONAL_DEFAULT_INPUT_OUTPUT_ENERGY = 'C';
+    public static final char OPTIONAL_INPUT = 'I';
+    public static final char OPTIONAL_OUTPUT = 'O';
+    public static final char OPTIONAL_ENERGY = 'E';
+    public static final char OPTIONAL_DYNAMO = 'D';
+    public static final char OPTIONAL_MUFFLER = 'P';
+    public static final char OPTIONAL_MAINTENANCE = 'M';
+    public static final char OPTIONAL_BLOCK = 'B';
+    public static final char OPTIONAL_SPECIAL_BLOCK = 'S';
 
     /**
      * Creates a Multiblock Definition
@@ -90,6 +105,7 @@ public class TT_Utils {
      * @param setMeta      Casing Block Meta which is used to build the Multiblock
      * @return IStructureDefinition for your Multiblock
      */
+    @SuppressWarnings("deprecation")
     public static <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks> IStructureDefinition<T> getDefaultStructureDefinition(
             String[][] structure,
             int textureIndex,
@@ -199,6 +215,42 @@ public class TT_Utils {
             return (IStructureDefinition<T>) iStructureDefinition;
         }
 
+        public int getOptionalMufflers() {
+            return geometrics.getAmount(OPTIONAL_MUFFLER);
+        }
+
+        public int getOptionalEnergyHatches() {
+            return geometrics.getAmount(OPTIONAL_ENERGY);
+        }
+
+        public int getOptionalDynamos() {
+            return geometrics.getAmount(OPTIONAL_DYNAMO);
+        }
+
+        public int getOptionalMaintenanceHatches() {
+            return geometrics.getAmount(OPTIONAL_MAINTENANCE);
+        }
+
+        public int getOptionalInputs() {
+            return geometrics.getAmount(OPTIONAL_INPUT);
+        }
+
+        public int getOptionalOutputs() {
+            return geometrics.getAmount(OPTIONAL_OUTPUT);
+        }
+
+        public int getOptionalBlocks() {
+            return geometrics.getAmount(OPTIONAL_BLOCK);
+        }
+
+        public int getOptionalSpecialBlocks() {
+            return geometrics.getAmount(OPTIONAL_SPECIAL_BLOCK);
+        }
+
+        public int getOptionalDefaultHatches() {
+            return geometrics.getAmount(OPTIONAL_DEFAULT_INPUT_OUTPUT_ENERGY);
+        }
+
         public int getRequiredMufflers() {
             return geometrics.getAmount(MUFFLER);
         }
@@ -243,23 +295,75 @@ public class TT_Utils {
             return geometrics.depthOffset;
         }
 
-        public int getDefaultHatches() {
+        public int getRequiredDefaultHatches() {
             return geometrics.getAmount(DEFAULT_INPUT_OUTPUT_ENERGY);
         }
 
         public List<String> generateTooltip() {
-            return Stream.of("<--Filled out by MultiBlockClass-->",
-                    "<--Filled out by MultiBlockClass-->",
+            int required_in = getRequiredInputs(),
+                    required_out = getRequiredOutputs(),
+                    required_maint = getRequiredMaintenanceHatches(),
+                    required_energy = getRequiredEnergyHatches(),
+                    required_dynamo = getRequiredDynamos(),
+                    required_muffler = getRequiredMufflers(),
+                    required_special = getRequiredSpecialBlocks(),
+                    required_blocks = getRequiredBlocks(),
+                    required_defaults = getRequiredDefaultHatches();
+            boolean has_requireds =
+                    required_in > 0 ||
+                            required_out > 0 ||
+                            required_maint > 0 ||
+                            required_energy > 0 ||
+                            required_dynamo > 0 ||
+                            required_muffler > 0 ||
+                            required_special > 0 ||
+                            required_blocks > 0 ||
+                            required_defaults > 0;
+            int optional_in = getOptionalInputs(),
+                    optional_out = getOptionalOutputs(),
+                    optional_maint = getOptionalMaintenanceHatches(),
+                    optional_energy = getOptionalEnergyHatches(),
+                    optional_dynamo = getOptionalDynamos(),
+                    optional_muffler = getOptionalMufflers(),
+                    optional_special = getOptionalSpecialBlocks(),
+                    optional_blocks = getOptionalBlocks(),
+                    optional_defaults = getOptionalDefaultHatches();
+            boolean has_optional =
+                    optional_in > 0 ||
+                            optional_out > 0 ||
+                            optional_maint > 0 ||
+                            optional_energy > 0 ||
+                            optional_dynamo > 0 ||
+                            optional_muffler > 0 ||
+                            optional_special > 0 ||
+                            optional_blocks > 0 ||
+                            optional_defaults > 0;
+            String special = specialBlock != null ? GT_LanguageManager.getTranslation(GT_LanguageManager.getTranslateableItemStackName(new ItemStack(specialBlock, 1, metaSpecialBlock))) : null,
+                    block = toBuildWith != null ? GT_LanguageManager.getTranslation(GT_LanguageManager.getTranslateableItemStackName(new ItemStack(toBuildWith, 1, metaToBuildWith))) : null;
+
+            return Stream.of(
                     "Size(WxHxD): " + geometrics.getDimensions() + " (Hollow), Controller (Front centered)",
-                    getDefaultHatches() + getRequiredInputs() > 0 ? getRequiredInputs() + getDefaultHatches() + "x Inputs" : null,
-                    getDefaultHatches() + getRequiredOutputs() > 0 ? getRequiredOutputs() + getDefaultHatches() + "x Outputs" : null,
-                    getRequiredMaintenanceHatches() > 0 ? getRequiredMaintenanceHatches() + "x Maintenance Hatch" : null,
-                    getDefaultHatches() + getRequiredEnergyHatches() > 0 ? getRequiredEnergyHatches() + getDefaultHatches() + "x Energy Hatch" : null,
-                    getRequiredDynamos() > 0 ? getRequiredDynamos() + "x Dynamo Hatch" : null,
-                    getRequiredMufflers() > 0 ? getRequiredMufflers() + "x Muffler Hatch" : null,
-                    getRequiredSpecialBlocks() > 0 ? getRequiredSpecialBlocks() + "x " + GT_LanguageManager.getTranslation(GT_LanguageManager.getTranslateableItemStackName(new ItemStack(specialBlock, 1, metaSpecialBlock))) : null,
-                    getRequiredBlocks() > 0 ? getRequiredBlocks() + "x " + GT_LanguageManager.getTranslation(GT_LanguageManager.getTranslateableItemStackName(new ItemStack(toBuildWith, 1, metaToBuildWith))) : null,
-                    "For more information use TecTechs Blueprint!"
+                    has_requireds ? "Required:" : null,
+                    required_defaults + required_in > 0 ? required_in + required_defaults + "x Inputs" : null,
+                    required_defaults + required_out > 0 ? required_out + required_defaults + "x Outputs" : null,
+                    required_maint > 0 ? required_maint + "x Maintenance Hatches" : null,
+                    required_defaults + required_energy > 0 ? required_energy + required_defaults + "x Energy Hatches" : null,
+                    required_dynamo > 0 ? required_dynamo + "x Dynamo Hatches" : null,
+                    required_muffler > 0 ? required_muffler + "x Muffler Hatches" : null,
+                    required_special > 0 ? required_special + "x " + special : null,
+                    required_blocks > 0 ? required_blocks + "x " + block : null,
+                    has_requireds && has_optional ? "In addition to that," : null,
+                    has_optional ? "Optional, up to:" : null,
+                    optional_defaults + optional_in > 0 ? optional_in + optional_defaults + "+ Inputs" : null,
+                    optional_defaults + optional_out > 0 ? optional_out + optional_defaults + "+ Outputs" : null,
+                    optional_maint > 0 ? optional_maint + "+ Maintenance Hatches" : null,
+                    optional_defaults + optional_energy > 0 ? optional_energy + optional_defaults + "+ Energy Hatches" : null,
+                    optional_dynamo > 0 ? optional_dynamo + "+ Dynamo Hatches" : null,
+                    optional_muffler > 0 ? optional_muffler + "+ Muffler Hatches" : null,
+                    optional_special > 0 ? optional_special + "+ " + special : null,
+                    optional_blocks > 0 ? optional_blocks + "+ " + block : null,
+                    " ",
+                    "For more information use " + EnumChatFormatting.AQUA + "TecTech's Blueprint!"
             ).filter(Objects::nonNull).collect(Collectors.toList());
         }
 
@@ -284,9 +388,9 @@ public class TT_Utils {
 
         CUBE_5x5x5_WithMuffler(new String[][]{
                 {"CCCCC", "CCCCC", "CCPCC", "CCCCC", "CCCCC"},
-                {"CCCCC", "-----", "-----", "-----", "CCCCC"},
-                {"CC~CC", "-----", "-----", "-----", "CCCCC"},
-                {"CCCCC", "-----", "-----", "-----", "CCCCC"},
+                {"CCCCC", "C---C", "C---C", "C---C", "CCCCC"},
+                {"CC~CC", "C---C", "C---C", "C---C", "CCCCC"},
+                {"CCCCC", "C---C", "C---C", "C---C", "CCCCC"},
                 {"CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC"},
         },2,2,0);
 
@@ -296,17 +400,17 @@ public class TT_Utils {
         private final int depthOffset;
 
         GeometricInstances(String[][] structure, int horizontalOffset, int verticalOffset, int depthOffset) {
-            this.structure = structure;
+            this.structure = StructureUtility.transpose(structure);
             this.horizontalOffset = horizontalOffset;
             this.verticalOffset = verticalOffset;
             this.depthOffset = depthOffset;
         }
 
         private int getAmount(int toCompareAgainst) {
-            return Arrays.stream(structure)
+            return (int) Arrays.stream(structure)
                     .flatMap(Arrays::stream)
                     .flatMapToInt(CharSequence::chars)
-                    .filter(c -> c == toCompareAgainst).sum();
+                    .filter(c -> c == toCompareAgainst).count();
         }
 
         public <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks> IStructureDefinition<T> getDefinition(int textureIndex, Block setCasing, int setMeta) {
@@ -323,7 +427,9 @@ public class TT_Utils {
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
                 1,
-                Arrays.asList("Freezer!", "Cools down ingots!"));
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        ;
 
         final DefaultStructureDefinitions structure;
         final GT_Recipe.GT_Recipe_Map recipe_map;
