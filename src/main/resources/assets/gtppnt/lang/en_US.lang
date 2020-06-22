@@ -1,0 +1,48 @@
+#Multiblocks
+gt.blockmachines.multimachine.tm.industrial_centrifuge.name=Industrial Centrifuge
+
+gt.blockmachines.multimachine.tm.industrial_material_press.name=Industrial Material Press
+
+gt.blockmachines.multimachine.tm.industrial_electrolyzer.name=Industrial Electrolyzer
+
+gt.blockmachines.multimachine.tm.maceration_stack.name=Maceration Stack
+
+gt.blockmachines.multimachine.tm.wire_factory.name=Wire Factory
+
+gt.blockmachines.multimachine.tm.alloy_blast_smelter.name=Alloy Blast Smelter
+
+gt.blockmachines.multimachine.tm.industrial_mixer.name=Industrial Mixer
+
+gt.blockmachines.multimachine.tm.large_sifter.name=Large Sifter
+
+gt.blockmachines.multimachine.tm.large_thermal_refinery.name=Large Thermal Refinery
+
+gt.blockmachines.multimachine.tm.ore_washing_plant.name=Ore Washing Plant
+
+gt.blockmachines.multimachine.tm.industrial_extrusion_machine.name=Industrial Extrusion Machine
+
+gt.blockmachines.multimachine.tm.high_current_industrial_arc_furnace.name=High Current Industrial Arc Furnace
+
+gt.blockmachines.multimachine.tm.thermal_boiler.name=Thermal Boiler
+
+gt.blockmachines.multimachine.tm.large_scale_auto_assembler.name=Large Scale Auto Assembler
+
+gt.blockmachines.multimachine.tm.cryogenic_freezer.name=Cryogenic Freezer
+
+gt.blockmachines.multimachine.tm.packaging_r_us.name=Packaging R US
+
+gt.blockmachines.multimachine.tm.cutting_factory.name=Cutting Factory
+
+gt.blockmachines.multimachine.tm.gregodyne_59f_engine.name=Gregodyne 59F Engine
+
+gt.blockmachines.multimachine.tm.kerotronics_chemical_plant.name=Kerotronics Chemical Plant
+
+gt.blockmachines.multimachine.tm.combinational_smelt_o_tron.name=Combinational Smelt-O-Tron
+
+gt.blockmachines.multimachine.tm.lpr_advanced_compressor.name=Advanced Compressor
+
+gt.blockmachines.multimachine.tm.lpr_advanced_lathe.name=Advanced Lathe
+
+gt.blockmachines.multimachine.tm.lpr_advanced_precision_laser.name=Advanced Precision Laser
+
+gt.blockmachines.multimachine.tm.lpr_advanced_autoclave.name=Advanced Autoclave
