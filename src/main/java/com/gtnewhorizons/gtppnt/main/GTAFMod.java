@@ -25,6 +25,7 @@ import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass;
 import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsExtraRecipeLoader;
 import com.gtnewhorizons.gtppnt.main.config.ConfigHandler;
 import com.gtnewhorizons.gtppnt.main.loaders.CableAndWireLoader;
+import com.gtnewhorizons.gtppnt.main.loaders.CasingLoader;
 import com.gtnewhorizons.gtppnt.main.loaders.MultiBlockLoader;
 import com.gtnewhorizons.gtppnt.main.loaders.SingleBlockLoadingClass;
 import com.gtnewhorizons.gtppnt.main.utils.GTAFRecipes;
@@ -64,6 +65,7 @@ public class GTAFMod {
     public void init(FMLInitializationEvent event) {
         SingleBlockLoadingClass.load();
         CableAndWireLoader.load();
+        CasingLoader.load();
         MultiBlockLoader.load();
         if (DEBUG)
             IntStream.range(0, GregTech_API.METATILEENTITIES.length).filter(i -> GregTech_API.METATILEENTITIES[i] != null).forEach(LOGGER::info);
