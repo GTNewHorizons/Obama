@@ -1,50 +1,26 @@
 #Multiblocks
 gt.blockmachines.multimachine.tm.large_centrifuge.name=Large Centrifuge
-
 gt.blockmachines.multimachine.tm.large_bending_machine.name=Large Bending Machine
-
 gt.blockmachines.multimachine.tm.large_electrolyzer.name=Large Electrolyzer
-
 gt.blockmachines.multimachine.tm.large_macerator.name=Large Macerator
-
-gt.blockmachines.multimachine.tm.large_wiremill.name=Large wiremill
-
+gt.blockmachines.multimachine.tm.large_wiremill.name=Large Wiremill
 gt.blockmachines.multimachine.tm.large_mixer.name=Large Mixer
-
 gt.blockmachines.multimachine.tm.large_sifting_machine.name=Large Sifting Machine
-
 gt.blockmachines.multimachine.tm.large_thermal_centrifuge.name=Large Thermal Centrifuge
-
 gt.blockmachines.multimachine.tm.large_ore_washing_plant.name=Large Ore Washing Plant
-
 gt.blockmachines.multimachine.tm.large_extruder.name=Large Extruder
-
 gt.blockmachines.multimachine.tm.large_arc_furnace.name=Large Arc Furnace
-
 gt.blockmachines.multimachine.tm.large_fluid_heater.name=Large Fluid Heater
-
 gt.blockmachines.multimachine.tm.large_assembling_machine.name=Large Assembling Machine
-
 gt.blockmachines.multimachine.tm.large_packager.name=Large Packager
-
 gt.blockmachines.multimachine.tm.large_cutting_machine.name=Large Cutting Machine
-
 gt.blockmachines.multimachine.tm.large_compressor.name=Large Compressor
-
 gt.blockmachines.multimachine.tm.large_lathe.name=Large Lathe
-
 gt.blockmachines.multimachine.tm.large_precision_laser_engraver.name=Large Precision Laser Engraver
-
 gt.blockmachines.multimachine.tm.large_autoclave.name=Large Autoclave
-
 gt.blockmachines.multimachine.tm.large_fermenter.name=Large Fermenter
-
 gt.blockmachines.multimachine.tm.large_extractor.name=Large Extractor
-
 gt.blockmachines.multimachine.tm.large_fluid_extractor.name=Large Fluid Extractor
-
 gt.blockmachines.multimachine.tm.large_polarizer.name=Large Polarizer
-
 gt.blockmachines.multimachine.tm.large_fluid_solifier.name=Fluid Solifier
-
 gt.blockmachines.multimachine.tm.large_forming_press.name=Large Forming Press

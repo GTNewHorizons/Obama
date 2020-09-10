@@ -20,6 +20,7 @@
 
 package com.gtnewhorizons.gtppnt.main.utils;
 
+import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
 import com.github.bartimaeusnek.bartworks.util.Pair;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.mechanics.structure.StructureDefinition;
@@ -189,7 +190,7 @@ public class TT_Utils {
     }
 
     public enum DefaultStructureDefinitions {
-        FREEZER_ALIKE(GeometricInstances.CUBE_3x3x3, GregTech_API.sBlockCasings2, 1, null, 0, 17),
+        FREEZER_ALIKE(GeometricInstances.CUBE_3x3x3, WerkstoffLoader.BWBlockCasings, 30005, null, 0, 17),
         LARGE_PROCCESSING_FACTORY(GeometricInstances.CUBE_3x3x3, GregTech_API.sBlockCasings2, 1, null, 0, 17)
 
         ;
@@ -429,31 +430,31 @@ public class TT_Utils {
         //        1,
         //        Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        INDUSTRIAL_CENTRIFUGE(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_CENTRIFUGE(DefaultStructureDefinitions.FREEZER_ALIKE,
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        INDUSTRIAL_MATERIAL_PRESS(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_BENDING_MACHINE(DefaultStructureDefinitions.FREEZER_ALIKE,
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        INDUSTRIAL_ELECTROLYZER(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_ELECTROLYZER(DefaultStructureDefinitions.FREEZER_ALIKE,
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        MACERATION_STACK(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_MACERATOR(DefaultStructureDefinitions.FREEZER_ALIKE,
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        WIRE_FACTORY(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_WIREMILL(DefaultStructureDefinitions.FREEZER_ALIKE,
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
                 1,
@@ -465,19 +466,19 @@ public class TT_Utils {
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        INDUSTRIAL_MIXER(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_MIXER(DefaultStructureDefinitions.FREEZER_ALIKE,
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_SIFTER(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_SIFTING_MACHINE(DefaultStructureDefinitions.FREEZER_ALIKE,
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_THERMAL_REFINERY(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_THERMAL_CENTRIFUGE(DefaultStructureDefinitions.FREEZER_ALIKE,
                 GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
                 false,
                 1,
