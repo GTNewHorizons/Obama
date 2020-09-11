@@ -134,7 +134,7 @@ public class MaterialsClass implements Runnable {
             "Potin",
             new Werkstoff.Stats().setCentrifuge(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addCasings().addMixerRecipes().enforceUnification(),
             30005,
             SET_DULL,
             new Pair<>(Bronze, 2),

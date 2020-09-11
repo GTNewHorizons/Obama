@@ -110,107 +110,212 @@ public class MultiBlockLoader {
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31029,
-                "multimachine.tm.ore_washing_plant",
-                "Ore Washing Plant",
-                TT_Utils.MultiBlockDefinition.ORE_WASHING_PLANT
+                "multimachine.tm.large_ore_washing_plant",
+                "Large Ore Washing Plant",
+                TT_Utils.MultiBlockDefinition.LARGE_ORE_WASHING_PLANT
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31030,
-                "multimachine.tm.industrial_extrusion_machine",
-                "Industrial Extrusion Machine",
-                TT_Utils.MultiBlockDefinition.INDUSTRIAL_EXTRUSION_MACHINE
+                "multimachine.tm.large_extruder",
+                "Large Extruder",
+                TT_Utils.MultiBlockDefinition.LARGE_EXTRUDER
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31031,
-                "multimachine.tm.high_current_industrial_arc_furnace",
-                "High Current Industrial Arc Furnace",
-                TT_Utils.MultiBlockDefinition.HIGH_CURRENT_INDUSTRIAL_ARC_FURNACE
+                "multimachine.tm.large_arc_furnace",
+                "Large Arc Furnace",
+                TT_Utils.MultiBlockDefinition.LARGE_ARC_FURNACE
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31032,
-                "multimachine.tm.thermal_boiler",
-                "Thermal Boiler",
-                TT_Utils.MultiBlockDefinition.THERMAL_BOILER
+                "multimachine.tm.large_fluid_heater",
+                "Large Fluid Heater",
+                TT_Utils.MultiBlockDefinition.LARGE_FLUID_HEATER
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31033,
-                "multimachine.tm.large_scale_auto_assembler",
-                "Large Scale Auto Assembler",
-                TT_Utils.MultiBlockDefinition.LARGE_SCALE_AUTO_ASSEMBLER
+                "multimachine.tm.large_assembling_machine",
+                "Large Assembling Machine",
+                TT_Utils.MultiBlockDefinition.LARGE_ASSEMBLING_MACHINE
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31034,
-                "multimachine.tm.cryogenic_freezer",
-                "Cryogenic Freezer",
-                TT_Utils.MultiBlockDefinition.CRYOGENIC_FREEZER
+                "multimachine.tm.large_circuit_assembling_machine",
+                "Large Circuit Assembling Machine",
+                TT_Utils.MultiBlockDefinition.LARGE_CIRCUIT_ASSEMBLING_MACHINE
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31035,
-                "multimachine.tm.packaging_r_us",
-                "Packaging R US",
-                TT_Utils.MultiBlockDefinition.PACKAGING_R_US
+                "multimachine.tm.large_packager",
+                "Large Packager",
+                TT_Utils.MultiBlockDefinition.LARGE_PACKAGER
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31036,
-                "multimachine.tm.cutting_factory",
-                "Cutting Factory",
-                TT_Utils.MultiBlockDefinition.CUTTING_FACTORY
+                "multimachine.tm.large_cutting_machine",
+                "Large Cutting Machine",
+                TT_Utils.MultiBlockDefinition.LARGE_CUTTING_MACHINE
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31037,
-                "multimachine.tm.gregodyne_59f_engine",
-                "Gregodyne 59F Engine",
-                TT_Utils.MultiBlockDefinition.GREGODYNE_59F_ENGINE
+                "multimachine.tm.large_alloy_smelter",
+                "Large Alloy Smelter",
+                TT_Utils.MultiBlockDefinition.LARGE_ALLOY_SMELTER
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31038,
-                "multimachine.tm.kerotronics_chemical_plant",
-                "Kerotronics Chemical Plant",
-                TT_Utils.MultiBlockDefinition.KEROTRONICS_CHEMICAL_PLANT
+                "multimachine.tm.large_compressor",
+                "Large Compressor",
+                TT_Utils.MultiBlockDefinition.LARGE_COMPRESSOR
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31039,
-                "multimachine.tm.combinational_smelt_o_tron",
-                "Combinational Smelt-O-Tron",
-                TT_Utils.MultiBlockDefinition.COMBINATIONAL_SMELT_O_TRON
+                "multimachine.tm.large_lathe",
+                "Large Lathe",
+                TT_Utils.MultiBlockDefinition.LARGE_LATHE
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31040,
-                "multimachine.tm.lpr_advanced_compressor",
-                "Advanced Compressor",
-                TT_Utils.MultiBlockDefinition.LPR_ADVANCED_COMPRESSOR
+                "multimachine.tm.large_precision_laser_engraver",
+                "Large Precision Laser Engraver",
+                TT_Utils.MultiBlockDefinition.LARGE_PRECISION_LASER_ENGRAVER
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31041,
-                "multimachine.tm.lpr_advanced_lathe",
-                "Advanced Lathe",
-                TT_Utils.MultiBlockDefinition.LPR_ADVANCED_LATHE
+                "multimachine.tm.large_autoclave",
+                "Large Autoclave",
+                TT_Utils.MultiBlockDefinition.LARGE_AUTOCLAVE
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31042,
-                "multimachine.tm.lpr_advanced_precision_laser",
-                "Advanced Precision Laser",
-                TT_Utils.MultiBlockDefinition.LPR_ADVANCED_PRECISION_LASER
+                "multimachine.tm.large_fermenter",
+                "Large Fermenter",
+                TT_Utils.MultiBlockDefinition.LARGE_FERMENTER
         );
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31043,
-                "multimachine.tm.lpr_advanced_autoclave",
-                "Advanced Autoclave",
-                TT_Utils.MultiBlockDefinition.LPR_ADVANCED_AUTOCLAVE
+                "multimachine.tm.large_extractor",
+                "Large Extractor",
+                TT_Utils.MultiBlockDefinition.LARGE_EXTRACTOR
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31044,
+                "multimachine.tm.large_fluid_extractor",
+                "Large Fluid Extractor",
+                TT_Utils.MultiBlockDefinition.LARGE_FLUID_EXTRACTOR
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31045,
+                "multimachine.tm.large_polarizer",
+                "Large Polarizer",
+                TT_Utils.MultiBlockDefinition.LARGE_POLARIZER
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31046,
+                "multimachine.tm.large_fluid_solifier",
+                "Large Solifier",
+                TT_Utils.MultiBlockDefinition.LARGE_FLUID_SOLIFIER
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31047,
+                "multimachine.tm.large_forming_press",
+                "Large Forming Press",
+                TT_Utils.MultiBlockDefinition.LARGE_FORMING_PRESS
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31048,
+                "multimachine.tm.large_slicing_machine",
+                "Large Slicing Machine",
+                TT_Utils.MultiBlockDefinition.LARGE_SLICING_MACHINE
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31049,
+                "multimachine.tm.large_recycler",
+                "Large Recycler",
+                TT_Utils.MultiBlockDefinition.LARGE_RECYCLER
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31050,
+                "multimachine.tm.large_microwave",
+                "Large Microwave",
+                TT_Utils.MultiBlockDefinition.LARGE_MICROWAVE
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31051,
+                "multimachine.tm.large_plasma_arc_furnace",
+                "Large Plasma Arc Furnace",
+                TT_Utils.MultiBlockDefinition.LARGE_PLASMA_ARC_FURNACE
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31052,
+                "multimachine.tm.large_printer",
+                "Large Printer",
+                TT_Utils.MultiBlockDefinition.LARGE_PRINTER
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31053,
+                "multimachine.tm.large_electromagnetic_separator",
+                "Large Electromagnetic Separator",
+                TT_Utils.MultiBlockDefinition.LARGE_ELECTROMAGNETIC_SEPARATOR
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31054,
+                "multimachine.tm.large_chemical_bath",
+                "Large Chemical Bath",
+                TT_Utils.MultiBlockDefinition.LARGE_CHEMICAL_BATH
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31055,
+                "multimachine.tm.large_fluid_canner",
+                "Large Fluid Canner",
+                TT_Utils.MultiBlockDefinition.LARGE_FLUID_CANNER
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31056,
+                "multimachine.tm.large_brewery",
+                "Large Brewery",
+                TT_Utils.MultiBlockDefinition.LARGE_BREWERY
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31057,
+                "multimachine.tm.large_canning_machine",
+                "Large Canning Machine",
+                TT_Utils.MultiBlockDefinition.LARGE_CANNING_MACHINE
+        );
+
+        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+                31058,
+                "multimachine.tm.large_forge_hammer",
+                "Large Forge Hammer",
+                TT_Utils.MultiBlockDefinition.LARGE_FORGE_HAMMER
         );
     }
 }
