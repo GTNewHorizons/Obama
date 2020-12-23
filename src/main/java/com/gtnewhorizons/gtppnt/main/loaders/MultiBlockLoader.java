@@ -24,6 +24,8 @@ import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap;
 import com.gtnewhorizons.gtppnt.main.utils.TT_Utils;
 
+import static com.gtnewhorizons.gtppnt.main.items.CustomItemList.LARGE_CENTRIFUGE;
+
 public class MultiBlockLoader {
 
     private MultiBlockLoader() {
@@ -52,12 +54,12 @@ public class MultiBlockLoader {
         //        TT_Utils.MultiBlockDefinition.FREEZER
         //);
 
-        new GT_MetaTileEntity_MultiMachine_RecipeMap(
+        LARGE_CENTRIFUGE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31021,
                 "multimachine.tm.large_centrifuge",
                 "Large Centrifuge",
                 TT_Utils.MultiBlockDefinition.LARGE_CENTRIFUGE
-        );
+        ).getStackForm(1L));
 
         new GT_MetaTileEntity_MultiMachine_RecipeMap(
                 31022,

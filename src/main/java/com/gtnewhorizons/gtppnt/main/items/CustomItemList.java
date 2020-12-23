@@ -11,7 +11,8 @@ import net.minecraft.item.ItemStack;
 import static gregtech.api.enums.GT_Values.W;
 
 public enum CustomItemList implements IItemContainer {
-    tM_TestCasing_0, tM_TestCasing_1, tM_TestCasing_2, tM_TestCasing_3, tM_TestCasing_4, tM_TestCasing_5, tM_TestCasing_6, tM_TestCasing_7, tM_TestCasing_8, tM_TestCasing_9, tM_TestCasing_10, tM_TestCasing_11, tM_TestCasing_12, tM_TestCasing_13, tM_TestCasing_14, tM_TestCasing_15
+    LARGE_CENTRIFUGE
+
     ;
 
     private ItemStack mStack;

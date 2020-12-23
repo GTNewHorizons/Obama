@@ -24,31 +24,40 @@ import com.github.bartimaeusnek.bartworks.util.Pair;
 import com.github.technus.tectech.mechanics.constructable.IConstructable;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.gtnewhorizons.gtppnt.main.utils.IAddsBlocks;
 import com.gtnewhorizons.gtppnt.main.utils.MultiBlockUtils;
 import com.gtnewhorizons.gtppnt.main.utils.TT_Utils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.Textures;
+import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Recipe;
 import gregtech.api.util.GT_Utility;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.texturePage;
+
+
 //TODO: Test this SHIT
-public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_MultiblockBase_EM
-        implements IAddsBlocks, IConstructable/* this interface adds blueprinting option*/ {
+public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_MultiblockBase_EM implements
+        IAddsBlocks, IConstructable/* this interface adds blueprinting option*/ {
 
     private GT_Recipe buffered_Recipe;
     private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
-
     private TT_Utils.MultiBlockDefinition multiBlockDefinition;
+
+    private static final Map<String, Textures.BlockIcons.CustomIcon> ScreensOFF = new HashMap<>();
+    private static final Map<String, Textures.BlockIcons.CustomIcon> ScreensON = new HashMap<>();
 
     public GT_MetaTileEntity_MultiMachine_RecipeMap(int aID,
                                                     String aName,
@@ -61,6 +70,32 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     public GT_MetaTileEntity_MultiMachine_RecipeMap(String aName, TT_Utils.MultiBlockDefinition multiBlockDefinition) {
         super(aName);
         this.multiBlockDefinition = multiBlockDefinition;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister aBlockIconRegister) {
+        super.registerIcons(aBlockIconRegister);
+        String name = multiBlockDefinition.name();
+        ScreensOFF.put(name, new Textures.BlockIcons.CustomIcon("iconsets/TM_" + multiBlockDefinition.name()));
+        ScreensON.put(name, new Textures.BlockIcons.CustomIcon("iconsets/TM_" + multiBlockDefinition.name() + "_ACTIVE"));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, byte aSide, byte aFacing, byte aColorIndex, boolean aActive, boolean aRedstone) {
+        int textureID = multiBlockDefinition.getStructure().getTextureIndex();
+        ITexture[] textures;
+
+        if (aSide == aFacing) {
+            String name = multiBlockDefinition.name();
+            Textures.BlockIcons.CustomIcon aScreenOFF = ScreensOFF.get(name);
+            Textures.BlockIcons.CustomIcon aScreenON = ScreensON.get(name);
+            textures = new ITexture[]{Textures.BlockIcons.casingTexturePages[texturePage][textureID], new TT_RenderedExtendedFacingTexture(aActive ? aScreenON : aScreenOFF)};
+        } else {
+            textures = new ITexture[]{Textures.BlockIcons.casingTexturePages[texturePage][textureID]};
+        }
+        return textures;
     }
 
     public String[] getDescription() {
@@ -206,7 +241,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
                 multiBlockDefinition.getStructure().getHorizontalOffset(),
                 multiBlockDefinition.getStructure().getVerticalOffset(),
                 multiBlockDefinition.getStructure().getDepthOffset(),
-                hintsOnly,itemStack);
+                hintsOnly, itemStack);
     }
 
     @Override

@@ -41,11 +41,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
+import static com.gtnewhorizons.gtppnt.main.CommonValues.TM_MARK;
+import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.BASIC_START_INDEX;
 
 //TODO: Test this SHIT
 public class TT_Utils {
 
-    public static final char DEFAULT_INPUT_OUTPUT_ENERGY = 'c';
+    public static final char REQUIRED_ANY_HATCH = 'c';
     public static final char INPUT = 'i';
     public static final char OUTPUT = 'o';
     public static final char ENERGY = 'e';
@@ -55,7 +57,7 @@ public class TT_Utils {
     public static final char BLOCK = 'b';
     public static final char SPECIAL_BLOCK = 's';
 
-    public static final char OPTIONAL_DEFAULT_INPUT_OUTPUT_ENERGY = 'C';
+    public static final char OPTIONAL_ANY_HATCH = 'C';
     public static final char OPTIONAL_INPUT = 'I';
     public static final char OPTIONAL_OUTPUT = 'O';
     public static final char OPTIONAL_ENERGY = 'E';
@@ -191,6 +193,8 @@ public class TT_Utils {
 
     public enum DefaultStructureDefinitions {
         FREEZER_ALIKE(GeometricInstances.CUBE_3x3x3, WerkstoffLoader.BWBlockCasings, 30005, null, 0, 17),
+
+        LARGE_CENTRIFUGE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, 30011, null, 0, BASIC_START_INDEX),
         LARGE_PROCCESSING_FACTORY(GeometricInstances.CUBE_3x3x3, GregTech_API.sBlockCasings2, 1, null, 0, 17)
 
         ;
@@ -200,15 +204,17 @@ public class TT_Utils {
         private final int metaToBuildWith;
         private final Block specialBlock;
         private final int metaSpecialBlock;
+        private final int textureIndex;
         private final IStructureDefinition<?> iStructureDefinition;
 
         DefaultStructureDefinitions(GeometricInstances geometrics, Block toBuildWith, int metaToBuildWith, Block specialBlock, int metaSpecialBlock, int textureIndex) {
             this.geometrics = geometrics;
             this.toBuildWith = toBuildWith;
             this.metaToBuildWith = metaToBuildWith;
-            this.iStructureDefinition = this.geometrics.getDefinition(textureIndex, this.toBuildWith, this.metaToBuildWith);
             this.specialBlock = specialBlock;
             this.metaSpecialBlock = metaSpecialBlock;
+            this.textureIndex = textureIndex;
+            this.iStructureDefinition = this.geometrics.getDefinition(this.textureIndex, this.toBuildWith, this.metaToBuildWith);
         }
 
         @SuppressWarnings("unchecked")
@@ -249,7 +255,7 @@ public class TT_Utils {
         }
 
         public int getOptionalDefaultHatches() {
-            return geometrics.getAmount(OPTIONAL_DEFAULT_INPUT_OUTPUT_ENERGY);
+            return geometrics.getAmount(OPTIONAL_ANY_HATCH);
         }
 
         public int getRequiredMufflers() {
@@ -257,7 +263,8 @@ public class TT_Utils {
         }
 
         public int getRequiredEnergyHatches() {
-            return geometrics.getAmount(ENERGY);
+            int hatches = geometrics.getAmount(ENERGY);
+            return hatches > 0 ? hatches : 1;
         }
 
         public int getRequiredDynamos() {
@@ -265,15 +272,18 @@ public class TT_Utils {
         }
 
         public int getRequiredMaintenanceHatches() {
-            return geometrics.getAmount(MAINTENANCE);
+            int hatches = geometrics.getAmount(MAINTENANCE);
+            return hatches > 0 ? hatches : 1;
         }
 
         public int getRequiredInputs() {
-            return geometrics.getAmount(INPUT);
+            int hatches = geometrics.getAmount(INPUT);
+            return hatches > 0 ? hatches : 1;
         }
 
         public int getRequiredOutputs() {
-            return geometrics.getAmount(OUTPUT);
+            int hatches = geometrics.getAmount(OUTPUT);
+            return hatches > 0 ? hatches : 1;
         }
 
         public int getRequiredBlocks() {
@@ -297,7 +307,7 @@ public class TT_Utils {
         }
 
         public int getRequiredDefaultHatches() {
-            return geometrics.getAmount(DEFAULT_INPUT_OUTPUT_ENERGY);
+            return geometrics.getAmount(REQUIRED_ANY_HATCH);
         }
 
         public List<String> generateTooltip() {
@@ -363,13 +373,17 @@ public class TT_Utils {
                     optional_muffler > 0 ? optional_muffler + "+ Muffler Hatches" : null,
                     optional_special > 0 ? optional_special + "+ " + special : null,
                     optional_blocks > 0 ? optional_blocks + "+ " + block : null,
-                    " ",
-                    "For more information use " + EnumChatFormatting.AQUA + "TecTech's Blueprint!"
+                    "For more information use " + EnumChatFormatting.AQUA + "TecTech's Blueprint!",
+                    TM_MARK
             ).filter(Objects::nonNull).collect(Collectors.toList());
         }
 
         public Pair<Block, Integer> getSpecialBlock() {
             return new Pair<>(specialBlock, metaSpecialBlock);
+        }
+
+        public int getTextureIndex() {
+            return textureIndex;
         }
     }
 
@@ -382,7 +396,7 @@ public class TT_Utils {
         },1,1,0),
 
         CUBE_3x3x3_WithMuffler(new String[][]{
-                {"CCC", "CPC", "CCC"},
+                {"CCC", "CpC", "CCC"},
                 {"C~C", "C-C", "CCC"},
                 {"CCC", "CCC", "CCC"}
         },1,1,0),
@@ -430,7 +444,7 @@ public class TT_Utils {
         //        1,
         //        Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_CENTRIFUGE(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_CENTRIFUGE(DefaultStructureDefinitions.LARGE_CENTRIFUGE,
                 GT_Recipe.GT_Recipe_Map.sCentrifugeRecipes,
                 false,
                 1,
@@ -675,8 +689,8 @@ public class TT_Utils {
             this.structure = structure;
             this.recipe_map = recipe_map;
             this.isPerfectOC = isPerfectOC;
-            this.tooltip = getDescription(tooltipLines);
             this.maxParalellsPerTier = maxParalellsPerTier;
+            this.tooltip = getDescription(tooltipLines);
         }
 
         private String[] getDescription(List<String> tooltipLines) {
