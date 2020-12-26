@@ -363,7 +363,6 @@ public class TT_Utils {
                     required_muffler > 0 ? required_muffler + "x Muffler Hatches" : null,
                     required_special > 0 ? required_special + "x " + special : null,
                     required_blocks > 0 ? required_blocks + "x " + block : null,
-                    has_requireds && has_optional ? "In addition to that," : null,
                     has_optional ? "Optional, up to:" : null,
                     optional_defaults + optional_in > 0 ? optional_in + optional_defaults + "+ Inputs" : null,
                     optional_defaults + optional_out > 0 ? optional_out + optional_defaults + "+ Outputs" : null,
@@ -437,13 +436,8 @@ public class TT_Utils {
         }
     }
 
+    //TODO locale for descriptions
     public enum MultiBlockDefinition {
-        //FREEZER(DefaultStructureDefinitions.FREEZER_ALIKE,
-        //        GT_Recipe.GT_Recipe_Map.sVacuumRecipes,
-        //        false,
-        //        1,
-        //        Arrays.asList("Freezer!", "Cools down ingots!")),
-
         LARGE_CENTRIFUGE(DefaultStructureDefinitions.LARGE_CENTRIFUGE,
                 GT_Recipe.GT_Recipe_Map.sCentrifugeRecipes,
                 false,

@@ -77,8 +77,8 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     public void registerIcons(IIconRegister aBlockIconRegister) {
         super.registerIcons(aBlockIconRegister);
         String name = multiBlockDefinition.name();
-        ScreensOFF.put(name, new Textures.BlockIcons.CustomIcon("iconsets/TM_" + multiBlockDefinition.name()));
-        ScreensON.put(name, new Textures.BlockIcons.CustomIcon("iconsets/TM_" + multiBlockDefinition.name() + "_ACTIVE"));
+        ScreensOFF.put(name, new Textures.BlockIcons.CustomIcon("iconsets/TM_" + name));
+        ScreensON.put(name, new Textures.BlockIcons.CustomIcon("iconsets/TM_" + name + "_ACTIVE"));
     }
 
     @Override
