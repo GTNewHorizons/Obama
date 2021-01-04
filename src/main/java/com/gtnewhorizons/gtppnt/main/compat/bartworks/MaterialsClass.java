@@ -22,6 +22,7 @@ package com.gtnewhorizons.gtppnt.main.compat.bartworks;
 
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
 import com.github.bartimaeusnek.bartworks.util.Pair;
+import gregtech.api.enums.Materials;
 
 import static com.github.bartimaeusnek.bartworks.system.material.Werkstoff.Types.*;
 import static com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader.*;
@@ -31,6 +32,7 @@ import static gregtech.api.enums.TextureSet.*;
 
 @SuppressWarnings("ALL")
 public class MaterialsClass implements Runnable {
+    private static final Werkstoff.GenerationFeatures ADD_CASINGS_ONLY = new Werkstoff.GenerationFeatures().disable().addCasings();
 
     /*TODO: Some examples how to create Materials (Done)
       TODO: use material range from 30000-Short.MAX_VALUE-1 (Done)
@@ -65,7 +67,7 @@ public class MaterialsClass implements Runnable {
             "Staballoy",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3725).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addCasings().addMixerRecipes().enforceUnification(),
             30000,
             SET_METALLIC,
             new Pair<>(Uranium, 9),
@@ -166,7 +168,7 @@ public class MaterialsClass implements Runnable {
             "Hereford 690",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(3700).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addCasings().addMixerRecipes().enforceUnification(),
             30007,
             SET_METALLIC,
             new Pair<>(Nichrome, 3),
@@ -210,7 +212,7 @@ public class MaterialsClass implements Runnable {
             "Rezron 100",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(6375).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addCasings().addMixerRecipes().enforceUnification(),
             30010,
             SET_METALLIC,
             new Pair<>(Steel, 20),
@@ -243,7 +245,7 @@ public class MaterialsClass implements Runnable {
             "Maraging Steel 300",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2685).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addCasings().addMixerRecipes().enforceUnification(),
             30012,
             SET_METALLIC,
             new Pair<>(Steel, 16),
@@ -291,12 +293,12 @@ public class MaterialsClass implements Runnable {
 
     //https://www.azom.com/article.aspx?ArticleID=9857
     //Named after it's inventor, Elwood Haynes
-    public static final Werkstoff Elwood = new Werkstoff(
+    public static final Werkstoff Elwoodite = new Werkstoff(
             new short[]{0x7D, 0x6E, 0xD6},
             "Elwoodite",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(4585).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addCasings().addMixerRecipes().enforceUnification(),
             30015,
             SET_METALLIC,
             new Pair<>(Cobalt, 7),
@@ -446,7 +448,7 @@ public class MaterialsClass implements Runnable {
             new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
             30025,
             SET_METALLIC,
-            new Pair<>(TungstenCarbide, 7),
+            new Pair<>(Materials.TungstenCarbide, 7),
             new Pair<>(Titanium, 3)
     );
 
@@ -483,7 +485,7 @@ public class MaterialsClass implements Runnable {
             "Zirconium Carbide",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
             COMPOUND,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addCasings().addMixerRecipes().enforceUnification(),
             30028,
             SET_METALLIC,
             new Pair<>(Zirconium, 1),
@@ -510,7 +512,7 @@ public class MaterialsClass implements Runnable {
             "Complainium",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(4125).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addCasings().addMixerRecipes().enforceUnification(),
             30030,
             SET_DULL,
             new Pair<>(Carbon, 9),
@@ -541,7 +543,7 @@ public class MaterialsClass implements Runnable {
             "Eglin Steel",
             new Werkstoff.Stats().setCentrifuge(true).setMeltingPoint(2700).setBlastFurnace(true),
             MIXTURE,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addMixerRecipes().enforceUnification(),
+            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().addCasings().addMixerRecipes().enforceUnification(),
             30032,
             SET_METALLIC,
             new Pair<>(EglinSteelBaseMixture, 10),
@@ -600,7 +602,7 @@ public class MaterialsClass implements Runnable {
             SET_METALLIC,
             new Pair<>(MaragingSteel350, 4),
             new Pair<>(Trinium, 3),
-            new Pair<>(TungstenSteel, 2),
+            new Pair<>(Materials.TungstenSteel, 2),
             new Pair<>(Osmiridium, 1),
             new Pair<>(Strontium, 1)
     );
@@ -655,7 +657,7 @@ public class MaterialsClass implements Runnable {
             new Pair<>(Hereford792, 8),
             new Pair<>(EglinSteel, 5),
             new Pair<>(NaquadahEnriched, 4),
-            new Pair<>(TungstenSteel, 4),
+            new Pair<>(Materials.TungstenSteel, 4),
             new Pair<>(Cerium, 3),
             new Pair<>(Antimony, 2),
             new Pair<>(Platinum, 2),
@@ -972,7 +974,6 @@ public class MaterialsClass implements Runnable {
             30065,
             SET_METALLIC
     );
-
 
     //TODO Add colors to new materials (33~ ones with no color)
     //TODO Check Mixing recipes

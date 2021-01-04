@@ -26,7 +26,6 @@ import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.mechanics.structure.StructureDefinition;
 import com.github.technus.tectech.mechanics.structure.StructureUtility;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
-import gregtech.api.GregTech_API;
 import gregtech.api.util.GT_LanguageManager;
 import gregtech.api.util.GT_Recipe;
 import net.minecraft.block.Block;
@@ -40,9 +39,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.gtnewhorizons.gtppnt.main.CommonValues.TM_MARK;
-import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.BASIC_START_INDEX;
+import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.*;
+import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.*;
 
 //TODO: Test this SHIT
 public class TT_Utils {
@@ -192,10 +193,29 @@ public class TT_Utils {
     }
 
     public enum DefaultStructureDefinitions {
-        FREEZER_ALIKE(GeometricInstances.CUBE_3x3x3, WerkstoffLoader.BWBlockCasings, 30005, null, 0, 17),
-
-        LARGE_CENTRIFUGE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, 30011, null, 0, BASIC_START_INDEX),
-        LARGE_PROCCESSING_FACTORY(GeometricInstances.CUBE_3x3x3, GregTech_API.sBlockCasings2, 1, null, 0, 17)
+        LARGE_CENTRIFUGE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, MaragingSteel250.getmID(), null, 0, getBasicCasingTextureIndex(MaragingSteel250.getmID())),
+        LARGE_BENDING_MACHINE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, Titanium.getmID(), null, 0, getBasicCasingTextureIndex(Titanium.getmID())),
+        LARGE_FORMING_PRESS(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, Titanium.getmID(), null, 0, getBasicCasingTextureIndex(Titanium.getmID())),
+        LARGE_ELECTROLYZER(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, Elwoodite.getmID(), null, 0, getBasicCasingTextureIndex(Elwoodite.getmID())),
+        LARGE_MACERATOR(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, TungstenCarbide.getmID(), null, 0, getBasicCasingTextureIndex(TungstenCarbide.getmID())),
+        LARGE_WIREMILL(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, BlueSteel.getmID(), null, 0, getBasicCasingTextureIndex(BlueSteel.getmID())),
+        LARGE_MIXER(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, ZirconiumCarbide.getmID(), null, 0, getBasicCasingTextureIndex(ZirconiumCarbide.getmID())),
+        LARGE_SIFTING_MACHINE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, EglinSteel.getmID(), null, 0, getBasicCasingTextureIndex(EglinSteel.getmID())),
+        LARGE_THERMAL_CENTRIFUGE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, RedSteel.getmID(), null, 0, getBasicCasingTextureIndex(RedSteel.getmID())),
+        LARGE_ORE_WASHING_PLANT(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, Complainium.getmID(), null, 0, getBasicCasingTextureIndex(Complainium.getmID())),
+        LARGE_CHEMICAL_BATH(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasingsAdvanced, Complainium.getmID(), null, 0, getAdvancedCasingTextureIndex(Complainium.getmID())),
+        LARGE_EXTRUDER(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, Hereford690.getmID(), null, 0, getBasicCasingTextureIndex(Hereford690.getmID())),
+        LARGE_ARC_FURNACE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, Rezron100.getmID(), null, 0, getBasicCasingTextureIndex(Rezron100.getmID())),
+        LARGE_PLASMA_ARC_FURNACE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasingsAdvanced, Rezron100.getmID(), null, 0, getAdvancedCasingTextureIndex(Rezron100.getmID())),
+        LARGE_FLUID_HEATER(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, TungstenSteel.getmID(), null, 0, getBasicCasingTextureIndex(TungstenSteel.getmID())),
+        LARGE_ASSEMBLING_MACHINE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, NickmolX.getmID(), null, 0, getBasicCasingTextureIndex(NickmolX.getmID())),
+        LARGE_PACKAGER(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, TungstenCarbide.getmID(), null, 0, getBasicCasingTextureIndex(TungstenCarbide.getmID())),
+        LARGE_CUTTING_MACHINE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, MaragingSteel300.getmID(), null, 0, getBasicCasingTextureIndex(MaragingSteel300.getmID())),
+        LARGE_SLICING_MACHINE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasings, MaragingSteel350.getmID(), null, 0, getBasicCasingTextureIndex(MaragingSteel350.getmID())),
+        LARGE_PRECISION_LASER_ENGRAVER(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasingsAdvanced, Staballoy.getmID(), null, 0, getAdvancedCasingTextureIndex(Staballoy.getmID())),
+        LARGE_COMPRESSOR(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasingsAdvanced, Staballoy.getmID(), null, 0, getAdvancedCasingTextureIndex(Staballoy.getmID())),
+        LARGE_LATHE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasingsAdvanced, Staballoy.getmID(), null, 0, getAdvancedCasingTextureIndex(Staballoy.getmID())),
+        LARGE_AUTOCLAVE(GeometricInstances.CUBE_3x3x3_WithMuffler, WerkstoffLoader.BWBlockCasingsAdvanced, Staballoy.getmID(), null, 0, getAdvancedCasingTextureIndex(Staballoy.getmID())),
 
         ;
 
@@ -444,227 +464,227 @@ public class TT_Utils {
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_BENDING_MACHINE(DefaultStructureDefinitions.FREEZER_ALIKE,
+        LARGE_BENDING_MACHINE(DefaultStructureDefinitions.LARGE_BENDING_MACHINE,
                 GT_Recipe.GT_Recipe_Map.sBenderRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_ELECTROLYZER(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sElectrolyzerRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_MACERATOR(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sMaceratorRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_WIREMILL(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sWiremillRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_MIXER(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sMixerRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_SIFTING_MACHINE(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sSifterRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_THERMAL_CENTRIFUGE(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sThermalCentrifugeRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_ORE_WASHING_PLANT(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sOreWasherRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_EXTRUDER(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sExtruderRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_ARC_FURNACE(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sArcFurnaceRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_FLUID_HEATER(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sFluidHeaterRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_ASSEMBLING_MACHINE(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sAssemblerRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_CIRCUIT_ASSEMBLING_MACHINE(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sCircuitAssemblerRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_PACKAGER(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sBoxinatorRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_CUTTING_MACHINE(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sCutterRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_ALLOY_SMELTER(DefaultStructureDefinitions.FREEZER_ALIKE,
-                GT_Recipe.GT_Recipe_Map.sAlloySmelterRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_COMPRESSOR(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sCompressorRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_LATHE(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sLatheRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_PRECISION_LASER_ENGRAVER(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sLaserEngraverRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_AUTOCLAVE(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sAutoclaveRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_FERMENTER(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sFermentingRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_EXTRACTOR(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sExtractorRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_FLUID_EXTRACTOR(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sFluidExtractionRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_POLARIZER(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sPolarizerRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_FLUID_SOLIFIER(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sFluidSolidficationRecipes,
-                false,
-                1,
-                Arrays.asList("Freezer!", "Cools down ingots!")),
-
-        LARGE_FORMING_PRESS(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
+        LARGE_FORMING_PRESS(DefaultStructureDefinitions.LARGE_FORMING_PRESS,
                 GT_Recipe.GT_Recipe_Map.sPressRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_SLICING_MACHINE(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sSlicerRecipes,
+        LARGE_ELECTROLYZER(DefaultStructureDefinitions.LARGE_ELECTROLYZER,
+                GT_Recipe.GT_Recipe_Map.sElectrolyzerRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_RECYCLER(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sRecyclerRecipes,
+        LARGE_MACERATOR(DefaultStructureDefinitions.LARGE_MACERATOR,
+                GT_Recipe.GT_Recipe_Map.sMaceratorRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_MICROWAVE(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sMicrowaveRecipes,
+        LARGE_WIREMILL(DefaultStructureDefinitions.LARGE_WIREMILL,
+                GT_Recipe.GT_Recipe_Map.sWiremillRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_PLASMA_ARC_FURNACE(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sPlasmaArcFurnaceRecipes,
+        LARGE_MIXER(DefaultStructureDefinitions.LARGE_MIXER,
+                GT_Recipe.GT_Recipe_Map.sMixerRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_PRINTER(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sPrinterRecipes,
+        LARGE_SIFTING_MACHINE(DefaultStructureDefinitions.LARGE_SIFTING_MACHINE,
+                GT_Recipe.GT_Recipe_Map.sSifterRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_ELECTROMAGNETIC_SEPARATOR(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sElectroMagneticSeparatorRecipes,
+        LARGE_THERMAL_CENTRIFUGE(DefaultStructureDefinitions.LARGE_THERMAL_CENTRIFUGE,
+                GT_Recipe.GT_Recipe_Map.sThermalCentrifugeRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_CHEMICAL_BATH(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
+        LARGE_ORE_WASHING_PLANT(DefaultStructureDefinitions.LARGE_ORE_WASHING_PLANT,
+                GT_Recipe.GT_Recipe_Map.sOreWasherRecipes,
+                false,
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        LARGE_CHEMICAL_BATH(DefaultStructureDefinitions.LARGE_CHEMICAL_BATH,
                 GT_Recipe.GT_Recipe_Map.sChemicalBathRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_FLUID_CANNER(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sFluidCannerRecipes,
+        LARGE_EXTRUDER(DefaultStructureDefinitions.LARGE_EXTRUDER,
+                GT_Recipe.GT_Recipe_Map.sExtruderRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_BREWERY(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sBrewingRecipes,
+        LARGE_ARC_FURNACE(DefaultStructureDefinitions.LARGE_ARC_FURNACE,
+                GT_Recipe.GT_Recipe_Map.sArcFurnaceRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_CANNING_MACHINE(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sCannerRecipes,
+        LARGE_PLASMA_ARC_FURNACE(DefaultStructureDefinitions.LARGE_PLASMA_ARC_FURNACE,
+                GT_Recipe.GT_Recipe_Map.sPlasmaArcFurnaceRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
 
-        LARGE_FORGE_HAMMER(DefaultStructureDefinitions.LARGE_PROCCESSING_FACTORY,
-                GT_Recipe.GT_Recipe_Map.sHammerRecipes,
+        LARGE_FLUID_HEATER(DefaultStructureDefinitions.LARGE_FLUID_HEATER,
+                GT_Recipe.GT_Recipe_Map.sFluidHeaterRecipes,
                 false,
                 1,
                 Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        LARGE_ASSEMBLING_MACHINE(DefaultStructureDefinitions.LARGE_ASSEMBLING_MACHINE,
+                GT_Recipe.GT_Recipe_Map.sAssemblerRecipes,
+                false,
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        LARGE_PACKAGER(DefaultStructureDefinitions.LARGE_PACKAGER,
+                GT_Recipe.GT_Recipe_Map.sBoxinatorRecipes,
+                false,
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        LARGE_CUTTING_MACHINE(DefaultStructureDefinitions.LARGE_CUTTING_MACHINE,
+                GT_Recipe.GT_Recipe_Map.sCutterRecipes,
+                false,
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        LARGE_SLICING_MACHINE(DefaultStructureDefinitions.LARGE_SLICING_MACHINE,
+                GT_Recipe.GT_Recipe_Map.sSlicerRecipes,
+                false,
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        LARGE_COMPRESSOR(DefaultStructureDefinitions.LARGE_COMPRESSOR,
+                GT_Recipe.GT_Recipe_Map.sCompressorRecipes,
+                false,
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        LARGE_LATHE(DefaultStructureDefinitions.LARGE_LATHE,
+                GT_Recipe.GT_Recipe_Map.sLatheRecipes,
+                false,
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        LARGE_PRECISION_LASER_ENGRAVER(DefaultStructureDefinitions.LARGE_PRECISION_LASER_ENGRAVER,
+                GT_Recipe.GT_Recipe_Map.sLaserEngraverRecipes,
+                false,
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        LARGE_AUTOCLAVE(DefaultStructureDefinitions.LARGE_AUTOCLAVE,
+                GT_Recipe.GT_Recipe_Map.sAutoclaveRecipes,
+                false,
+                1,
+                Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_CIRCUIT_ASSEMBLING_MACHINE(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sCircuitAssemblerRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_ALLOY_SMELTER(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sAlloySmelterRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_FERMENTER(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sFermentingRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_EXTRACTOR(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sExtractorRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_FLUID_EXTRACTOR(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sFluidExtractionRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_POLARIZER(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sPolarizerRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_FLUID_SOLIFIER(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sFluidSolidficationRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_RECYCLER(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sRecyclerRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_MICROWAVE(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sMicrowaveRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_PRINTER(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sPrinterRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_ELECTROMAGNETIC_SEPARATOR(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sElectroMagneticSeparatorRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_FLUID_CANNER(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sFluidCannerRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_BREWERY(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sBrewingRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_CANNING_MACHINE(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sCannerRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!")),
+
+        //LARGE_FORGE_HAMMER(DefaultStructureDefinitions.DEFAULT_CUBE,
+        //        GT_Recipe.GT_Recipe_Map.sHammerRecipes,
+        //        false,
+        //        1,
+        //        Arrays.asList("Freezer!", "Cools down ingots!"))
 
         ;
 
