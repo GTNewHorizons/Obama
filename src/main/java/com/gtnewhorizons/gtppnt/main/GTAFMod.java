@@ -24,8 +24,7 @@ import com.github.bartimaeusnek.bartworks.API.WerkstoffAdderRegistry;
 import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass;
 import com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsExtraRecipeLoader;
 import com.gtnewhorizons.gtppnt.main.config.ConfigHandler;
-import com.gtnewhorizons.gtppnt.main.loaders.CableAndWireLoader;
-import com.gtnewhorizons.gtppnt.main.loaders.SingleBlockLoadingClass;
+import com.gtnewhorizons.gtppnt.main.loaders.*;
 import com.gtnewhorizons.gtppnt.main.utils.GTAFRecipes;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -63,6 +62,7 @@ public class GTAFMod {
     public void init(FMLInitializationEvent event) {
         SingleBlockLoadingClass.load();
         CableAndWireLoader.load();
+        MultiBlockLoader.load();
         if (DEBUG)
             IntStream.range(0, GregTech_API.METATILEENTITIES.length).filter(i -> GregTech_API.METATILEENTITIES[i] != null).forEach(LOGGER::info);
     }
@@ -70,6 +70,8 @@ public class GTAFMod {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         MaterialsExtraRecipeLoader.executeExtraRecipes();
+        CasingTextureLoader.patchTexturePage();
+        MultiBlockRecipeLoader.load();
     }
 
     @Mod.EventHandler
