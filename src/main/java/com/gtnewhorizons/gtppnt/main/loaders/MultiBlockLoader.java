@@ -22,7 +22,7 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap;
-import com.gtnewhorizons.gtppnt.main.utils.TT_Utils;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
 
 import static com.gtnewhorizons.gtppnt.main.items.CustomItemList.*;
 
@@ -48,7 +48,7 @@ public class MultiBlockLoader {
                 31021,
                 "multimachine.tm.large_forming_press",
                 "Large Forming Press",
-                TT_Utils.MultiBlockDefinition.LARGE_FORMING_PRESS
+                MultiBlockDefinition.LARGE_FORMING_PRESS
         ).getStackForm(1L));
 
         //Replaces part of Large Washing Plant
@@ -56,7 +56,7 @@ public class MultiBlockLoader {
                 31022,
                 "multimachine.tm.large_chemical_bath",
                 "Large Chemical Bath",
-                TT_Utils.MultiBlockDefinition.LARGE_CHEMICAL_BATH
+                MultiBlockDefinition.LARGE_CHEMICAL_BATH
         ).getStackForm(1L));
 
         //Replaces part of High Current Industrial Arc Furnace
@@ -64,7 +64,7 @@ public class MultiBlockLoader {
                 31023,
                 "multimachine.tm.large_plasma_arc_furnace",
                 "Large Plasma Arc Furnace",
-                TT_Utils.MultiBlockDefinition.LARGE_PLASMA_ARC_FURNACE
+                MultiBlockDefinition.LARGE_PLASMA_ARC_FURNACE
         ).getStackForm(1L));
 
         //Replaces part of Cutting Factory Controller
@@ -72,7 +72,7 @@ public class MultiBlockLoader {
                 31024,
                 "multimachine.tm.large_slicing_machine",
                 "Large Slicing Machine",
-                TT_Utils.MultiBlockDefinition.LARGE_SLICING_MACHINE
+                MultiBlockDefinition.LARGE_SLICING_MACHINE
         ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
@@ -80,7 +80,7 @@ public class MultiBlockLoader {
                 31025,
                 "multimachine.tm.large_compressor",
                 "Large Compressor",
-                TT_Utils.MultiBlockDefinition.LARGE_COMPRESSOR
+                MultiBlockDefinition.LARGE_COMPRESSOR
         ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
@@ -88,7 +88,7 @@ public class MultiBlockLoader {
                 31026,
                 "multimachine.tm.large_lathe",
                 "Large Lathe",
-                TT_Utils.MultiBlockDefinition.LARGE_LATHE
+                MultiBlockDefinition.LARGE_LATHE
         ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
@@ -96,7 +96,7 @@ public class MultiBlockLoader {
                 31027,
                 "multimachine.tm.large_autoclave",
                 "Large Autoclave",
-                TT_Utils.MultiBlockDefinition.LARGE_AUTOCLAVE
+                MultiBlockDefinition.LARGE_AUTOCLAVE
         ).getStackForm(1L));
 
         //LARGE_ALLOY_SMELTER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
@@ -205,7 +205,7 @@ public class MultiBlockLoader {
                 790,
                 "multimachine.tm.large_centrifuge",
                 "Large Centrifuge",
-                TT_Utils.MultiBlockDefinition.LARGE_CENTRIFUGE
+                MultiBlockDefinition.LARGE_CENTRIFUGE
         ).getStackForm(1L));
 
         //Overlaps with Industrial Material Press
@@ -213,7 +213,7 @@ public class MultiBlockLoader {
                 792,
                 "multimachine.tm.large_bending_machine",
                 "Large Bending Machine",
-                TT_Utils.MultiBlockDefinition.LARGE_BENDING_MACHINE
+                MultiBlockDefinition.LARGE_BENDING_MACHINE
         ).getStackForm(1L));
 
         //Overlaps with Industrial Electrolyzer
@@ -221,7 +221,7 @@ public class MultiBlockLoader {
                 796,
                 "multimachine.tm.large_electrolyzer",
                 "Large Electrolyzer",
-                TT_Utils.MultiBlockDefinition.LARGE_ELECTROLYZER
+                MultiBlockDefinition.LARGE_ELECTROLYZER
         ).getStackForm(1L));
 
         //Overlaps with Maceration Stack Controller
@@ -229,7 +229,7 @@ public class MultiBlockLoader {
                 797,
                 "multimachine.tm.large_macerator",
                 "Large Macerator",
-                TT_Utils.MultiBlockDefinition.LARGE_MACERATOR
+                MultiBlockDefinition.LARGE_MACERATOR
         ).getStackForm(1L));
 
         //Overlaps with Wire Factory Controller
@@ -237,7 +237,7 @@ public class MultiBlockLoader {
                 798,
                 "multimachine.tm.large_wiremill",
                 "Large Wiremill",
-                TT_Utils.MultiBlockDefinition.LARGE_WIREMILL
+                MultiBlockDefinition.LARGE_WIREMILL
         ).getStackForm(1L));
 
         //Overlaps with Industrial Mixing Machine
@@ -245,7 +245,7 @@ public class MultiBlockLoader {
                 811,
                 "multimachine.tm.large_mixer",
                 "Large Mixer",
-                TT_Utils.MultiBlockDefinition.LARGE_MIXER
+                MultiBlockDefinition.LARGE_MIXER
         ).getStackForm(1L));
 
         //Overlaps with Large Sifter Control Block
@@ -253,7 +253,7 @@ public class MultiBlockLoader {
                 840,
                 "multimachine.tm.large_sifting_machine",
                 "Large Sifting Machine",
-                TT_Utils.MultiBlockDefinition.LARGE_SIFTING_MACHINE
+                MultiBlockDefinition.LARGE_SIFTING_MACHINE
         ).getStackForm(1L));
 
         //Overlaps with Large Thermal Refinery
@@ -261,7 +261,7 @@ public class MultiBlockLoader {
                 849,
                 "multimachine.tm.large_thermal_centrifuge",
                 "Large Thermal Centrifuge",
-                TT_Utils.MultiBlockDefinition.LARGE_THERMAL_CENTRIFUGE
+                MultiBlockDefinition.LARGE_THERMAL_CENTRIFUGE
         ).getStackForm(1L));
 
         //Overlaps with Large Washing Plant
@@ -269,7 +269,7 @@ public class MultiBlockLoader {
                 850,
                 "multimachine.tm.large_ore_washing_plant",
                 "Large Ore Washing Plant",
-                TT_Utils.MultiBlockDefinition.LARGE_ORE_WASHING_PLANT
+                MultiBlockDefinition.LARGE_ORE_WASHING_PLANT
         ).getStackForm(1L));
 
         //Overlaps with Industrial Extrusion Machine
@@ -277,7 +277,7 @@ public class MultiBlockLoader {
                 859,
                 "multimachine.tm.large_extruder",
                 "Large Extruder",
-                TT_Utils.MultiBlockDefinition.LARGE_EXTRUDER
+                MultiBlockDefinition.LARGE_EXTRUDER
         ).getStackForm(1L));
 
         //Overlaps with High Current Industrial Arc Furnace
@@ -285,7 +285,7 @@ public class MultiBlockLoader {
                 862,
                 "multimachine.tm.large_arc_furnace",
                 "Large Arc Furnace",
-                TT_Utils.MultiBlockDefinition.LARGE_ARC_FURNACE
+                MultiBlockDefinition.LARGE_ARC_FURNACE
         ).getStackForm(1L));
 
         //Overlaps with Thermal Boiler
@@ -293,7 +293,7 @@ public class MultiBlockLoader {
                 875,
                 "multimachine.tm.large_fluid_heater",
                 "Large Fluid Heater",
-                TT_Utils.MultiBlockDefinition.LARGE_FLUID_HEATER
+                MultiBlockDefinition.LARGE_FLUID_HEATER
         ).getStackForm(1L));
 
         //Overlaps with Large Scale Auto-Assembler v1.01
@@ -301,7 +301,7 @@ public class MultiBlockLoader {
                 876,
                 "multimachine.tm.large_assembling_machine",
                 "Large Assembling Machine",
-                TT_Utils.MultiBlockDefinition.LARGE_ASSEMBLING_MACHINE
+                MultiBlockDefinition.LARGE_ASSEMBLING_MACHINE
         ).getStackForm(1L));
 
         //Overlaps with Amazon Warehousing Depot.
@@ -309,7 +309,7 @@ public class MultiBlockLoader {
                 942,
                 "multimachine.tm.large_packager",
                 "Large Packager",
-                TT_Utils.MultiBlockDefinition.LARGE_PACKAGER
+                MultiBlockDefinition.LARGE_PACKAGER
         ).getStackForm(1L));
 
         //Overlaps with Cutting Factory Controller
@@ -317,7 +317,7 @@ public class MultiBlockLoader {
                 992,
                 "multimachine.tm.large_cutting_machine",
                 "Large Cutting Machine",
-                TT_Utils.MultiBlockDefinition.LARGE_CUTTING_MACHINE
+                MultiBlockDefinition.LARGE_CUTTING_MACHINE
         ).getStackForm(1L));
 
         //Overlaps with Large Processing Factory
@@ -325,7 +325,7 @@ public class MultiBlockLoader {
                 860,
                 "multimachine.tm.large_precision_laser_engraver",
                 "Large Precision Laser Engraver",
-                TT_Utils.MultiBlockDefinition.LARGE_PRECISION_LASER_ENGRAVER
+                MultiBlockDefinition.LARGE_PRECISION_LASER_ENGRAVER
         ).getStackForm(1L));
     }
 }
