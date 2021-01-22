@@ -31,7 +31,7 @@ import net.minecraft.util.EnumChatFormatting;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 
 //TODO: Test this SHIT
-public class TT_Utils {
+public class StructureDefaultProvider {
     public static final char REQUIRED_ANY_HATCH = 'c';
     public static final char INPUT = 'i';
     public static final char OUTPUT = 'o';
@@ -168,7 +168,7 @@ public class TT_Utils {
                         textureIndex,
                         7,
                         setCasing,
-                        setMeta)).;
+                        setMeta));
     }
 
 }
