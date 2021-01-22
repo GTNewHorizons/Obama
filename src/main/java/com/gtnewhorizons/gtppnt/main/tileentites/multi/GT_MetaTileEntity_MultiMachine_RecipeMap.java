@@ -25,9 +25,9 @@ import com.github.technus.tectech.mechanics.constructable.IConstructable;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
 import com.gtnewhorizons.gtppnt.main.utils.IAddsBlocks;
 import com.gtnewhorizons.gtppnt.main.utils.MultiBlockUtils;
-import com.gtnewhorizons.gtppnt.main.utils.TT_Utils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Textures;
@@ -54,7 +54,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
 
     private GT_Recipe buffered_Recipe;
     private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
-    private TT_Utils.MultiBlockDefinition multiBlockDefinition;
+    private MultiBlockDefinition multiBlockDefinition;
 
     private static final Map<String, Textures.BlockIcons.CustomIcon> ScreensOFF = new HashMap<>();
     private static final Map<String, Textures.BlockIcons.CustomIcon> ScreensON = new HashMap<>();
@@ -62,12 +62,12 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     public GT_MetaTileEntity_MultiMachine_RecipeMap(int aID,
                                                     String aName,
                                                     String aNameRegional,
-                                                    TT_Utils.MultiBlockDefinition multiBlockDefinition) {
+                                                    MultiBlockDefinition multiBlockDefinition) {
         super(aID, aName, aNameRegional);
         this.multiBlockDefinition = multiBlockDefinition;
     }
 
-    public GT_MetaTileEntity_MultiMachine_RecipeMap(String aName, TT_Utils.MultiBlockDefinition multiBlockDefinition) {
+    public GT_MetaTileEntity_MultiMachine_RecipeMap(String aName, MultiBlockDefinition multiBlockDefinition) {
         super(aName);
         this.multiBlockDefinition = multiBlockDefinition;
     }
@@ -111,7 +111,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
         super.loadNBTData(aNBT);
-        multiBlockDefinition = TT_Utils.MultiBlockDefinition.valueOf(aNBT.getString("definition"));
+        multiBlockDefinition = MultiBlockDefinition.valueOf(aNBT.getString("definition"));
     }
 
     @Override
@@ -218,7 +218,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
 
     @Override
     public IStructureDefinition<GT_MetaTileEntity_MultiMachine_RecipeMap> getStructure_EM() {
-        return multiBlockDefinition.getStructure().getStructureDefinition();
+        return multiBlockDefinition.getStructureDefinition();
     }
 
     public GT_Recipe.GT_Recipe_Map getRecipeMap() {
