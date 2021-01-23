@@ -63,15 +63,19 @@ public class GTAFMod {
         SingleBlockLoadingClass.load();
         CableAndWireLoader.load();
         MultiBlockLoader.load();
-        if (DEBUG)
-            IntStream.range(0, GregTech_API.METATILEENTITIES.length).filter(i -> GregTech_API.METATILEENTITIES[i] != null).forEach(LOGGER::info);
+        HatchCasingLoader.load();
+
+        if (DEBUG){
+            IntStream.range(0, GregTech_API.METATILEENTITIES.length).
+                    filter(i -> GregTech_API.METATILEENTITIES[i] != null).forEach(LOGGER::info);
+        }
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        MaterialsExtraRecipeLoader.executeExtraRecipes();
-        CasingTextureLoader.patchTexturePage();
-        MultiBlockRecipeLoader.load();
+        MaterialsExtraRecipeLoader.load();
+        CasingTextureLoader.load();
+        //MultiBlockRecipeLoader.load();
     }
 
     @Mod.EventHandler

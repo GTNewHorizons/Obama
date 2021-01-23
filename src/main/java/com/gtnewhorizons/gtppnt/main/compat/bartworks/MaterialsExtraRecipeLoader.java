@@ -22,6 +22,7 @@ package com.gtnewhorizons.gtppnt.main.compat.bartworks;
 
 
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
+import com.gtnewhorizons.gtppnt.main.GTAFMod;
 
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.*;
 import static gregtech.api.enums.Materials.*;
@@ -32,6 +33,13 @@ import static gregtech.api.util.GT_ModHandler.addShapelessCraftingRecipe;
 //DO NOT REMOVE THESE IMPORTS!
 
 public class MaterialsExtraRecipeLoader {
+    public static void load() {
+        try {
+            executeExtraRecipes();
+        } catch (Exception e) {
+            GTAFMod.LOGGER.catching(e);
+        }
+    }
 
     private static int getTimeFromWerkStoffForCentrifuge(Werkstoff werkstoff) {
         return (int) Math.max(1L, Math.abs(werkstoff.getStats().getMass() * werkstoff.getContents().getValue().size()));
@@ -41,7 +49,7 @@ public class MaterialsExtraRecipeLoader {
         return Math.min(4, werkstoff.getContents().getValue().size()) * 5;
     }
 
-    public static void executeExtraRecipes() {
+    private static void executeExtraRecipes() {
         //RA.addCentrifugeRecipe(Tumbaga.get(dust, 10), 0, Gold.getDust(7), Copper.getDust(3), NI, NI, NI, NI, getTimeFromWerkStoffForCentrifuge(Tumbaga), getEUTFromWerkStoffForCentrifuge(Tumbaga));
         //RA.addCannerRecipe()                          adds a GT recipe
         //addResearchableAssemblylineRecipe()           adds a TT Research station recipe

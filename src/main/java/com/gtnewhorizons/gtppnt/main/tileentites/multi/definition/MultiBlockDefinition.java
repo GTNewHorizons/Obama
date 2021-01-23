@@ -10,7 +10,8 @@ import java.util.List;
 
 //TODO locale for descriptions
 public enum MultiBlockDefinition {
-    LARGE_CENTRIFUGE(DefaultStructureDefinition.LARGE_CENTRIFUGE,
+    //region Instances
+     LARGE_CENTRIFUGE(DefaultStructureDefinition.LARGE_CENTRIFUGE,
             GT_Recipe.GT_Recipe_Map.sCentrifugeRecipes,
             false,
             1,
@@ -239,6 +240,7 @@ public enum MultiBlockDefinition {
     //        Arrays.asList("Freezer!", "Cools down ingots!"))
 
     ;
+    //endregion
 
     private final DefaultStructureDefinition structure;
     private final GT_Recipe.GT_Recipe_Map recipe_map;

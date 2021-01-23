@@ -7,6 +7,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEnt
 import com.gtnewhorizons.gtppnt.main.utils.IAddsBlocks;
 import gregtech.api.util.GT_LanguageManager;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 
@@ -211,7 +212,7 @@ public enum DefaultStructureDefinition {
         this.metaSpecialBlock = metaSpecialBlock;
         this.textureIndex = textureIndex;
         this.iStructureDefinition = geometrics.addToDefinition(
-                        StructureDefaultProvider.getDefaultStructureDefinitionBuilder(textureIndex, specialBlock, metaSpecialBlock)
+                        getDefaultStructureDefinitionBuilder(textureIndex, specialBlock, metaSpecialBlock)
         ).build();
     }
 
@@ -221,7 +222,7 @@ public enum DefaultStructureDefinition {
                 map.computeIfAbsent(expander,e->
                         geometrics.addToDefinition(
                                 expander.apply(
-                                        StructureDefaultProvider.getDefaultStructureDefinitionBuilder(
+                                        getDefaultStructureDefinitionBuilder(
                                                 textureIndex,
                                                 specialBlock,
                                                 metaSpecialBlock
@@ -235,75 +236,75 @@ public enum DefaultStructureDefinition {
     }
 
     public int getOptionalMufflers() {
-        return geometrics.getAmount(StructureDefaultProvider.OPTIONAL_MUFFLER);
+        return geometrics.getAmount(OPTIONAL_MUFFLER);
     }
 
     public int getOptionalEnergyHatches() {
-        return geometrics.getAmount(StructureDefaultProvider.OPTIONAL_ENERGY);
+        return geometrics.getAmount(OPTIONAL_ENERGY);
     }
 
     public int getOptionalDynamos() {
-        return geometrics.getAmount(StructureDefaultProvider.OPTIONAL_DYNAMO);
+        return geometrics.getAmount(OPTIONAL_DYNAMO);
     }
 
     public int getOptionalMaintenanceHatches() {
-        return geometrics.getAmount(StructureDefaultProvider.OPTIONAL_MAINTENANCE);
+        return geometrics.getAmount(OPTIONAL_MAINTENANCE);
     }
 
     public int getOptionalInputs() {
-        return geometrics.getAmount(StructureDefaultProvider.OPTIONAL_INPUT);
+        return geometrics.getAmount(OPTIONAL_INPUT);
     }
 
     public int getOptionalOutputs() {
-        return geometrics.getAmount(StructureDefaultProvider.OPTIONAL_OUTPUT);
+        return geometrics.getAmount(OPTIONAL_OUTPUT);
     }
 
     public int getOptionalBlocks() {
-        return geometrics.getAmount(StructureDefaultProvider.OPTIONAL_BLOCK);
+        return geometrics.getAmount(OPTIONAL_BLOCK);
     }
 
     public int getOptionalSpecialBlocks() {
-        return geometrics.getAmount(StructureDefaultProvider.OPTIONAL_SPECIAL_BLOCK);
+        return geometrics.getAmount(OPTIONAL_SPECIAL_BLOCK);
     }
 
     public int getOptionalDefaultHatches() {
-        return geometrics.getAmount(StructureDefaultProvider.OPTIONAL_ANY_HATCH);
+        return geometrics.getAmount(OPTIONAL_ANY_HATCH);
     }
 
     public int getRequiredMufflers() {
-        return geometrics.getAmount(StructureDefaultProvider.MUFFLER);
+        return geometrics.getAmount(MUFFLER);
     }
 
     public int getRequiredEnergyHatches() {
-        int hatches = geometrics.getAmount(StructureDefaultProvider.ENERGY);
+        int hatches = geometrics.getAmount(ENERGY);
         return hatches > 0 ? hatches : 1;
     }
 
     public int getRequiredDynamos() {
-        return geometrics.getAmount(StructureDefaultProvider.DYNAMO);
+        return geometrics.getAmount(DYNAMO);
     }
 
     public int getRequiredMaintenanceHatches() {
-        int hatches = geometrics.getAmount(StructureDefaultProvider.MAINTENANCE);
+        int hatches = geometrics.getAmount(MAINTENANCE);
         return hatches > 0 ? hatches : 1;
     }
 
     public int getRequiredInputs() {
-        int hatches = geometrics.getAmount(StructureDefaultProvider.INPUT);
+        int hatches = geometrics.getAmount(INPUT);
         return hatches > 0 ? hatches : 1;
     }
 
     public int getRequiredOutputs() {
-        int hatches = geometrics.getAmount(StructureDefaultProvider.OUTPUT);
+        int hatches = geometrics.getAmount(OUTPUT);
         return hatches > 0 ? hatches : 1;
     }
 
     public int getRequiredBlocks() {
-        return geometrics.getAmount(StructureDefaultProvider.BLOCK);
+        return geometrics.getAmount(BLOCK);
     }
 
     public int getRequiredSpecialBlocks() {
-        return geometrics.getAmount(StructureDefaultProvider.SPECIAL_BLOCK);
+        return geometrics.getAmount(SPECIAL_BLOCK);
     }
 
     public int getHorizontalOffset() {
@@ -319,7 +320,7 @@ public enum DefaultStructureDefinition {
     }
 
     public int getRequiredDefaultHatches() {
-        return geometrics.getAmount(StructureDefaultProvider.REQUIRED_ANY_HATCH);
+        return geometrics.getAmount(REQUIRED_ANY_HATCH);
     }
 
     public List<String> generateTooltip() {

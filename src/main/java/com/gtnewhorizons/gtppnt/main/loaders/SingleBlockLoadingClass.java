@@ -32,8 +32,8 @@ import com.gtnewhorizons.gtppnt.main.utils.GTAFRecipes;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine_GT_Recipe;
 import net.minecraft.item.ItemStack;
 
-import static gregtech.api.enums.GT_Values.VN;
-import static gregtech.api.enums.GT_Values.VOLTAGE_NAMES;
+import static com.gtnewhorizons.gtppnt.main.CommonValues.*;
+import static gregtech.api.enums.GT_Values.*;
 
 @SuppressWarnings("ALL")
 public class SingleBlockLoadingClass {
@@ -42,11 +42,9 @@ public class SingleBlockLoadingClass {
     }
 
     //Helper Name Arrays
-    private static final String[] MACHINE_PREFIXES = {"Primitive", "Basic", "Advanced", "Turbo", "Special", "Insane", "Uber", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
     public static ItemStack[] GTTieredBoilers = new ItemStack[VN.length];
     public static ItemStack[] GTBasicChests = new ItemStack[VN.length];
     public static ItemStack[] SimpleWashing = new ItemStack[VN.length];
-    private static final String[] ROMAN_LETTERS = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
     public static ItemStack[] SemiFluidGenerator = new ItemStack[3];
     public static ItemStack[] ThermalGenerator = new ItemStack[3];
     //Recipe Object Arrays

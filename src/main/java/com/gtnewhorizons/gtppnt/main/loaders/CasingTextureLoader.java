@@ -3,6 +3,7 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGeneratedBlocks_CasingAdvanced_TE;
 import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGeneratedBlocks_Casing_TE;
 
+import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import gregtech.api.enums.Textures;
 import net.minecraft.block.Block;
 
@@ -12,7 +13,6 @@ import java.util.Map;
 import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.*;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.*;
 
-//TODO Delete this whole class! Bart there HAS to be a better solution but I have NO FUCKING CLUE what it is!
 public class CasingTextureLoader {
     public CasingTextureLoader() {
     }
@@ -42,7 +42,15 @@ public class CasingTextureLoader {
         advancedWerkstoffCasingToTexurePageID.put(Staballoy.getmID(), (byte) (START_INDEX + 17));
     }
 
-    public static void patchTexturePage() {
+    public static void load() {
+        try {
+            patchTexturePage();
+        } catch (Exception e) {
+            GTAFMod.LOGGER.catching(e);
+        }
+    }
+
+    private static void patchTexturePage() {
         BW_MetaGeneratedBlocks_Casing_TE casing_basic_te = new BW_MetaGeneratedBlocks_Casing_TE();
         for (Map.Entry<Short, Byte> Rx : basicWerkstoffCasingToTexurePageID.entrySet()) {
             casing_basic_te.mMetaData = Rx.getKey();

@@ -33,8 +33,8 @@ public class MultiBlockLoader {
 
     public static void load() {
         try {
-            loadOverrideIDs();
-            loadNewIDs();
+            //loadOverrideIDs();
+            //loadNewIDs();
         } catch (Exception e) {
             GTAFMod.LOGGER.catching(e);
         }
@@ -42,10 +42,13 @@ public class MultiBlockLoader {
 
     //NOTE: aNameRegional is overwriten by the *.lang files
     //Change both if you wish to make edits to the names!
+    //Uses ID Range of 31021 to 31070
     private static void loadNewIDs() {
+        int aID = 31021;
+
         //Replaces part of Industrial Material Press
         LARGE_FORMING_PRESS.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                31021,
+                aID++,
                 "multimachine.tm.large_forming_press",
                 "Large Forming Press",
                 MultiBlockDefinition.LARGE_FORMING_PRESS
@@ -53,7 +56,7 @@ public class MultiBlockLoader {
 
         //Replaces part of Large Washing Plant
         LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                31022,
+                aID++,
                 "multimachine.tm.large_chemical_bath",
                 "Large Chemical Bath",
                 MultiBlockDefinition.LARGE_CHEMICAL_BATH
@@ -61,7 +64,7 @@ public class MultiBlockLoader {
 
         //Replaces part of High Current Industrial Arc Furnace
         LARGE_PLASMA_ARC_FURNACE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                31023,
+                aID++,
                 "multimachine.tm.large_plasma_arc_furnace",
                 "Large Plasma Arc Furnace",
                 MultiBlockDefinition.LARGE_PLASMA_ARC_FURNACE
@@ -69,7 +72,7 @@ public class MultiBlockLoader {
 
         //Replaces part of Cutting Factory Controller
         LARGE_SLICING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                31024,
+                aID++,
                 "multimachine.tm.large_slicing_machine",
                 "Large Slicing Machine",
                 MultiBlockDefinition.LARGE_SLICING_MACHINE
@@ -77,7 +80,7 @@ public class MultiBlockLoader {
 
         //Replaces part of Large Processing Factory
         LARGE_COMPRESSOR.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                31025,
+                aID++,
                 "multimachine.tm.large_compressor",
                 "Large Compressor",
                 MultiBlockDefinition.LARGE_COMPRESSOR
@@ -85,7 +88,7 @@ public class MultiBlockLoader {
 
         //Replaces part of Large Processing Factory
         LARGE_LATHE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                31026,
+                aID++,
                 "multimachine.tm.large_lathe",
                 "Large Lathe",
                 MultiBlockDefinition.LARGE_LATHE
@@ -93,7 +96,7 @@ public class MultiBlockLoader {
 
         //Replaces part of Large Processing Factory
         LARGE_AUTOCLAVE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                31027,
+                aID++,
                 "multimachine.tm.large_autoclave",
                 "Large Autoclave",
                 MultiBlockDefinition.LARGE_AUTOCLAVE
