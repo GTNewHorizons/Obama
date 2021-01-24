@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap.FUNCTIONAL_CASING_STRUCTURE_EXPANDER;
+import static com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.IStructureExpander.IDENTITY;
 
 //TODO locale for descriptions
 public enum MultiBlockDefinition {
@@ -260,20 +261,21 @@ public enum MultiBlockDefinition {
             List<String> tooltipLines,
             IStructureExpander<T> expander) {
         this.structure = structure;
-        this.structureDefinition = structure.getStructureDefinition(expander);
         this.recipe_map = recipe_map;
         this.isPerfectOC = isPerfectOC;
         this.maxParalellsPerTier = maxParalellsPerTier;
+        this.structureDefinition = structure.getStructureDefinition(expander);
         this.tooltip = getDescription(tooltipLines);
     }
 
+    @SuppressWarnings("unchecked")
     MultiBlockDefinition(
             DefaultStructureDefinition structure,
             GT_Recipe.GT_Recipe_Map recipe_map,
             boolean isPerfectOC,
             int maxParalellsPerTier,
             List<String> tooltipLines) {
-        this(structure,recipe_map,isPerfectOC,maxParalellsPerTier,tooltipLines,null);
+        this(structure,recipe_map,isPerfectOC,maxParalellsPerTier,tooltipLines,IDENTITY);
     }
 
     private String[] getDescription(List<String> tooltipLines) {

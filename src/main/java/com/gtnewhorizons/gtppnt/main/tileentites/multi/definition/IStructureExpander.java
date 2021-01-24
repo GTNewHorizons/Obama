@@ -4,6 +4,8 @@ import com.github.technus.tectech.mechanics.structure.StructureDefinition;
 
 @FunctionalInterface
 public interface IStructureExpander<T> {
+    @SuppressWarnings("rawtypes")
+    IStructureExpander IDENTITY=(d,b)->b;
     /**
      * Used to Expand definition, applying more shapes is not really that well supported...
      *

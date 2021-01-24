@@ -29,7 +29,7 @@ import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.getBasic
 import static com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GeometricInstance.*;
 
 public enum DefaultStructureDefinition {
-    LARGE_CENTRIFUGE(CUBE_3x3x3_WithMuffler, BWBlockCasings, MaragingSteel250.getmID(), getBasicCasingTextureIndex(MaragingSteel250.getmID())),
+    LARGE_CENTRIFUGE(CUBE_3x3x3_WithFunctional, BWBlockCasings, MaragingSteel250.getmID(), getBasicCasingTextureIndex(MaragingSteel250.getmID())),
     LARGE_BENDING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, Titanium.getmID(), getBasicCasingTextureIndex(Titanium.getmID())),
     LARGE_FORMING_PRESS(CUBE_3x3x3_WithMuffler, BWBlockCasings, Titanium.getmID(), getBasicCasingTextureIndex(Titanium.getmID())),
     LARGE_ELECTROLYZER(CUBE_3x3x3_WithMuffler, BWBlockCasings, Elwoodite.getmID(), getBasicCasingTextureIndex(Elwoodite.getmID())),
@@ -199,7 +199,6 @@ public enum DefaultStructureDefinition {
     private final Block specialBlock;
     private final int metaSpecialBlock;
     private final int textureIndex;
-    private final IStructureDefinition<?> iStructureDefinition;
     private final Map<IStructureExpander<?>,IStructureDefinition<?>> map=new HashMap<>();
 
     DefaultStructureDefinition(GeometricInstance geometrics,
@@ -211,35 +210,25 @@ public enum DefaultStructureDefinition {
         this.specialBlock = specialBlock;
         this.metaSpecialBlock = metaSpecialBlock;
         this.textureIndex = textureIndex;
-        this.iStructureDefinition = geometrics.addToDefinition(
-                        getDefaultStructureDefinitionBuilder(textureIndex, specialBlock, metaSpecialBlock)
-        ).build();
     }
 
     DefaultStructureDefinition(GeometricInstance geometrics, Block toBuildWith, int metaToBuildWith, int textureIndex) {
         this(geometrics, toBuildWith, metaToBuildWith, toBuildWith, metaToBuildWith, textureIndex);
     }
 
-
-
     @SuppressWarnings("unchecked")
     <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks> IStructureDefinition<T> getStructureDefinition(IStructureExpander<T> expander) {
-        return (IStructureDefinition<T>)(expander==null? iStructureDefinition:
-                map.computeIfAbsent(expander,e->
-                        geometrics.addToDefinition(
-                                expander.apply(
-                                        this,
-                                        getDefaultStructureDefinitionBuilder(
-                                                textureIndex,
-                                                specialBlock,
-                                                metaSpecialBlock
-                                        )
+        return (IStructureDefinition<T>) map.computeIfAbsent(expander, e ->
+                geometrics.addToDefinition(
+                        expander.apply(
+                                this,
+                                getDefaultStructureDefinitionBuilder(
+                                        textureIndex,
+                                        specialBlock,
+                                        metaSpecialBlock
                                 )
-                        ).build()));
-    }
-
-    <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks> IStructureDefinition<T> getStructureDefinition() {
-        return getStructureDefinition(null);
+                        )
+                ).build());
     }
 
     public int getOptionalMufflers() {

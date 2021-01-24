@@ -16,6 +16,10 @@ public enum GeometricInstance {
             {"CCC", "CpC", "CCC"},
             {"C~C", "C-C", "CCC"},
             {"CCC", "CCC", "CCC"}}),
+    CUBE_3x3x3_WithFunctional(1, 1, 0, new String[][]{
+            {"CCC", "CfC", "CCC"},
+            {"C~C", "C-C", "CCC"},
+            {"CCC", "CCC", "CCC"}}),
     CUBE_5x5x5_WithMuffler(2, 2, 0, new String[][]{
             {"CCCCC", "CCCCC", "CCPCC", "CCCCC", "CCCCC"},
             {"CCCCC", "C---C", "C---C", "C---C", "CCCCC"},
