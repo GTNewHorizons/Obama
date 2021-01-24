@@ -169,7 +169,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
             );
 
             if (!gt_recipe.isPresent())
-                return ret.get();
+                return false;
 
             gt_recipe
                     .filter(recipe -> recipe.mCanBeBuffered)
@@ -225,6 +225,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
                         this.mMaxProgresstime = Math.max(1, this.mMaxProgresstime);
                         updateSlots();
                         ret.set(true);
+                        mFunctionalCasings.forEach(mte -> mte.getBaseMetaTileEntity().setActive(true));
                     });
         }
         return ret.get();
@@ -237,6 +238,12 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
 
     public GT_Recipe.GT_Recipe_Map getRecipeMap() {
         return multiBlockDefinition.getRecipe_map();
+    }
+
+    @Override
+    public void stopMachine() {
+        super.stopMachine();
+        mFunctionalCasings.forEach(mte -> mte.getBaseMetaTileEntity().setActive(false));
     }
 
     @Override
