@@ -33,8 +33,8 @@ public class MultiBlockLoader {
 
     public static void load() {
         try {
-            //loadOverrideIDs();
-            //loadNewIDs();
+            loadOverrideIDs();
+            loadNewIDs();
         } catch (Exception e) {
             GTAFMod.LOGGER.catching(e);
         }

@@ -29,29 +29,29 @@ import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.getBasic
 import static com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GeometricInstance.*;
 
 public enum DefaultStructureDefinition {
-    LARGE_CENTRIFUGE(CUBE_3x3x3_WithMuffler, BWBlockCasings, MaragingSteel250.getmID(), null, 0, getBasicCasingTextureIndex(MaragingSteel250.getmID())),
-    LARGE_BENDING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, Titanium.getmID(), null, 0, getBasicCasingTextureIndex(Titanium.getmID())),
-    LARGE_FORMING_PRESS(CUBE_3x3x3_WithMuffler, BWBlockCasings, Titanium.getmID(), null, 0, getBasicCasingTextureIndex(Titanium.getmID())),
-    LARGE_ELECTROLYZER(CUBE_3x3x3_WithMuffler, BWBlockCasings, Elwoodite.getmID(), null, 0, getBasicCasingTextureIndex(Elwoodite.getmID())),
-    LARGE_MACERATOR(CUBE_3x3x3_WithMuffler, BWBlockCasings, TungstenCarbide.getmID(), null, 0, getBasicCasingTextureIndex(TungstenCarbide.getmID())),
-    LARGE_WIREMILL(CUBE_3x3x3_WithMuffler, BWBlockCasings, BlueSteel.getmID(), null, 0, getBasicCasingTextureIndex(BlueSteel.getmID())),
-    LARGE_MIXER(CUBE_3x3x3_WithMuffler, BWBlockCasings, ZirconiumCarbide.getmID(), null, 0, getBasicCasingTextureIndex(ZirconiumCarbide.getmID())),
-    LARGE_SIFTING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, EglinSteel.getmID(), null, 0, getBasicCasingTextureIndex(EglinSteel.getmID())),
-    LARGE_THERMAL_CENTRIFUGE(CUBE_3x3x3_WithMuffler, BWBlockCasings, RedSteel.getmID(), null, 0, getBasicCasingTextureIndex(RedSteel.getmID())),
-    LARGE_ORE_WASHING_PLANT(CUBE_3x3x3_WithMuffler, BWBlockCasings, Complainium.getmID(), null, 0, getBasicCasingTextureIndex(Complainium.getmID())),
-    LARGE_CHEMICAL_BATH(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Complainium.getmID(), null, 0, getAdvancedCasingTextureIndex(Complainium.getmID())),
-    LARGE_EXTRUDER(CUBE_3x3x3_WithMuffler, BWBlockCasings, Hereford690.getmID(), null, 0, getBasicCasingTextureIndex(Hereford690.getmID())),
-    LARGE_ARC_FURNACE(CUBE_3x3x3_WithMuffler, BWBlockCasings, Rezron100.getmID(), null, 0, getBasicCasingTextureIndex(Rezron100.getmID())),
-    LARGE_PLASMA_ARC_FURNACE(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Rezron100.getmID(), null, 0, getAdvancedCasingTextureIndex(Rezron100.getmID())),
-    LARGE_FLUID_HEATER(CUBE_3x3x3_WithMuffler, BWBlockCasings, TungstenSteel.getmID(), null, 0, getBasicCasingTextureIndex(TungstenSteel.getmID())),
-    LARGE_ASSEMBLING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, NickmolX.getmID(), null, 0, getBasicCasingTextureIndex(NickmolX.getmID())),
-    LARGE_PACKAGER(CUBE_3x3x3_WithMuffler, BWBlockCasings, TungstenCarbide.getmID(), null, 0, getBasicCasingTextureIndex(TungstenCarbide.getmID())),
-    LARGE_CUTTING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, MaragingSteel300.getmID(), null, 0, getBasicCasingTextureIndex(MaragingSteel300.getmID())),
-    LARGE_SLICING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, MaragingSteel350.getmID(), null, 0, getBasicCasingTextureIndex(MaragingSteel350.getmID())),
-    LARGE_PRECISION_LASER_ENGRAVER(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Staballoy.getmID(), null, 0, getAdvancedCasingTextureIndex(Staballoy.getmID())),
-    LARGE_COMPRESSOR(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Staballoy.getmID(), null, 0, getAdvancedCasingTextureIndex(Staballoy.getmID())),
-    LARGE_LATHE(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Staballoy.getmID(), null, 0, getAdvancedCasingTextureIndex(Staballoy.getmID())),
-    LARGE_AUTOCLAVE(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Staballoy.getmID(), null, 0, getAdvancedCasingTextureIndex(Staballoy.getmID())),
+    LARGE_CENTRIFUGE(CUBE_3x3x3_WithMuffler, BWBlockCasings, MaragingSteel250.getmID(), getBasicCasingTextureIndex(MaragingSteel250.getmID())),
+    LARGE_BENDING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, Titanium.getmID(), getBasicCasingTextureIndex(Titanium.getmID())),
+    LARGE_FORMING_PRESS(CUBE_3x3x3_WithMuffler, BWBlockCasings, Titanium.getmID(), getBasicCasingTextureIndex(Titanium.getmID())),
+    LARGE_ELECTROLYZER(CUBE_3x3x3_WithMuffler, BWBlockCasings, Elwoodite.getmID(), getBasicCasingTextureIndex(Elwoodite.getmID())),
+    LARGE_MACERATOR(CUBE_3x3x3_WithMuffler, BWBlockCasings, TungstenCarbide.getmID(), getBasicCasingTextureIndex(TungstenCarbide.getmID())),
+    LARGE_WIREMILL(CUBE_3x3x3_WithMuffler, BWBlockCasings, BlueSteel.getmID(), getBasicCasingTextureIndex(BlueSteel.getmID())),
+    LARGE_MIXER(CUBE_3x3x3_WithMuffler, BWBlockCasings, ZirconiumCarbide.getmID(), getBasicCasingTextureIndex(ZirconiumCarbide.getmID())),
+    LARGE_SIFTING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, EglinSteel.getmID(), getBasicCasingTextureIndex(EglinSteel.getmID())),
+    LARGE_THERMAL_CENTRIFUGE(CUBE_3x3x3_WithMuffler, BWBlockCasings, RedSteel.getmID(), getBasicCasingTextureIndex(RedSteel.getmID())),
+    LARGE_ORE_WASHING_PLANT(CUBE_3x3x3_WithMuffler, BWBlockCasings, Complainium.getmID(), getBasicCasingTextureIndex(Complainium.getmID())),
+    LARGE_CHEMICAL_BATH(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Complainium.getmID(), getAdvancedCasingTextureIndex(Complainium.getmID())),
+    LARGE_EXTRUDER(CUBE_3x3x3_WithMuffler, BWBlockCasings, Hereford690.getmID(), getBasicCasingTextureIndex(Hereford690.getmID())),
+    LARGE_ARC_FURNACE(CUBE_3x3x3_WithMuffler, BWBlockCasings, Rezron100.getmID(), getBasicCasingTextureIndex(Rezron100.getmID())),
+    LARGE_PLASMA_ARC_FURNACE(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Rezron100.getmID(), getAdvancedCasingTextureIndex(Rezron100.getmID())),
+    LARGE_FLUID_HEATER(CUBE_3x3x3_WithMuffler, BWBlockCasings, TungstenSteel.getmID(), getBasicCasingTextureIndex(TungstenSteel.getmID())),
+    LARGE_ASSEMBLING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, NickmolX.getmID(), getBasicCasingTextureIndex(NickmolX.getmID())),
+    LARGE_PACKAGER(CUBE_3x3x3_WithMuffler, BWBlockCasings, TungstenCarbide.getmID(), getBasicCasingTextureIndex(TungstenCarbide.getmID())),
+    LARGE_CUTTING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, MaragingSteel300.getmID(), getBasicCasingTextureIndex(MaragingSteel300.getmID())),
+    LARGE_SLICING_MACHINE(CUBE_3x3x3_WithMuffler, BWBlockCasings, MaragingSteel350.getmID(), getBasicCasingTextureIndex(MaragingSteel350.getmID())),
+    LARGE_PRECISION_LASER_ENGRAVER(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Staballoy.getmID(), getAdvancedCasingTextureIndex(Staballoy.getmID())),
+    LARGE_COMPRESSOR(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Staballoy.getmID(), getAdvancedCasingTextureIndex(Staballoy.getmID())),
+    LARGE_LATHE(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Staballoy.getmID(), getAdvancedCasingTextureIndex(Staballoy.getmID())),
+    LARGE_AUTOCLAVE(CUBE_3x3x3_WithMuffler, BWBlockCasingsAdvanced, Staballoy.getmID(), getAdvancedCasingTextureIndex(Staballoy.getmID())),
     ;
 
     public static final char REQUIRED_ANY_HATCH = 'c';
@@ -214,6 +214,10 @@ public enum DefaultStructureDefinition {
         this.iStructureDefinition = geometrics.addToDefinition(
                         getDefaultStructureDefinitionBuilder(textureIndex, specialBlock, metaSpecialBlock)
         ).build();
+    }
+
+    DefaultStructureDefinition(GeometricInstance geometrics, Block toBuildWith, int metaToBuildWith, int textureIndex) {
+        this(geometrics, toBuildWith, metaToBuildWith, toBuildWith, metaToBuildWith, textureIndex);
     }
 
     @SuppressWarnings("unchecked")

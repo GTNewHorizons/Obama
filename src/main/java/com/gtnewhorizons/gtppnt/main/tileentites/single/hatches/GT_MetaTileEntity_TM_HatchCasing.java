@@ -66,7 +66,7 @@ public class GT_MetaTileEntity_TM_HatchCasing extends GT_MetaTileEntity_Hatch {
     public ITexture[] getTexturesActive(ITexture aBaseTexture) {
         return new ITexture[]{
                 aBaseTexture,
-                getTieredTexture(),
+                new GT_RenderedTexture(FacingTiered.get(function.name()), COMPONENT_COLORS[this.mTier]),
                 new GT_RenderedTexture(FacingActive.get(this.function.name()))};
     }
 
@@ -74,23 +74,17 @@ public class GT_MetaTileEntity_TM_HatchCasing extends GT_MetaTileEntity_Hatch {
     public ITexture[] getTexturesInactive(ITexture aBaseTexture) {
         return new ITexture[]{
                 aBaseTexture,
-                getTieredTexture(),
+                new GT_RenderedTexture(FacingTiered.get(function.name()), COMPONENT_COLORS[this.mTier]),
                 new GT_RenderedTexture(FacingInactive.get(this.function.name()))};
     }
 
-    private ITexture getTieredTexture() {
-        GT_RenderedTexture renderedTexture = new GT_RenderedTexture(FacingTiered.get(function.name()));
-        renderedTexture.mRGBa = COMPONENT_COLORS[this.mTier];
-        return renderedTexture;
-    }
-
-    @Override
-    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, byte aSide, byte aFacing, byte aColorIndex, boolean aActive, boolean aRedstone) {
-        //Passing the same side and facing each tine ensures the side is the facing side every time
-        //We could do this in a cleaner way, but since mTexturePage and actualTexture are private
-        //This is the best we can do here, might go into the GT5u source and make them protected some point
-        return super.getTexture(aBaseMetaTileEntity, (byte) 0, (byte) 0, aColorIndex, aActive, aRedstone);
-    }
+    //@Override
+    //public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, byte aSide, byte aFacing, byte aColorIndex, boolean aActive, boolean aRedstone) {
+    //    //Passing the same side and facing each tine ensures the side is the facing side every time
+    //    //We could do this in a cleaner way, but since mTexturePage and actualTexture are private
+    //    //This is the best we can do here, might go into the GT5u source and make them protected some point
+    //    return super.getTexture(aBaseMetaTileEntity, (byte) 0, (byte) 0, aColorIndex, aActive, aRedstone);
+    //}
     //endregion
 
     //region Disabled Inherited Methods
