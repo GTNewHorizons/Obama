@@ -10,5 +10,5 @@ public interface IStructureExpander<T> {
      * @param toExpand definition builder to expand on
      * @return expanded structure
      */
-    StructureDefinition.Builder<T> apply(StructureDefinition.Builder<T> toExpand);
+    StructureDefinition.Builder<T> apply(DefaultStructureDefinition definition,StructureDefinition.Builder<T> toExpand);
 }

@@ -8,6 +8,8 @@ import gregtech.api.util.GT_Recipe;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap.FUNCTIONAL_CASING_STRUCTURE_EXPANDER;
+
 //TODO locale for descriptions
 public enum MultiBlockDefinition {
     //region Instances
@@ -15,7 +17,8 @@ public enum MultiBlockDefinition {
             GT_Recipe.GT_Recipe_Map.sCentrifugeRecipes,
             false,
             1,
-            Arrays.asList("Freezer!", "Cools down ingots!")),
+            Arrays.asList("Freezer!", "Cools down ingots!"),
+            FUNCTIONAL_CASING_STRUCTURE_EXPANDER),
 
     LARGE_BENDING_MACHINE(DefaultStructureDefinition.LARGE_BENDING_MACHINE,
             GT_Recipe.GT_Recipe_Map.sBenderRecipes,

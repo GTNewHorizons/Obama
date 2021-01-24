@@ -25,7 +25,9 @@ import com.github.technus.tectech.mechanics.constructable.IConstructable;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.IStructureExpander;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import com.gtnewhorizons.gtppnt.main.utils.IAddsBlocks;
 import com.gtnewhorizons.gtppnt.main.utils.MultiBlockUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -45,6 +47,8 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
+import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdderOptional;
 import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.texturePage;
 
 
@@ -52,7 +56,17 @@ import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.textureP
 public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_MultiblockBase_EM implements
         IAddsBlocks, IConstructable/* this interface adds blueprinting option*/ {
 
+    public static final IStructureExpander<GT_MetaTileEntity_MultiMachine_RecipeMap> FUNCTIONAL_CASING_STRUCTURE_EXPANDER =(def, builder)-> builder
+            .addElement('f', ofHatchAdder(
+                    GT_MetaTileEntity_MultiMachine_RecipeMap::addFunctionalCasingToMachineList,
+                    def.getTextureIndex(),8))
+            .addElement('F', ofHatchAdderOptional(
+                    GT_MetaTileEntity_MultiMachine_RecipeMap::addFunctionalCasingToMachineList,
+                    def.getTextureIndex(),8,def.getSpecialBlock(),def.getMetaSpecialBlock()));
+
+
     private GT_Recipe buffered_Recipe;
+    private final ArrayList<GT_MetaTileEntity_TM_HatchCasing> mFunctionalCasings=new ArrayList<>();
     private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
     private MultiBlockDefinition multiBlockDefinition;
 
@@ -232,7 +246,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
 
     @Override
     public Pair<Block, Integer> getRequiredSpecialBlock() {
-        return multiBlockDefinition.getStructure().getSpecialBlock();
+        return multiBlockDefinition.getStructure().getSpecialBlockPair();
     }
 
     @Override
@@ -247,5 +261,18 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     @Override
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[0];//todo description on blueprint?
+    }
+
+    public final boolean addFunctionalCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        boolean flag = false;
+        if (aTileEntity != null) {
+            IMetaTileEntity mte = aTileEntity.getMetaTileEntity();
+            if (mte instanceof GT_MetaTileEntity_TM_HatchCasing) {
+                GT_MetaTileEntity_TM_HatchCasing hatch = ((GT_MetaTileEntity_TM_HatchCasing)mte);
+                hatch.updateTexture(aBaseCasingIndex);
+                flag = this.mFunctionalCasings.add(hatch);
+            }
+        }
+        return flag;
     }
 }

@@ -220,12 +220,15 @@ public enum DefaultStructureDefinition {
         this(geometrics, toBuildWith, metaToBuildWith, toBuildWith, metaToBuildWith, textureIndex);
     }
 
+
+
     @SuppressWarnings("unchecked")
     <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks> IStructureDefinition<T> getStructureDefinition(IStructureExpander<T> expander) {
         return (IStructureDefinition<T>)(expander==null? iStructureDefinition:
                 map.computeIfAbsent(expander,e->
                         geometrics.addToDefinition(
                                 expander.apply(
+                                        this,
                                         getDefaultStructureDefinitionBuilder(
                                                 textureIndex,
                                                 specialBlock,
@@ -394,11 +397,27 @@ public enum DefaultStructureDefinition {
         ).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
-    public Pair<Block, Integer> getSpecialBlock() {
+    public Pair<Block, Integer> getSpecialBlockPair() {
         return new Pair<>(specialBlock, metaSpecialBlock);
     }
 
     public int getTextureIndex() {
         return textureIndex;
+    }
+
+    public Block getToBuildWith() {
+        return toBuildWith;
+    }
+
+    public int getMetaToBuildWith() {
+        return metaToBuildWith;
+    }
+
+    public Block getSpecialBlock() {
+        return specialBlock;
+    }
+
+    public int getMetaSpecialBlock() {
+        return metaSpecialBlock;
     }
 }
