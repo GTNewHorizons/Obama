@@ -22,6 +22,7 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_TM_Large_Centrifuge;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
 
 import static com.gtnewhorizons.gtppnt.main.items.CustomItemList.*;
@@ -203,12 +204,18 @@ public class MultiBlockLoader {
 
     //ID overlap with GT++ range since the mods are mutually exclusive
     private static void loadOverrideIDs() {
-        //Overlaps with Industrial Centrifuge
-        LARGE_CENTRIFUGE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+        ////Overlaps with Industrial Centrifuge
+        //LARGE_CENTRIFUGE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+        //        790,
+        //        "multimachine.tm.large_centrifuge",
+        //        "Large Centrifuge",
+        //        MultiBlockDefinition.LARGE_CENTRIFUGE
+        //).getStackForm(1L));
+
+        LARGE_CENTRIFUGE.set(new GT_MetaTileEntity_TM_Large_Centrifuge(
                 790,
                 "multimachine.tm.large_centrifuge",
-                "Large Centrifuge",
-                MultiBlockDefinition.LARGE_CENTRIFUGE
+                "Large Centrifuge"
         ).getStackForm(1L));
 
         //Overlaps with Industrial Material Press

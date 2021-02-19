@@ -21,11 +21,9 @@ import java.util.stream.Stream;
 import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.*;
 import static com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
-import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdderOptional;
 import static com.gtnewhorizons.gtppnt.main.CommonValues.TM_MARK;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.*;
-import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.getAdvancedCasingTextureIndex;
-import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.getBasicCasingTextureIndex;
+import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.*;
 import static com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GeometricInstance.*;
 
 public enum DefaultStructureDefinition {

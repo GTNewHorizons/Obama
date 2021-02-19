@@ -56,17 +56,17 @@ import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.textureP
 public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_MultiblockBase_EM implements
         IAddsBlocks, IConstructable/* this interface adds blueprinting option*/ {
 
-    public static final IStructureExpander<GT_MetaTileEntity_MultiMachine_RecipeMap> FUNCTIONAL_CASING_STRUCTURE_EXPANDER =(def, builder)-> builder
+    public static final IStructureExpander<GT_MetaTileEntity_MultiMachine_RecipeMap> FUNCTIONAL_CASING_STRUCTURE_EXPANDER = (def, builder) -> builder
             .addElement('f', ofHatchAdder(
                     GT_MetaTileEntity_MultiMachine_RecipeMap::addFunctionalCasingToMachineList,
-                    def.getTextureIndex(),8))
+                    def.getTextureIndex(), 8))
             .addElement('F', ofHatchAdderOptional(
                     GT_MetaTileEntity_MultiMachine_RecipeMap::addFunctionalCasingToMachineList,
-                    def.getTextureIndex(),8,def.getSpecialBlock(),def.getMetaSpecialBlock()));
+                    def.getTextureIndex(), 8, def.getSpecialBlock(), def.getMetaSpecialBlock()));
 
 
     private GT_Recipe buffered_Recipe;
-    private final ArrayList<GT_MetaTileEntity_TM_HatchCasing> mFunctionalCasings=new ArrayList<>();
+    private final ArrayList<GT_MetaTileEntity_TM_HatchCasing> mFunctionalCasings = new ArrayList<>();
     private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
     private MultiBlockDefinition multiBlockDefinition;
 
@@ -275,7 +275,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
         if (aTileEntity != null) {
             IMetaTileEntity mte = aTileEntity.getMetaTileEntity();
             if (mte instanceof GT_MetaTileEntity_TM_HatchCasing) {
-                GT_MetaTileEntity_TM_HatchCasing hatch = ((GT_MetaTileEntity_TM_HatchCasing)mte);
+                GT_MetaTileEntity_TM_HatchCasing hatch = ((GT_MetaTileEntity_TM_HatchCasing) mte);
                 hatch.updateTexture(aBaseCasingIndex);
                 flag = this.mFunctionalCasings.add(hatch);
             }
