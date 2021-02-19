@@ -138,3 +138,6 @@ processResources
         exclude 'mcmod.info'
     }
 }
+
+//Include resources fixme remove this eventually, we need this so that Minecraft Client running can load resources.
+sourceSets { main { output.resourcesDir = output.classesDir } }

@@ -53,23 +53,31 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     //    return STRUCTURE_DEFINITION;
     //}
 
-    //TODO undo, this is like this for hotswap only
+    //fixme undo, this is like this for hotswap only
     @Override
     public IStructureDefinition<GT_MetaTileEntity_TM_Large_Centrifuge> getStructure_EM() {
         return StructureDefinition.<GT_MetaTileEntity_TM_Large_Centrifuge>builder()
-                .addShape("front",new String[][]{
+                .addShape("front", new String[][]{
                         {"111", "1~1", "111",},
                 })
-                .addShape("slice",new String[][]{
-                        {"111", "101", "111",},
+                .addShape("slice", new String[][]{
+                        {"m1m", "c0c", "m1m",},
+                        //{"111", "111", "111",},
                 })
-                .addShape("back",new String[][]{
+                .addShape("back", new String[][]{
                         {"111", "111", "111",},
                 })
-                .addElement('0', ofBlock(sBlockCasings1,15))
-                .addElement('1', ofChain(
-                        ofHatchAdder(GT_MetaTileEntity_TM_Large_Centrifuge::addEnergyIOToMachineList,textureOffset,sHintCasingsTT,0),
-                        onElementPass(t->t.casingCount++,ofBlock(sBlockCasingsTT,0))
+                .addElement('0', ofBlock(sBlockCasings1, 15))
+                .addElement('1', ofBlock(sBlockCasingsTT, 0))
+                //.addElement('1', ofChain(
+                //        ofHatchAdder(GT_MetaTileEntity_TM_Large_Centrifuge::addClassicToMachineList, textureOffset, sHintCasingsTT, 0),
+                //        onElementPass(t -> t.casingCount++, ofBlock(sBlockCasingsTT, 0))
+                //))
+                .addElement('c', ofChain(
+                        ofHatchAdder(GT_MetaTileEntity_TM_Large_Centrifuge::addCircuitCasingToMachineList, textureOffset, sHintCasingsTT, 1)
+                ))
+                .addElement('m', ofChain(
+                        ofHatchAdder(GT_MetaTileEntity_TM_Large_Centrifuge::addMotorCasingToMachineList, textureOffset, sHintCasingsTT, 2)
                 ))
                 .build();
     }
@@ -77,13 +85,13 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     @Override
     @SideOnly(Side.CLIENT)
     protected Textures.BlockIcons.CustomIcon getScreenOFF() {
-        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_FACTORY_IDLE");
+        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_CENTRIFUGE_IDLE");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     protected Textures.BlockIcons.CustomIcon getScreenON() {
-        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_FACTORY_ACTIVE");
+        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_CENTRIFUGE_ACTIVE");
     }
 
     @Override
@@ -96,6 +104,7 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     protected boolean checkMachine_EM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         boolean isValid;
         this.sliceCount = 0;
+        this.mFunctionalCasings.clear();
 
         isValid = this.structureCheck_EM("front", 1, 1, 0);
 

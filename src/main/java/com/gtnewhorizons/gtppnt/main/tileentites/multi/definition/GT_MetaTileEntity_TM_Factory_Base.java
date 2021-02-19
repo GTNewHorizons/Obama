@@ -4,10 +4,12 @@ import com.github.technus.tectech.mechanics.constructable.IConstructable;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.CasingFunction;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
@@ -104,5 +106,48 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
 
     protected void setFunctionalCasingActivity(boolean state) {
         mFunctionalCasings.forEach(mte -> mte.getBaseMetaTileEntity().setActive(state));
+    }
+
+    public final boolean addFunctionalCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        boolean flag = false;
+        if (aTileEntity != null) {
+            IMetaTileEntity mte = aTileEntity.getMetaTileEntity();
+            if (mte instanceof GT_MetaTileEntity_TM_HatchCasing) {
+                GT_MetaTileEntity_TM_HatchCasing hatch = ((GT_MetaTileEntity_TM_HatchCasing) mte);
+                hatch.updateTexture(aBaseCasingIndex);
+                flag = this.mFunctionalCasings.add(hatch);
+            }
+        }
+        return flag;
+    }
+
+    public final boolean addCircuitCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        boolean flag = false;
+        if (aTileEntity != null) {
+            IMetaTileEntity mte = aTileEntity.getMetaTileEntity();
+            if (mte instanceof GT_MetaTileEntity_TM_HatchCasing) {
+                GT_MetaTileEntity_TM_HatchCasing hatch = ((GT_MetaTileEntity_TM_HatchCasing) mte);
+                if (hatch.function == CasingFunction.CIRCUIT) {
+                    hatch.updateTexture(aBaseCasingIndex);
+                    flag = this.mFunctionalCasings.add(hatch);
+                }
+            }
+        }
+        return flag;
+    }
+
+    public final boolean addMotorCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        boolean flag = false;
+        if (aTileEntity != null) {
+            IMetaTileEntity mte = aTileEntity.getMetaTileEntity();
+            if (mte instanceof GT_MetaTileEntity_TM_HatchCasing) {
+                GT_MetaTileEntity_TM_HatchCasing hatch = ((GT_MetaTileEntity_TM_HatchCasing) mte);
+                if (hatch.function == CasingFunction.MOTOR) {
+                    hatch.updateTexture(aBaseCasingIndex);
+                    flag = this.mFunctionalCasings.add(hatch);
+                }
+            }
+        }
+        return flag;
     }
 }
