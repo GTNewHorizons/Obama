@@ -26,7 +26,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 
-//TODO Delete this whole got forsaken fucking utils class holy shit it is so fucking bad.
+//TODO Delete this whole god forsaken fucking utils class holy shit it is so fucking bad.
 public class MultiBlockUtils {
     @Deprecated
     public static ItemStack[] sortItemStacks(ArrayList<ItemStack> tInputList) {

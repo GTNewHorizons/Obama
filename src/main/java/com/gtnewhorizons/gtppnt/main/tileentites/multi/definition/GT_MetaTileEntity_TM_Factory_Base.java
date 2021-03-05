@@ -32,6 +32,7 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     protected static final String START_STRUCTURE = "start";
     protected static final String SLICE_STRUCTURE = "slice";
     protected static final String END_STRUCTURE = "end";
+
     private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base>> structures = new HashMap<>();
 
     @SideOnly(Side.CLIENT)
@@ -47,10 +48,10 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     @SideOnly(Side.CLIENT)
     private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, ResourceLocation> sounds = new HashMap<>();
 
-    protected final HashSet<GT_MetaTileEntity_TM_HatchCasing> mFunctionalCasings = new HashSet<>();
-    protected GT_Recipe buffered_Recipe;
-    protected int sliceCount = 0;
-    protected byte casingTier = 0;
+    private final HashSet<GT_MetaTileEntity_TM_HatchCasing> mFunctionalCasings = new HashSet<>();
+    private GT_Recipe buffered_Recipe;
+    private int sliceCount = 0;
+    private byte casingTier = 0;
     //endregion
 
     //region Constructors
@@ -152,7 +153,7 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
         return 1;
     }
 
-    protected abstract int getMaxParalellsPerSlice();
+    protected abstract int getParalellsPerSlice();
 
     protected boolean checkCasingTiers() {
         boolean tierMatchingCasings = true;
@@ -178,12 +179,12 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
                 getStartStructureOffset().get1(),
                 getStartStructureOffset().get2())) {
 
-            Vec3Impl sliceStructureOffset = new Vec3Impl(2, 1, -1);
+            Vec3Impl sliceStructureOffset = getSliceStructureOffset();
             for (int i = 0; i < getMaxSlices(); i++) {
                 if (structureCheck_EM(SLICE_STRUCTURE,
-                        getSliceStructureOffset().get0(),
-                        getSliceStructureOffset().get1(),
-                        getSliceStructureOffset().get2())) {
+                        sliceStructureOffset.get0(),
+                        sliceStructureOffset.get1(),
+                        sliceStructureOffset.get2())) {
                     this.sliceCount++;
                     sliceStructureOffset = sliceStructureOffset.add(getPerSliceOffset());
                 } else {
@@ -323,7 +324,7 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     public abstract GT_Recipe.GT_Recipe_Map getRecipeMap();
 
     protected int getMaxParalells() {
-        return this.sliceCount * getMaxParalellsPerSlice();
+        return this.sliceCount * getParalellsPerSlice();
     }
 
     protected boolean isPerfectOC() {
@@ -388,7 +389,6 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
                         this.mOutputItems = MultiBlockUtils.sortOutputItemStacks(outputItems);
                         this.mOutputFluids = MultiBlockUtils.sortOutputFluidStacks(outputFluids);
 
-                        //TODO calculateOverclockedNessMultiInternal needs to account for overflows, returning a boolean true if the OC fails. It should also include mMaxProgresstime and mEUt checks inside it.
                         this.calculateOverclockedNessMultiInternal(recipe.mEUt * recipeRepeats, recipe.mDuration / 50, getRecipeMap().mAmperage * recipeRepeats, getMaxVoltage(), isPerfectOC());
                         // FIXME: 26/02/2021 Undo duration debug boost
                         if (mMaxProgresstime != Integer.MAX_VALUE - 1 && mEUt != Integer.MAX_VALUE - 1) {
@@ -400,7 +400,6 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
                             canRunRecipe = true;
                         }
                     }
-
                 }
             }
         }

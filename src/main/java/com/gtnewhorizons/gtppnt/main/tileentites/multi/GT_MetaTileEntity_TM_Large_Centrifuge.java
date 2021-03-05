@@ -20,7 +20,7 @@ import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.Mara
 public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_Factory_Base {
     //region Constructors
     public GT_MetaTileEntity_TM_Large_Centrifuge(int aID) {
-        super(aID, "multimachine.tm.large_centrifuge", "Large Centrifuge");
+        super(aID, "multimachine.tm.large_centrifuge", "Large Centrifuge");//TODO Set cooler name + .lang
     }
 
     public GT_MetaTileEntity_TM_Large_Centrifuge(String aName) {
@@ -29,7 +29,7 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
 
     @Override
     public String[] getDescription() {
-        return new String[]{"description?"};
+        return new String[]{"description?"};//TODO Set proper description + .lang
     }
 
     @Override
@@ -93,14 +93,14 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     }
 
     @Override
-    protected int getMaxParalellsPerSlice() {
+    protected int getParalellsPerSlice() {
         return 32;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{"CHANGE-ME"};
+        return new String[]{"CHANGE-ME"};//TODO fix the description
     }
     //endregion
 
@@ -120,7 +120,7 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
 
     //region Sounds
     @Override
-    protected ResourceLocation getSound() {
+    protected ResourceLocation getSound() {//TODO add a proper sound file
         return new ResourceLocation("tectech:fx_lo_freq");
     }
     //endregion
