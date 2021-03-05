@@ -2,24 +2,25 @@ package com.gtnewhorizons.gtppnt.main.tileentites.multi;
 
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.mechanics.structure.StructureDefinition;
-import com.github.technus.tectech.thing.metaTileEntity.multi.GT_MetaTileEntity_EM_transformer;
+import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory_Base;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.util.GT_Recipe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
-import static com.github.technus.tectech.thing.casing.GT_Block_CasingsTT.textureOffset;
-import static com.github.technus.tectech.thing.casing.TT_Container_Casings.sBlockCasingsTT;
 import static com.github.technus.tectech.thing.casing.TT_Container_Casings.sHintCasingsTT;
-import static gregtech.api.GregTech_API.sBlockCasings1;
+import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
 public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_Factory_Base {
-    public GT_MetaTileEntity_TM_Large_Centrifuge(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional);
+    //region Constructors
+    public GT_MetaTileEntity_TM_Large_Centrifuge(int aID) {
+        super(aID, "multimachine.tm.large_centrifuge", "Large Centrifuge");
     }
 
     public GT_MetaTileEntity_TM_Large_Centrifuge(String aName) {
@@ -27,116 +28,107 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     }
 
     @Override
+    public String[] getDescription() {
+        return new String[]{"description?"};
+    }
+
+    @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity iGregTechTileEntity) {
         return new GT_MetaTileEntity_TM_Large_Centrifuge(mName);
     }
+    //endregion
 
-    private static final IStructureDefinition<GT_MetaTileEntity_TM_Large_Centrifuge> STRUCTURE_DEFINITION =
-            StructureDefinition.<GT_MetaTileEntity_TM_Large_Centrifuge>builder()
-                    .addShape("main",new String[][]{
-                            {"111", "1~1", "111",},
-                            {"111", "101", "111",},
-                            {"111", "111", "111",},
-                    })
-                    .addElement('0', ofBlock(sBlockCasings1,15))
-                    .addElement('1', ofChain(
-                            ofHatchAdder(GT_MetaTileEntity_TM_Large_Centrifuge::addEnergyIOToMachineList,textureOffset,sHintCasingsTT,0),
-                            onElementPass(t->t.casingCount++,ofBlock(sBlockCasingsTT,0))
-                    ))
-                    .build();
-
-    private int casingCount = 0;
-    private int sliceCount = 0;
-
-    //@Override
-    //public IStructureDefinition<GT_MetaTileEntity_TM_Large_Centrifuge> getStructure_EM() {
-    //    return STRUCTURE_DEFINITION;
-    //}
-
-    //fixme undo, this is like this for hotswap only
+    //region Structure
     @Override
-    public IStructureDefinition<GT_MetaTileEntity_TM_Large_Centrifuge> getStructure_EM() {
-        return StructureDefinition.<GT_MetaTileEntity_TM_Large_Centrifuge>builder()
-                .addShape("front", new String[][]{
-                        {"111", "1~1", "111",},
-                })
-                .addShape("slice", new String[][]{
-                        {"m1m", "c0c", "m1m",},
-                        //{"111", "111", "111",},
-                })
-                .addShape("back", new String[][]{
-                        {"111", "111", "111",},
-                })
-                .addElement('0', ofBlock(sBlockCasings1, 15))
-                .addElement('1', ofBlock(sBlockCasingsTT, 0))
-                //.addElement('1', ofChain(
-                //        ofHatchAdder(GT_MetaTileEntity_TM_Large_Centrifuge::addClassicToMachineList, textureOffset, sHintCasingsTT, 0),
-                //        onElementPass(t -> t.casingCount++, ofBlock(sBlockCasingsTT, 0))
-                //))
+    protected short getCasingMeta() {
+        return MaragingSteel250.getmID();
+    }
+
+    @Override
+    protected IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base> getStructure() {
+        return StructureDefinition.<GT_MetaTileEntity_TM_Factory_Base>builder()
+                .addShape(START_STRUCTURE, new String[][]{
+                        {"BBBB", "BB~B", "BBBB"},
+                }) // 2 1 0
+                .addShape(SLICE_STRUCTURE, new String[][]{
+                        {"AmmA", "c  A", "AAAA",},
+                        {"AmmA", "c  A", "AAAA",},
+                        {"AAAA", "AAAA", "AAAA",},
+                }) // 2 1 -1
+                .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
+                .addElement('B', ofChain(
+                        ofHatchAdder(GT_MetaTileEntity_TM_Factory_Base::addClassicToMachineList,
+                                getTextureIndex(), sHintCasingsTT, 0),
+                        ofBlock(getCasingBlock(), getCasingMeta())
+                ))
                 .addElement('c', ofChain(
-                        ofHatchAdder(GT_MetaTileEntity_TM_Large_Centrifuge::addCircuitCasingToMachineList, textureOffset, sHintCasingsTT, 1)
+                        ofHatchAdder(GT_MetaTileEntity_TM_Factory_Base::addCircuitCasingToMachineList,
+                                getTextureIndex(), sHintCasingsTT, 1)
                 ))
                 .addElement('m', ofChain(
-                        ofHatchAdder(GT_MetaTileEntity_TM_Large_Centrifuge::addMotorCasingToMachineList, textureOffset, sHintCasingsTT, 2)
+                        ofHatchAdder(GT_MetaTileEntity_TM_Factory_Base::addMotorCasingToMachineList,
+                                getTextureIndex(), sHintCasingsTT, 2)
                 ))
                 .build();
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    protected Textures.BlockIcons.CustomIcon getScreenOFF() {
-        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_CENTRIFUGE_IDLE");
+    protected Vec3Impl getStartStructureOffset() {
+        return new Vec3Impl(2, 1, 0);
+    }
+
+    @Override
+    protected Vec3Impl getSliceStructureOffset() {
+        return new Vec3Impl(2, 1, -1);
+    }
+
+    @Override
+    protected Vec3Impl getPerSliceOffset() {
+        return new Vec3Impl(0, 0, -3);
+    }
+
+    @Override
+    protected int getMaxSlices() {
+        return 4;
+    }
+
+    @Override
+    protected int getMaxParalellsPerSlice() {
+        return 32;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    protected Textures.BlockIcons.CustomIcon getScreenON() {
-        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_CENTRIFUGE_ACTIVE");
+    public String[] getStructureDescription(ItemStack itemStack) {
+        return new String[]{"CHANGE-ME"};
+    }
+    //endregion
+
+    //region Textures
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Textures.BlockIcons.CustomIcon getScreenMachineInactive() {
+        return new Textures.BlockIcons.CustomIcon("iconsets/repair/centrifuge_inactive");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    protected int getTextureID() {
-        return 0;
+    public Textures.BlockIcons.CustomIcon getScreenMachineActive() {
+        return new Textures.BlockIcons.CustomIcon("iconsets/repair/centrifuge_active");
     }
+    //endregion
 
+    //region Sounds
     @Override
-    protected boolean checkMachine_EM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
-        boolean isValid;
-        this.sliceCount = 0;
-        this.mFunctionalCasings.clear();
-
-        isValid = this.structureCheck_EM("front", 1, 1, 0);
-
-        if (isValid) {
-            for (int i = 0; i < 8; i++) {
-                if (structureCheck_EM("slice", 1, 1, -1 - i)) {
-                    this.sliceCount++;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        if (this.sliceCount > 0) {
-            isValid = this.structureCheck_EM("back", 1, 1, -1 - this.sliceCount);
-        } else {
-            isValid = false;
-        }
-
-        return isValid;
+    protected ResourceLocation getSound() {
+        return new ResourceLocation("tectech:fx_lo_freq");
     }
+    //endregion
 
+    //region On Tick
     @Override
-    public void construct(ItemStack itemStack, boolean hintsOnly) {
-        int sliceCount = Math.min(itemStack.stackSize, 8);
-
-        structureBuild_EM("front", 1, 1, 0, hintsOnly, itemStack);
-
-        for (int i = 0; i < sliceCount; i++) {
-            structureBuild_EM("slice", 1, 1, -1 - i, hintsOnly, itemStack);
-        }
-
-        structureBuild_EM("back", 1, 1, -1 - sliceCount, hintsOnly, itemStack);
+    public GT_Recipe.GT_Recipe_Map getRecipeMap() {
+        return GT_Recipe.GT_Recipe_Map.sCentrifugeRecipes;
     }
+    //endregion
 }

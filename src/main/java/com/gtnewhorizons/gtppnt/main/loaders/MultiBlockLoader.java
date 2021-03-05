@@ -204,19 +204,8 @@ public class MultiBlockLoader {
 
     //ID overlap with GT++ range since the mods are mutually exclusive
     private static void loadOverrideIDs() {
-        ////Overlaps with Industrial Centrifuge
-        //LARGE_CENTRIFUGE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-        //        790,
-        //        "multimachine.tm.large_centrifuge",
-        //        "Large Centrifuge",
-        //        MultiBlockDefinition.LARGE_CENTRIFUGE
-        //).getStackForm(1L));
-
-        LARGE_CENTRIFUGE.set(new GT_MetaTileEntity_TM_Large_Centrifuge(
-                790,
-                "multimachine.tm.large_centrifuge",
-                "Large Centrifuge"
-        ).getStackForm(1L));
+        //Overlaps with Industrial Centrifuge
+        LARGE_CENTRIFUGE.set(new GT_MetaTileEntity_TM_Large_Centrifuge(790).getItem());
 
         //Overlaps with Industrial Material Press
         LARGE_BENDING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
@@ -235,12 +224,11 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Overlaps with Maceration Stack Controller
-        LARGE_MACERATOR.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                797,
-                "multimachine.tm.large_macerator",
-                "Large Macerator",
-                MultiBlockDefinition.LARGE_MACERATOR
-        ).getStackForm(1L));
+        //LARGE_MACERATOR.set(new GT_MetaTileEntity_TM_Large_Macerator(
+        //        797,
+        //        "multimachine.tm.large_macerator",
+        //        "Large Macerator"
+        //).getItem());
 
         //Overlaps with Wire Factory Controller
         LARGE_WIREMILL.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
@@ -275,12 +263,11 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Overlaps with Large Washing Plant
-        LARGE_ORE_WASHING_PLANT.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                850,
-                "multimachine.tm.large_ore_washing_plant",
-                "Large Ore Washing Plant",
-                MultiBlockDefinition.LARGE_ORE_WASHING_PLANT
-        ).getStackForm(1L));
+        //LARGE_ORE_WASHING_PLANT.set(new GT_MetaTileEntity_TM_Large_Ore_Washing_Plant(
+        //        850,
+        //        "multimachine.tm.large_ore_washing_plant",
+        //        "Large Ore Washing Plant"
+        //).getItem());
 
         //Overlaps with Industrial Extrusion Machine
         LARGE_EXTRUDER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(

@@ -26,8 +26,9 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 
+//TODO Delete this whole got forsaken fucking utils class holy shit it is so fucking bad.
 public class MultiBlockUtils {
-
+    @Deprecated
     public static ItemStack[] sortItemStacks(ArrayList<ItemStack> tInputList) {
         int tInputList_sS = tInputList.size();
         for (int i = 0; i < tInputList_sS - 1; i++) {
@@ -47,6 +48,40 @@ public class MultiBlockUtils {
         return tInputList.toArray(new ItemStack[0]);
     }
 
+    public static ItemStack[] sortInputItemStacks(ArrayList<ItemStack> inputList) {
+        //ArrayList<ItemStack> outputList = new ArrayList<>();
+        //for (ItemStack itemStack : inputList) {
+        //    OptionalInt outputIndex = IntStream.range(0, outputList.size())
+        //            .filter(i -> GT_Utility.areStacksEqual(outputList.get(i), itemStack) ||
+        //                    outputList.get(i).stackSize > itemStack.stackSize)
+        //            .findFirst();
+        //    if (outputIndex.isPresent()) {
+        //        outputList.set(outputIndex.getAsInt(), itemStack);
+        //    } else {
+        //        outputList.add(itemStack);
+        //    }
+        //}
+        //return outputList.toArray(new ItemStack[0]);
+        return inputList.toArray(new ItemStack[0]);
+    }
+
+    public static ItemStack[] sortOutputItemStacks(ArrayList<ItemStack> inputList) {
+        //ArrayList<ItemStack> outputList = new ArrayList<>();
+        //for (ItemStack itemStack : inputList) {
+        //    OptionalInt outputIndex = IntStream.range(0, outputList.size())
+        //            .filter(i -> GT_Utility.areStacksEqual(outputList.get(i), itemStack))
+        //            .findFirst();
+        //    if (outputIndex.isPresent()) {
+        //        outputList.get(outputIndex.getAsInt()).stackSize += itemStack.stackSize;
+        //    } else {
+        //        outputList.add(itemStack);
+        //    }
+        //}
+        //return outputList.toArray(new ItemStack[0]);
+        return inputList.toArray(new ItemStack[0]);
+    }
+
+    @Deprecated
     public static FluidStack[] sortFluidStacks(ArrayList<FluidStack> tFluidList) {
         int tFluidList_sS = tFluidList.size();
         for (int i = 0; i < tFluidList_sS - 1; i++) {
@@ -66,4 +101,36 @@ public class MultiBlockUtils {
         return tFluidList.toArray(new FluidStack[0]);
     }
 
+    public static FluidStack[] sortInputFluidStacks(ArrayList<FluidStack> inputList) {
+        //ArrayList<FluidStack> outputList = new ArrayList<>();
+        //for (FluidStack fluidStack : inputList) {
+        //    OptionalInt outputIndex = IntStream.range(0, outputList.size())
+        //            .filter(i -> GT_Utility.areFluidsEqual(outputList.get(i), fluidStack) ||
+        //                    outputList.get(i).amount > fluidStack.amount)
+        //            .findFirst();
+        //    if (outputIndex.isPresent()) {
+        //        outputList.set(outputIndex.getAsInt(), fluidStack);
+        //    } else {
+        //        outputList.add(fluidStack);
+        //    }
+        //}
+        //return outputList.toArray(new FluidStack[0]);
+        return inputList.toArray(new FluidStack[0]);
+    }
+
+    public static FluidStack[] sortOutputFluidStacks(ArrayList<FluidStack> inputList) {
+        //ArrayList<FluidStack> outputList = new ArrayList<>();
+        //for (FluidStack fluidStack : inputList) {
+        //    OptionalInt outputIndex = IntStream.range(0, outputList.size())
+        //            .filter(i -> GT_Utility.areFluidsEqual(outputList.get(i), fluidStack))
+        //            .findFirst();
+        //    if (outputIndex.isPresent()) {
+        //        outputList.get(outputIndex.getAsInt()).amount += fluidStack.amount;
+        //    } else {
+        //        outputList.add(fluidStack);
+        //    }
+        //}
+        //return outputList.toArray(new FluidStack[0]);
+        return inputList.toArray(new FluidStack[0]);
+    }
 }
