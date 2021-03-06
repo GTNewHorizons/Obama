@@ -108,13 +108,13 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     @Override
     @SideOnly(Side.CLIENT)
     public Textures.BlockIcons.CustomIcon getScreenMachineInactive() {
-        return new Textures.BlockIcons.CustomIcon("iconsets/repair/centrifuge_inactive");
+        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_CENTRIFUGE_INACTIVE");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public Textures.BlockIcons.CustomIcon getScreenMachineActive() {
-        return new Textures.BlockIcons.CustomIcon("iconsets/repair/centrifuge_active");
+        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_CENTRIFUGE_ACTIVE");
     }
     //endregion
 

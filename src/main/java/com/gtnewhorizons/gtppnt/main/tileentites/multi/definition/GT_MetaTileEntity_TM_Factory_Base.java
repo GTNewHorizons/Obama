@@ -36,12 +36,13 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base>> structures = new HashMap<>();
 
     @SideOnly(Side.CLIENT)
-    private static Textures.BlockIcons.CustomIcon[] repairTextures;
+    private static Textures.BlockIcons.CustomIcon screenBase;
     @SideOnly(Side.CLIENT)
     private static Textures.BlockIcons.CustomIcon screenBaseInactive;
     @SideOnly(Side.CLIENT)
     private static Textures.BlockIcons.CustomIcon screenBaseActive;
     @SideOnly(Side.CLIENT)
+    private static Textures.BlockIcons.CustomIcon[] repairTextures;
     private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, Textures.BlockIcons.CustomIcon> screensMachineInactive = new HashMap<>();
     @SideOnly(Side.CLIENT)
     private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, Textures.BlockIcons.CustomIcon> screensMachineActive = new HashMap<>();
@@ -102,19 +103,19 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     }
 
     public final boolean addGrindingCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity,aBaseCasingIndex, CasingFunction.GRINDING);
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.GRINDING);
     }
 
     public final boolean addPistonCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity,aBaseCasingIndex, CasingFunction.PISTON);
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.PISTON);
     }
 
     public final boolean addCircuitCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity,aBaseCasingIndex, CasingFunction.CIRCUIT);
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.CIRCUIT);
     }
 
     public final boolean addMotorCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity,aBaseCasingIndex, CasingFunction.MOTOR);
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.MOTOR);
     }
 
     protected void setFunctionalCasingActivity(boolean state) {
@@ -192,7 +193,6 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
                 }
             }
         }
-
         return this.sliceCount >= getMinSlices() && checkCasingTiers();
     }
 
@@ -220,18 +220,20 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     //region Textures
     @SideOnly(Side.CLIENT)
     public void registerBaseIcons() {
-        if (repairTextures == null || screenBaseInactive == null || screenBaseActive == null) {
-            repairTextures = new Textures.BlockIcons.CustomIcon[7];
-            repairTextures[0] = new Textures.BlockIcons.CustomIcon("iconsets/repair/none");
-            repairTextures[1] = new Textures.BlockIcons.CustomIcon("iconsets/repair/wrench");
-            repairTextures[2] = new Textures.BlockIcons.CustomIcon("iconsets/repair/screwdriver");
-            repairTextures[3] = new Textures.BlockIcons.CustomIcon("iconsets/repair/softhammer");
-            repairTextures[4] = new Textures.BlockIcons.CustomIcon("iconsets/repair/hardhammer");
-            repairTextures[5] = new Textures.BlockIcons.CustomIcon("iconsets/repair/solderingtool");
-            repairTextures[6] = new Textures.BlockIcons.CustomIcon("iconsets/repair/crowbar");
+        if (screenBase == null || screenBaseInactive == null || screenBaseActive == null || repairTextures == null) {
+            screenBase = new Textures.BlockIcons.CustomIcon("iconsets/TM_SCREEN_BASE");
+            screenBaseInactive = new Textures.BlockIcons.CustomIcon("iconsets/TM_SCREEN_BASE_INACTIVE");
+            screenBaseActive = new Textures.BlockIcons.CustomIcon("iconsets/TM_SCREEN_BASE_ACTIVE");
 
-            screenBaseInactive = new Textures.BlockIcons.CustomIcon("iconsets/repair/inactive");
-            screenBaseActive = new Textures.BlockIcons.CustomIcon("iconsets/repair/active");
+            repairTextures = new Textures.BlockIcons.CustomIcon[8];
+            repairTextures[0] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_OK");
+            repairTextures[1] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_STRUCTURE");
+            repairTextures[2] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_WRENCH");
+            repairTextures[3] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_SCREWDRIVER");
+            repairTextures[4] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_SOFTHAMMER");
+            repairTextures[5] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_HARDHAMMER");
+            repairTextures[6] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_SOLDERINGIRON");
+            repairTextures[7] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_CROWBAR");
         }
     }
 
@@ -256,17 +258,22 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     }
 
     @SideOnly(Side.CLIENT)
-    public ITexture getScreenBaseTexture(boolean aActive) {
+    public ITexture getScreenBaseTexture() {
+        return new TT_RenderedExtendedFacingTexture(screenBase);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public ITexture getScreenBaseActivityTexture(boolean aActive) {
         return new TT_RenderedExtendedFacingTexture(aActive ? screenBaseActive : screenBaseInactive);
     }
 
     @SideOnly(Side.CLIENT)
-    public ITexture getScreenMachineTexture(boolean aActive) {
+    public ITexture getScreenMachineActivityTexture(boolean aActive) {
         Textures.BlockIcons.CustomIcon texture;
         if (aActive) {
-            texture = screensMachineInactive.get(this.getClass());
-        } else {
             texture = screensMachineActive.get(this.getClass());
+        } else {
+            texture = screensMachineInactive.get(this.getClass());
         }
         return new TT_RenderedExtendedFacingTexture(texture);
     }
@@ -275,19 +282,22 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     @SideOnly(Side.CLIENT)
     public ITexture getRepairTexture() {
         ITexture texture = new TT_RenderedExtendedFacingTexture(repairTextures[0]);
-        if (!this.mWrench) {
-            texture = new TT_RenderedExtendedFacingTexture(repairTextures[1]);
-        } else if (!this.mScrewdriver) {
-            texture = new TT_RenderedExtendedFacingTexture(repairTextures[2]);
-        } else if (!this.mSoftHammer) {
-            texture = new TT_RenderedExtendedFacingTexture(repairTextures[3]);
-        } else if (!this.mHardHammer) {
-            texture = new TT_RenderedExtendedFacingTexture(repairTextures[4]);
-        } else if (!this.mSolderingTool) {
-            texture = new TT_RenderedExtendedFacingTexture(repairTextures[5]);
-        } else if (!this.mCrowbar) {
-            texture = new TT_RenderedExtendedFacingTexture(repairTextures[6]);
-        }
+        //TODO: Add a packet from server to client to sync the values across, else this doesn't work at all.
+        //if (!this.mMachine) {
+        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[1]);
+        //} else if (!this.mWrench) {
+        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[2]);
+        //} else if (!this.mScrewdriver) {
+        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[3]);
+        //} else if (!this.mSoftHammer) {
+        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[4]);
+        //} else if (!this.mHardHammer) {
+        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[5]);
+        //} else if (!this.mSolderingTool) {
+        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[6]);
+        //} else if (!this.mCrowbar) {
+        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[7]);
+        //}
         return texture;
     }
 
@@ -300,8 +310,9 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
         } else {
             textures = new ITexture[]{
                     getHullTexture(),
-                    getScreenBaseTexture(aActive),
-                    getScreenMachineTexture(aActive),
+                    getScreenBaseTexture(),
+                    getScreenBaseActivityTexture(aActive),
+                    getScreenMachineActivityTexture(aActive),
                     getRepairTexture()};
         }
         return textures;
@@ -341,6 +352,7 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
 
     @Override
     public boolean checkRecipe_EM(ItemStack itemStack) {
+        System.out.println(mMachine);
         boolean canRunRecipe = false;
         if (this.getEUVar() > this.getMaxInputVoltage()) {
             ItemStack[] inputItems = MultiBlockUtils.sortInputItemStacks(this.getStoredInputs());
