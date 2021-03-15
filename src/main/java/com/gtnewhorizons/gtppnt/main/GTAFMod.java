@@ -49,7 +49,7 @@ public class GTAFMod {
     public static final String NAME = "GT-AF";
     public static final String VERSION = "@version@";
     public static final Logger LOGGER = LogManager.getLogger(GTAFMod.NAME);
-    static final String MODID = "gtppnt";
+    public static final String MODID = "gtppnt";
     private static final boolean DEBUG = true;
 
     @EventHandler

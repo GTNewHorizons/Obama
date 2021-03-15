@@ -5,7 +5,6 @@ import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGeneratedBlocks
 
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import gregtech.api.enums.Textures;
-import net.minecraft.block.Block;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,14 +54,14 @@ public class CasingTextureLoader {
         for (Map.Entry<Short, Byte> Rx : basicWerkstoffCasingToTexurePageID.entrySet()) {
             casing_basic_te.mMetaData = Rx.getKey();
             Textures.BlockIcons.casingTexturePages[texturePage][Rx.getValue()] =
-                    (casing_basic_te.getTexture(Block.getBlockById(0), (byte) 0))[1];
+                    casing_basic_te.getTexture(null, (byte) 0)[1];
         }
 
         BW_MetaGeneratedBlocks_CasingAdvanced_TE casingAdvancedTe = new BW_MetaGeneratedBlocks_CasingAdvanced_TE();
         for (Map.Entry<Short, Byte> Rx : advancedWerkstoffCasingToTexurePageID.entrySet()) {
             casingAdvancedTe.mMetaData = Rx.getKey();
             Textures.BlockIcons.casingTexturePages[texturePage][Rx.getValue()] =
-                    (casingAdvancedTe.getTexture(Block.getBlockById(0), (byte) 0))[1];
+                    casingAdvancedTe.getTexture(null, (byte) 0)[1];
         }
     }
 
