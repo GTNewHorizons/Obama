@@ -4,18 +4,15 @@ import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
 import com.github.technus.tectech.mechanics.constructable.IConstructable;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
-import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.github.technus.tectech.util.CommonValues;
 import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
-import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.CasingFunction;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.IFunctionalCasingMachineList;
 import com.gtnewhorizons.gtppnt.main.utils.MultiBlockUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Recipe;
 import net.minecraft.block.Block;
@@ -26,8 +23,13 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.*;
 
+
+//TODO Structures and constructors go into their own interface that extends IConstructable
+//TODO This then requires two other abstract classes, one for Cell, Slice and newShape
+//TODO Sounds go into their own interface that provides the sound storage
+//TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntity_MultiblockBase_EM implements
-        IConstructable {
+        IConstructable, IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
     //region Fields
     protected static final String START_STRUCTURE = "start";
     protected static final String SLICE_STRUCTURE = "slice";
@@ -35,21 +37,7 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
 
     private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base>> structures = new HashMap<>();
 
-    @SideOnly(Side.CLIENT)
-    private static Textures.BlockIcons.CustomIcon screenBase;
-    @SideOnly(Side.CLIENT)
-    private static Textures.BlockIcons.CustomIcon screenBaseInactive;
-    @SideOnly(Side.CLIENT)
-    private static Textures.BlockIcons.CustomIcon screenBaseActive;
-    @SideOnly(Side.CLIENT)
-    private static Textures.BlockIcons.CustomIcon[] repairTextures;
-    private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, Textures.BlockIcons.CustomIcon> screensMachineInactive = new HashMap<>();
-    @SideOnly(Side.CLIENT)
-    private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, Textures.BlockIcons.CustomIcon> screensMachineActive = new HashMap<>();
-    @SideOnly(Side.CLIENT)
-    private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, ResourceLocation> sounds = new HashMap<>();
-
-    private final HashSet<GT_MetaTileEntity_TM_HatchCasing> mFunctionalCasings = new HashSet<>();
+    private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
     private GT_Recipe buffered_Recipe;
     private int sliceCount = 0;
     private byte casingTier = 0;
@@ -60,7 +48,7 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
         super(aID, aName, aNameRegional);
         setRepairFlags();
         structures.put(this.getClass(), getStructure());
-        sounds.put(this.getClass(), getSound());
+        registerActivitySound_TM();
     }
 
     public GT_MetaTileEntity_TM_Factory_Base(String aName) {
@@ -86,43 +74,6 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     public abstract String[] getDescription();
     //endregion
 
-    //region Functional Casings
-    private boolean addFunctionalCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex, CasingFunction function) {
-        boolean flag = false;
-        if (aTileEntity != null) {
-            IMetaTileEntity mte = aTileEntity.getMetaTileEntity();
-            if (mte instanceof GT_MetaTileEntity_TM_HatchCasing) {
-                GT_MetaTileEntity_TM_HatchCasing hatch = ((GT_MetaTileEntity_TM_HatchCasing) mte);
-                if (hatch.function == function) {
-                    hatch.updateTexture(aBaseCasingIndex);
-                    flag = this.mFunctionalCasings.add(hatch);
-                }
-            }
-        }
-        return flag;
-    }
-
-    public final boolean addGrindingCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.GRINDING);
-    }
-
-    public final boolean addPistonCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.PISTON);
-    }
-
-    public final boolean addCircuitCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.CIRCUIT);
-    }
-
-    public final boolean addMotorCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.MOTOR);
-    }
-
-    protected void setFunctionalCasingActivity(boolean state) {
-        mFunctionalCasings.forEach(mte -> mte.getBaseMetaTileEntity().setActive(state));
-    }
-    //endregion
-
     //region Structure
 
     protected Block getCasingBlock() {
@@ -131,7 +82,8 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
 
     protected abstract short getCasingMeta();
 
-    protected int getTextureIndex() {
+    @Override
+    public int getTextureIndex() {
         return CasingTextureLoader.getBasicCasingTextureIndex(getCasingMeta());
     }
 
@@ -156,24 +108,10 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
 
     protected abstract int getParalellsPerSlice();
 
-    protected boolean checkCasingTiers() {
-        boolean tierMatchingCasings = true;
-        casingTier = -1;
-        for (GT_MetaTileEntity_TM_HatchCasing casing : mFunctionalCasings) {
-            if (casingTier == -1) {
-                casingTier = casing.mTier;
-            } else if (casingTier != casing.mTier) {
-                tierMatchingCasings = false;
-                break;
-            }
-        }
-        return tierMatchingCasings;
-    }
-
     @Override
     protected boolean checkMachine_EM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
-        this.sliceCount = 0;
-        this.mFunctionalCasings.clear();
+        this.setSliceCount(0);
+        this.getFunctionalCasings().clear();
 
         if (this.structureCheck_EM(START_STRUCTURE,
                 getStartStructureOffset().get0(),
@@ -186,14 +124,14 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
                         sliceStructureOffset.get0(),
                         sliceStructureOffset.get1(),
                         sliceStructureOffset.get2())) {
-                    this.sliceCount++;
+                    setSliceCount(getSliceCount() + 1);
                     sliceStructureOffset = sliceStructureOffset.add(getPerSliceOffset());
                 } else {
                     break;
                 }
             }
         }
-        return this.sliceCount >= getMinSlices() && checkCasingTiers();
+        return getSliceCount() >= getMinSlices() && checkCasingTiers();
     }
 
     @Override
@@ -218,115 +156,25 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     //endregion
 
     //region Textures
-    @SideOnly(Side.CLIENT)
-    public void registerBaseIcons() {
-        if (screenBase == null || screenBaseInactive == null || screenBaseActive == null || repairTextures == null) {
-            screenBase = new Textures.BlockIcons.CustomIcon("iconsets/TM_SCREEN_BASE");
-            screenBaseInactive = new Textures.BlockIcons.CustomIcon("iconsets/TM_SCREEN_BASE_INACTIVE");
-            screenBaseActive = new Textures.BlockIcons.CustomIcon("iconsets/TM_SCREEN_BASE_ACTIVE");
-
-            repairTextures = new Textures.BlockIcons.CustomIcon[8];
-            repairTextures[0] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_OK");
-            repairTextures[1] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_STRUCTURE");
-            repairTextures[2] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_WRENCH");
-            repairTextures[3] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_SCREWDRIVER");
-            repairTextures[4] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_SOFTHAMMER");
-            repairTextures[5] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_HARDHAMMER");
-            repairTextures[6] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_SOLDERINGIRON");
-            repairTextures[7] = new Textures.BlockIcons.CustomIcon("iconsets/TM_REPAIR_CROWBAR");
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public abstract Textures.BlockIcons.CustomIcon getScreenMachineInactive();
-
-    @SideOnly(Side.CLIENT)
-    public abstract Textures.BlockIcons.CustomIcon getScreenMachineActive();
-
     @Override
-    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister aBlockIconRegister) {
         super.registerIcons(aBlockIconRegister);
-        registerBaseIcons();
-        screensMachineInactive.put(this.getClass(), getScreenMachineInactive());
-        screensMachineActive.put(this.getClass(), getScreenMachineActive());
-    }
-
-    @SideOnly(Side.CLIENT)
-    public ITexture getHullTexture() {
-        return Textures.BlockIcons.casingTexturePages[CasingTextureLoader.texturePage][getTextureIndex()];
-    }
-
-    @SideOnly(Side.CLIENT)
-    public ITexture getScreenBaseTexture() {
-        return new TT_RenderedExtendedFacingTexture(screenBase);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public ITexture getScreenBaseActivityTexture(boolean aActive) {
-        return new TT_RenderedExtendedFacingTexture(aActive ? screenBaseActive : screenBaseInactive);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public ITexture getScreenMachineActivityTexture(boolean aActive) {
-        Textures.BlockIcons.CustomIcon texture;
-        if (aActive) {
-            texture = screensMachineActive.get(this.getClass());
-        } else {
-            texture = screensMachineInactive.get(this.getClass());
-        }
-        return new TT_RenderedExtendedFacingTexture(texture);
-    }
-
-
-    @SideOnly(Side.CLIENT)
-    public ITexture getRepairTexture() {
-        ITexture texture = new TT_RenderedExtendedFacingTexture(repairTextures[0]);
-        //TODO: Add a packet from server to client to sync the values across, else this doesn't work at all.
-        //if (!this.mMachine) {
-        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[1]);
-        //} else if (!this.mWrench) {
-        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[2]);
-        //} else if (!this.mScrewdriver) {
-        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[3]);
-        //} else if (!this.mSoftHammer) {
-        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[4]);
-        //} else if (!this.mHardHammer) {
-        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[5]);
-        //} else if (!this.mSolderingTool) {
-        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[6]);
-        //} else if (!this.mCrowbar) {
-        //    texture = new TT_RenderedExtendedFacingTexture(repairTextures[7]);
-        //}
-        return texture;
+        registerIcons_TM();
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, byte aSide, byte aFacing, byte aColorIndex, boolean aActive, boolean aRedstone) {
-        ITexture[] textures;
-        if (aSide != aFacing) {
-            textures = new ITexture[]{getHullTexture()};
-        } else {
-            textures = new ITexture[]{
-                    getHullTexture(),
-                    getScreenBaseTexture(),
-                    getScreenBaseActivityTexture(aActive),
-                    getScreenMachineActivityTexture(aActive),
-                    getRepairTexture()};
-        }
-        return textures;
+    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, byte aSide, byte aFacing, byte aColorIndex,
+                                 boolean aActive, boolean aRedstone) {
+        return getTexture_TM(aSide, aFacing, aActive);
     }
     //endregion
 
     //region Sounds
-    @SideOnly(Side.CLIENT)
-    protected abstract ResourceLocation getSound();
-
     @Override
     @SideOnly(Side.CLIENT)
     protected ResourceLocation getActivitySound() {
-        return sounds.get(this.getClass());
+        return getActivitySound_TM();
     }
     //endregion
 
@@ -335,7 +183,7 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     public abstract GT_Recipe.GT_Recipe_Map getRecipeMap();
 
     protected int getMaxParalells() {
-        return this.sliceCount * getParalellsPerSlice();
+        return getSliceCount() * getParalellsPerSlice();
     }
 
     protected boolean isPerfectOC() {
@@ -344,15 +192,14 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
 
     private long getMaxVoltage() {
         long voltage = 0;
-        if (this.casingTier >= 0 && this.casingTier <= 15) {
-            voltage = CommonValues.V[this.casingTier];
+        if (getCasingTier() >= 0 && getCasingTier() <= 15) {
+            voltage = CommonValues.V[getCasingTier()];
         }
         return voltage;
     }
 
     @Override
     public boolean checkRecipe_EM(ItemStack itemStack) {
-        System.out.println(mMachine);
         boolean canRunRecipe = false;
         if (this.getEUVar() > this.getMaxInputVoltage()) {
             ItemStack[] inputItems = MultiBlockUtils.sortInputItemStacks(this.getStoredInputs());
@@ -415,8 +262,13 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
                 }
             }
         }
-        this.setFunctionalCasingActivity(canRunRecipe);
         return canRunRecipe;
+    }
+
+    @Override
+    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        super.onPostTick(aBaseMetaTileEntity, aTick);
+        this.setFunctionalCasingActivity(aBaseMetaTileEntity.isActive());
     }
 
     @Override
@@ -425,4 +277,27 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
         this.setFunctionalCasingActivity(false);
     }
     //endregion
+
+    public int getSliceCount() {
+        return sliceCount;
+    }
+
+    public void setSliceCount(int sliceCount) {
+        this.sliceCount = sliceCount;
+    }
+
+    @Override
+    public byte getCasingTier() {
+        return casingTier;
+    }
+
+    @Override
+    public void setCasingTier(byte casingTier) {
+        this.casingTier = casingTier;
+    }
+
+    @Override
+    public Set<GT_MetaTileEntity_TM_HatchCasing> getFunctionalCasings() {
+        return functionalCasings;
+    }
 }

@@ -6,7 +6,6 @@ import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory_Base;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Recipe;
@@ -107,21 +106,16 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     //region Textures
     @Override
     @SideOnly(Side.CLIENT)
-    public Textures.BlockIcons.CustomIcon getScreenMachineInactive() {
-        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_CENTRIFUGE_INACTIVE");
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public Textures.BlockIcons.CustomIcon getScreenMachineActive() {
-        return new Textures.BlockIcons.CustomIcon("iconsets/TM_LARGE_CENTRIFUGE_ACTIVE");
+    public String getMachineTextureName() {
+        return "TM_LARGE_CENTRIFUGE";
     }
     //endregion
 
     //region Sounds
     @Override
-    protected ResourceLocation getSound() {//TODO add a proper sound file
-        return new ResourceLocation("tectech:fx_lo_freq");
+    @SideOnly(Side.CLIENT)
+    public String getMachineSoundName() {
+        return "fx_lo_freq";
     }
     //endregion
 
