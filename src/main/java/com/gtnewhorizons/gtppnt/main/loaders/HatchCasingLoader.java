@@ -2,6 +2,7 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.CasingFunction;
 
 import static com.gtnewhorizons.gtppnt.main.items.CustomItemList.*;
@@ -37,5 +38,11 @@ public class HatchCasingLoader {
         CIRCUIT_CASING_LV.set(new GT_MetaTileEntity_TM_HatchCasing(aID++, CasingFunction.CIRCUIT, 1).getItem());
         CIRCUIT_CASING_MV.set(new GT_MetaTileEntity_TM_HatchCasing(aID++, CasingFunction.CIRCUIT, 2).getItem());
         CIRCUIT_CASING_HV.set(new GT_MetaTileEntity_TM_HatchCasing(aID++, CasingFunction.CIRCUIT, 3).getItem());
+
+        CATALYTIC_MUFFLER_EV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 4).getItem());
+        CATALYTIC_MUFFLER_IV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 5).getItem());
+        CATALYTIC_MUFFLER_LuV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 6).getItem());
+        CATALYTIC_MUFFLER_ZPM.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 7).getItem());
+        CATALYTIC_MUFFLER_UV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 8).getItem());
     }
 }
