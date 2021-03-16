@@ -10,7 +10,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Recipe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.thing.casing.TT_Container_Casings.sHintCasingsTT;
@@ -39,17 +38,17 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
 
     //region Structure
     @Override
-    protected short getCasingMeta() {
+    public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
 
     @Override
-    protected IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base> getStructure() {
+    public IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base> getMachineStructure() {
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory_Base>builder()
-                .addShape(START_STRUCTURE, new String[][]{
+                .addShape(TM_SLICE_START, new String[][]{
                         {"BBBB", "BB~B", "BBBB"},
                 }) // 2 1 0
-                .addShape(SLICE_STRUCTURE, new String[][]{
+                .addShape(TM_SLICE_MIDDLE, new String[][]{
                         {"AmmA", "c  A", "AAAA",},
                         {"AmmA", "c  A", "AAAA",},
                         {"AAAA", "AAAA", "AAAA",},
@@ -60,39 +59,37 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
                                 getTextureIndex(), sHintCasingsTT, 0),
                         ofBlock(getCasingBlock(), getCasingMeta())
                 ))
-                .addElement('c', ofChain(
-                        ofHatchAdder(GT_MetaTileEntity_TM_Factory_Base::addCircuitCasingToMachineList,
-                                getTextureIndex(), sHintCasingsTT, 1)
-                ))
-                .addElement('m', ofChain(
-                        ofHatchAdder(GT_MetaTileEntity_TM_Factory_Base::addMotorCasingToMachineList,
-                                getTextureIndex(), sHintCasingsTT, 2)
-                ))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory_Base::addCircuitCasingToMachineList,
+                        getTextureIndex(), sHintCasingsTT, 1)
+                )
+                .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory_Base::addMotorCasingToMachineList,
+                        getTextureIndex(), sHintCasingsTT, 2)
+                )
                 .build();
     }
 
     @Override
-    protected Vec3Impl getStartStructureOffset() {
+    public Vec3Impl getStartStructureOffset() {
         return new Vec3Impl(2, 1, 0);
     }
 
     @Override
-    protected Vec3Impl getSliceStructureOffset() {
+    public Vec3Impl getSliceStructureOffset() {
         return new Vec3Impl(2, 1, -1);
     }
 
     @Override
-    protected Vec3Impl getPerSliceOffset() {
+    public Vec3Impl getPerSliceOffset() {
         return new Vec3Impl(0, 0, -3);
     }
 
     @Override
-    protected int getMaxSlices() {
+    public int getMaxSlices() {
         return 4;
     }
 
     @Override
-    protected int getParalellsPerSlice() {
+    public int getParalellsPerSlice() {
         return 32;
     }
 
@@ -115,7 +112,7 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     @Override
     @SideOnly(Side.CLIENT)
     public String getMachineSoundName() {
-        return "fx_lo_freq";
+        return "fx_lo_freq";// assets/tectech/sounds/fx_lo_freq.ogg
     }
     //endregion
 

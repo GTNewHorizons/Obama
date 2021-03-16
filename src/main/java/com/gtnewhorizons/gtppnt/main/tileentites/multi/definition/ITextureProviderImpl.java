@@ -32,7 +32,7 @@ public interface ITextureProviderImpl extends ITextureProvider {
     String REPAIR_CROWBAR = "TM_REPAIR_CROWBAR";
 
     default void addTextureToMap(String texture) {
-        screenTextures.put(texture, new Textures.BlockIcons.CustomIcon(ICONSETS_PREFIX + texture));
+        screenTextures.putIfAbsent(texture, new Textures.BlockIcons.CustomIcon(ICONSETS_PREFIX + texture));
     }
 
     default TT_RenderedExtendedFacingTexture getTextureFromMap(String texture) {

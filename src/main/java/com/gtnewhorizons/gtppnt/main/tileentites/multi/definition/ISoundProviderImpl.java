@@ -17,7 +17,7 @@ public interface ISoundProviderImpl extends ISoundProvider {
     String RESOURCE_PREFIX = Reference.MODID + ":";
 
     default void addActivitySoundToMap(String sound) {
-        activitySounds.put(sound, new ResourceLocation(RESOURCE_PREFIX + sound));
+        activitySounds.putIfAbsent(sound, new ResourceLocation(RESOURCE_PREFIX + sound));
     }
 
     default ResourceLocation getActivitySoundFromMap(String sound) {

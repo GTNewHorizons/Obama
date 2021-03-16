@@ -5,15 +5,25 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 public interface IFunctionalCasingMachineList {
     Set<GT_MetaTileEntity_TM_HatchCasing> getFunctionalCasings();
+
+    default void clearFunctionalCasings() {
+        getFunctionalCasings().clear();
+    }
+
+    default void functionalCasingsPreCheckMachine() {
+        clearFunctionalCasings();
+    }
 
     byte getCasingTier();
 
     void setCasingTier(byte casingTier);
 
-    default boolean addFunctionalCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex, CasingFunction function) {
+    default boolean addFunctionalCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex,
+                                                     CasingFunction function) {
         if (aTileEntity == null)
             return false;
 
@@ -45,22 +55,34 @@ public interface IFunctionalCasingMachineList {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.MOTOR);
     }
 
+    default void onPostTickFunctionalCasing(IGregTechTileEntity aBaseMetaTileEntity) {
+        setFunctionalCasingActivity(aBaseMetaTileEntity.isActive());
+    }
+
     default void setFunctionalCasingActivity(boolean state) {
         getFunctionalCasings().forEach(mte -> mte.getBaseMetaTileEntity().setActive(state));
     }
 
+    default boolean functionalCasingsPostCheckMachine() {
+        return checkCasingTiers();
+    }
+
+    //fixme dirty looking, clean.
     default boolean checkCasingTiers() {
-        boolean tierMatchingCasings = true;
+        if (getFunctionalCasings().isEmpty())
+            return false;
+
         byte tier = -1;
         for (GT_MetaTileEntity_TM_HatchCasing casing : getFunctionalCasings()) {
             if (tier == -1) {
                 tier = casing.mTier;
             } else if (tier != casing.mTier) {
-                tierMatchingCasings = false;
+                tier = -1;
                 break;
             }
         }
+
         setCasingTier(tier);
-        return tierMatchingCasings;
+        return tier > -1;
     }
 }

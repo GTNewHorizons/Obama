@@ -1,11 +1,9 @@
 package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition;
 
 import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
-import com.github.technus.tectech.mechanics.constructable.IConstructable;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.util.CommonValues;
-import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.IFunctionalCasingMachineList;
@@ -23,31 +21,21 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.*;
 
-
-//TODO Structures and constructors go into their own interface that extends IConstructable
-//TODO This then requires two other abstract classes, one for Cell, Slice and newShape
-//TODO Sounds go into their own interface that provides the sound storage
+//TODO This then requires two other abstract classes, one for Cell and newShape
 //TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntity_MultiblockBase_EM implements
-        IConstructable, IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
-    //region Fields
-    protected static final String START_STRUCTURE = "start";
-    protected static final String SLICE_STRUCTURE = "slice";
-    protected static final String END_STRUCTURE = "end";
-
-    private static final HashMap<Class<? extends GT_MetaTileEntity_TM_Factory_Base>, IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base>> structures = new HashMap<>();
-
+        IStructureProviderSliceable, IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
     private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
-    private GT_Recipe buffered_Recipe;
-    private int sliceCount = 0;
     private byte casingTier = 0;
-    //endregion
+    private int sliceCount = 0;
+
+    private GT_Recipe buffered_Recipe;
 
     //region Constructors
     public GT_MetaTileEntity_TM_Factory_Base(int aID, String aName, String aNameRegional) {
         super(aID, aName, aNameRegional);
         setRepairFlags();
-        structures.put(this.getClass(), getStructure());
+        registerStructure_TM();
         registerActivitySound_TM();
     }
 
@@ -75,83 +63,40 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     //endregion
 
     //region Structure
-
-    protected Block getCasingBlock() {
-        return WerkstoffLoader.BWBlockCasings;
-    }
-
-    protected abstract short getCasingMeta();
-
     @Override
     public int getTextureIndex() {
         return CasingTextureLoader.getBasicCasingTextureIndex(getCasingMeta());
     }
 
-    protected abstract IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base> getStructure();
-
     @Override
-    public IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base> getStructure_EM() {
-        return structures.get(this.getClass());
+    public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getStructure_EM() {
+        return getStructure_TM();
     }
 
-    protected abstract Vec3Impl getStartStructureOffset();
+    @Override
+    public Block getCasingBlock() {
+        return WerkstoffLoader.BWBlockCasings;
+    }
 
-    protected abstract Vec3Impl getSliceStructureOffset();
-
-    protected abstract Vec3Impl getPerSliceOffset();
-
-    protected abstract int getMaxSlices();
-
-    protected int getMinSlices() {
+    @Override
+    public int getMinSlices() {
         return 1;
     }
 
-    protected abstract int getParalellsPerSlice();
-
     @Override
     protected boolean checkMachine_EM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
-        this.setSliceCount(0);
-        this.getFunctionalCasings().clear();
-
-        if (this.structureCheck_EM(START_STRUCTURE,
-                getStartStructureOffset().get0(),
-                getStartStructureOffset().get1(),
-                getStartStructureOffset().get2())) {
-
-            Vec3Impl sliceStructureOffset = getSliceStructureOffset();
-            for (int i = 0; i < getMaxSlices(); i++) {
-                if (structureCheck_EM(SLICE_STRUCTURE,
-                        sliceStructureOffset.get0(),
-                        sliceStructureOffset.get1(),
-                        sliceStructureOffset.get2())) {
-                    setSliceCount(getSliceCount() + 1);
-                    sliceStructureOffset = sliceStructureOffset.add(getPerSliceOffset());
-                } else {
-                    break;
-                }
-            }
-        }
-        return getSliceCount() >= getMinSlices() && checkCasingTiers();
+        functionalCasingsPreCheckMachine();
+        return checkMachine_TM(iGregTechTileEntity, itemStack) && functionalCasingsPostCheckMachine();
     }
 
     @Override
-    public void construct(ItemStack itemStack, boolean hintsOnly) {
-        int sliceCount = Math.min(itemStack.stackSize, getMaxSlices());
-        structureBuild_EM(START_STRUCTURE,
-                getStartStructureOffset().get0(),
-                getStartStructureOffset().get1(),
-                getStartStructureOffset().get2(),
-                hintsOnly, itemStack);
+    public boolean structureCheck_TM(String piece, int horizontalOffset, int verticalOffset, int depthOffset) {
+        return structureCheck_EM(piece, horizontalOffset, verticalOffset, depthOffset);
+    }
 
-        Vec3Impl sliceStructureOffset = getSliceStructureOffset();
-        for (int i = 0; i < sliceCount; i++) {
-            structureBuild_EM(SLICE_STRUCTURE,
-                    sliceStructureOffset.get0(),
-                    sliceStructureOffset.get1(),
-                    sliceStructureOffset.get2(),
-                    hintsOnly, itemStack);
-            sliceStructureOffset = sliceStructureOffset.add(getPerSliceOffset());
-        }
+    @Override
+    public boolean structureBuild_TM(String piece, int horizontalOffset, int verticalOffset, int depthOffset, boolean hintsOnly, ItemStack trigger) {
+        return structureBuild_EM(piece, horizontalOffset, verticalOffset, depthOffset, hintsOnly, trigger);
     }
     //endregion
 
@@ -268,20 +213,21 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     @Override
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         super.onPostTick(aBaseMetaTileEntity, aTick);
-        this.setFunctionalCasingActivity(aBaseMetaTileEntity.isActive());
+        onPostTickFunctionalCasing(aBaseMetaTileEntity);
     }
 
     @Override
     public void stopMachine() {
         super.stopMachine();
-        this.setFunctionalCasingActivity(false);
     }
     //endregion
 
+    @Override
     public int getSliceCount() {
         return sliceCount;
     }
 
+    @Override
     public void setSliceCount(int sliceCount) {
         this.sliceCount = sliceCount;
     }
