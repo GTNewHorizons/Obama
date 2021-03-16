@@ -196,3 +196,10 @@ artifacts {
     this.archives(sourcesJar)
     this.archives(devJar)
 }
+
+//Fixes texture loading during 'Minecraft Client' debugging
+sourceSets {
+    this.main {
+        output.setResourcesDir(output.classesDirs.asPath)
+    }
+}
