@@ -1,4 +1,4 @@
-package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition;
+package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.sound;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

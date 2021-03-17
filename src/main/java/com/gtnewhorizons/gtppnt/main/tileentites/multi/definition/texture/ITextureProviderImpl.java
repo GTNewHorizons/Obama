@@ -1,4 +1,4 @@
-package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition;
+package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.texture;
 
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader;

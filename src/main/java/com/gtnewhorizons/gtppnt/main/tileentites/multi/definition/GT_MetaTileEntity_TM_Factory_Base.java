@@ -5,6 +5,9 @@ import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.util.CommonValues;
 import com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.sound.ISoundProviderImpl;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IStructureProviderSliceable;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.texture.ITextureProviderImpl;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.IFunctionalCasingMachineList;
 import com.gtnewhorizons.gtppnt.main.utils.MultiBlockUtils;
@@ -21,7 +24,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.*;
 
-//TODO This then requires two other abstract classes, one for Cell and newShape
 //TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntity_MultiblockBase_EM implements
         IStructureProviderSliceable, IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
@@ -127,10 +129,6 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     @Override
     public abstract GT_Recipe.GT_Recipe_Map getRecipeMap();
 
-    protected int getMaxParalells() {
-        return getSliceCount() * getParalellsPerSlice();
-    }
-
     protected boolean isPerfectOC() {
         return false;
     }
@@ -167,7 +165,7 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
 
                     ArrayList<ItemStack> outputItems = new ArrayList<>();
                     ArrayList<FluidStack> outputFluids = new ArrayList<>();
-                    int recipeRepeats = 0;
+                    int recipeRepeats = 0; //TODO Mention that getMaxParalells() is extended by IStructureProvider too
                     for (boolean canProcess = true; canProcess && this.getMaxParalells() > recipeRepeats; ) {
                         if (recipe.isRecipeInputEqual(
                                 true,

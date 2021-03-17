@@ -1,4 +1,4 @@
-package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition;
+package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure;
 
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;

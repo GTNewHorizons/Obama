@@ -45,10 +45,10 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     @Override
     public IStructureDefinition<GT_MetaTileEntity_TM_Factory_Base> getMachineStructure() {
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory_Base>builder()
-                .addShape(TM_SLICE_START, new String[][]{
+                .addShape(TM_STRUCTURE_START, new String[][]{
                         {"BBBB", "BB~B", "BBBB"},
                 }) // 2 1 0
-                .addShape(TM_SLICE_MIDDLE, new String[][]{
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
                         {"AmmA", "c  A", "AAAA",},
                         {"AmmA", "c  A", "AAAA",},
                         {"AAAA", "AAAA", "AAAA",},

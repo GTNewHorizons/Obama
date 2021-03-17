@@ -1,4 +1,4 @@
-package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition;
+package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.sound;
 
 import com.github.technus.tectech.Reference;
 import cpw.mods.fml.relauncher.Side;
