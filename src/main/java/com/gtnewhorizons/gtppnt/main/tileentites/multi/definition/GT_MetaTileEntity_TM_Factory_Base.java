@@ -6,6 +6,8 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEnt
 import com.github.technus.tectech.util.CommonValues;
 import com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.sound.ISoundProviderImpl;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IStructureProvider;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IStructureProviderBase;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IStructureProviderSliceable;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.texture.ITextureProviderImpl;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
@@ -26,10 +28,9 @@ import java.util.*;
 
 //TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntity_MultiblockBase_EM implements
-        IStructureProviderSliceable, IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
+        IStructureProviderBase,IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
     private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
     private byte casingTier = 0;
-    private int sliceCount = 0;
 
     private GT_Recipe buffered_Recipe;
 
@@ -78,11 +79,6 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     @Override
     public Block getCasingBlock() {
         return WerkstoffLoader.BWBlockCasings;
-    }
-
-    @Override
-    public int getMinSlices() {
-        return 1;
     }
 
     @Override
@@ -220,15 +216,20 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     }
     //endregion
 
-    @Override
-    public int getSliceCount() {
-        return sliceCount;
-    }
+//    @Override
+//    public int getSliceCount() {
+//        return sliceCount;
+//    }
 
-    @Override
-    public void setSliceCount(int sliceCount) {
-        this.sliceCount = sliceCount;
-    }
+//    @Override
+//    public void setSliceCount(int sliceCount) {
+//        this.sliceCount = sliceCount;
+//    }
+
+//    @Override
+//    public int getMinSlices() {
+//        return 1;
+//    }
 
     @Override
     public byte getCasingTier() {

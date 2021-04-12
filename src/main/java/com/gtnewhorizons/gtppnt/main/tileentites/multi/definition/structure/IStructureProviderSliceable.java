@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public interface IStructureProviderSliceable extends IStructureProviderImpl {
     String TM_STRUCTURE_MIDDLE = "MIDDLE";
+    String TM_STRUCTURE_END = "END";
 
     @Override
     default int getMaxParalells() {
@@ -15,6 +16,8 @@ public interface IStructureProviderSliceable extends IStructureProviderImpl {
     Vec3Impl getSliceStructureOffset();
 
     Vec3Impl getPerSliceOffset();
+
+    Vec3Impl getEndStructureOffset();
 
     int getMaxSlices();
 
@@ -41,6 +44,11 @@ public interface IStructureProviderSliceable extends IStructureProviderImpl {
                 break;
             }
         }
+        sliceStructureOffset = sliceStructureOffset.add(getEndStructureOffset());
+        if (!structureCheck_TM(TM_STRUCTURE_END,sliceStructureOffset)) {
+            return false;
+        }
+
         return getSliceCount() >= getMinSlices();
     }
 
@@ -55,5 +63,7 @@ public interface IStructureProviderSliceable extends IStructureProviderImpl {
             structureBuild_TM(TM_STRUCTURE_MIDDLE, sliceStructureOffset, hintsOnly, itemStack);
             sliceStructureOffset = sliceStructureOffset.add(getPerSliceOffset());
         }
+        sliceStructureOffset = sliceStructureOffset.add(getEndStructureOffset());
+        structureBuild_TM(TM_STRUCTURE_END,sliceStructureOffset, hintsOnly, itemStack);
     }
 }

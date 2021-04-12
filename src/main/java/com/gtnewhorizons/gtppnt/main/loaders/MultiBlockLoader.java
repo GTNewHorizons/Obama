@@ -22,8 +22,9 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_TM_Large_Centrifuge;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.multies.GT_MetaTileEntity_TM_Large_Centrifuge;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.multies.GT_MetaTileEntity_TM_Large_Compressor;
 
 import static com.gtnewhorizons.gtppnt.main.items.CustomItemList.*;
 
@@ -79,13 +80,15 @@ public class MultiBlockLoader {
                 MultiBlockDefinition.LARGE_SLICING_MACHINE
         ).getStackForm(1L));
 
+        LARGE_COMPRESSOR.set(new GT_MetaTileEntity_TM_Large_Compressor(aID++).getItem());
+
         //Replaces part of Large Processing Factory
-        LARGE_COMPRESSOR.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                aID++,
-                "multimachine.tm.large_compressor",
-                "Large Compressor",
-                MultiBlockDefinition.LARGE_COMPRESSOR
-        ).getStackForm(1L));
+//        LARGE_COMPRESSOR.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                aID++,
+//                "multimachine.tm.large_compressor",
+//                "Large Compressor",
+//                MultiBlockDefinition.LARGE_COMPRESSOR
+//        ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
         LARGE_LATHE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(

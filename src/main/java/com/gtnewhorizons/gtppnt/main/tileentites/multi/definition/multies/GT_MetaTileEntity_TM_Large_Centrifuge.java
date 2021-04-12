@@ -1,21 +1,23 @@
-package com.gtnewhorizons.gtppnt.main.tileentites.multi;
+package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.multies;
 
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.mechanics.structure.StructureDefinition;
 import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory_Base;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory_Sliceable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Recipe;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.thing.casing.TT_Container_Casings.sHintCasingsTT;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_Factory_Base {
+public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_Factory_Sliceable {
     //region Constructors
     public GT_MetaTileEntity_TM_Large_Centrifuge(int aID) {
         super(aID, "multimachine.tm.large_centrifuge", "Large Centrifuge");//TODO Set cooler name + .lang
@@ -53,6 +55,7 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
                         {"AmmA", "c  A", "AAAA",},
                         {"AAAA", "AAAA", "AAAA",},
                 }) // 2 1 -1
+                .addShape(TM_STRUCTURE_END, new String[][]{})
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
                 .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory_Base::addClassicToMachineList,
@@ -81,6 +84,11 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     @Override
     public Vec3Impl getPerSliceOffset() {
         return new Vec3Impl(0, 0, -3);
+    }
+
+    @Override
+    public Vec3Impl getEndStructureOffset() {
+        return new Vec3Impl(0,0,0);
     }
 
     @Override
