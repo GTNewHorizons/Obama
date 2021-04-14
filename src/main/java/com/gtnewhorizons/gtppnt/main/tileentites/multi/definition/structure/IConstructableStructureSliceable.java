@@ -40,13 +40,13 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
         for (int i = 0; i < getMaxSlices(); i++) {
             if (structureCheck_TM(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset())) {
                 setSliceCount(getSliceCount() + 1);
-                setCurrentStructureOffset(getSliceStructureOffset().add(getPerSliceOffset()));
+                setCurrentStructureOffset(getCurrentStructureOffset().add(getPerSliceOffset()));
             } else {
                 break;
             }
         }
-        setCurrentStructureOffset(getSliceStructureOffset().sub(getPerSliceOffset()));
-
+        //setCurrentStructureOffset(getSliceStructureOffset().sub(getPerSliceOffset()));
+        //setCurrentStructureOffset(getSliceStructureOffset().sub(0,0,-1));
         return getSliceCount() >= getMinSlices();
     }
 
@@ -58,8 +58,7 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
 
         for (int i = 0; i < sliceCount; i++) {
             structureBuild_TM(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset(), hintsOnly, itemStack);
-            setCurrentStructureOffset(getSliceStructureOffset().add(getPerSliceOffset()));
+            setCurrentStructureOffset(getCurrentStructureOffset().add(getPerSliceOffset()));
         }
-        setCurrentStructureOffset(getSliceStructureOffset().sub(getPerSliceOffset()));
     }
 }
