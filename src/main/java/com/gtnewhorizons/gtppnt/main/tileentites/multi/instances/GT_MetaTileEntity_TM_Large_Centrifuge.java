@@ -84,6 +84,23 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
         return new Vec3Impl(0, 0, -3);
     }
 
+    private Vec3Impl structureOffset;
+
+    @Override
+    public Vec3Impl getCurrentStructureOffset() {
+        return structureOffset;
+    }
+
+    @Override
+    public void incrementCurrentStructureOffset(Vec3Impl structureOffsetIncrement) {
+        structureOffset = structureOffset.add(structureOffsetIncrement);
+    }
+
+    @Override
+    public void setCurrentStructureOffset(Vec3Impl structureOffset) {
+        this.structureOffset = structureOffset;
+    }
+
     @Override
     public int getMaxSlices() {
         return 4;
