@@ -6,6 +6,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEnt
 import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceable;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -18,7 +19,7 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.thing.casing.TT_Container_Casings.sHintCasingsTT;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceable {
+public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Compressor(int aID) {
         super(aID, "multimachine.tm.large_compressor", "Large Compressor");
     }
@@ -49,7 +50,7 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
                         {" AAAAA ", "A-A-A-A", "APA-APA", "A-A-A-A", " AAAAA "},
                         {" AAAAA ", "A-A-A-A", "A-A-A-A", "A-A-A-A", " AAAAA "}
                 })
-                .addShape(TM_STRUCTURE_END, new String[][]{
+                .addShape(TM_STRUCTURE_CAP, new String[][]{
                         {"", "", "", "", "BAAAAAB"},
                         {" AAAAA ", "AGGGGGA", "AGGGGGA", "AGGGGGA", "BBBBBBB"}
                 })
@@ -81,8 +82,8 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
     }
 
     @Override
-    public Vec3Impl getEndStructureOffset() {
-        return new Vec3Impl(0, 0, 1);
+    public Vec3Impl getCapStructureOffset() {
+        return new Vec3Impl(0,0,1);
     }
 
     @Override
@@ -122,4 +123,5 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
     public GT_Recipe.GT_Recipe_Map getRecipeMap() {
         return GT_Recipe.GT_Recipe_Map.sCompressorRecipes;
     }
+
 }

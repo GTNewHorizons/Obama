@@ -17,8 +17,6 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
 
     Vec3Impl getPerSliceOffset();
 
-    Vec3Impl getEndStructureOffset();
-
     int getMaxSlices();
 
     int getMinSlices();
@@ -44,10 +42,6 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
                 break;
             }
         }
-        sliceStructureOffset = sliceStructureOffset.add(getEndStructureOffset());
-        if (!structureCheck_TM(TM_STRUCTURE_END,sliceStructureOffset)) {
-            return false;
-        }
 
         return getSliceCount() >= getMinSlices();
     }
@@ -63,7 +57,5 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
             structureBuild_TM(TM_STRUCTURE_MIDDLE, sliceStructureOffset, hintsOnly, itemStack);
             sliceStructureOffset = sliceStructureOffset.add(getPerSliceOffset());
         }
-        sliceStructureOffset = sliceStructureOffset.add(getEndStructureOffset());
-        structureBuild_TM(TM_STRUCTURE_END,sliceStructureOffset, hintsOnly, itemStack);
     }
 }

@@ -54,7 +54,6 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
                         {"AmmA", "c  A", "AAAA",},
                         {"AAAA", "AAAA", "AAAA",},
                 }) // 2 1 -1
-                .addShape(TM_STRUCTURE_END, new String[][]{})
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
                 .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
@@ -83,11 +82,6 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     @Override
     public Vec3Impl getPerSliceOffset() {
         return new Vec3Impl(0, 0, -3);
-    }
-
-    @Override
-    public Vec3Impl getEndStructureOffset() {
-        return new Vec3Impl(0, 0, 0);
     }
 
     @Override
