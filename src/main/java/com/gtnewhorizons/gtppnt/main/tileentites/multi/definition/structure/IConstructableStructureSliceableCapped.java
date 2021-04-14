@@ -13,14 +13,14 @@ public interface IConstructableStructureSliceableCapped extends IConstructableSt
     default boolean checkMachine_TM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         if (!IConstructableStructureSliceable.super.checkMachine_TM(iGregTechTileEntity, itemStack))
             return false;
-        incrementCurrentStructureOffset(getCapStructureOffset());
+        setCurrentStructureOffset(getCurrentStructureOffset().add(getCapStructureOffset()));
         return structureCheck_TM(TM_STRUCTURE_START, getCurrentStructureOffset());
     }
 
     @Override
     default void construct(ItemStack itemStack, boolean hintsOnly) {
         IConstructableStructureSliceable.super.construct(itemStack, hintsOnly);
-        incrementCurrentStructureOffset(getCapStructureOffset());
+        setCurrentStructureOffset(getCurrentStructureOffset().add(getCapStructureOffset()));
         structureBuild_TM(TM_STRUCTURE_CAP, getCurrentStructureOffset(), hintsOnly, itemStack);
     }
 }

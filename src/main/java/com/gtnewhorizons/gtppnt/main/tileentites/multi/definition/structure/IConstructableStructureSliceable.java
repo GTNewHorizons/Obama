@@ -18,8 +18,6 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
 
     void setCurrentStructureOffset(Vec3Impl structureOffset);
 
-    void incrementCurrentStructureOffset(Vec3Impl structureOffsetIncrement);
-
     Vec3Impl getCurrentStructureOffset();
 
     int getMaxSlices();
@@ -42,11 +40,12 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
         for (int i = 0; i < getMaxSlices(); i++) {
             if (structureCheck_TM(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset())) {
                 setSliceCount(getSliceCount() + 1);
-                incrementCurrentStructureOffset(getPerSliceOffset());
+                setCurrentStructureOffset(getSliceStructureOffset().add(getPerSliceOffset()));
             } else {
                 break;
             }
         }
+        setCurrentStructureOffset(getSliceStructureOffset().sub(getPerSliceOffset()));
 
         return getSliceCount() >= getMinSlices();
     }
@@ -59,7 +58,8 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
 
         for (int i = 0; i < sliceCount; i++) {
             structureBuild_TM(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset(), hintsOnly, itemStack);
-            incrementCurrentStructureOffset(getPerSliceOffset());
+            setCurrentStructureOffset(getSliceStructureOffset().add(getPerSliceOffset()));
         }
+        setCurrentStructureOffset(getSliceStructureOffset().sub(getPerSliceOffset()));
     }
 }

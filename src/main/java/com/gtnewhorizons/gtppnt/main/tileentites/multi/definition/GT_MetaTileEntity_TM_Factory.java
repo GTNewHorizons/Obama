@@ -105,10 +105,6 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         this.structureOffset = structureOffset;
     }
 
-    void incrementCurrentStructureOffset(Vec3Impl structureOffsetIncrement) {
-        setCurrentStructureOffset(getCurrentStructureOffset().add(structureOffsetIncrement));
-    }
-
     Vec3Impl getCurrentStructureOffset() {
         return this.structureOffset;
     }
