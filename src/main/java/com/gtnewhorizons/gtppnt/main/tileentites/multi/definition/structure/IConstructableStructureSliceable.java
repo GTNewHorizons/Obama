@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 
 public interface IConstructableStructureSliceable extends IConstructableStructureImpl {
     String TM_STRUCTURE_MIDDLE = "MIDDLE";
-    String TM_STRUCTURE_END = "END";
 
     @Override
     default int getMaxParalells() {
@@ -16,6 +15,12 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
     Vec3Impl getSliceStructureOffset();
 
     Vec3Impl getPerSliceOffset();
+
+    void setCurrentStructureOffset(Vec3Impl structureOffset);
+
+    void incrementCurrentStructureOffset(Vec3Impl structureOffsetIncrement);
+
+    Vec3Impl getCurrentStructureOffset();
 
     int getMaxSlices();
 
@@ -33,11 +38,11 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
             return false;
 
         setSliceCount(0);
-        Vec3Impl sliceStructureOffset = getSliceStructureOffset();
+        setCurrentStructureOffset(getSliceStructureOffset());
         for (int i = 0; i < getMaxSlices(); i++) {
-            if (structureCheck_TM(TM_STRUCTURE_MIDDLE, sliceStructureOffset)) {
+            if (structureCheck_TM(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset())) {
                 setSliceCount(getSliceCount() + 1);
-                sliceStructureOffset = sliceStructureOffset.add(getPerSliceOffset());
+                incrementCurrentStructureOffset(getPerSliceOffset());
             } else {
                 break;
             }
@@ -49,13 +54,12 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
     @Override
     default void construct(ItemStack itemStack, boolean hintsOnly) {
         IConstructableStructureImpl.super.construct(itemStack, hintsOnly);
-
         int sliceCount = Math.min(itemStack.stackSize, getMaxSlices());
-        Vec3Impl sliceStructureOffset = getSliceStructureOffset();
+        setCurrentStructureOffset(getSliceStructureOffset());
 
         for (int i = 0; i < sliceCount; i++) {
-            structureBuild_TM(TM_STRUCTURE_MIDDLE, sliceStructureOffset, hintsOnly, itemStack);
-            sliceStructureOffset = sliceStructureOffset.add(getPerSliceOffset());
+            structureBuild_TM(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset(), hintsOnly, itemStack);
+            incrementCurrentStructureOffset(getPerSliceOffset());
         }
     }
 }

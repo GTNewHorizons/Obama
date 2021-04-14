@@ -4,6 +4,7 @@ import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.util.CommonValues;
+import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.sound.ISoundProviderImpl;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructure;
@@ -30,7 +31,8 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         IConstructableStructure,IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
     private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
     private byte casingTier = 0;
-    private int slices = 0;
+    private Vec3Impl structureOffset;
+    private int sliceCount = 0;
 
     private GT_Recipe buffered_Recipe;
 
@@ -99,16 +101,28 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     //endregion
 
     //region Sliceable Shape Interface
+    void setCurrentStructureOffset(Vec3Impl structureOffset) {
+        this.structureOffset = structureOffset;
+    }
+
+    void incrementCurrentStructureOffset(Vec3Impl structureOffsetIncrement) {
+        setCurrentStructureOffset(getCurrentStructureOffset().add(structureOffsetIncrement));
+    }
+
+    Vec3Impl getCurrentStructureOffset() {
+        return this.structureOffset;
+    }
+
     public int getMinSlices() {
         return 1;
     }
 
     public int getSliceCount() {
-        return slices;
+        return sliceCount;
     }
 
     public void setSliceCount(int sliceCount) {
-        slices = sliceCount;
+        this.sliceCount = sliceCount;
     }
     //endregion
 
