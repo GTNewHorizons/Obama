@@ -4,7 +4,7 @@ import com.github.technus.tectech.util.Vec3Impl;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.item.ItemStack;
 
-public interface IStructureProviderSliceable extends IStructureProviderImpl {
+public interface IConstructableStructureSliceable extends IConstructableStructureImpl {
     String TM_STRUCTURE_MIDDLE = "MIDDLE";
     String TM_STRUCTURE_END = "END";
 
@@ -31,7 +31,7 @@ public interface IStructureProviderSliceable extends IStructureProviderImpl {
 
     @Override
     default boolean checkMachine_TM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
-        if (!IStructureProviderImpl.super.checkMachine_TM(iGregTechTileEntity, itemStack))
+        if (!IConstructableStructureImpl.super.checkMachine_TM(iGregTechTileEntity, itemStack))
             return false;
 
         setSliceCount(0);
@@ -54,7 +54,7 @@ public interface IStructureProviderSliceable extends IStructureProviderImpl {
 
     @Override
     default void construct(ItemStack itemStack, boolean hintsOnly) {
-        IStructureProviderImpl.super.construct(itemStack, hintsOnly);
+        IConstructableStructureImpl.super.construct(itemStack, hintsOnly);
 
         int sliceCount = Math.min(itemStack.stackSize, getMaxSlices());
         Vec3Impl sliceStructureOffset = getSliceStructureOffset();

@@ -4,7 +4,7 @@ import com.github.technus.tectech.util.Vec3Impl;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.item.ItemStack;
 
-public interface IStructureProviderImpl extends IStructureProviderBase {
+public interface IConstructableStructureImpl extends IConstructableStructure {
     String TM_STRUCTURE_START = "START";
 
     Vec3Impl getStartStructureOffset();

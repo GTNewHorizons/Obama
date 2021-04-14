@@ -11,8 +11,8 @@ import net.minecraft.item.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface IStructureProviderBase extends IStructureProvider, IConstructable {
-    Map<Class<? extends IStructureProviderBase>, IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM>>
+public interface IConstructableStructure extends IStructure, IConstructable {
+    Map<Class<? extends IConstructableStructure>, IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM>>
             structures = new HashMap<>();
 
     default void addStructureToMap() {

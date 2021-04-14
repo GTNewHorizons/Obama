@@ -6,9 +6,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEnt
 import com.github.technus.tectech.util.CommonValues;
 import com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.sound.ISoundProviderImpl;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IStructureProvider;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IStructureProviderBase;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IStructureProviderSliceable;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructure;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.texture.ITextureProviderImpl;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.IFunctionalCasingMachineList;
@@ -28,22 +26,23 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.*;
 
 //TODO Slot recipe handling into its own interface
-public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntity_MultiblockBase_EM implements
-        IStructureProviderBase,IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
+public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_MultiblockBase_EM implements
+        IConstructableStructure,IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
     private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
     private byte casingTier = 0;
+    private int slices = 0;
 
     private GT_Recipe buffered_Recipe;
 
     //region Constructors
-    public GT_MetaTileEntity_TM_Factory_Base(int aID, String aName, String aNameRegional) {
+    public GT_MetaTileEntity_TM_Factory(int aID, String aName, String aNameRegional) {
         super(aID, aName, aNameRegional);
         setRepairFlags();
         registerStructure_TM();
         registerActivitySound_TM();
     }
 
-    public GT_MetaTileEntity_TM_Factory_Base(String aName) {
+    public GT_MetaTileEntity_TM_Factory(String aName) {
         super(aName);
         // FIXME: 25/02/2021 remove this later
         setRepairFlags();
@@ -96,6 +95,20 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
     @Override
     public boolean structureBuild_TM(String piece, int horizontalOffset, int verticalOffset, int depthOffset, boolean hintsOnly, ItemStack trigger) {
         return structureBuild_EM(piece, horizontalOffset, verticalOffset, depthOffset, hintsOnly, trigger);
+    }
+    //endregion
+
+    //region Sliceable Shape Interface
+    public int getMinSlices() {
+        return 1;
+    }
+
+    public int getSliceCount() {
+        return slices;
+    }
+
+    public void setSliceCount(int sliceCount) {
+        slices = sliceCount;
     }
     //endregion
 

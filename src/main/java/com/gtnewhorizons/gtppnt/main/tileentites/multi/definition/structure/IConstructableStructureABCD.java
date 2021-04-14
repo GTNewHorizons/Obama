@@ -3,7 +3,7 @@ package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure;
 import com.github.technus.tectech.util.Vec3Impl;
 import net.minecraft.item.ItemStack;
 
-public interface IStructureProviderABCD extends IStructureProviderBase {
+public interface IConstructableStructureABCD extends IConstructableStructure {
     String TM_STRUCTURE_A = "A";
     String TM_STRUCTURE_B = "B";
     String TM_STRUCTURE_C = "C";

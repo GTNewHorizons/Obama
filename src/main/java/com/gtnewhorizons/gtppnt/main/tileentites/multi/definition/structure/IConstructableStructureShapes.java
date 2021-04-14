@@ -4,7 +4,7 @@ package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.item.ItemStack;
 
-public interface IStructureProviderShapes extends IStructureProviderABCD {
+public interface IConstructableStructureShapes extends IConstructableStructureABCD {
     @Override
     default boolean checkMachine_TM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         if (checkMachineD())

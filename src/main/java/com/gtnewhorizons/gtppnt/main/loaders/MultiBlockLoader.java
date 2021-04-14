@@ -22,9 +22,9 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.multies.GT_MetaTileEntity_TM_Large_Centrifuge;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Centrifuge;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.multies.GT_MetaTileEntity_TM_Large_Compressor;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Compressor;
 
 import static com.gtnewhorizons.gtppnt.main.items.CustomItemList.*;
 
