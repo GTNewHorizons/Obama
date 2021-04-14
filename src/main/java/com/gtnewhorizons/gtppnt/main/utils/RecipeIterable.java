@@ -162,8 +162,8 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
         private GT_Recipe getBufferd() {
             if (!iBufferd.mFakeRecipe && iBufferd.mCanBeBuffered && iBufferd.isRecipeInputEqual(false, mDontCheckStackSize, mFluids, mItems)) {
                 return iBufferd.mEnabled && mVoltage * mRecipeMap.mAmperage >= iBufferd.mEUt ? iBufferd : null;
-
             }
+            return null;
         }
 
         @Override
