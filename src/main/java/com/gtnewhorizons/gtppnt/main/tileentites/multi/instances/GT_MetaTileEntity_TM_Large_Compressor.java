@@ -85,13 +85,6 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
         return new Vec3Impl(0, 0, 1);
     }
 
-    private Vec3Impl structureOffset;
-
-    @Override
-    public Vec3Impl getCurrentStructureOffset() {
-        return structureOffset;
-    }
-
     @Override
     public int getMaxSlices() {
         return 8;
