@@ -98,7 +98,7 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
             }
         }
 
-        public GT_Recipe findRecipe() {
+        private GT_Recipe findRecipe() {
             if (iRecipeIterator == null)
                 return null;
             while (iRecipeIterator.hasNext()) {
@@ -112,83 +112,90 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
             return null;
         }
 
+        private boolean checkEmptyAndGetNextFluid() {
+            while (iFluidStack == null) {
+                if (iFluidIterator.hasNext()) {
+                    iFluidStack = iFluidIterator.next();
+                } else {
+                    iHasNext = false;
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private GT_Recipe getNextRecipeFluid() {
+            if (iRecipeIterator == null)
+                iRecipeIterator = mRecipeMap.mRecipeFluidMap.get(iFluidStack.getFluid()).iterator();
+            GT_Recipe tRecipe = findRecipe();
+            if (tRecipe == null) {
+                iFluidStack = null;
+            }
+            return tRecipe;
+        }
+
+        private boolean checkEmptyAndGetNextItem() {
+            while (iItemStack == null) {
+                if (iItemIterator.hasNext()) {
+                    iItemStack = iItemIterator.next();
+                } else {
+                    if (iFluidIterator != null) {
+                        iOnFluid = true;
+                    } else {
+                        iHasNext = false;
+                    }
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private GT_Recipe getNextRecipeItem(GT_ItemStack aItem) {
+            if (iRecipeIterator == null) {
+                Collection<GT_Recipe> tRecipeColl = mRecipeMap.mRecipeItemMap.get(aItem);
+                if (tRecipeColl != null)
+                    iRecipeIterator = tRecipeColl.iterator();
+            }
+            return findRecipe();
+        }
+
+        private GT_Recipe getBufferd() {
+            if (!iBufferd.mFakeRecipe && iBufferd.mCanBeBuffered && iBufferd.isRecipeInputEqual(false, mDontCheckStackSize, mFluids, mItems)) {
+                return iBufferd.mEnabled && mVoltage * mRecipeMap.mAmperage >= iBufferd.mEUt ? iBufferd : null;
+
+            }
+        }
+
         @Override
         public GT_Recipe next() {
             // Now look for the Recipes inside the Item HashMaps, but only when the Recipes usually have Items.
 
-            //decide between fluid or item
-            //get next item if recipe is emprty
-            // if item with or withou meta iteration
-            // get next recipe until empty or found recipe
+            //check bufferd and null it
+            GT_Recipe recipe = null;
             if (iBufferd != null) {
-                if (!iBufferd.mFakeRecipe && iBufferd.mCanBeBuffered && iBufferd.isRecipeInputEqual(false, mDontCheckStackSize, mFluids, mItems)) {
-                    GT_Recipe temp = iBufferd.mEnabled && mVoltage * mRecipeMap.mAmperage >= iBufferd.mEUt ? iBufferd : null;
-                    iBufferd = null;
-                    return temp;
-                }
+                recipe = getBufferd();
             }
+            iBufferd = null;
 
-            while (iHasNext) {
-                if (iOnFluid) {
-                    while (iFluidStack == null) {
-                        if (iFluidIterator.hasNext()) {
-                            iFluidStack = iFluidIterator.next();
-                        } else {
-                            iHasNext = false;
-                            return null;
-                        }
-                    }
-                    if (iRecipeIterator == null)
-                        iRecipeIterator = mRecipeMap.mRecipeFluidMap.get(iFluidStack.getFluid()).iterator();
-                    GT_Recipe tRecipe = findRecipe();
-                    if (tRecipe == null) {
-                        iFluidStack = null;
-                    } else {
-                        return tRecipe;
-                    }
-                } else {
-                    while (iItemStack == null) {
-                        if (iItemIterator.hasNext()) {
-                            iItemStack = iItemIterator.next();
-                        } else {
-                            if (iFluidIterator != null) {
-                                iOnFluid = true;
-                                break;
-                            } else {
-                                iHasNext = false;
-                                return null;
-                            }
-                        }
-                    }
-                    if (iWithMeta) {
-                        if (iRecipeIterator == null) {
-                            Collection<GT_Recipe> tRecipeColl = mRecipeMap.mRecipeItemMap.get(GT_Utility.copyMetaData(W, iItemStack));
-                            if (tRecipeColl != null)
-                                iRecipeIterator = tRecipeColl.iterator();
-                        }
-                        GT_Recipe tRecipe = findRecipe();
-                        if (tRecipe == null) {
+            while (iHasNext && recipe == null) {
+                if (iOnFluid && checkEmptyAndGetNextFluid()) {
+                    recipe = getNextRecipeFluid();
+                } else if (checkEmptyAndGetNextItem()) {
+                    if (iWithMeta) { //
+                        recipe = getNextRecipeItem(new GT_ItemStack(GT_Utility.copyMetaData(W, iItemStack)));
+                        if (recipe == null) {
                             iItemStack = null;
                             iWithMeta = false;
-                        } else {
-                            return tRecipe;
                         }
                     } else {
-                        if (iRecipeIterator == null) {
-                            Collection<GT_Recipe> tRecipeColl = mRecipeMap.mRecipeItemMap.get(new GT_ItemStack(iItemStack));
-                            if (tRecipeColl != null)
-                                iRecipeIterator = tRecipeColl.iterator();
-                        }
-                        GT_Recipe tRecipe = findRecipe();
-                        if (tRecipe == null) {
+                        recipe = getNextRecipeItem(new GT_ItemStack(iItemStack));
+                        if (recipe == null) {
                             iWithMeta = true;
-                        } else {
-                            return tRecipe;
                         }
                     }
                 }
             }
-            return null;
+            return recipe;
         }
 
         @Override
