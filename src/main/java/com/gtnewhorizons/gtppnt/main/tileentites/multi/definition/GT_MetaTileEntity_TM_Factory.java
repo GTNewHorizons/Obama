@@ -101,11 +101,11 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     //endregion
 
     //region Sliceable Shape Interface
-    void setCurrentStructureOffset(Vec3Impl structureOffset) {
+    public void setCurrentStructureOffset(Vec3Impl structureOffset) {
         this.structureOffset = structureOffset;
     }
 
-    Vec3Impl getCurrentStructureOffset() {
+    public Vec3Impl getCurrentStructureOffset() {
         return this.structureOffset;
     }
 
