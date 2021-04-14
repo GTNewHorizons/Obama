@@ -13,6 +13,7 @@ import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.texture.ITextu
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.IFunctionalCasingMachineList;
 import com.gtnewhorizons.gtppnt.main.utils.MultiBlockUtils;
+import com.gtnewhorizons.gtppnt.main.utils.RecipeIterator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.ITexture;
@@ -144,61 +145,74 @@ public abstract class GT_MetaTileEntity_TM_Factory_Base extends GT_MetaTileEntit
             ItemStack[] inputItems = MultiBlockUtils.sortInputItemStacks(this.getStoredInputs());
             FluidStack[] inputFluids = MultiBlockUtils.sortInputFluidStacks(this.getStoredFluids());
             if (inputItems.length > 0 || inputFluids.length > 0) {
-                GT_Recipe recipe = getRecipeMap().findRecipe(
-                        this.getBaseMetaTileEntity(),
+//                GT_Recipe recipe = getRecipeMap().findRecipe(
+//                        this.getBaseMetaTileEntity(),
+//                        this.buffered_Recipe,
+//                        false,
+//                        true,
+//                        this.getMaxInputVoltage(),
+//                        inputFluids,
+//                        this.getStackInSlot(0),
+//                        inputItems);
+                RecipeIterator recipes = new RecipeIterator(
+                        getRecipeMap(),
                         this.buffered_Recipe,
                         false,
                         true,
                         this.getMaxInputVoltage(),
                         inputFluids,
-                        this.getStackInSlot(0),
                         inputItems);
 
-                if (recipe != null) {
-                    if (recipe.mCanBeBuffered) {
-                        this.buffered_Recipe = recipe;
-                    }
-
-                    ArrayList<ItemStack> outputItems = new ArrayList<>();
-                    ArrayList<FluidStack> outputFluids = new ArrayList<>();
-                    int recipeRepeats = 0; //TODO Mention that getMaxParalells() is extended by IStructureProvider too
-                    for (boolean canProcess = true; canProcess && this.getMaxParalells() > recipeRepeats; ) {
-                        if (recipe.isRecipeInputEqual(
-                                true,
-                                false,
-                                inputFluids,
-                                inputItems)) {
-
-                            recipeRepeats++;
-                            for (int i = 0; i < recipe.mOutputs.length; i++) {
-                                outputItems.add(recipe.getOutput(i));
-                            }
-                            for (int i = 0; i < recipe.mFluidOutputs.length; i++) {
-                                outputFluids.add(recipe.getFluidOutput(i));
-                            }
-                        } else {
-                            canProcess = false;
+                for (GT_Recipe recipe: recipes) {
+                    if (recipe != null) {
+                        if (recipe.mCanBeBuffered) {
+                            this.buffered_Recipe = recipe;
                         }
-                    }
 
-                    if (recipeRepeats > 0) {
-                        this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
-                        this.mEfficiencyIncrease = 10000;
-                        this.mOutputItems = MultiBlockUtils.sortOutputItemStacks(outputItems);
-                        this.mOutputFluids = MultiBlockUtils.sortOutputFluidStacks(outputFluids);
+                        ArrayList<ItemStack> outputItems = new ArrayList<>();
+                        ArrayList<FluidStack> outputFluids = new ArrayList<>();
+                        int recipeRepeats = 0; //TODO Mention that getMaxParalells() is extended by IStructureProvider too
+                        for (boolean canProcess = true; canProcess && this.getMaxParalells() > recipeRepeats; ) {
+                            if (recipe.isRecipeInputEqual(
+                                    true,
+                                    false,
+                                    inputFluids,
+                                    inputItems)) {
 
-                        this.calculateOverclockedNessMultiInternal(recipe.mEUt * recipeRepeats, recipe.mDuration / 50, getRecipeMap().mAmperage * recipeRepeats, getMaxVoltage(), isPerfectOC());
-                        // FIXME: 26/02/2021 Undo duration debug boost
-                        if (mMaxProgresstime != Integer.MAX_VALUE - 1 && mEUt != Integer.MAX_VALUE - 1) {
-                            if (this.mEUt > 0) {
-                                this.mEUt *= -1;
+                                recipeRepeats++;
+                                for (int i = 0; i < recipe.mOutputs.length; i++) {
+                                    outputItems.add(recipe.getOutput(i));
+                                }
+                                for (int i = 0; i < recipe.mFluidOutputs.length; i++) {
+                                    outputFluids.add(recipe.getFluidOutput(i));
+                                }
+                            } else {
+                                canProcess = false;
                             }
-                            this.mMaxProgresstime = Math.max(1, this.mMaxProgresstime);
-                            this.updateSlots();
-                            canRunRecipe = true;
                         }
+
+                        if (recipeRepeats > 0) {
+                            this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
+                            this.mEfficiencyIncrease = 10000;
+                            this.mOutputItems = MultiBlockUtils.sortOutputItemStacks(outputItems);
+                            this.mOutputFluids = MultiBlockUtils.sortOutputFluidStacks(outputFluids);
+
+                            this.calculateOverclockedNessMultiInternal(recipe.mEUt * recipeRepeats, recipe.mDuration / 50, getRecipeMap().mAmperage * recipeRepeats, getMaxVoltage(), isPerfectOC());
+                            // FIXME: 26/02/2021 Undo duration debug boost
+                            if (mMaxProgresstime != Integer.MAX_VALUE - 1 && mEUt != Integer.MAX_VALUE - 1) {
+                                if (this.mEUt > 0) {
+                                    this.mEUt *= -1;
+                                }
+                                this.mMaxProgresstime = Math.max(1, this.mMaxProgresstime);
+                                this.updateSlots();
+                                canRunRecipe = true;
+                            }
+                        }
+                        if (recipeRepeats >= this.getMaxParalells())
+                            break;
                     }
                 }
+
             }
         }
         return canRunRecipe;
