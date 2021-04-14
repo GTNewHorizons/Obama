@@ -11,7 +11,7 @@ import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.texture.ITextu
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.IFunctionalCasingMachineList;
 import com.gtnewhorizons.gtppnt.main.utils.MultiBlockUtils;
-import com.gtnewhorizons.gtppnt.main.utils.RecipeIterator;
+import com.gtnewhorizons.gtppnt.main.utils.RecipeIterable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.ITexture;
@@ -167,7 +167,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
 //                        inputFluids,
 //                        this.getStackInSlot(0),
 //                        inputItems);
-                RecipeIterator recipes = new RecipeIterator(
+                RecipeIterable recipes = new RecipeIterable(
                         getRecipeMap(),
                         this.buffered_Recipe,
                         false,
@@ -175,16 +175,16 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         this.getMaxInputVoltage(),
                         inputFluids,
                         inputItems);
-
+                int recipeRepeats = 0;
+                ArrayList<ItemStack> outputItems = new ArrayList<>();
+                ArrayList<FluidStack> outputFluids = new ArrayList<>();
                 for (GT_Recipe recipe: recipes) {
                     if (recipe != null) {
                         if (recipe.mCanBeBuffered) {
                             this.buffered_Recipe = recipe;
                         }
 
-                        ArrayList<ItemStack> outputItems = new ArrayList<>();
-                        ArrayList<FluidStack> outputFluids = new ArrayList<>();
-                        int recipeRepeats = 0; //TODO Mention that getMaxParalells() is extended by IStructureProvider too
+                        //TODO Mention that getMaxParalells() is extended by IStructureProvider too
                         for (boolean canProcess = true; canProcess && this.getMaxParalells() > recipeRepeats; ) {
                             if (recipe.isRecipeInputEqual(
                                     true,
@@ -221,9 +221,9 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                                 canRunRecipe = true;
                             }
                         }
-                        if (recipeRepeats >= this.getMaxParalells())
-                            break;
                     }
+                    if (recipeRepeats >0)
+                        break;
                 }
 
             }

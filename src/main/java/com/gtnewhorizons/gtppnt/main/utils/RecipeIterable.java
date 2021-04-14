@@ -14,7 +14,7 @@ import java.util.Iterator;
 
 import static gregtech.api.enums.GT_Values.W;
 
-public class RecipeIterator implements Iterable<GT_Recipe> {
+public class RecipeIterable implements Iterable<GT_Recipe> {
 
     private GT_Recipe.GT_Recipe_Map mRecipeMap;
     private ItemStack[] mItems;
@@ -26,15 +26,15 @@ public class RecipeIterator implements Iterable<GT_Recipe> {
     private Iterable<ItemStack> mItemIterateble;
     private Iterable<FluidStack> mFluidIterateble;
 
-    public RecipeIterator(GT_Recipe.GT_Recipe_Map recipeMap, GT_Recipe aRecipe, boolean aNotUnificated, boolean aDontCheckStackSizes,long aVoltage, FluidStack[] aFluids, ItemStack... aItems) {
+    public RecipeIterable(GT_Recipe.GT_Recipe_Map aRecipeMap, GT_Recipe aRecipe, boolean aNotUnificated, boolean aDontCheckStackSizes, long aVoltage, FluidStack[] aFluids, ItemStack... aItems) {
         // No Recipes? Well, nothing to be found then.
-        if (!recipeMap.mRecipeList.isEmpty()) {
-            if (isValid(recipeMap,aItems,aFluids)) {
-                if (mRecipeMap.mUsualInputCount > 0 && mItems != null)
-                    mItemIterateble = Arrays.asList(mItems);
+        if (!aRecipeMap.mRecipeList.isEmpty()) {
+            if (isValid(aRecipeMap,aItems,aFluids)) {
+                if (aRecipeMap.mUsualInputCount > 0 && aItems != null)
+                    mItemIterateble = Arrays.asList(aItems);
 
-                if (mRecipeMap.mMinimalInputItems == 0 && aFluids != null)
-                    mFluidIterateble = Arrays.asList(mFluids);
+                if (aRecipeMap.mMinimalInputItems == 0 && aFluids != null)
+                    mFluidIterateble = Arrays.asList(aFluids);
 
                 if (mItemIterateble != null || mFluidIterateble != null) {
                     // Unification happens here in case the Input isn't already unificated.
@@ -44,6 +44,7 @@ public class RecipeIterator implements Iterable<GT_Recipe> {
                     mVoltage = aVoltage;
                     mBufferdRecipe = aRecipe;
                     mDontCheckStackSize = aDontCheckStackSizes;
+                    mRecipeMap = aRecipeMap;
                     mHasNext = true;
                 }
             }
@@ -72,9 +73,9 @@ public class RecipeIterator implements Iterable<GT_Recipe> {
 
     @Override
     public Iterator<GT_Recipe> iterator() {
-        return new RecipeIterater();
+        return new RecipeIterator();
     }
-    private class RecipeIterater implements Iterator<GT_Recipe> {
+    private class RecipeIterator implements Iterator<GT_Recipe> {
 
         Iterator<ItemStack> iItemIterator;
         Iterator<FluidStack> iFluidIterator;
@@ -86,7 +87,7 @@ public class RecipeIterator implements Iterable<GT_Recipe> {
         ItemStack iItemStack;
         FluidStack iFluidStack;
 
-        RecipeIterater() {
+        RecipeIterator() {
             if (mFluidIterateble != null) {
                 iFluidIterator = mFluidIterateble.iterator();
             }
@@ -98,6 +99,8 @@ public class RecipeIterator implements Iterable<GT_Recipe> {
         }
 
         public GT_Recipe findRecipe() {
+            if (iRecipeIterator == null)
+                return null;
             while (iRecipeIterator.hasNext()) {
                 GT_Recipe tRecipe = iRecipeIterator.next();
                 if (tRecipe != null
@@ -118,8 +121,11 @@ public class RecipeIterator implements Iterable<GT_Recipe> {
             // if item with or withou meta iteration
             // get next recipe until empty or found recipe
             if (iBufferd != null) {
-                if (!iBufferd.mFakeRecipe && iBufferd.mCanBeBuffered && iBufferd.isRecipeInputEqual(false, mDontCheckStackSize, mFluids, mItems))
-                    return iBufferd.mEnabled && mVoltage * mRecipeMap.mAmperage >= iBufferd.mEUt ? iBufferd : null;
+                if (!iBufferd.mFakeRecipe && iBufferd.mCanBeBuffered && iBufferd.isRecipeInputEqual(false, mDontCheckStackSize, mFluids, mItems)) {
+                    GT_Recipe temp = iBufferd.mEnabled && mVoltage * mRecipeMap.mAmperage >= iBufferd.mEUt ? iBufferd : null;
+                    iBufferd = null;
+                    return temp;
+                }
             }
 
             while (iHasNext) {
@@ -155,8 +161,11 @@ public class RecipeIterator implements Iterable<GT_Recipe> {
                         }
                     }
                     if (iWithMeta) {
-                        if (iRecipeIterator == null)
-                            iRecipeIterator = mRecipeMap.mRecipeItemMap.get(GT_Utility.copyMetaData(W, iItemStack)).iterator();
+                        if (iRecipeIterator == null) {
+                            Collection<GT_Recipe> tRecipeColl = mRecipeMap.mRecipeItemMap.get(GT_Utility.copyMetaData(W, iItemStack));
+                            if (tRecipeColl != null)
+                                iRecipeIterator = tRecipeColl.iterator();
+                        }
                         GT_Recipe tRecipe = findRecipe();
                         if (tRecipe == null) {
                             iItemStack = null;
@@ -165,8 +174,11 @@ public class RecipeIterator implements Iterable<GT_Recipe> {
                             return tRecipe;
                         }
                     } else {
-                        if (iRecipeIterator == null)
-                            iRecipeIterator = mRecipeMap.mRecipeItemMap.get(new GT_ItemStack(iItemStack)).iterator();
+                        if (iRecipeIterator == null) {
+                            Collection<GT_Recipe> tRecipeColl = mRecipeMap.mRecipeItemMap.get(new GT_ItemStack(iItemStack));
+                            if (tRecipeColl != null)
+                                iRecipeIterator = tRecipeColl.iterator();
+                        }
                         GT_Recipe tRecipe = findRecipe();
                         if (tRecipe == null) {
                             iWithMeta = true;
