@@ -14,7 +14,7 @@ public interface IConstructableStructureSliceableCapped extends IConstructableSt
         if (!IConstructableStructureSliceable.super.checkMachine_TM(iGregTechTileEntity, itemStack))
             return false;
         setCurrentStructureOffset(getCurrentStructureOffset().add(getCapStructureOffset()));
-        return structureCheck_TM(TM_STRUCTURE_START, getCurrentStructureOffset());
+        return structureCheck_TM(TM_STRUCTURE_CAP, getCurrentStructureOffset());
     }
 
     @Override
