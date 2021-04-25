@@ -165,18 +165,10 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     public boolean checkRecipe_EM(ItemStack itemStack) {
         boolean canRunRecipe = false;
         if (this.getEUVar() > this.getMaxInputVoltage()) {
-            ItemStack[] inputItems = MultiBlockUtils.sortInputItemStacks(this.getStoredInputs());
-            FluidStack[] inputFluids = MultiBlockUtils.sortInputFluidStacks(this.getStoredFluids());
+            ItemStack[] inputItems = this.getStoredInputs().toArray(new ItemStack[0]);
+            FluidStack[] inputFluids = this.getStoredFluids().toArray(new FluidStack[0]);
             if (inputItems.length > 0 || inputFluids.length > 0) {
-//                GT_Recipe recipe = getRecipeMap().findRecipe(
-//                        this.getBaseMetaTileEntity(),
-//                        this.buffered_Recipe,
-//                        false,
-//                        true,
-//                        this.getMaxInputVoltage(),
-//                        inputFluids,
-//                        this.getStackInSlot(0),
-//                        inputItems);
+                ItemStack[] combinedItems = MultiBlockUtils.combineStacks(inputItems);
                 RecipeIterable recipes = new RecipeIterable(
                         getRecipeMap(),
                         this.buffered_Recipe,
@@ -185,7 +177,9 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         this.getMaxInputVoltage(),
                         inputFluids,
                         inputItems);
-                int recipeRepeats = 0;
+                //TODO Mention that getMaxParalells() is extended by IStructureProvider too
+                int parrallel = getMaxParalells();
+                int parrallelDone = 0;
                 ArrayList<ItemStack> outputItems = new ArrayList<>();
                 ArrayList<FluidStack> outputFluids = new ArrayList<>();
                 for (GT_Recipe recipe: recipes) {
@@ -193,34 +187,19 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         if (recipe.mCanBeBuffered) {
                             this.buffered_Recipe = recipe;
                         }
+                        parrallelDone = MultiBlockUtils.isRecipeEqualAndRemoveParrallel(recipe,
+                                inputItems,combinedItems,inputFluids,parrallel,true);
 
-                        //TODO Mention that getMaxParalells() is extended by IStructureProvider too
-                        for (boolean canProcess = true; canProcess && this.getMaxParalells() > recipeRepeats; ) {
-                            if (recipe.isRecipeInputEqual(
-                                    true,
-                                    false,
-                                    inputFluids,
-                                    inputItems)) {
-
-                                recipeRepeats++;
-                                for (int i = 0; i < recipe.mOutputs.length; i++) {
-                                    outputItems.add(recipe.getOutput(i));
-                                }
-                                for (int i = 0; i < recipe.mFluidOutputs.length; i++) {
-                                    outputFluids.add(recipe.getFluidOutput(i));
-                                }
-                            } else {
-                                canProcess = false;
-                            }
-                        }
-
-                        if (recipeRepeats > 0) {
+                        MultiBlockUtils.addItemOutputToList(recipe,outputItems,parrallelDone);
+                        MultiBlockUtils.addFluidoutputToList(recipe,outputFluids,parrallelDone);
+                        if (parrallelDone > 0) {
+                            parrallel -= parrallelDone;
                             this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
                             this.mEfficiencyIncrease = 10000;
                             this.mOutputItems = MultiBlockUtils.sortOutputItemStacks(outputItems);
                             this.mOutputFluids = MultiBlockUtils.sortOutputFluidStacks(outputFluids);
 
-                            this.calculateOverclockedNessMultiInternal(recipe.mEUt * recipeRepeats, recipe.mDuration / 50, getRecipeMap().mAmperage * recipeRepeats, getMaxVoltage(), isPerfectOC());
+                            this.calculateOverclockedNessMultiInternal(recipe.mEUt * parrallelDone, recipe.mDuration / 50, getRecipeMap().mAmperage * parrallelDone, getMaxVoltage(), isPerfectOC());
                             // FIXME: 26/02/2021 Undo duration debug boost
                             if (mMaxProgresstime != Integer.MAX_VALUE - 1 && mEUt != Integer.MAX_VALUE - 1) {
                                 if (this.mEUt > 0) {
@@ -232,10 +211,9 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                             }
                         }
                     }
-                    if (recipeRepeats >0)
+                    if (parrallelDone >0)
                         break;
                 }
-
             }
         }
         return canRunRecipe;
