@@ -160,7 +160,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         }
         return voltage;
     }
-
+    //TODO Allow for multiple different recipes to run at the same time
     @Override
     public boolean checkRecipe_EM(ItemStack itemStack) {
         boolean canRunRecipe = false;
@@ -194,29 +194,38 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         MultiBlockUtils.addFluidoutputToList(recipe,outputFluids,parrallelDone);
                         if (parrallelDone > 0) {
                             parrallel -= parrallelDone;
-                            this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
-                            this.mEfficiencyIncrease = 10000;
-                            this.mOutputItems = MultiBlockUtils.sortOutputItemStacks(outputItems);
-                            this.mOutputFluids = MultiBlockUtils.sortOutputFluidStacks(outputFluids);
-
-                            this.calculateOverclockedNessMultiInternal(recipe.mEUt * parrallelDone, recipe.mDuration / 50, getRecipeMap().mAmperage * parrallelDone, getMaxVoltage(), isPerfectOC());
-                            // FIXME: 26/02/2021 Undo duration debug boost
-                            if (mMaxProgresstime != Integer.MAX_VALUE - 1 && mEUt != Integer.MAX_VALUE - 1) {
-                                if (this.mEUt > 0) {
-                                    this.mEUt *= -1;
-                                }
-                                this.mMaxProgresstime = Math.max(1, this.mMaxProgresstime);
-                                this.updateSlots();
+                            if (setEnergy(recipe,parrallelDone))
                                 canRunRecipe = true;
-                            }
                         }
                     }
                     if (parrallelDone >0)
                         break;
                 }
+                if (canRunRecipe) {
+                    this.mOutputItems = MultiBlockUtils.sortOutputItemStacks(outputItems);
+                    this.mOutputFluids = MultiBlockUtils.sortOutputFluidStacks(outputFluids);
+                    this.updateSlots();
+                }
             }
         }
+
         return canRunRecipe;
+    }
+
+    private boolean setEnergy(GT_Recipe recipe,int parrallel) {
+        this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
+        this.mEfficiencyIncrease = 10000;
+
+        this.calculateOverclockedNessMultiInternal(recipe.mEUt * parrallel, recipe.mDuration / 50, getRecipeMap().mAmperage * parrallel, getMaxVoltage(), isPerfectOC());
+        // FIXME: 26/02/2021 Undo duration debug boost
+        if (mMaxProgresstime != Integer.MAX_VALUE - 1 && mEUt != Integer.MAX_VALUE - 1) {
+            if (this.mEUt > 0) {
+                this.mEUt *= -1;
+            }
+            this.mMaxProgresstime = Math.max(1, this.mMaxProgresstime);
+            return true;
+        }
+        return false;
     }
 
     @Override
