@@ -90,12 +90,14 @@ public class MultiBlockLoader {
 //        ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
-        LARGE_LATHE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                aID++,
-                "multimachine.tm.large_lathe",
-                "Large Lathe",
-                MultiBlockDefinition.LARGE_LATHE
-        ).getStackForm(1L));
+        LARGE_LATHE.set(new GT_MetaTileEntitiy_TM_Large_Lathe(aID++).getItem());
+//
+//        LARGE_LATHE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                aID++,
+//                "multimachine.tm.large_lathe",
+//                "Large Lathe",
+//                MultiBlockDefinition.LARGE_LATHE
+//        ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
         LARGE_AUTOCLAVE.set(new GT_MetaTileEntity_TM_Large_Autoclave(aID++).getItem());
