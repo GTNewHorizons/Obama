@@ -33,7 +33,6 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     private byte casingTier = 0;
     private Vec3Impl structureOffset;
     private int sliceCount = 0;
-
     private GT_Recipe buffered_Recipe;
 
     //region Constructors
@@ -107,6 +106,10 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
 
     public Vec3Impl getCurrentStructureOffset() {
         return this.structureOffset;
+    }
+
+    public int getMinParrallel() {
+        return 0;
     }
 
     public int getMinSlices() {
@@ -190,6 +193,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         parrallelDone = MultiBlockUtils.isRecipeEqualAndRemoveParrallel(recipe,
                                 inputItems,combinedItems,inputFluids,parrallel,true);
 
+                        //TODO Add chance calculation to outputs
                         MultiBlockUtils.addItemOutputToList(recipe,outputItems,parrallelDone);
                         MultiBlockUtils.addFluidoutputToList(recipe,outputFluids,parrallelDone);
                         if (parrallelDone > 0) {
