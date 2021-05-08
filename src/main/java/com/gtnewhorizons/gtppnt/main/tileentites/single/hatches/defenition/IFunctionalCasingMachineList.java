@@ -67,6 +67,10 @@ public interface IFunctionalCasingMachineList {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.EMITTER);
     }
 
+    default boolean addHeatingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.HEATING);
+    }
+
     default void onPostTickFunctionalCasing(IGregTechTileEntity aBaseMetaTileEntity) {
         setFunctionalCasingActivity(aBaseMetaTileEntity.isActive());
     }
