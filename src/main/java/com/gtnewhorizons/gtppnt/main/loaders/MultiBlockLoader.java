@@ -22,11 +22,8 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Autoclave;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Centrifuge;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.*;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Compressor;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Cuttin_Machine;
 
 import static com.gtnewhorizons.gtppnt.main.items.CustomItemList.*;
 
@@ -320,11 +317,13 @@ public class MultiBlockLoader {
         LARGE_CUTTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Cuttin_Machine(992).getItem());
 
         //Overlaps with Large Processing Factory
-        LARGE_PRECISION_LASER_ENGRAVER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                860,
-                "multimachine.tm.large_precision_laser_engraver",
-                "Large Precision Laser Engraver",
-                MultiBlockDefinition.LARGE_PRECISION_LASER_ENGRAVER
-        ).getStackForm(1L));
+        LARGE_PRECISION_LASER_ENGRAVER.set(new GT_MetaTileEntitiy_TM_Large_Laser_Engraver(860).getItem());
+
+//        LARGE_PRECISION_LASER_ENGRAVER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                860,
+//                "multimachine.tm.large_precision_laser_engraver",
+//                "Large Precision Laser Engraver",
+//                MultiBlockDefinition.LARGE_PRECISION_LASER_ENGRAVER
+//        ).getStackForm(1L));
     }
 }
