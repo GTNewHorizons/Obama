@@ -22,6 +22,7 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Autoclave;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Centrifuge;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Compressor;
@@ -100,12 +101,14 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
-        LARGE_AUTOCLAVE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                aID++,
-                "multimachine.tm.large_autoclave",
-                "Large Autoclave",
-                MultiBlockDefinition.LARGE_AUTOCLAVE
-        ).getStackForm(1L));
+        LARGE_AUTOCLAVE.set(new GT_MetaTileEntity_TM_Large_Autoclave(aID++).getItem());
+
+//        LARGE_AUTOCLAVE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                aID++,
+//                "multimachine.tm.large_autoclave",
+//                "Large Autoclave",
+//                MultiBlockDefinition.LARGE_AUTOCLAVE
+//        ).getStackForm(1L));
 
         //LARGE_ALLOY_SMELTER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
         //        31037,
