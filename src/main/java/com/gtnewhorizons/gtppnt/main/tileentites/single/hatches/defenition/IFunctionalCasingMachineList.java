@@ -63,6 +63,10 @@ public interface IFunctionalCasingMachineList {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.PUMP);
     }
 
+    default boolean addEmitterToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.EMITTER);
+    }
+
     default void onPostTickFunctionalCasing(IGregTechTileEntity aBaseMetaTileEntity) {
         setFunctionalCasingActivity(aBaseMetaTileEntity.isActive());
     }

@@ -3,7 +3,7 @@ package com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition;
 import static com.gtnewhorizons.gtppnt.main.CommonValues.MACHINE_PREFIXES;
 
 public enum CasingFunction {
-    GRINDING, PISTON, MOTOR, CIRCUIT,CONVEYOR,PUMP;
+    GRINDING, PISTON, MOTOR, CIRCUIT,CONVEYOR,PUMP,EMITTER;
 
     public String getLocalizedName(int aTier) {
         String name = this.name();

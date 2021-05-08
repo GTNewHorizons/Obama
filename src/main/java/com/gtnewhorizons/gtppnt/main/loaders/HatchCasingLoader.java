@@ -42,6 +42,9 @@ public class HatchCasingLoader {
         aID = setMultipleCasingTiered(CasingFunction.PUMP,aID,
                 PUMP_CASING_LV,PISTON_CASING_MV,PUMP_CASING_HV);
 
+        aID = setMultipleCasingTiered(CasingFunction.EMITTER,aID,
+                EMITTER_CASING_LV,EMITTER_CASING_MV,EMITTER_CASING_HV);
+
         CATALYTIC_MUFFLER_EV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 4).getItem());
         CATALYTIC_MUFFLER_IV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 5).getItem());
         CATALYTIC_MUFFLER_LuV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 6).getItem());
