@@ -25,6 +25,7 @@ import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMa
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Centrifuge;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Compressor;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Cuttin_Machine;
 
 import static com.gtnewhorizons.gtppnt.main.items.CustomItemList.*;
 
@@ -313,12 +314,7 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Overlaps with Cutting Factory Controller
-        LARGE_CUTTING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                992,
-                "multimachine.tm.large_cutting_machine",
-                "Large Cutting Machine",
-                MultiBlockDefinition.LARGE_CUTTING_MACHINE
-        ).getStackForm(1L));
+        LARGE_CUTTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Cuttin_Machine(992).getItem());
 
         //Overlaps with Large Processing Factory
         LARGE_PRECISION_LASER_ENGRAVER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
