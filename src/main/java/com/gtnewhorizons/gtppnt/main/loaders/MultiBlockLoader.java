@@ -261,12 +261,14 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Overlaps with Large Thermal Refinery
-        LARGE_THERMAL_CENTRIFUGE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                849,
-                "multimachine.tm.large_thermal_centrifuge",
-                "Large Thermal Centrifuge",
-                MultiBlockDefinition.LARGE_THERMAL_CENTRIFUGE
-        ).getStackForm(1L));
+        LARGE_THERMAL_CENTRIFUGE.set(new GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge(849).getItem());
+
+//        LARGE_THERMAL_CENTRIFUGE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                849,
+//                "multimachine.tm.large_thermal_centrifuge",
+//                "Large Thermal Centrifuge",
+//                MultiBlockDefinition.LARGE_THERMAL_CENTRIFUGE
+//        ).getStackForm(1L));
 
         //Overlaps with Large Washing Plant
         //LARGE_ORE_WASHING_PLANT.set(new GT_MetaTileEntity_TM_Large_Ore_Washing_Plant(
