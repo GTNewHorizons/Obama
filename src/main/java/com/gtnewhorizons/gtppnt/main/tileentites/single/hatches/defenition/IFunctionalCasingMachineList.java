@@ -59,6 +59,10 @@ public interface IFunctionalCasingMachineList {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.CONVEYOR);
     }
 
+    default boolean addPumpToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.PUMP);
+    }
+
     default void onPostTickFunctionalCasing(IGregTechTileEntity aBaseMetaTileEntity) {
         setFunctionalCasingActivity(aBaseMetaTileEntity.isActive());
     }

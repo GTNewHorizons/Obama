@@ -43,6 +43,10 @@ public class HatchCasingLoader {
         CONVEYOR_CASING_MV.set(new GT_MetaTileEntity_TM_HatchCasing(aID++, CasingFunction.CONVEYOR, 2).getItem());
         CONVEYOR_CASING_HV.set(new GT_MetaTileEntity_TM_HatchCasing(aID++, CasingFunction.CONVEYOR, 3).getItem());
 
+        PUMP_CASING_LV.set(new GT_MetaTileEntity_TM_HatchCasing(aID++, CasingFunction.PUMP, 1).getItem());
+        PUMP_CASING_MV.set(new GT_MetaTileEntity_TM_HatchCasing(aID++, CasingFunction.PUMP, 1).getItem());
+        PUMP_CASING_HV.set(new GT_MetaTileEntity_TM_HatchCasing(aID++, CasingFunction.PUMP, 1).getItem());
+
         CATALYTIC_MUFFLER_EV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 4).getItem());
         CATALYTIC_MUFFLER_IV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 5).getItem());
         CATALYTIC_MUFFLER_LuV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 6).getItem());
