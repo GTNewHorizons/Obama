@@ -48,7 +48,7 @@ public class GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge extends GT_MetaTileE
                         {" ccc ","m---m","m---m","m---m"," ccc "}
                 })
                 .addShape(TM_STRUCTURE_CAP,new String[][]{
-                        {"  AAA  "," AA-AA "," AA-AA "," AA-AA ","  AAA  "," E   E "},
+                        {"  AAA  "," AAAAA "," AA-AA "," AAAAA ","  AAA  "," E   E "},
                         {"       ","   A   ","  A-A  ","   A   ","       ","       "},
                         {"       ","   A   ","  A-A  ","   A   ","       ","       "},
                         {"  AAA  ","  AAA  ","  A-A  ","  AAA  ","  AAA  ","A     A"},
@@ -93,7 +93,7 @@ public class GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge extends GT_MetaTileE
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(2,2,-1);
+        return new Vec3Impl(2,2,-2);
     }
 
     @Override
