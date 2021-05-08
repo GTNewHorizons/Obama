@@ -310,12 +310,14 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Overlaps with Amazon Warehousing Depot.
-        LARGE_PACKAGER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                942,
-                "multimachine.tm.large_packager",
-                "Large Packager",
-                MultiBlockDefinition.LARGE_PACKAGER
-        ).getStackForm(1L));
+        LARGE_PACKAGER.set(new GT_MetaTileEntitiy_TM_Large_Packager(942).getItem());
+
+//        LARGE_PACKAGER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                942,
+//                "multimachine.tm.large_packager",
+//                "Large Packager",
+//                MultiBlockDefinition.LARGE_PACKAGER
+//        ).getStackForm(1L));
 
         //Overlaps with Cutting Factory Controller
         LARGE_CUTTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Cuttin_Machine(992).getItem());
