@@ -164,6 +164,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         return voltage;
     }
     //TODO Allow for multiple different recipes to run at the same time
+    //TODO Allow multies to have more spesilised recipes
     @Override
     public boolean checkRecipe_EM(ItemStack itemStack) {
         boolean canRunRecipe = false;
@@ -235,6 +236,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     @Override
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         super.onPostTick(aBaseMetaTileEntity, aTick);
+        //TODO Dont Call This Evry Tick
         onPostTickFunctionalCasing(aBaseMetaTileEntity);
     }
 
