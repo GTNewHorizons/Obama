@@ -55,6 +55,10 @@ public interface IFunctionalCasingMachineList {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.MOTOR);
     }
 
+    default boolean addConveyorToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.CONVEYOR);
+    }
+
     default void onPostTickFunctionalCasing(IGregTechTileEntity aBaseMetaTileEntity) {
         setFunctionalCasingActivity(aBaseMetaTileEntity.isActive());
     }
@@ -74,6 +78,9 @@ public interface IFunctionalCasingMachineList {
 
         byte tier = -1;
         for (GT_MetaTileEntity_TM_HatchCasing casing : getFunctionalCasings()) {
+            if (casing.mTier == -1) {
+                continue;
+            }
             if (tier == -1) {
                 tier = casing.mTier;
             } else if (tier != casing.mTier) {
