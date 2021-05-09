@@ -294,12 +294,14 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Overlaps with Thermal Boiler
-        LARGE_FLUID_HEATER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                875,
-                "multimachine.tm.large_fluid_heater",
-                "Large Fluid Heater",
-                MultiBlockDefinition.LARGE_FLUID_HEATER
-        ).getStackForm(1L));
+        LARGE_FLUID_HEATER.set(new GT_MetaTileEntity_TM_Large_Fluid_Heater(875).getItem());
+
+//        LARGE_FLUID_HEATER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                875,
+//                "multimachine.tm.large_fluid_heater",
+//                "Large Fluid Heater",
+//                MultiBlockDefinition.LARGE_FLUID_HEATER
+//        ).getStackForm(1L));
 
         //Overlaps with Large Scale Auto-Assembler v1.01
         LARGE_ASSEMBLING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
