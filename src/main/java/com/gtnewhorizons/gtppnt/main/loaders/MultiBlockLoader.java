@@ -278,12 +278,15 @@ public class MultiBlockLoader {
         //).getItem());
 
         //Overlaps with Industrial Extrusion Machine
-        LARGE_EXTRUDER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                859,
-                "multimachine.tm.large_extruder",
-                "Large Extruder",
-                MultiBlockDefinition.LARGE_EXTRUDER
-        ).getStackForm(1L));
+        LARGE_EXTRUDER.set(new GT_MetaTileEntity_Large_Extruder(859).getItem());
+
+//
+//        LARGE_EXTRUDER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                859,
+//                "multimachine.tm.large_extruder",
+//                "Large Extruder",
+//                MultiBlockDefinition.LARGE_EXTRUDER
+//        ).getStackForm(1L));
 
         //Overlaps with High Current Industrial Arc Furnace
         LARGE_ARC_FURNACE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
