@@ -56,12 +56,15 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Replaces part of Large Washing Plant
-        LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                aID++,
-                "multimachine.tm.large_chemical_bath",
-                "Large Chemical Bath",
-                MultiBlockDefinition.LARGE_CHEMICAL_BATH
-        ).getStackForm(1L));
+        LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_Large_Chemical_Bath(aID++).getItem());
+
+//
+//        LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                aID++,
+//                "multimachine.tm.large_chemical_bath",
+//                "Large Chemical Bath",
+//                MultiBlockDefinition.LARGE_CHEMICAL_BATH
+//        ).getStackForm(1L));
 
         //Replaces part of High Current Industrial Arc Furnace
         LARGE_PLASMA_ARC_FURNACE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
