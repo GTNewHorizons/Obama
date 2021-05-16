@@ -283,7 +283,7 @@ public class MultiBlockLoader {
         LARGE_FLUID_HEATER.set(new GT_MetaTileEntity_TM_Large_Fluid_Heater(875).getItem());
 
         //Overlaps with Large Scale Auto-Assembler v1.01
-        LARGE_ASSEMBLING_MACHINE.set(new GT_MetaTileEntity_LargeAssembler(876).getItem());
+        LARGE_ASSEMBLING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Assembler(876).getItem());
 
         //Overlaps with Amazon Warehousing Depot.
         LARGE_PACKAGER.set(new GT_MetaTileEntitiy_TM_Large_Packager(942).getItem());
