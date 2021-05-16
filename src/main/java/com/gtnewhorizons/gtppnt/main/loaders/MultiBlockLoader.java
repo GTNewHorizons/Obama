@@ -48,12 +48,7 @@ public class MultiBlockLoader {
         int aID = 31021;
 
         //Replaces part of Industrial Material Press
-        LARGE_FORMING_PRESS.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                aID++,
-                "multimachine.tm.large_forming_press",
-                "Large Forming Press",
-                MultiBlockDefinition.LARGE_FORMING_PRESS
-        ).getStackForm(1L));
+        LARGE_FORMING_PRESS.set(new GT_MetaTileEntity_TM_Large_Formin_Press(aID++).getItem());
 
         //Replaces part of Large Washing Plant
         LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_TM_Large_Chemical_Bath(aID++).getItem());
