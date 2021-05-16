@@ -54,7 +54,9 @@ public class HatchCasingLoader {
         aID = setMultipleCasingTiered(CasingFunction.WIRE,aID,
                 WIRE_LV,WIRE_MV,WIRE_HV);
 
-        FILTER.set(new GT_MetaTileEntity_TM_HatchCasing(aID++,CasingFunction.FILTER,-1).getItem());
+        //TODO filter casing only needs 1 tier
+        aID = setMultipleCasingTiered(CasingFunction.FILTER,aID,
+                FILTER_LV,FILTER_MV,FILTER_HV);
 
 
         CATALYTIC_MUFFLER_EV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 4).getItem());
