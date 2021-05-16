@@ -224,12 +224,14 @@ public class MultiBlockLoader {
         LARGE_WIREMILL.set(new GT_MetaTileEntity_TM_Large_Wiremill(798).getItem());
 
         //Overlaps with Industrial Mixing Machine
-        LARGE_MIXER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                811,
-                "multimachine.tm.large_mixer",
-                "Large Mixer",
-                MultiBlockDefinition.LARGE_MIXER
-        ).getStackForm(1L));
+        LARGE_MIXER.set(new GT_MetaTileEntity_TM_Large_Mixer(811).getItem());
+
+//        LARGE_MIXER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                811,
+//                "multimachine.tm.large_mixer",
+//                "Large Mixer",
+//                MultiBlockDefinition.LARGE_MIXER
+//        ).getStackForm(1L));
 
         //Overlaps with Large Sifter Control Block
         LARGE_SIFTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Sifter(840).getItem());
