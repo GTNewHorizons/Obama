@@ -221,12 +221,7 @@ public class MultiBlockLoader {
         LARGE_MACERATOR.set(new GT_MetaTileEntity_TM_Large_Macerator(797).getItem());
 
         //Overlaps with Wire Factory Controller
-        LARGE_WIREMILL.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                798,
-                "multimachine.tm.large_wiremill",
-                "Large Wiremill",
-                MultiBlockDefinition.LARGE_WIREMILL
-        ).getStackForm(1L));
+        LARGE_WIREMILL.set(new GT_MetaTileEntity_TM_Large_Wiremill(798).getItem());
 
         //Overlaps with Industrial Mixing Machine
         LARGE_MIXER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
