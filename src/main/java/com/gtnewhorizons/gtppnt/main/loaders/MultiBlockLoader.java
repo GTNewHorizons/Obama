@@ -215,12 +215,7 @@ public class MultiBlockLoader {
         LARGE_BENDING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Bender(792).getItem());
 
         //Overlaps with Industrial Electrolyzer
-        LARGE_ELECTROLYZER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                796,
-                "multimachine.tm.large_electrolyzer",
-                "Large Electrolyzer",
-                MultiBlockDefinition.LARGE_ELECTROLYZER
-        ).getStackForm(1L));
+        LARGE_ELECTROLYZER.set(new GT_MetaTileEntity_TM_Large_Electrolyzer(796).getItem());
 
         //Overlaps with Maceration Stack Controller
         //LARGE_MACERATOR.set(new GT_MetaTileEntity_TM_Large_Macerator(
