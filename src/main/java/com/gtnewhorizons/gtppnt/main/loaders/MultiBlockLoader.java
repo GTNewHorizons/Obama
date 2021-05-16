@@ -218,11 +218,7 @@ public class MultiBlockLoader {
         LARGE_ELECTROLYZER.set(new GT_MetaTileEntity_TM_Large_Electrolyzer(796).getItem());
 
         //Overlaps with Maceration Stack Controller
-        //LARGE_MACERATOR.set(new GT_MetaTileEntity_TM_Large_Macerator(
-        //        797,
-        //        "multimachine.tm.large_macerator",
-        //        "Large Macerator"
-        //).getItem());
+        LARGE_MACERATOR.set(new GT_MetaTileEntity_TM_Large_Macerator(797).getItem());
 
         //Overlaps with Wire Factory Controller
         LARGE_WIREMILL.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
