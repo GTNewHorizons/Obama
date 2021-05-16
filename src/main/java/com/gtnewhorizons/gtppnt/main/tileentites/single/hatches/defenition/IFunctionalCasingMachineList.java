@@ -5,7 +5,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
 import java.util.Set;
-import java.util.function.Consumer;
 
 public interface IFunctionalCasingMachineList {
     Set<GT_MetaTileEntity_TM_HatchCasing> getFunctionalCasings();
@@ -74,6 +73,10 @@ public interface IFunctionalCasingMachineList {
 
     default boolean addArmToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.ARM);
+    }
+
+    default boolean addWireToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.WIRE);
     }
 
     default void onPostTickFunctionalCasing(IGregTechTileEntity aBaseMetaTileEntity) {
