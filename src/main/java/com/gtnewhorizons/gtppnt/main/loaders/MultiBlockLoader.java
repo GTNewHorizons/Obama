@@ -273,6 +273,8 @@ public class MultiBlockLoader {
 //                MultiBlockDefinition.LARGE_THERMAL_CENTRIFUGE
 //        ).getStackForm(1L));
 
+        LARGE_ORE_WASHING_PLANT.set(new GT_MetaTileEntity_Large_Ore_Washer(850).getItem());
+
         //Overlaps with Large Washing Plant
         //LARGE_ORE_WASHING_PLANT.set(new GT_MetaTileEntity_TM_Large_Ore_Washing_Plant(
         //        850,
