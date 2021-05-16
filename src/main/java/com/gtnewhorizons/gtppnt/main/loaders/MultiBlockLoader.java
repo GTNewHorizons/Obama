@@ -232,12 +232,7 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Overlaps with Large Sifter Control Block
-        LARGE_SIFTING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                840,
-                "multimachine.tm.large_sifting_machine",
-                "Large Sifting Machine",
-                MultiBlockDefinition.LARGE_SIFTING_MACHINE
-        ).getStackForm(1L));
+        LARGE_SIFTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Sifter(840).getItem());
 
         //Overlaps with Large Thermal Refinery
         LARGE_THERMAL_CENTRIFUGE.set(new GT_MetaTileEntity_TM_Large_Thermal_Centrifuge(849).getItem());
