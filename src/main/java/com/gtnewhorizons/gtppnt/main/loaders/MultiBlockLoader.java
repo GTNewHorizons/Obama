@@ -217,12 +217,7 @@ public class MultiBlockLoader {
         LARGE_CENTRIFUGE.set(new GT_MetaTileEntity_TM_Large_Centrifuge(790).getItem());
 
         //Overlaps with Industrial Material Press
-        LARGE_BENDING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                792,
-                "multimachine.tm.large_bending_machine",
-                "Large Bending Machine",
-                MultiBlockDefinition.LARGE_BENDING_MACHINE
-        ).getStackForm(1L));
+        LARGE_BENDING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Bender(792).getItem());
 
         //Overlaps with Industrial Electrolyzer
         LARGE_ELECTROLYZER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
