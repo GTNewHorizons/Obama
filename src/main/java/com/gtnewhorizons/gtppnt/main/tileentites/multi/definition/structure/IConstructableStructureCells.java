@@ -10,12 +10,13 @@ public interface IConstructableStructureCells extends IConstructableStructureABC
             return false;
 
         if (!checkMachineB())
-            return false;
+            return true;
 
         if (!checkMachineC())
-            return false;
+            return true;
 
-        return checkMachineD();
+        checkMachineD();
+        return true;
     }
 
     @Override
