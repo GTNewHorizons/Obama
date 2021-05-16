@@ -5,7 +5,7 @@ import com.github.technus.tectech.mechanics.structure.StructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -15,25 +15,27 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
+import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
-    public GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge(int aID) {
-        super(aID, "multimachine.tm.large_thermal_centrifuge", "Large Thermal Centrifuge");
+public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceable {
+
+    public GT_MetaTileEntity_TM_Large_Laser_Engraver(int aID) {
+        super(aID, "multimachine.tm.large_precision_laser_engraver", "Large Precision Laser Engraver");
     }
 
-    public GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge(String aName) {
+    public GT_MetaTileEntity_TM_Large_Laser_Engraver(String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge(mName);
+        return new GT_MetaTileEntity_TM_Large_Laser_Engraver(mName);
     }
 
     @Override
     public String[] getDescription() {
-        return new String[]{"thermal centrifuge desc"};
+        return new String[]{"laser engrave desc"};
     }
 
     @Override
@@ -41,69 +43,53 @@ public class GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge extends GT_MetaTileE
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
                 .addShape(TM_STRUCTURE_START,new String[][]{
-                        {" BBB ","B---B","B-~-B","B---B"," BBB ","E   E"},
-                        {" ccc ","mAAAm","mAAAm","mAAAm"," ccc ","     "}
+                        {"B","A","~","B"},
+                        {"A","G","A","A"},
+                        {"B","A","A","B"}
                 })
                 .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
-                        {" ccc ","m---m","m---m","m---m"," ccc "}
-                })
-                .addShape(TM_STRUCTURE_CAP,new String[][]{
-                        {"  AAA  "," AAAAA "," AA-AA "," AAAAA ","  AAA  "," E   E "},
-                        {"       ","   A   ","  A-A  ","   A   ","       ","       "},
-                        {"       ","   A   ","  A-A  ","   A   ","       ","       "},
-                        {"  AAA  ","  AAA  ","  A-A  ","  AAA  ","  AAA  ","A     A"},
-                        {" AAAAA "," A   A "," A A A "," A   A "," AhhhA ","       "},
-                        {"AAAIAAA","A     A","A  A  A","A     A","AhhOhhA","       "},
-                        {"AAIIIAA","A     A","G  A  A","A  A  A","AhOOOhA","       "},
-                        {"AAAIAAA","A     A","G     A","A     A","AhhOhhA","       "},
-                        {" AAAAA "," A   A "," G   A "," A   A "," AhhhA ","A     A"},
-                        {"  AAA  ","  AAA  ","  GGA  ","  AAA  ","  AAA  ","       "},
+                        {"c ","pB","GA","IA","BB"},
+                        {"c ","eA","-G","-A","AA"},
+                        {"c ","pB","GA","OA","BB"},
                 })
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
-                .addElement('G', ofBlockAnyMeta(reinforcedGlass))
                 .addElement('B',ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicMaintenanceToMachineList,
                                 getTextureIndex(),1),
+                                ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEnergyIOToMachineList,
+                                        getTextureIndex(),1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('E',ofChain(
-                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEnergyIOToMachineList,
-                                getTextureIndex(),2),
-                        ofBlock(getCasingBlock(), getCasingMeta())))
+                .addElement('G', ofBlockAnyMeta(reinforcedGlass))
                 .addElement('I',ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicInputToMachineList,
-                                getTextureIndex(),3),
+                                getTextureIndex(),2),
                         ofBlock(getCasingBlock(),getCasingMeta())))
                 .addElement('O',ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicOutputToMachineList,
-                                getTextureIndex(),4),
+                                getTextureIndex(),3),
                         ofBlock(getCasingBlock(),getCasingMeta())))
-                .addElement('m',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
+                .addElement('p',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
+                        getTextureIndex(),4))
+                .addElement('e',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEmitterToMachineList,
                         getTextureIndex(),5))
-                .addElement('h',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addHeatingToMachineList,
-                        getTextureIndex(),6))
                 .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),7))
+                        getTextureIndex(),6))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(2,2,0);
+        return new Vec3Impl(0,2,0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(2,2,-2);
+        return new Vec3Impl(-1,3,0);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0,0,-1);
-    }
-
-    @Override
-    public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(1,0,0);
+        return new Vec3Impl(-2,0,0);
     }
 
     @Override
@@ -112,18 +98,8 @@ public class GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge extends GT_MetaTileE
     }
 
     @Override
-    public int getMinSlices() {
-        return 0;
-    }
-
-    @Override
-    public int getMinParrallel() {
-        return 48;
-    }
-
-    @Override
     public int getParalellsPerSlice() {
-        return 48;
+        return 16;
     }
 
     @Override
@@ -134,20 +110,19 @@ public class GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge extends GT_MetaTileE
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
-                "1 - Maintenance Hatch",
-                "2 - Energy Hatch",
-                "3 - Input Hatch",
-                "4 - Output Hatch",
-                "5 - Motor Hatch",
-                "6 - Heating Hatch",
-                "7 - Circuit Hatch"
+                "1 - Energy/Maintenance Hatch",
+                "2 - Input Hatch",
+                "3 - Output Hatch",
+                "4 - Piston Hatch",
+                "5 - Emitter Hatch",
+                "6 - Circuit Hatch"
         };
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
-        return "TM_LARGE_THERMAL_CENTRIFUGE";
+        return "TM_LARGE_PRECISION_LASER_ENGRAVER";
     }
 
     @Override
@@ -158,7 +133,6 @@ public class GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge extends GT_MetaTileE
 
     @Override
     public GT_Recipe.GT_Recipe_Map getRecipeMap() {
-        return GT_Recipe.GT_Recipe_Map.sThermalCentrifugeRecipes;
+        return GT_Recipe.GT_Recipe_Map.sLaserEngraverRecipes;
     }
-
 }

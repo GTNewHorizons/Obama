@@ -1,6 +1,5 @@
 package com.gtnewhorizons.gtppnt.main.tileentites.multi.instances;
 
-import com.github.technus.tectech.mechanics.alignment.IAlignment;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.mechanics.structure.StructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
@@ -19,20 +18,20 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_Large_Ore_Washer extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureCells {
+public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureCells {
     int paralells = 0;
 
-    public GT_MetaTileEntity_Large_Ore_Washer(int aID) {
+    public GT_MetaTileEntity_TM_Large_Ore_Washer(int aID) {
         super(aID, "multimachine.tm.large_ore_washing_plant", "Large Ore Washing Plant");
     }
 
-    public GT_MetaTileEntity_Large_Ore_Washer(String aName) {
+    public GT_MetaTileEntity_TM_Large_Ore_Washer(String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntity_Large_Ore_Washer(mName);
+        return new GT_MetaTileEntity_TM_Large_Ore_Washer(mName);
     }
 
     @Override

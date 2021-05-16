@@ -17,18 +17,18 @@ import net.minecraft.item.ItemStack;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_Large_Chemical_Bath extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
-    public GT_MetaTileEntity_Large_Chemical_Bath(int aID) {
+public class GT_MetaTileEntity_TM_Large_Chemical_Bath extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+    public GT_MetaTileEntity_TM_Large_Chemical_Bath(int aID) {
         super(aID, "multimachine.tm.large_chemical_bath", "Large Chemical Bath");
     }
 
-    public GT_MetaTileEntity_Large_Chemical_Bath(String aName) {
+    public GT_MetaTileEntity_TM_Large_Chemical_Bath(String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntity_Large_Chemical_Bath(mName);
+        return new GT_MetaTileEntity_TM_Large_Chemical_Bath(mName);
     }
 
     @Override

@@ -56,7 +56,7 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Replaces part of Large Washing Plant
-        LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_Large_Chemical_Bath(aID++).getItem());
+        LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_TM_Large_Chemical_Bath(aID++).getItem());
 
 //
 //        LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
@@ -93,7 +93,7 @@ public class MultiBlockLoader {
 //        ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
-        LARGE_LATHE.set(new GT_MetaTileEntitiy_TM_Large_Lathe(aID++).getItem());
+        LARGE_LATHE.set(new GT_MetaTileEntity_TM_Large_Lathe(aID++).getItem());
 //
 //        LARGE_LATHE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
 //                aID++,
@@ -264,12 +264,12 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Overlaps with Large Thermal Refinery
-        LARGE_THERMAL_CENTRIFUGE.set(new GT_MetaTileEntitiy_TM_Large_Thermal_Centrifuge(849).getItem());
+        LARGE_THERMAL_CENTRIFUGE.set(new GT_MetaTileEntity_TM_Large_Thermal_Centrifuge(849).getItem());
 
-        LARGE_ORE_WASHING_PLANT.set(new GT_MetaTileEntity_Large_Ore_Washer(850).getItem());
+        LARGE_ORE_WASHING_PLANT.set(new GT_MetaTileEntity_TM_Large_Ore_Washer(850).getItem());
 
         //Overlaps with Industrial Extrusion Machine
-        LARGE_EXTRUDER.set(new GT_MetaTileEntity_Large_Extruder(859).getItem());
+        LARGE_EXTRUDER.set(new GT_MetaTileEntity_TM_Large_Extruder(859).getItem());
 
         //Overlaps with High Current Industrial Arc Furnace
         LARGE_ARC_FURNACE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
@@ -286,13 +286,13 @@ public class MultiBlockLoader {
         LARGE_ASSEMBLING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Assembler(876).getItem());
 
         //Overlaps with Amazon Warehousing Depot.
-        LARGE_PACKAGER.set(new GT_MetaTileEntitiy_TM_Large_Packager(942).getItem());
+        LARGE_PACKAGER.set(new GT_MetaTileEntity_TM_Large_Packager(942).getItem());
 
         //Overlaps with Cutting Factory Controller
         LARGE_CUTTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Cuttin_Machine(992).getItem());
 
         //Overlaps with Large Processing Factory
-        LARGE_PRECISION_LASER_ENGRAVER.set(new GT_MetaTileEntitiy_TM_Large_Laser_Engraver(860).getItem());
+        LARGE_PRECISION_LASER_ENGRAVER.set(new GT_MetaTileEntity_TM_Large_Laser_Engraver(860).getItem());
 
     }
 }

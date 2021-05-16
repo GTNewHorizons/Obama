@@ -18,18 +18,18 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_Large_Extruder extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
-    public GT_MetaTileEntity_Large_Extruder(int aID) {
+public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+    public GT_MetaTileEntity_TM_Large_Extruder(int aID) {
         super(aID, "multimachine.tm.large_extruder", "Large Extruder");
     }
 
-    public GT_MetaTileEntity_Large_Extruder(String aName) {
+    public GT_MetaTileEntity_TM_Large_Extruder(String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntity_Large_Extruder(mName);
+        return new GT_MetaTileEntity_TM_Large_Extruder(mName);
     }
 
     @Override
