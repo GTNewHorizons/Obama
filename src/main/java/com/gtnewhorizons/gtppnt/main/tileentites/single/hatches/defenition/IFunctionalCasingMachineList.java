@@ -36,7 +36,8 @@ public interface IFunctionalCasingMachineList {
             return false;
 
         hatch.updateTexture(aBaseCasingIndex);
-        return getFunctionalCasings().add(hatch);
+        getFunctionalCasings().add(hatch);
+        return true;
     }
 
     default boolean addGrindingCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
