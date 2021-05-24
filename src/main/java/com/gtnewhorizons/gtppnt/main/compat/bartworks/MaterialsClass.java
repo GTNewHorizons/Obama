@@ -712,29 +712,6 @@ public class MaterialsClass implements Runnable {
             SET_METALLIC
     );
 
-    //Dysprosium
-    public static final Werkstoff Dysprosium = new Werkstoff(
-            new short[]{0x00, 0x00, 0x00},
-            "Dysprosium",
-            new Werkstoff.Stats().setMass(163).setProtons(66),
-            ELEMENT,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
-            30044,
-            SET_METALLIC
-    );
-
-    //Terbium
-    public static final Werkstoff Terbium = new Werkstoff(
-            new short[]{0x00, 0x00, 0x00},
-            "Terbium",
-            "Dy",
-            new Werkstoff.Stats().setMass(159).setProtons(65),
-            ELEMENT,
-            new Werkstoff.GenerationFeatures().onlyDust().addMolten().addMetalItems().addCraftingMetalWorkingItems().addSimpleMetalWorkingItems().enforceUnification(),
-            30045,
-            SET_METALLIC
-    );
-
     //Hafnium
     public static final Werkstoff Hafnium = new Werkstoff(
             new short[]{0x00, 0x00, 0x00},
