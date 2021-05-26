@@ -40,6 +40,11 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     private Vec3Impl structureOffset;
     private int sliceCount = 0;
     private GT_Recipe buffered_Recipe;
+    private RecipeProgresion[] runningRecipes = new RecipeProgresion[0];
+    private int parrallelRunning = 0;
+    private int newProgressTime = Integer.MAX_VALUE;
+
+
 
     //region Constructors
     public GT_MetaTileEntity_TM_Factory(int aID, String aName, String aNameRegional) {
@@ -169,12 +174,100 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         }
         return voltage;
     }
+
+    @Override
+    public boolean onRunningTick(ItemStack aStack) {
+        recipeControll(aStack);
+        return super.onRunningTick(aStack);
+    }
+
+    //TODO test without null check
+    void recipeControll(ItemStack itemStack) {
+        int progressTime = this.mProgresstime +1;
+        if (this.mMaxProgresstime > 0 && progressTime >= this.mMaxProgresstime && runningRecipes != null) {
+            // if all new or remaning recipes are more then 100 ticks long it will still recheck a recipe in 100 ticks
+            newProgressTime = 100;
+            ArrayList<RecipeProgresion> finishedRecipes = new ArrayList<>(runningRecipes.length);
+            int totalItemStacks = 0;
+            int totalFluidStacks = 0;
+            for (int i = 0; i < runningRecipes.length ; i++) {
+                RecipeProgresion runningRecipe = runningRecipes[i];
+                if (runningRecipe != null ) {
+                    int timeLeft = runningRecipe.isRecipeDone(progressTime);
+                    if (timeLeft <= 0) {
+                        finishedRecipes.add(runningRecipe);
+                        totalItemStacks += runningRecipe.getItems().length;
+                        totalFluidStacks += runningRecipe.getFluids().length;
+                        runningRecipes[i] = null;
+                    } else {
+                        newProgressTime = Math.min(newProgressTime,timeLeft);
+                    }
+                }
+            }
+
+            if (finishedRecipes.size() > 0) {
+                ItemStack[] outputItems;
+                FluidStack[] outputFluids;
+                int freedParrallel = 0;
+                int freedPower = 0;
+
+                //if only 1 recipe is doen avoid the extra copying
+                if (finishedRecipes.size() == 1) {
+                    RecipeProgresion finishedRecipe = finishedRecipes.get(0);
+                    outputItems = finishedRecipe.getItems();
+                    outputFluids = finishedRecipe.getFluids();
+                    freedParrallel = finishedRecipe.getAmount();
+                    freedPower = finishedRecipe.getEUUsage();
+                } else {
+                    outputItems = new ItemStack[totalItemStacks];
+                    outputFluids = new FluidStack[totalFluidStacks];
+                    int itemIndex = 0;
+                    int fluidIndex = 0;
+                    for (RecipeProgresion finishedRecipe : finishedRecipes) {
+                        ItemStack[] items = finishedRecipe.getItems();
+                        int itemLen = items.length;
+                        for (int i = 0; i < itemLen; i++) {
+                            outputItems[i + itemIndex] = items[i];
+                        }
+                        itemIndex += itemLen;
+                        FluidStack[] fluids = finishedRecipe.getFluids();
+                        int fluidLen = fluids.length;
+                        for (int i = 0; i < fluidLen; i++) {
+                            outputFluids[i + fluidIndex] = fluids[i];
+                        }
+                        freedParrallel += finishedRecipe.getAmount();
+                        freedPower += finishedRecipe.getEUUsage();
+                    }
+                }
+                RecipeProgresion[] newRunning = new RecipeProgresion[runningRecipes.length-finishedRecipes.size()];
+                int newIndex = 0;
+                for (RecipeProgresion runningRecipe : runningRecipes) {
+                    if (runningRecipe != null)
+                        newRunning[newIndex++] = runningRecipe;
+                }
+                runningRecipes = newRunning;
+                mOutputItems = outputItems;
+                mOutputFluids = outputFluids;
+                parrallelRunning -= freedParrallel;
+                mEUt += freedPower;
+                if (!getBaseMetaTileEntity().isAllowedToWork())
+                {
+                    mMaxProgresstime = newProgressTime;
+                    mProgresstime = 0;
+                }
+            }
+        }
+    }
+
     //TODO Allow for multiple different recipes to run at the same time
     //TODO Allow multies to have more spesilised recipes
     @Override
     public boolean checkRecipe_EM(ItemStack itemStack) {
         boolean canRunRecipe = false;
-        if (this.getEUVar() > this.getMaxInputVoltage()) {
+        int totalEUUsage = this.mEUt;
+        //TODO dont hard code this
+        int maxTotalRecipes = 8 - runningRecipes.length;
+        if (this.getEUVar() > this.getMaxInputVoltage() && maxTotalRecipes > 0) {
             ItemStack[] inputItems = this.getStoredInputs().toArray(new ItemStack[0]);
             FluidStack[] inputFluids = this.getStoredFluids().toArray(new FluidStack[0]);
             if (inputItems.length > 0 || inputFluids.length > 0) {
@@ -188,52 +281,89 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         inputFluids,
                         inputItems);
                 //TODO Mention that getMaxParalells() is extended by IStructureProvider too
-                int parrallel = getMaxParalells();
+                int parrallel = getMaxParalells() - parrallelRunning;
                 int parrallelDone = 0;
-                ArrayList<ItemStack> outputItems = new ArrayList<>();
-                ArrayList<FluidStack> outputFluids = new ArrayList<>();
+                int voltage = (int) getMaxVoltage();
+                int amps = (int) getMaxInputEnergy()/voltage;
+                if (amps < parrallel) {
+                    parrallel = amps;
+                }
+                ArrayList<RecipeProgresion> newRecipes = new ArrayList<>();
                 for (GT_Recipe recipe: recipes) {
                     if (recipe != null) {
                         if (recipe.mCanBeBuffered) {
                             this.buffered_Recipe = recipe;
                         }
+
                         parrallelDone = MultiBlockUtils.isRecipeEqualAndRemoveParrallel(recipe,
                                 inputItems,combinedItems,inputFluids,parrallel,true);
 
-                        //TODO Add chance calculation to outputs
-                        MultiBlockUtils.addItemOutputToList(recipe,outputItems,parrallelDone);
-                        MultiBlockUtils.addFluidoutputToList(recipe,outputFluids,parrallelDone);
                         if (parrallelDone > 0) {
+                            //TODO Add chance calculation to outputs needs to be done in RecipeProgression
+                            RecipeProgresion processedRecipe = MultiBlockUtils.getRecipeProgresionWithOC(
+                                    recipe,
+                                    getRecipeVoltage(recipe),
+                                    voltage,
+                                    parrallelDone);
+
+                            newRecipes.add(processedRecipe);
+                            totalEUUsage -= processedRecipe.getEUUsage();
+
+                            newProgressTime = Math.min(newProgressTime,processedRecipe.getTimeLeft());
+                            parrallelRunning += parrallelDone;
                             parrallel -= parrallelDone;
-                            if (setEnergy(recipe,parrallelDone))
-                                canRunRecipe = true;
+                            canRunRecipe = true;
                         }
                     }
-                    if (parrallelDone >0)
+                    if (parrallel < 1 || maxTotalRecipes < newRecipes.size())
                         break;
                 }
                 if (canRunRecipe) {
-                    this.mOutputItems = MultiBlockUtils.sortOutputItemStacks(outputItems);
-                    this.mOutputFluids = MultiBlockUtils.sortOutputFluidStacks(outputFluids);
+                    addNewRunningRecipes(newRecipes.toArray(new RecipeProgresion[0]));
                     this.updateSlots();
                 }
             }
         }
-
-        return canRunRecipe;
+        canRunRecipe = setEnergy(newProgressTime,totalEUUsage) && this.runningRecipes.length>0;
+        if (!canRunRecipe)
+            turnOff();
+        return canRunRecipe ;
     }
 
-    private boolean setEnergy(GT_Recipe recipe,int parrallel) {
+    //to overide if mEUt is not the actual voltage
+    public int getRecipeVoltage(GT_Recipe recipe) {
+        return recipe.mEUt;
+    }
+
+    public void turnOff() {
+        this.mEUt = 0;
+        this.mMaxProgresstime = 0;
+        this.mProgresstime = 0;
+        this.newProgressTime = Integer.MAX_VALUE;
+    }
+
+    public void addNewRunningRecipes(RecipeProgresion[] newRunningRecipes){
+        RecipeProgresion[] newList = new RecipeProgresion[this.runningRecipes.length + newRunningRecipes.length];
+        int index = 0;
+        for (RecipeProgresion runningRecipe : this.runningRecipes) {
+            newList[index++] = runningRecipe;
+        }
+        for (RecipeProgresion runningRecipe : newRunningRecipes) {
+            newList[index++] = runningRecipe;
+        }
+        this.runningRecipes = newList;
+    }
+
+    private boolean setEnergy(int time,int euUsage) {
         this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
         this.mEfficiencyIncrease = 10000;
-
-        this.calculateOverclockedNessMultiInternal(recipe.mEUt * parrallel, recipe.mDuration / 50, getRecipeMap().mAmperage * parrallel, getMaxVoltage(), isPerfectOC());
-        // FIXME: 26/02/2021 Undo duration debug boost
+        this.mEUt = euUsage;
         if (mMaxProgresstime != Integer.MAX_VALUE - 1 && mEUt != Integer.MAX_VALUE - 1) {
             if (this.mEUt > 0) {
                 this.mEUt *= -1;
             }
-            this.mMaxProgresstime = Math.max(1, this.mMaxProgresstime);
+            this.mProgresstime = 0;
+            this.mMaxProgresstime = Math.max(1, time);
             return true;
         }
         return false;

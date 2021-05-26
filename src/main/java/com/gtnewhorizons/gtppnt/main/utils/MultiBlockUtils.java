@@ -20,6 +20,7 @@
 
 package com.gtnewhorizons.gtppnt.main.utils;
 
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.RecipeProgresion;
 import gregtech.api.enums.ItemList;
 import gregtech.api.util.GT_OreDictUnificator;
 import gregtech.api.util.GT_Recipe;
@@ -43,10 +44,22 @@ public class MultiBlockUtils {
         if (maxParrallel == 0) return 0;
 
         if (removeItems) {
-            removeInputParrallel(recipe,actaulItemInput,inputFluids,maxParrallel);
+            removeInputParrallel(recipe,inputItemsCombined,actaulItemInput,inputFluids,maxParrallel);
         }
         return maxParrallel;
     }
+
+    public static RecipeProgresion getRecipeProgresionWithOC(GT_Recipe recipe, int recipeVoltage,int inputVolatge,int amount) {
+        int recipeTime = recipe.mDuration;
+        int newVolatge = recipeVoltage<<2;
+        while (newVolatge < inputVolatge && recipeTime > 1) {
+            recipeVoltage = newVolatge;
+            newVolatge <<= 2;
+            recipeTime >>= 1;
+        }
+        return new RecipeProgresion(recipe,amount,recipeTime,recipeVoltage*amount);
+    }
+
 
     public static void addItemOutputToList(GT_Recipe recipe, ArrayList<ItemStack> outputItems, int parrallel) {
         for (int i = 0;i< recipe.mOutputs.length;++i) {
@@ -79,11 +92,34 @@ public class MultiBlockUtils {
     }
 
     // remove fluids and items with parrallel
-    private static void removeInputParrallel(GT_Recipe recipe, ItemStack[] actaulItemInput, FluidStack[] inputFluids, int parrallel) {
+    private static void removeInputParrallel(GT_Recipe recipe, ItemStack[] combinedStacks,ItemStack[] actaulItemInput, FluidStack[] inputFluids, int parrallel) {
         ItemStack[] toRemoveItems = removeItemList(recipe,parrallel);
         FluidStack[] toRemoveFluids = removeFluidList(recipe,parrallel);
+        removeFromCombinedStack(toRemoveItems,combinedStacks,parrallel);
         removeItems(recipe,actaulItemInput,toRemoveItems);
         removeFluids(recipe,inputFluids,toRemoveFluids);
+    }
+
+    //items should already be unified here
+    private static void removeFromCombinedStack(ItemStack[] itemRemoveList, ItemStack[] combined, int parrallel) {
+        int removedItems = 0;
+        int itemsToRemove = itemRemoveList.length;
+        for (int i = 0; i< combined.length;i++) {
+            ItemStack toRemove = combined[i];
+            if (toRemove == null)
+                continue;
+            for (ItemStack removeListStack : itemRemoveList) {
+                if (GT_Utility.areStacksEqual(removeListStack,toRemove,true)) {
+                    toRemove.stackSize -= removeListStack.stackSize;
+                    if (toRemove.stackSize == 0)
+                        combined[i] = null;
+                    itemsToRemove--;
+                    break;
+                }
+            }
+            if (itemsToRemove == 0)
+                break;
+        }
     }
 
     //genrate list to what and how many of the items needs to be removed
@@ -180,7 +216,7 @@ public class MultiBlockUtils {
                             if (parrallel < maxParrallel)
                                 maxParrallel = parrallel;
                             if (parrallel > 0) {
-                                fondFluid = true;
+                                 fondFluid = true;
                                 break;
                             }
                         } else {
