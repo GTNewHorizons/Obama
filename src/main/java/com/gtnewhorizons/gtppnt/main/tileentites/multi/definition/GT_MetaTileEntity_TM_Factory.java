@@ -258,7 +258,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
             }
         }
     }
-    
+
     @Override
     public boolean checkRecipe_EM(ItemStack itemStack) {
         boolean canRunRecipe = false;
@@ -292,7 +292,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                             this.buffered_Recipe = recipe;
                         }
 
-                        checkAndConsumeRecipe(recipe,inputItems,combinedItems,inputFluids,parrallel);
+                        parrallelDone = checkAndConsumeRecipe(recipe,inputItems,combinedItems,inputFluids,parrallel);
 
                         if (parrallelDone > 0) {
 
@@ -318,6 +318,9 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         canRunRecipe = setEnergy(newProgressTime,totalEUUsage) && this.runningRecipes.length>0;
         if (!canRunRecipe)
             turnOff();
+        else {
+            turnOn();
+        }
         return canRunRecipe;
     }
 
@@ -342,11 +345,18 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         return recipe.mEUt/getRecipeMap().mAmperage;
     }
 
+    public void turnOn() {
+        if (!getBaseMetaTileEntity().isActive())
+        setFunctionalCasingActivity(true);
+    }
+
     public void turnOff() {
         this.mEUt = 0;
         this.mMaxProgresstime = 0;
         this.mProgresstime = 0;
         this.newProgressTime = Integer.MAX_VALUE;
+        if (getBaseMetaTileEntity().isActive())
+            setFunctionalCasingActivity(false);
     }
 
     public void addNewRunningRecipes(RecipeProgresion[] newRunningRecipes){
@@ -380,7 +390,6 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         super.onPostTick(aBaseMetaTileEntity, aTick);
         //TODO Dont Call This Evry Tick
-        onPostTickFunctionalCasing(aBaseMetaTileEntity);
     }
 
     @Override
