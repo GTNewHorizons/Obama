@@ -177,12 +177,12 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
 
     @Override
     public boolean onRunningTick(ItemStack aStack) {
-        recipeControll(aStack);
+        recipeControll();
         return super.onRunningTick(aStack);
     }
 
     //TODO test without null check
-    void recipeControll(ItemStack itemStack) {
+    void recipeControll() {
         int progressTime = this.mProgresstime +1;
         if (this.mMaxProgresstime > 0 && progressTime >= this.mMaxProgresstime && runningRecipes != null) {
             // if all new or remaning recipes are more then 100 ticks long it will still recheck a recipe in 100 ticks
@@ -190,6 +190,8 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
             ArrayList<RecipeProgresion> finishedRecipes = new ArrayList<>(runningRecipes.length);
             int totalItemStacks = 0;
             int totalFluidStacks = 0;
+            //put all finished recipes in a array and remove then from running
+            //get count of how many item and fluid stacks will be needed on output
             for (int i = 0; i < runningRecipes.length ; i++) {
                 RecipeProgresion runningRecipe = runningRecipes[i];
                 if (runningRecipe != null ) {
@@ -211,8 +213,8 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                 int freedParrallel = 0;
                 int freedPower = 0;
 
-                //if only 1 recipe is doen avoid the extra copying
-                if (finishedRecipes.size() == 1) {
+                //get output items, fluids,parrallel and power from finished recipes
+                if (finishedRecipes.size() == 1) {//if only 1 recipe is done avoid the extra processing
                     RecipeProgresion finishedRecipe = finishedRecipes.get(0);
                     outputItems = finishedRecipe.getItems();
                     outputFluids = finishedRecipe.getFluids();
@@ -239,12 +241,14 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         freedPower += finishedRecipe.getEUUsage();
                     }
                 }
+                //remove all null from array
                 RecipeProgresion[] newRunning = new RecipeProgresion[runningRecipes.length-finishedRecipes.size()];
                 int newIndex = 0;
                 for (RecipeProgresion runningRecipe : runningRecipes) {
                     if (runningRecipe != null)
                         newRunning[newIndex++] = runningRecipe;
                 }
+                //re set values so they are correct with recipes gone
                 runningRecipes = newRunning;
                 mOutputItems = outputItems;
                 mOutputFluids = outputFluids;
@@ -263,8 +267,8 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     public boolean checkRecipe_EM(ItemStack itemStack) {
         boolean canRunRecipe = false;
         int totalEUUsage = this.mEUt;
-        //TODO dont hard code this
-        int maxTotalRecipes = 8 - runningRecipes.length;
+        int maxTotalRecipes = getMaxUniqueRecipes() - runningRecipes.length;
+        //check if we can actualy add any new recipes
         if (this.getEUVar() > this.getMaxInputVoltage() && maxTotalRecipes > 0) {
             ItemStack[] inputItems = this.getStoredInputs().toArray(new ItemStack[0]);
             FluidStack[] inputFluids = this.getStoredFluids().toArray(new FluidStack[0]);
@@ -322,6 +326,10 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
             turnOn();
         }
         return canRunRecipe;
+    }
+
+    public int getMaxUniqueRecipes() {
+        return 8;
     }
 
     //allows multies to overide this incase more special recipe check is needid
