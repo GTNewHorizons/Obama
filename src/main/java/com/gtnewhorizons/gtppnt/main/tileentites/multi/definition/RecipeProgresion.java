@@ -49,13 +49,11 @@ public class RecipeProgresion {
 
     //TODO multi thread this??? if it consumes any significan amount of time
     private void processRecipe(int amount) {
-
         int totalStacks = getTotalStacks(amount);
         this.items = new ItemStack[totalStacks];
         populateItemStack(recipe,amount);
         fluids = new FluidStack[recipe.mFluidOutputs.length];
         populateFluidStack(amount);
-
     }
 
     private int getTotalStacks(int amount) {

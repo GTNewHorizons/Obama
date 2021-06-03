@@ -258,9 +258,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
             }
         }
     }
-
-    //TODO Allow for multiple different recipes to run at the same time
-    //TODO Allow multies to have more spesilised recipes
+    
     @Override
     public boolean checkRecipe_EM(ItemStack itemStack) {
         boolean canRunRecipe = false;
@@ -280,7 +278,6 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         this.getMaxInputVoltage(),
                         inputFluids,
                         inputItems);
-                //TODO Mention that getMaxParalells() is extended by IStructureProvider too
                 int parrallel = getMaxParalells() - parrallelRunning;
                 int parrallelDone = 0;
                 int voltage = (int) getMaxVoltage();
@@ -295,17 +292,11 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                             this.buffered_Recipe = recipe;
                         }
 
-                        parrallelDone = MultiBlockUtils.isRecipeEqualAndRemoveParrallel(recipe,
-                                inputItems,combinedItems,inputFluids,parrallel,true);
+                        checkAndConsumeRecipe(recipe,inputItems,combinedItems,inputFluids,parrallel);
 
                         if (parrallelDone > 0) {
-                            //TODO Add chance calculation to outputs needs to be done in RecipeProgression
-                            RecipeProgresion processedRecipe = MultiBlockUtils.getRecipeProgresionWithOC(
-                                    recipe,
-                                    getRecipeVoltage(recipe),
-                                    voltage,
-                                    parrallelDone);
 
+                            RecipeProgresion processedRecipe = getRecipeProgresionWithOC(recipe, voltage,parrallelDone);
                             newRecipes.add(processedRecipe);
                             totalEUUsage -= processedRecipe.getEUUsage();
 
@@ -327,12 +318,28 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         canRunRecipe = setEnergy(newProgressTime,totalEUUsage) && this.runningRecipes.length>0;
         if (!canRunRecipe)
             turnOff();
-        return canRunRecipe ;
+        return canRunRecipe;
     }
 
-    //to overide if mEUt is not the actual voltage
+    //allows multies to overide this incase more special recipe check is needid
+    public int checkAndConsumeRecipe(GT_Recipe recipe, ItemStack[] inputItems, ItemStack[] combinedItems,
+                                     FluidStack[] inputFluids, int parrallel) {
+        return MultiBlockUtils.isRecipeEqualAndRemoveParrallel(recipe,
+                inputItems,combinedItems,inputFluids,parrallel,true);
+    }
+
+    //allows multies to overide this incase more special OC is needid
+    public RecipeProgresion getRecipeProgresionWithOC(GT_Recipe recipe, int voltage, int parrallelDone) {
+        return MultiBlockUtils.getRecipeProgresionWithOC(
+                recipe,
+                getRecipeVoltage(recipe),
+                voltage,
+                parrallelDone);
+    }
+
+
     public int getRecipeVoltage(GT_Recipe recipe) {
-        return recipe.mEUt;
+        return recipe.mEUt/getRecipeMap().mAmperage;
     }
 
     public void turnOff() {
