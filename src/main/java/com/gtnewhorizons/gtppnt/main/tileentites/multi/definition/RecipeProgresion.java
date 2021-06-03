@@ -4,6 +4,8 @@ import gregtech.api.util.GT_Recipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class RecipeProgresion {
     private GT_Recipe recipe;
     private int euUsage;
@@ -50,7 +52,7 @@ public class RecipeProgresion {
 
         int totalStacks = getTotalStacks(amount);
         this.items = new ItemStack[totalStacks];
-        populateItemStack(amount);
+        populateItemStack(recipe,amount);
         fluids = new FluidStack[recipe.mFluidOutputs.length];
         populateFluidStack(amount);
 
@@ -72,28 +74,46 @@ public class RecipeProgresion {
     }
 
     //asumes this.items has a valid array
-    private void populateItemStack(int amount) {
+    private void populateItemStack(GT_Recipe recipe,int amount) {
         int itemIndex = 0;
-        for (ItemStack item : recipe.mOutputs) {
+        for (int i = 0; i < recipe.mOutputs.length;i++) {
+            ItemStack item = recipe.mOutputs[i];
             if (item == null)
                 continue;
+            int amountWithChance = getItemAmountWithChance(recipe,i,amount);
             int maxStackSize = item.getMaxStackSize();
-            int total = item.stackSize * amount;
+            int total = item.stackSize * amountWithChance;
             int stackCount = total/maxStackSize;
-            for (int i = 0; i < stackCount; i++) {
+            for (int j = 0; j < stackCount; j++) {
                 ItemStack copy = item.copy();
                 copy.stackSize = maxStackSize;
                 this.items[itemIndex] = copy;
                 itemIndex++;
             }
             int rest = total%maxStackSize;
-            if (rest > 0){
+            if (rest > 0) {
                 ItemStack copy = item.copy();
                 copy.stackSize = rest;
                 this.items[itemIndex] = copy;
                 itemIndex++;
             }
         }
+    }
+
+    //i hate this but dont know of a better faster way
+    private int getItemAmountWithChance(GT_Recipe recipe, int index, int amount) {
+        int itemChance = recipe.getOutputChance(index);
+        int successCount = amount;
+        if (itemChance != 10000) {
+            successCount = 0;
+            for (int j = 0;j<amount;j++) {
+                int rng = ThreadLocalRandom.current().nextInt(10000);
+                if (rng < itemChance){
+                    successCount++;
+                }
+            }
+        }
+        return successCount;
     }
 
     private void populateFluidStack(int amount) {
