@@ -113,9 +113,9 @@ public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity
                 "1 - Energy/Maintenance Hatch",
                 "2 - Input Hatch",
                 "3 - Output Hatch",
-                "4 - Piston Hatch",
-                "5 - Emitter Hatch",
-                "6 - Circuit Hatch"
+                "4 - Piston Casing",
+                "5 - Emitter Casing",
+                "6 - Circuit Casing"
         };
     }
 

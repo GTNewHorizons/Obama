@@ -125,8 +125,8 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
                 "1 - Energy/Maintenance Hatch",
                 "2 - Input Hatach",
                 "3 - Output Hatch",
-                "4 - Piston Hatch",
-                "5 - circuit Hatch",
+                "4 - Piston Casing",
+                "5 - circuit Casing",
                 "Coil - Coil of tier"
         };
     }

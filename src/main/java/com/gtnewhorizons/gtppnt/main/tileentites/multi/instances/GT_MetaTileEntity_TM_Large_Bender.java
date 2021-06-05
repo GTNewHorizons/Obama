@@ -106,9 +106,9 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
                 "Casing - Classic Hatches",
-                "1 - Motor Hatch",
-                "2 - Piston Hatch",
-                "3 - Circuit Hatch"
+                "1 - Motor Casing",
+                "2 - Piston Casing",
+                "3 - Circuit Casing"
         };
     }
 

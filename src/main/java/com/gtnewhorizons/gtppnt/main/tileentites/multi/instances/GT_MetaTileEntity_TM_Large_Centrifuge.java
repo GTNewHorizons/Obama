@@ -150,8 +150,8 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
                 "1 - Classic Hatch",
-                "2 - Motor Hatch",
-                "3 - Circuit Hatch"
+                "2 - Motor Casing",
+                "3 - Circuit Casing"
         };
     }
 

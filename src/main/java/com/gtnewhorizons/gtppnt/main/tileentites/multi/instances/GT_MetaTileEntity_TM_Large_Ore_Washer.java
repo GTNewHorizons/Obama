@@ -154,11 +154,11 @@ public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_
     @Override
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
-                "1 - Output/Maintenance/Enrgy Hatch",
+                "1 - Output/Maintenance/Energy Hatch",
                 "2 - Input Hatch",
-                "3 - Motor Hatch",
-                "4 - Pump Hatch",
-                "5 - Circuit Hatch"
+                "3 - Motor Casing",
+                "4 - Pump Casing",
+                "5 - Circuit Casing"
         };
     }
 

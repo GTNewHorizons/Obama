@@ -102,8 +102,8 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
                 "Casing - Classic Hatch",
-                "Coil - Coil of tier",
-                "1 - Circuit Hatch"
+                "1 - Circuit Casing",
+                "Coil - Coil of tier"
         };
     }
 

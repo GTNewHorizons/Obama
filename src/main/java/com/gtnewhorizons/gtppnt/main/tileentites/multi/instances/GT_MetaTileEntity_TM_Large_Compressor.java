@@ -46,8 +46,8 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
                         {" AAAAA ", "A-A-A-A", "A-A-A-A", "A-A-A-A", "BAAAAAB"}
                 })
                 .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                        {" AAAAA ", "A-A-A-A", "APA-APA", "A-A-A-A", " AAAAA "},
-                        {" AAAAA ", "A-A-A-A", "A-A-A-A", "A-A-A-A", " AAAAA "}
+                        {" AAAAA ", "cpA-Apc", "A-A-A-A", "A-A-A-A", " AAAAA "},
+                        {" AAAAA ", "A-A-A-A", "cpA-Apc", "A-A-A-A", " AAAAA "}
                 })
                 .addShape(TM_STRUCTURE_CAP, new String[][]{
                         {"", "", "", "", "BAAAAAB"},
@@ -56,12 +56,14 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
                 .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(), sHintCasingsTT, 0),
+                                getTextureIndex(), sHintCasingsTT, 1),
                         ofBlock(getCasingBlock(), getCasingMeta())
                 ))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('P', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
-                        getTextureIndex(), 1))
+                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
+                        getTextureIndex(), 2))
+                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(),3))
                 .build();
     }
 
@@ -87,12 +89,12 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
 
     @Override
     public int getMaxSlices() {
-        return 8;
+        return 4;
     }
 
     @Override
     public int getParalellsPerSlice() {
-        return 10;
+        return 48;
     }
 
     @Override
@@ -103,7 +105,11 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{"struct desc"};
+        return new String[]{
+                "1 - Classic Hatches",
+                "2 - Piston Casing",
+                "3 - Circuit Casing"
+        };
     }
 
     @Override

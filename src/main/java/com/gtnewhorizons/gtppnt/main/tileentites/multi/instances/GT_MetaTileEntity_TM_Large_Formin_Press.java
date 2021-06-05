@@ -131,8 +131,8 @@ public class GT_MetaTileEntity_TM_Large_Formin_Press extends GT_MetaTileEntity_T
         return new String[]{
                 "1 - Enrgy/Input/Maintenance Hatch",
                 "2 - Input Hatch",
-                "3 - Piston Hatch",
-                "4 - Circuit Hatch"
+                "3 - Piston Casing",
+                "4 - Circuit Casing"
         };
     }
 

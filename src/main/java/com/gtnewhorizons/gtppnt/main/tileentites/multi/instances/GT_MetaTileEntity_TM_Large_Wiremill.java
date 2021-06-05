@@ -100,7 +100,7 @@ public class GT_MetaTileEntity_TM_Large_Wiremill extends GT_MetaTileEntity_TM_Fa
         return new String[]{
                 "Casing - Classic Hatches",
                 "1 - Motor Casing",
-                "2 - Circuit Cssing"
+                "2 - Circuit Casing"
         };
     }
 

@@ -139,8 +139,8 @@ public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEn
                 "2 - Energy Hatch",
                 "3 - Input Hatch",
                 "4 - Output Hatch",
-                "5 - Motor Hatch",
-                "6 - Circuit Hatch",
+                "5 - Motor Casing",
+                "6 - Circuit Casing",
                 "Coil - Coil of tier"
         };
     }

@@ -117,9 +117,9 @@ public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Fa
                 "1 - Energy/Maintenance Hatch",
                 "2 - Input Hatch",
                 "3 - Output Hatch",
-                "4 - Robot Arm Hatch",
-                "5 - Conveyor Hatch",
-                "6 - Circuit Hatch"
+                "4 - Robot Arm Casing",
+                "5 - Conveyor Casing",
+                "6 - Circuit Casing"
         };
     }
 
