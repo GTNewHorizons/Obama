@@ -12,6 +12,7 @@ import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.ICon
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.texture.ITextureProviderImpl;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.IFunctionalCasingMachineList;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition.IHeatingCoilMachineList;
 import com.gtnewhorizons.gtppnt.main.utils.MultiBlockUtils;
 import com.gtnewhorizons.gtppnt.main.utils.RecipeIterable;
 import cpw.mods.fml.relauncher.Side;
@@ -34,9 +35,11 @@ import static com.github.technus.tectech.util.CommonValues.VN;
 
 //TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_MultiblockBase_EM implements
-        IConstructableStructure,IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl {
+        IConstructableStructure,IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl,
+        IHeatingCoilMachineList {
     private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
     private byte casingTier = 0;
+    private int coilTier = 0;
     private Vec3Impl structureOffset;
     private int sliceCount = 0;
     private GT_Recipe buffered_Recipe;
@@ -96,7 +99,10 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     @Override
     protected boolean checkMachine_EM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         functionalCasingsPreCheckMachine();
-        return checkMachine_TM(iGregTechTileEntity, itemStack) && functionalCasingsPostCheckMachine();
+        heatingCoilPreCheck();
+        return checkMachine_TM(iGregTechTileEntity, itemStack) &&
+                functionalCasingsPostCheckMachine() &&
+                heatingCoilPostCheck(getCasingTier());
     }
 
     @Override
@@ -429,6 +435,16 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     @Override
     public void setCasingTier(byte casingTier) {
         this.casingTier = casingTier;
+    }
+
+    @Override
+    public int getCoilTier() {
+        return coilTier;
+    }
+
+    @Override
+    public void setCoilTier(int coilTier) {
+        this.coilTier = coilTier;
     }
 
     @Override

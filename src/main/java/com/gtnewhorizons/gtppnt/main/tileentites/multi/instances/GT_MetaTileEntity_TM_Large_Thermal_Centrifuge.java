@@ -8,6 +8,7 @@ import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEnt
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Recipe;
@@ -79,10 +80,10 @@ public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEn
                         ofBlock(getCasingBlock(),getCasingMeta())))
                 .addElement('m',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
                         getTextureIndex(),5))
-                .addElement('h',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addHeatingToMachineList,
-                        getTextureIndex(),6))
+                .addElement('h',ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
+                        ItemList.Casing_Coil_Cupronickel.getBlock(),0))
                 .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),7))
+                        getTextureIndex(),6))
                 .build();
     }
 
@@ -139,8 +140,8 @@ public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEn
                 "3 - Input Hatch",
                 "4 - Output Hatch",
                 "5 - Motor Hatch",
-                "6 - Heating Hatch",
-                "7 - Circuit Hatch"
+                "6 - Circuit Hatch",
+                "Coil - Coil of tier"
         };
     }
 

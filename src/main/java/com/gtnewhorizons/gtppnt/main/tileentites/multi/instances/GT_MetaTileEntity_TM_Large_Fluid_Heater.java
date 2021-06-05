@@ -8,6 +8,7 @@ import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEnt
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Recipe;
@@ -54,10 +55,11 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
                                 getTextureIndex(),1)))
-                .addElement('h',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addHeatingToMachineList,
-                        getTextureIndex(),1))
+                .addElement('h',ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
+                        ItemList.Casing_Coil_Cupronickel.getBlock(),0))
+                //for some reason using GT_Block_Casings5 doesent work so im using ItemList.Casing_Coil_Cupronickel.getBlock()
                 .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),2))
+                        getTextureIndex(),1))
                 .build();
     }
 
@@ -100,8 +102,8 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
                 "Casing - Classic Hatch",
-                "1 - Heating Hatch",
-                "2 - Circuit Hatch"
+                "Coil - Coil of tier",
+                "1 - Circuit Hatch"
         };
     }
 

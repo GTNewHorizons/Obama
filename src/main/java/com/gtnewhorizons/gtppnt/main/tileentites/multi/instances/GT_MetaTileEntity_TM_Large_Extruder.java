@@ -8,6 +8,7 @@ import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEnt
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Recipe;
@@ -75,10 +76,11 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
                         ofBlock(getCasingBlock(),getCasingMeta())))
                 .addElement('p',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(),4))
-                .addElement('h',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addHeatingToMachineList,
-                        getTextureIndex(),5))
+                .addElement('h',ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
+                        ItemList.Casing_Coil_Cupronickel.getBlock(),0))
+
                 .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),6))
+                        getTextureIndex(),5))
                 .build();
     }
 
@@ -124,8 +126,8 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
                 "2 - Input Hatach",
                 "3 - Output Hatch",
                 "4 - Piston Hatch",
-                "5 - Heating Hatch",
-                "6 - circuit Hatch"
+                "5 - circuit Hatch",
+                "Coil - Coil of tier"
         };
     }
 
