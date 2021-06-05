@@ -103,9 +103,6 @@ public interface IFunctionalCasingMachineList {
 
         byte tier = -1;
         for (GT_MetaTileEntity_TM_HatchCasing casing : getFunctionalCasings()) {
-            if (casing.mTier == -1) {
-                continue;
-            }
             if (tier == -1) {
                 tier = casing.mTier;
             } else if (tier != casing.mTier) {
