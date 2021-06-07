@@ -6,6 +6,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEnt
 import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureCells;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureShapes;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -19,7 +20,7 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.thing.casing.TT_Container_Casings.sHintCasingsTT;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureCells {
+public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureShapes {
     int paralells = 0;
 
     public GT_MetaTileEntity_TM_Large_Centrifuge(int aID) {
