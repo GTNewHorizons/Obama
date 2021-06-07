@@ -79,6 +79,10 @@ public interface IFunctionalCasingMachineList {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.FILTER);
     }
 
+    default boolean addRotorToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.ROTOR);
+    }
+
     default void onPostTickFunctionalCasing(IGregTechTileEntity aBaseMetaTileEntity) {
         setFunctionalCasingActivity(aBaseMetaTileEntity.isActive());
     }

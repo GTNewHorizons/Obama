@@ -40,13 +40,13 @@ public class HatchCasingLoader {
                 CONVEYOR_CASING_LV,CONVEYOR_CASING_MV,CONVEYOR_CASING_HV);
 
         aID = setMultipleCasingTiered(CasingFunction.PUMP,aID,
-                PUMP_CASING_LV,PISTON_CASING_MV,PUMP_CASING_HV);
+                PUMP_CASING_LV,PUMP_CASING_MV,PUMP_CASING_HV);
 
         aID = setMultipleCasingTiered(CasingFunction.EMITTER,aID,
                 EMITTER_CASING_LV,EMITTER_CASING_MV,EMITTER_CASING_HV);
 
-        aID = setMultipleCasingTiered(CasingFunction.HEATING,aID,
-                HEATING_CASING_LV,HEATING_CASING_MV,HEATING_CASING_HV);
+        aID = setMultipleCasingTiered(CasingFunction.ROTOR,aID,
+                ROTOR_CASING_LV,ROTOR_CASING_MV,ROTOR_CASING_HV);
 
         aID = setMultipleCasingTiered(CasingFunction.ARM,aID,
                 ARM_CASING_LV,ARM_CASING_MV,ARM_CASING_HV);
