@@ -67,11 +67,6 @@ public interface IFunctionalCasingMachineList {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.EMITTER);
     }
 
-    //TODO change this to use coils
-    default boolean addHeatingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.HEATING);
-    }
-
     default boolean addArmToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.ARM);
     }

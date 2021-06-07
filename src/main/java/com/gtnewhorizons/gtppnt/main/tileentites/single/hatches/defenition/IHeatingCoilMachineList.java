@@ -1,12 +1,8 @@
 package com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition;
 
-import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
-import com.gtnewhorizons.gtppnt.main.utils.IAddsBlocks;
-import gregtech.api.enums.HeatingCoilLevel;
 import gregtech.api.interfaces.IHeatingCoil;
 import net.minecraft.block.Block;
 
-import java.util.Set;
 
 public interface IHeatingCoilMachineList {
 
