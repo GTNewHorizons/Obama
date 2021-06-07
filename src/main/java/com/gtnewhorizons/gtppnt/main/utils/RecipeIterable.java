@@ -5,6 +5,7 @@ import gregtech.api.objects.GT_ItemStack;
 import gregtech.api.util.GT_OreDictUnificator;
 import gregtech.api.util.GT_Recipe;
 import gregtech.api.util.GT_Utility;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import scala.actors.threadpool.Arrays;
@@ -15,6 +16,8 @@ import java.util.Iterator;
 import static gregtech.api.enums.GT_Values.W;
 
 public class RecipeIterable implements Iterable<GT_Recipe> {
+
+    private static Item circuit = GT_Utility.getIntegratedCircuit(0).getItem();
 
     private GT_Recipe.GT_Recipe_Map mRecipeMap;
     private ItemStack[] mItems;
@@ -135,7 +138,7 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
         }
 
         private boolean checkEmptyAndGetNextItem() {
-            while (iItemStack == null) {
+            while (iItemStack == null || iItemStack.getItem().equals(circuit)) {
                 if (iItemIterator.hasNext()) {
                     iItemStack = iItemIterator.next();
                 } else {
@@ -181,7 +184,7 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
                 if (iOnFluid && checkEmptyAndGetNextFluid()) {
                     recipe = getNextRecipeFluid();
                 } else if (checkEmptyAndGetNextItem()) {
-                    if (iWithMeta) { //
+                    if (iWithMeta) {
                         recipe = getNextRecipeItem(new GT_ItemStack(GT_Utility.copyMetaData(W, iItemStack)));
                         if (recipe == null) {
                             iItemStack = null;

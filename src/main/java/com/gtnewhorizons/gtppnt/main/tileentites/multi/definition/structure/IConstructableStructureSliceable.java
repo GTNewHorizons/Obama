@@ -9,8 +9,10 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
 
     @Override
     default int getMaxParalells() {
-        return getSliceCount() * getParalellsPerSlice();
+        return getSliceCount() * getParalellsPerSlice() + getMinParrallel();
     }
+
+    int getMinParrallel();
 
     Vec3Impl getSliceStructureOffset();
 
@@ -53,7 +55,8 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
     @Override
     default void construct(ItemStack itemStack, boolean hintsOnly) {
         IConstructableStructureImpl.super.construct(itemStack, hintsOnly);
-        int sliceCount = Math.min(itemStack.stackSize, getMaxSlices());
+        int blueprintCount = (itemStack.stackSize -1) + getMinSlices();
+        int sliceCount = Math.min(blueprintCount, getMaxSlices());
         setCurrentStructureOffset(getSliceStructureOffset());
 
         for (int i = 0; i < sliceCount; i++) {

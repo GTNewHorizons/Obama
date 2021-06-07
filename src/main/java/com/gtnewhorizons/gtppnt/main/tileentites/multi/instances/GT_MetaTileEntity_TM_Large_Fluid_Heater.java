@@ -8,6 +8,7 @@ import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEnt
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.ItemList;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Recipe;
@@ -15,107 +16,101 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
-import static com.github.technus.tectech.thing.casing.TT_Container_Casings.sHintCasingsTT;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
-    public GT_MetaTileEntity_TM_Large_Compressor(int aID) {
-        super(aID, "multimachine.tm.large_compressor", "Large Compressor");
+public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+    public GT_MetaTileEntity_TM_Large_Fluid_Heater(int aID) {
+        super(aID, "multimachine.tm.large_fluid_heater", "Large Fluid Heater");
     }
 
-    public GT_MetaTileEntity_TM_Large_Compressor(String aName) {
+    public GT_MetaTileEntity_TM_Large_Fluid_Heater(String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntity_TM_Large_Compressor(mName);
+        return new GT_MetaTileEntity_TM_Large_Fluid_Heater(mName);
     }
 
     @Override
     public String[] getDescription() {
-        return new String[]{"large comp desc"};
+        return new String[]{"Large Fluid Heater desc"};
     }
 
     @Override
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                        {" AAAAA ", "AGGGGGA", "AGGGGGA", "AGGGGGA", "BBBB~BB"},
-                        {" AAAAA ", "A-A-A-A", "A-A-A-A", "A-A-A-A", "BAAAAAB"}
+                .addShape(TM_STRUCTURE_START,new String[][]{
+                        {"BBB","B~B"},
                 })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                        {" AAAAA ", "cpA-Apc", "A-A-A-A", "A-A-A-A", " AAAAA "},
-                        {" AAAAA ", "A-A-A-A", "cpA-Apc", "A-A-A-A", " AAAAA "}
+                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
+                        {"hGh","BcB"}
                 })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                        {"", "", "", "", "BAAAAAB"},
-                        {" AAAAA ", "AGGGGGA", "AGGGGGA", "AGGGGGA", "BBBBBBB"}
+                .addShape(TM_STRUCTURE_CAP,new String[][]{
+                        {"BBB","BBB"}
                 })
-                .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
-                .addElement('B', ofChain(
-                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(), sHintCasingsTT, 1),
-                        ofBlock(getCasingBlock(), getCasingMeta())
-                ))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
-                        getTextureIndex(), 2))
+                .addElement('B',ofChain(
+                        ofBlock(getCasingBlock(), getCasingMeta()),
+                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
+                                getTextureIndex(),1)))
+                .addElement('h',ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
+                        ItemList.Casing_Coil_Cupronickel.getBlock(),0))
+                //for some reason using GT_Block_Casings5 doesent work so im using ItemList.Casing_Coil_Cupronickel.getBlock()
                 .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),3))
+                        getTextureIndex(),1))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(4, 4, 0);
+        return new Vec3Impl(1,1,0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(4, 4, -2);
+        return new Vec3Impl(1,1,-1);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0, 0, -2);
+        return new Vec3Impl(0,0,-1);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0, 0, 1);
+        return new Vec3Impl(0,0,0);
     }
 
     @Override
     public int getMaxSlices() {
-        return 4;
+        return 8;
     }
 
     @Override
     public int getParalellsPerSlice() {
-        return 48;
+        return 16;
     }
 
     @Override
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
-
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
-                "1 - Classic Hatches",
-                "2 - Piston Casing",
-                "3 - Circuit Casing"
+                "Casing - Classic Hatch",
+                "1 - Circuit Casing",
+                "Coil - Coil of tier"
         };
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
-        return "TM_LARGE_COMPRESSOR";
+        return "TM_LARGE_FLUID_HEATER";
     }
 
     @Override
@@ -126,6 +121,6 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
 
     @Override
     public GT_Recipe.GT_Recipe_Map getRecipeMap() {
-        return GT_Recipe.GT_Recipe_Map.sCompressorRecipes;
+        return GT_Recipe.GT_Recipe_Map.sFluidHeaterRecipes;
     }
 }

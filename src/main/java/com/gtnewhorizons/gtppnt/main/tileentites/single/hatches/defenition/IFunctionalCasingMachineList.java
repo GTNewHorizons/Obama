@@ -5,7 +5,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
 import java.util.Set;
-import java.util.function.Consumer;
 
 public interface IFunctionalCasingMachineList {
     Set<GT_MetaTileEntity_TM_HatchCasing> getFunctionalCasings();
@@ -36,7 +35,8 @@ public interface IFunctionalCasingMachineList {
             return false;
 
         hatch.updateTexture(aBaseCasingIndex);
-        return getFunctionalCasings().add(hatch);
+        getFunctionalCasings().add(hatch);
+        return true;
     }
 
     default boolean addGrindingCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
@@ -53,6 +53,34 @@ public interface IFunctionalCasingMachineList {
 
     default boolean addMotorCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.MOTOR);
+    }
+
+    default boolean addConveyorToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.CONVEYOR);
+    }
+
+    default boolean addPumpToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.PUMP);
+    }
+
+    default boolean addEmitterToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.EMITTER);
+    }
+
+    default boolean addArmToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.ARM);
+    }
+
+    default boolean addWireToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.WIRE);
+    }
+
+    default boolean addFilterToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.FILTER);
+    }
+
+    default boolean addRotorToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.ROTOR);
     }
 
     default void onPostTickFunctionalCasing(IGregTechTileEntity aBaseMetaTileEntity) {

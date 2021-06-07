@@ -25,12 +25,16 @@ public interface IConstructableStructureShapes extends IConstructableStructureAB
         switch (shape) {
             case 1:
                 constructMachineA(hintsOnly, itemStack);
+                break;
             case 2:
                 constructMachineB(hintsOnly, itemStack);
+                break;
             case 3:
                 constructMachineC(hintsOnly, itemStack);
+                break;
             case 4:
                 constructMachineD(hintsOnly, itemStack);
+                break;
         }
     }
 }

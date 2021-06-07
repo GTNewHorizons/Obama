@@ -15,107 +15,118 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
-import static com.github.technus.tectech.thing.casing.TT_Container_Casings.sHintCasingsTT;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
-    public GT_MetaTileEntity_TM_Large_Compressor(int aID) {
-        super(aID, "multimachine.tm.large_compressor", "Large Compressor");
+public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+    public GT_MetaTileEntity_TM_Large_Packager(int aID) {
+        super(aID, "multimachine.tm.large_packager", "Large Packager");
     }
 
-    public GT_MetaTileEntity_TM_Large_Compressor(String aName) {
+    public GT_MetaTileEntity_TM_Large_Packager(String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntity_TM_Large_Compressor(mName);
+        return new GT_MetaTileEntity_TM_Large_Packager(mName);
     }
 
     @Override
     public String[] getDescription() {
-        return new String[]{"large comp desc"};
+        return new String[]{""};
     }
 
     @Override
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                        {" AAAAA ", "AGGGGGA", "AGGGGGA", "AGGGGGA", "BBBB~BB"},
-                        {" AAAAA ", "A-A-A-A", "A-A-A-A", "A-A-A-A", "BAAAAAB"}
+                .addShape(TM_STRUCTURE_START,new String[][]{
+                        {"~","B"},
+                        {"I","B"},
+                        {"A","B"}
                 })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                        {" AAAAA ", "cpA-Apc", "A-A-A-A", "A-A-A-A", " AAAAA "},
-                        {" AAAAA ", "A-A-A-A", "cpA-Apc", "A-A-A-A", " AAAAA "}
+                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
+                        {"c","G","B"},
+                        {"A","-","v"},
+                        {"c","a","B"}
                 })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                        {"", "", "", "", "BAAAAAB"},
-                        {" AAAAA ", "AGGGGGA", "AGGGGGA", "AGGGGGA", "BBBBBBB"}
+                .addShape(TM_STRUCTURE_CAP,new String[][]{
+                        {"A","B"},
+                        {"O","B"},
+                        {"A","B"}
                 })
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
-                .addElement('B', ofChain(
-                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(), sHintCasingsTT, 1),
-                        ofBlock(getCasingBlock(), getCasingMeta())
-                ))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
-                        getTextureIndex(), 2))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                .addElement('B',ofChain(
+                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicMaintenanceToMachineList,
+                                getTextureIndex(),1),
+                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEnergyIOToMachineList,
+                                getTextureIndex(),1),
+                        ofBlock(getCasingBlock(), getCasingMeta())))
+                .addElement('I',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicInputToMachineList,
+                        getTextureIndex(),2))
+                .addElement('O',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicOutputToMachineList,
                         getTextureIndex(),3))
+                .addElement('a',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addArmToMachineList,
+                        getTextureIndex(),4))
+                .addElement('v',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
+                        getTextureIndex(),5))
+                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(),6))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(4, 4, 0);
+        return new Vec3Impl(0,0,0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(4, 4, -2);
+        return new Vec3Impl(-1,1,0);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0, 0, -2);
+        return new Vec3Impl(-1,0,0);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0, 0, 1);
+        return new Vec3Impl(0,-1,0);
     }
 
     @Override
     public int getMaxSlices() {
-        return 4;
+        return 6;
     }
 
     @Override
     public int getParalellsPerSlice() {
-        return 48;
+        return 16;
     }
 
     @Override
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
-
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
-                "1 - Classic Hatches",
-                "2 - Piston Casing",
-                "3 - Circuit Casing"
+                "1 - Energy/Maintenance Hatch",
+                "2 - Input Hatch",
+                "3 - Output Hatch",
+                "4 - Robot Arm Casing",
+                "5 - Conveyor Casing",
+                "6 - Circuit Casing"
         };
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
-        return "TM_LARGE_COMPRESSOR";
+        return "TM_LARGE_PACKAGER";
     }
 
     @Override
@@ -126,6 +137,6 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
 
     @Override
     public GT_Recipe.GT_Recipe_Map getRecipeMap() {
-        return GT_Recipe.GT_Recipe_Map.sCompressorRecipes;
+        return GT_Recipe.GT_Recipe_Map.sBoxinatorRecipes;
     }
 }

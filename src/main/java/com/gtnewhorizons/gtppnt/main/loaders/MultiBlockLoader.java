@@ -22,9 +22,8 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 
 import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.GT_MetaTileEntity_MultiMachine_RecipeMap;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Centrifuge;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.*;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Compressor;
 
 import static com.gtnewhorizons.gtppnt.main.items.CustomItemList.*;
 
@@ -49,20 +48,18 @@ public class MultiBlockLoader {
         int aID = 31021;
 
         //Replaces part of Industrial Material Press
-        LARGE_FORMING_PRESS.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                aID++,
-                "multimachine.tm.large_forming_press",
-                "Large Forming Press",
-                MultiBlockDefinition.LARGE_FORMING_PRESS
-        ).getStackForm(1L));
+        LARGE_FORMING_PRESS.set(new GT_MetaTileEntity_TM_Large_Formin_Press(aID++).getItem());
 
         //Replaces part of Large Washing Plant
-        LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                aID++,
-                "multimachine.tm.large_chemical_bath",
-                "Large Chemical Bath",
-                MultiBlockDefinition.LARGE_CHEMICAL_BATH
-        ).getStackForm(1L));
+        LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_TM_Large_Chemical_Bath(aID++).getItem());
+
+//
+//        LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                aID++,
+//                "multimachine.tm.large_chemical_bath",
+//                "Large Chemical Bath",
+//                MultiBlockDefinition.LARGE_CHEMICAL_BATH
+//        ).getStackForm(1L));
 
         //Replaces part of High Current Industrial Arc Furnace
         LARGE_PLASMA_ARC_FURNACE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
@@ -91,20 +88,24 @@ public class MultiBlockLoader {
 //        ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
-        LARGE_LATHE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                aID++,
-                "multimachine.tm.large_lathe",
-                "Large Lathe",
-                MultiBlockDefinition.LARGE_LATHE
-        ).getStackForm(1L));
+        LARGE_LATHE.set(new GT_MetaTileEntity_TM_Large_Lathe(aID++).getItem());
+//
+//        LARGE_LATHE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                aID++,
+//                "multimachine.tm.large_lathe",
+//                "Large Lathe",
+//                MultiBlockDefinition.LARGE_LATHE
+//        ).getStackForm(1L));
 
         //Replaces part of Large Processing Factory
-        LARGE_AUTOCLAVE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                aID++,
-                "multimachine.tm.large_autoclave",
-                "Large Autoclave",
-                MultiBlockDefinition.LARGE_AUTOCLAVE
-        ).getStackForm(1L));
+        LARGE_AUTOCLAVE.set(new GT_MetaTileEntity_TM_Large_Autoclave(aID++).getItem());
+
+//        LARGE_AUTOCLAVE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                aID++,
+//                "multimachine.tm.large_autoclave",
+//                "Large Autoclave",
+//                MultiBlockDefinition.LARGE_AUTOCLAVE
+//        ).getStackForm(1L));
 
         //LARGE_ALLOY_SMELTER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
         //        31037,
@@ -211,74 +212,37 @@ public class MultiBlockLoader {
         LARGE_CENTRIFUGE.set(new GT_MetaTileEntity_TM_Large_Centrifuge(790).getItem());
 
         //Overlaps with Industrial Material Press
-        LARGE_BENDING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                792,
-                "multimachine.tm.large_bending_machine",
-                "Large Bending Machine",
-                MultiBlockDefinition.LARGE_BENDING_MACHINE
-        ).getStackForm(1L));
+        LARGE_BENDING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Bender(792).getItem());
 
         //Overlaps with Industrial Electrolyzer
-        LARGE_ELECTROLYZER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                796,
-                "multimachine.tm.large_electrolyzer",
-                "Large Electrolyzer",
-                MultiBlockDefinition.LARGE_ELECTROLYZER
-        ).getStackForm(1L));
+        LARGE_ELECTROLYZER.set(new GT_MetaTileEntity_TM_Large_Electrolyzer(796).getItem());
 
         //Overlaps with Maceration Stack Controller
-        //LARGE_MACERATOR.set(new GT_MetaTileEntity_TM_Large_Macerator(
-        //        797,
-        //        "multimachine.tm.large_macerator",
-        //        "Large Macerator"
-        //).getItem());
+        LARGE_MACERATOR.set(new GT_MetaTileEntity_TM_Large_Macerator(797).getItem());
 
         //Overlaps with Wire Factory Controller
-        LARGE_WIREMILL.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                798,
-                "multimachine.tm.large_wiremill",
-                "Large Wiremill",
-                MultiBlockDefinition.LARGE_WIREMILL
-        ).getStackForm(1L));
+        LARGE_WIREMILL.set(new GT_MetaTileEntity_TM_Large_Wiremill(798).getItem());
 
         //Overlaps with Industrial Mixing Machine
-        LARGE_MIXER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                811,
-                "multimachine.tm.large_mixer",
-                "Large Mixer",
-                MultiBlockDefinition.LARGE_MIXER
-        ).getStackForm(1L));
+        LARGE_MIXER.set(new GT_MetaTileEntity_TM_Large_Mixer(811).getItem());
+
+//        LARGE_MIXER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
+//                811,
+//                "multimachine.tm.large_mixer",
+//                "Large Mixer",
+//                MultiBlockDefinition.LARGE_MIXER
+//        ).getStackForm(1L));
 
         //Overlaps with Large Sifter Control Block
-        LARGE_SIFTING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                840,
-                "multimachine.tm.large_sifting_machine",
-                "Large Sifting Machine",
-                MultiBlockDefinition.LARGE_SIFTING_MACHINE
-        ).getStackForm(1L));
+        LARGE_SIFTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Sifter(840).getItem());
 
         //Overlaps with Large Thermal Refinery
-        LARGE_THERMAL_CENTRIFUGE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                849,
-                "multimachine.tm.large_thermal_centrifuge",
-                "Large Thermal Centrifuge",
-                MultiBlockDefinition.LARGE_THERMAL_CENTRIFUGE
-        ).getStackForm(1L));
+        LARGE_THERMAL_CENTRIFUGE.set(new GT_MetaTileEntity_TM_Large_Thermal_Centrifuge(849).getItem());
 
-        //Overlaps with Large Washing Plant
-        //LARGE_ORE_WASHING_PLANT.set(new GT_MetaTileEntity_TM_Large_Ore_Washing_Plant(
-        //        850,
-        //        "multimachine.tm.large_ore_washing_plant",
-        //        "Large Ore Washing Plant"
-        //).getItem());
+        LARGE_ORE_WASHING_PLANT.set(new GT_MetaTileEntity_TM_Large_Ore_Washer(850).getItem());
 
         //Overlaps with Industrial Extrusion Machine
-        LARGE_EXTRUDER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                859,
-                "multimachine.tm.large_extruder",
-                "Large Extruder",
-                MultiBlockDefinition.LARGE_EXTRUDER
-        ).getStackForm(1L));
+        LARGE_EXTRUDER.set(new GT_MetaTileEntity_TM_Large_Extruder(859).getItem());
 
         //Overlaps with High Current Industrial Arc Furnace
         LARGE_ARC_FURNACE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
@@ -289,43 +253,19 @@ public class MultiBlockLoader {
         ).getStackForm(1L));
 
         //Overlaps with Thermal Boiler
-        LARGE_FLUID_HEATER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                875,
-                "multimachine.tm.large_fluid_heater",
-                "Large Fluid Heater",
-                MultiBlockDefinition.LARGE_FLUID_HEATER
-        ).getStackForm(1L));
+        LARGE_FLUID_HEATER.set(new GT_MetaTileEntity_TM_Large_Fluid_Heater(875).getItem());
 
         //Overlaps with Large Scale Auto-Assembler v1.01
-        LARGE_ASSEMBLING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                876,
-                "multimachine.tm.large_assembling_machine",
-                "Large Assembling Machine",
-                MultiBlockDefinition.LARGE_ASSEMBLING_MACHINE
-        ).getStackForm(1L));
+        LARGE_ASSEMBLING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Assembler(876).getItem());
 
         //Overlaps with Amazon Warehousing Depot.
-        LARGE_PACKAGER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                942,
-                "multimachine.tm.large_packager",
-                "Large Packager",
-                MultiBlockDefinition.LARGE_PACKAGER
-        ).getStackForm(1L));
+        LARGE_PACKAGER.set(new GT_MetaTileEntity_TM_Large_Packager(942).getItem());
 
         //Overlaps with Cutting Factory Controller
-        LARGE_CUTTING_MACHINE.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                992,
-                "multimachine.tm.large_cutting_machine",
-                "Large Cutting Machine",
-                MultiBlockDefinition.LARGE_CUTTING_MACHINE
-        ).getStackForm(1L));
+        LARGE_CUTTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Cuttin_Machine(992).getItem());
 
         //Overlaps with Large Processing Factory
-        LARGE_PRECISION_LASER_ENGRAVER.set(new GT_MetaTileEntity_MultiMachine_RecipeMap(
-                860,
-                "multimachine.tm.large_precision_laser_engraver",
-                "Large Precision Laser Engraver",
-                MultiBlockDefinition.LARGE_PRECISION_LASER_ENGRAVER
-        ).getStackForm(1L));
+        LARGE_PRECISION_LASER_ENGRAVER.set(new GT_MetaTileEntity_TM_Large_Laser_Engraver(860).getItem());
+
     }
 }
