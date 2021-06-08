@@ -118,7 +118,7 @@ public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEn
     }
 
     @Override
-    public int getMinParrallel() {
+    public int getMinParallel() {
         return 48;
     }
 

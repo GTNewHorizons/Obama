@@ -18,19 +18,19 @@ import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.Mara
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 
-public class GT_MetaTileEntity_TM_Large_Cuttin_Machine extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Cutting_Machine extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
 
-    public GT_MetaTileEntity_TM_Large_Cuttin_Machine(int aID) {
+    public GT_MetaTileEntity_TM_Large_Cutting_Machine(int aID) {
         super(aID, "multimachine.tm.large_cutting_machine", "Large Cutting Machine");
     }
 
-    public GT_MetaTileEntity_TM_Large_Cuttin_Machine(String aName) {
+    public GT_MetaTileEntity_TM_Large_Cutting_Machine(String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntity_TM_Large_Cuttin_Machine(mName);
+        return new GT_MetaTileEntity_TM_Large_Cutting_Machine(mName);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class GT_MetaTileEntity_TM_Large_Cuttin_Machine extends GT_MetaTileEntity
     }
 
     @Override
-    public int getMinParrallel() {
+    public int getMinParallel() {
         return 16;
     }
 

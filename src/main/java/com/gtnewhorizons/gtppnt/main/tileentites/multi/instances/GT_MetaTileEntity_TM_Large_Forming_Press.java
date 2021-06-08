@@ -17,18 +17,18 @@ import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialR
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
 
-public class GT_MetaTileEntity_TM_Large_Formin_Press extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
-    public GT_MetaTileEntity_TM_Large_Formin_Press(int aID) {
+public class GT_MetaTileEntity_TM_Large_Forming_Press extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+    public GT_MetaTileEntity_TM_Large_Forming_Press(int aID) {
         super(aID, "multimachine.tm.large_forming_press", "Large Forming Press");
     }
 
-    public GT_MetaTileEntity_TM_Large_Formin_Press(String aName) {
+    public GT_MetaTileEntity_TM_Large_Forming_Press(String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntity_TM_Large_Formin_Press(mName);
+        return new GT_MetaTileEntity_TM_Large_Forming_Press(mName);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class GT_MetaTileEntity_TM_Large_Formin_Press extends GT_MetaTileEntity_T
     }
 
     @Override
-    public int getMinParrallel() {
+    public int getMinParallel() {
         return 32;
     }
 
@@ -130,7 +130,7 @@ public class GT_MetaTileEntity_TM_Large_Formin_Press extends GT_MetaTileEntity_T
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
-                "1 - Enrgy/Input/Maintenance Hatch",
+                "1 - Energy/Input/Maintenance Hatch",
                 "2 - Input Hatch",
                 "3 - Piston Casing",
                 "4 - Circuit Casing"

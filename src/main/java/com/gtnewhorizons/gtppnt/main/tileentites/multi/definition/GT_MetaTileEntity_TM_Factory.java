@@ -124,7 +124,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         return this.structureOffset;
     }
 
-    public int getMinParrallel() {
+    public int getMinParallel() {
         return 0;
     }
 

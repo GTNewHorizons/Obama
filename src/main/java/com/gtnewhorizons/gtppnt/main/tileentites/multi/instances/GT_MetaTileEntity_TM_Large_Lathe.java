@@ -89,7 +89,7 @@ public class GT_MetaTileEntity_TM_Large_Lathe extends GT_MetaTileEntity_TM_Facto
     }
 
     @Override
-    public int getMinParrallel() {
+    public int getMinParallel() {
         return 16;
     }
 

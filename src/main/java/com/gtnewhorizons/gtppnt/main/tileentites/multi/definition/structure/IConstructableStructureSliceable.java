@@ -9,10 +9,10 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
 
     @Override
     default int getMaxParalells() {
-        return getSliceCount() * getParalellsPerSlice() + getMinParrallel();
+        return getSliceCount() * getParalellsPerSlice() + getMinParallel();
     }
 
-    int getMinParrallel();
+    int getMinParallel();
 
     Vec3Impl getSliceStructureOffset();
 
@@ -47,8 +47,6 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
                 break;
             }
         }
-        //setCurrentStructureOffset(getSliceStructureOffset().sub(getPerSliceOffset()));
-        //setCurrentStructureOffset(getSliceStructureOffset().sub(0,0,-1));
         return getSliceCount() >= getMinSlices();
     }
 

@@ -59,11 +59,11 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
                                 getTextureIndex(), 1)))
                 .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
-                        getTextureIndex(), 1))
-                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
                         getTextureIndex(), 2))
-                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
                         getTextureIndex(), 3))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 4))
                 .build();
     }
 
@@ -106,10 +106,10 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
-                "Casing - Classic Hatches",
-                "1 - Motor Casing",
-                "2 - Piston Casing",
-                "3 - Circuit Casing"
+                "1 - Classic Hatches",
+                "2 - Motor Casing",
+                "3 - Piston Casing",
+                "4 - Circuit Casing"
         };
     }
 

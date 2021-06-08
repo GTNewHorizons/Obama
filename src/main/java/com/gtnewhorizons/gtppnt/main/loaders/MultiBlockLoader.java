@@ -48,7 +48,7 @@ public class MultiBlockLoader {
         int aID = 31021;
 
         //Replaces part of Industrial Material Press
-        LARGE_FORMING_PRESS.set(new GT_MetaTileEntity_TM_Large_Formin_Press(aID++).getItem());
+        LARGE_FORMING_PRESS.set(new GT_MetaTileEntity_TM_Large_Forming_Press(aID++).getItem());
 
         //Replaces part of Large Washing Plant
         LARGE_CHEMICAL_BATH.set(new GT_MetaTileEntity_TM_Large_Chemical_Bath(aID++).getItem());
@@ -262,7 +262,7 @@ public class MultiBlockLoader {
         LARGE_PACKAGER.set(new GT_MetaTileEntity_TM_Large_Packager(942).getItem());
 
         //Overlaps with Cutting Factory Controller
-        LARGE_CUTTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Cuttin_Machine(992).getItem());
+        LARGE_CUTTING_MACHINE.set(new GT_MetaTileEntity_TM_Large_Cutting_Machine(992).getItem());
 
         //Overlaps with Large Processing Factory
         LARGE_PRECISION_LASER_ENGRAVER.set(new GT_MetaTileEntity_TM_Large_Laser_Engraver(860).getItem());
