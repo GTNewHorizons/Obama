@@ -17,7 +17,8 @@ import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialR
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
 
-public class GT_MetaTileEntity_TM_Large_Wiremill extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Wiremill extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Wiremill(int aID) {
         super(aID, "multimachine.tm.large_wiremill", "Large Wiremill");
     }
@@ -52,7 +53,7 @@ public class GT_MetaTileEntity_TM_Large_Wiremill extends GT_MetaTileEntity_TM_Fa
                 .addElement('A', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(), 1)))
+                                getTextureIndex(), 0)))
                 .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
                         getTextureIndex(), 1))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
@@ -83,6 +84,11 @@ public class GT_MetaTileEntity_TM_Large_Wiremill extends GT_MetaTileEntity_TM_Fa
     @Override
     public int getMaxSlices() {
         return 6;
+    }
+
+    @Override
+    public int getMinSlices() {
+        return 1;
     }
 
     @Override

@@ -18,7 +18,8 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Autoclave extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Autoclave extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
 
     public GT_MetaTileEntity_TM_Large_Autoclave(int aID) {
         super(aID, "multimachine.tm.large_autoclave", "Large Autoclave");

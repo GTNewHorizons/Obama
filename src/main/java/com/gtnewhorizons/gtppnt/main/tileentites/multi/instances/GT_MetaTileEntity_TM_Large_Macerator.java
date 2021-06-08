@@ -17,7 +17,8 @@ import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialR
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
 
-public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Macerator(int aID) {
         super(aID, "multimachine.tm.large_macerator", "Large Macerator");
     }
@@ -51,9 +52,9 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
                 .addElement('A', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMaintenanceToMachineList,
-                                getTextureIndex(), 1),
+                                getTextureIndex(), 0),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEnergyIOToMachineList,
-                                getTextureIndex(), 1)))
+                                getTextureIndex(), 0)))
                 .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addInputToMachineList,
                                 getTextureIndex(), 1),
@@ -92,6 +93,11 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
     @Override
     public int getMaxSlices() {
         return 6;
+    }
+
+    @Override
+    public int getMinSlices() {
+        return 1;
     }
 
     @Override

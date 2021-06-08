@@ -18,7 +18,8 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceable {
+public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceable {
 
     public GT_MetaTileEntity_TM_Large_Laser_Engraver(int aID) {
         super(aID, "multimachine.tm.large_precision_laser_engraver", "Large Precision Laser Engraver");
@@ -95,6 +96,11 @@ public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity
     @Override
     public int getMaxSlices() {
         return 4;
+    }
+
+    @Override
+    public int getMinSlices() {
+        return 1;
     }
 
     @Override

@@ -102,6 +102,11 @@ public class GT_MetaTileEntity_TM_Large_Electrolyzer extends GT_MetaTileEntity_T
     }
 
     @Override
+    public int getMinSlices() {
+        return 1;
+    }
+
+    @Override
     public int getParalellsPerSlice() {
         return 32;
     }

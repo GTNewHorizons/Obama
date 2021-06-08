@@ -19,7 +19,8 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Bender(int aID) {
         super(aID, "multimachine.tm.large_bending_machine", "Large Bending Machine");
     }
@@ -57,13 +58,13 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
                 .addElement('A', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(), 1)))
+                                getTextureIndex(), 0)))
                 .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
-                        getTextureIndex(), 2))
+                        getTextureIndex(), 1))
                 .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
-                        getTextureIndex(), 3))
+                        getTextureIndex(), 2))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(), 4))
+                        getTextureIndex(), 3))
                 .build();
     }
 
@@ -93,6 +94,11 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
     }
 
     @Override
+    public int getMinSlices() {
+        return 1;
+    }
+
+    @Override
     public int getParalellsPerSlice() {
         return 32;
     }
@@ -106,10 +112,10 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
-                "1 - Classic Hatches",
-                "2 - Motor Casing",
-                "3 - Piston Casing",
-                "4 - Circuit Casing"
+                "Casing - Classic Hatches",
+                "1 - Motor Casing",
+                "2 - Piston Casing",
+                "3 - Circuit Casing"
         };
     }
 

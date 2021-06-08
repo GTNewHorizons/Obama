@@ -17,7 +17,8 @@ import net.minecraft.item.ItemStack;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Packager(int aID) {
         super(aID, "multimachine.tm.large_packager", "Large Packager");
     }
@@ -99,6 +100,11 @@ public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Fa
     @Override
     public int getMaxSlices() {
         return 6;
+    }
+
+    @Override
+    public int getMinSlices() {
+        return 1;
     }
 
     @Override

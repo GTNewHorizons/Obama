@@ -78,7 +78,6 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
                         getTextureIndex(), 4))
                 .addElement('h', ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
                         ItemList.Casing_Coil_Cupronickel.getBlock(), 0))
-
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 5))
                 .build();
@@ -107,6 +106,11 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
     @Override
     public int getMaxSlices() {
         return 6;
+    }
+
+    @Override
+    public int getMinSlices() {
+        return 1;
     }
 
     @Override

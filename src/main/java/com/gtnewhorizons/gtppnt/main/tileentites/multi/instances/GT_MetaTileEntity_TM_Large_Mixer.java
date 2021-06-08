@@ -18,7 +18,8 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.ZirconiumCarbide;
 
-public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Mixer(int aID) {
         super(aID, "multimachine.tm.large_mixer", "Large Mixer");
     }
@@ -106,6 +107,11 @@ public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Facto
     @Override
     public int getMaxSlices() {
         return 4;
+    }
+
+    @Override
+    public int getMinSlices() {
+        return 1;
     }
 
     @Override

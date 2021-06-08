@@ -39,14 +39,14 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         IHeatingCoilMachineList {
     private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
     private byte casingTier = 0;
+    private int paralellsABCD = 0;
     private int coilTier = 0;
     private Vec3Impl structureOffset;
     private int sliceCount = 0;
     private GT_Recipe buffered_Recipe;
     private RecipeProgresion[] runningRecipes = new RecipeProgresion[0];
-    private int parrallelRunning = 0;
+    private int parallelRunning = 0;
     private int newProgressTime = Integer.MAX_VALUE;
-
 
     //region Constructors
     public GT_MetaTileEntity_TM_Factory(int aID, String aName, String aNameRegional) {
@@ -128,9 +128,9 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         return 0;
     }
 
-    public int getMinSlices() {
-        return 1;
-    }
+    //public int getMinSlices() {
+    //    return 1;
+    //}
 
     public int getSliceCount() {
         return sliceCount;
@@ -138,6 +138,16 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
 
     public void setSliceCount(int sliceCount) {
         this.sliceCount = sliceCount;
+    }
+    //endregion
+
+    //region ABCD Shape Interface
+    public int getParalellsABCD() {
+        return paralellsABCD;
+    }
+
+    public void setParalellsABCD(int paralells) {
+        this.paralellsABCD = paralells;
     }
     //endregion
 
@@ -257,7 +267,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                 runningRecipes = newRunning;
                 mOutputItems = outputItems;
                 mOutputFluids = outputFluids;
-                parrallelRunning -= freedParrallel;
+                parallelRunning -= freedParrallel;
                 mEUt += freedPower;
                 if (!getBaseMetaTileEntity().isAllowedToWork()) {
                     mMaxProgresstime = newProgressTime;
@@ -286,7 +296,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         this.getMaxInputVoltage(),
                         inputFluids,
                         inputItems);
-                int parrallel = getMaxParalells() - parrallelRunning;
+                int parrallel = getMaxParalells() - parallelRunning;
                 int parrallelDone = 0;
                 int voltage = (int) getMaxVoltage();
                 int amps = (int) getMaxInputEnergy() / voltage;
@@ -309,7 +319,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                             totalEUUsage -= processedRecipe.getEUUsage();
 
                             newProgressTime = Math.min(newProgressTime, processedRecipe.getTimeLeft());
-                            parrallelRunning += parrallelDone;
+                            parallelRunning += parrallelDone;
                             parrallel -= parrallelDone;
                             canRunRecipe = true;
                         }

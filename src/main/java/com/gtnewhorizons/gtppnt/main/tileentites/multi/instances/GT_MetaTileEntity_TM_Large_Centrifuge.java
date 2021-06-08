@@ -5,9 +5,7 @@ import com.github.technus.tectech.mechanics.structure.StructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.util.Vec3Impl;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureCells;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureShapes;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -17,11 +15,10 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
-import static com.github.technus.tectech.thing.casing.TT_Container_Casings.sHintCasingsTT;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureShapes {
-    int paralells = 0;
+public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureShapes {
 
     public GT_MetaTileEntity_TM_Large_Centrifuge(int aID) {
         super(aID, "multimachine.tm.large_centrifuge", "Large Centrifuge");//TODO Set cooler name + .lang
@@ -129,16 +126,6 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     @Override
     public int getParalellsD() {
         return 256;
-    }
-
-    @Override
-    public int getParalellsABCD() {
-        return paralells;
-    }
-
-    @Override
-    public void setParalellsABCD(int paralells) {
-        this.paralells = paralells;
     }
 
     @Override

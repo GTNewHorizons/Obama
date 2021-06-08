@@ -17,7 +17,8 @@ import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialR
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
 
-public class GT_MetaTileEntity_TM_Large_Forming_Press extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Forming_Press extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Forming_Press(int aID) {
         super(aID, "multimachine.tm.large_forming_press", "Large Forming Press");
     }

@@ -18,7 +18,8 @@ import net.minecraft.item.ItemStack;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Fluid_Heater(int aID) {
         super(aID, "multimachine.tm.large_fluid_heater", "Large Fluid Heater");
     }
@@ -56,10 +57,10 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
                                 getTextureIndex(), 1)))
                 .addElement('h', ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
-                        ItemList.Casing_Coil_Cupronickel.getBlock(), 0))
+                        ItemList.Casing_Coil_Cupronickel.getBlock(), 2))
                 //for some reason using GT_Block_Casings5 doesent work so im using ItemList.Casing_Coil_Cupronickel.getBlock()
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(), 1))
+                        getTextureIndex(), 3))
                 .build();
     }
 
@@ -89,6 +90,11 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
     }
 
     @Override
+    public int getMinSlices() {
+        return 1;
+    }
+
+    @Override
     public int getParalellsPerSlice() {
         return 16;
     }
@@ -102,9 +108,9 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[]{
-                "Casing - Classic Hatch",
-                "1 - Circuit Casing",
-                "Coil - Coil of tier"
+                "1 - Classic Hatch",
+                "2 - Heating Coils",
+                "3 - Circuit Casing"
         };
     }
 

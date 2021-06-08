@@ -17,9 +17,8 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.EglinSteel;
 
-public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureCells {
-    int paralells = 0;
-
+public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureCells {
     public GT_MetaTileEntity_TM_Large_Sifter(int aID) {
         super(aID, "multimachine.tm.large_sifting_machine", "Large Sifting Machine");
     }
@@ -69,7 +68,7 @@ public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Fact
                 .addElement('A', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(), 1)))
+                                getTextureIndex(), 0)))
                 .addElement('s', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addFilterCasingToMachineList,
                         getTextureIndex(), 1))
                 .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
@@ -117,16 +116,6 @@ public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Fact
     @Override
     public int getParalellsD() {
         return 128;
-    }
-
-    @Override
-    public int getParalellsABCD() {
-        return paralells;
-    }
-
-    @Override
-    public void setParalellsABCD(int paralells) {
-        this.paralells = paralells;
     }
 
     @Override

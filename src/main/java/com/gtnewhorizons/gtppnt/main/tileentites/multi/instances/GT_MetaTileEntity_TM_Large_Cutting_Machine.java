@@ -18,8 +18,8 @@ import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.Mara
 
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 
-public class GT_MetaTileEntity_TM_Large_Cutting_Machine extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
-
+public class GT_MetaTileEntity_TM_Large_Cutting_Machine extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Cutting_Machine(int aID) {
         super(aID, "multimachine.tm.large_cutting_machine", "Large Cutting Machine");
     }
@@ -139,7 +139,7 @@ public class GT_MetaTileEntity_TM_Large_Cutting_Machine extends GT_MetaTileEntit
     public String[] getStructureDescription(ItemStack itemStack) {
         //TODO Locelise this
         return new String[]{
-                "1 - Maintenence hatch",
+                "1 - Maintenance hatch",
                 "2 - Input Hatch",
                 "3 - Output Hatch",
                 "4 - Energy Hatch",

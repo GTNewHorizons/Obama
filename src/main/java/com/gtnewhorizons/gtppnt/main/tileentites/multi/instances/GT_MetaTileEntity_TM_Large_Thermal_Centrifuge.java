@@ -18,7 +18,8 @@ import net.minecraft.item.ItemStack;
 import static com.github.technus.tectech.mechanics.structure.StructureUtility.*;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 
-public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEntity_TM_Factory implements IConstructableStructureSliceableCapped {
+public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEntity_TM_Factory implements
+        IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Thermal_Centrifuge(int aID) {
         super(aID, "multimachine.tm.large_thermal_centrifuge", "Large Thermal Centrifuge");
     }
@@ -162,5 +163,4 @@ public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEn
     public GT_Recipe.GT_Recipe_Map getRecipeMap() {
         return GT_Recipe.GT_Recipe_Map.sThermalCentrifugeRecipes;
     }
-
 }
