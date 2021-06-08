@@ -82,7 +82,7 @@ public class GT_MetaTileEntity_TM_Large_Cuttin_Machine extends GT_MetaTileEntity
                         ofBlock(getCasingBlock(), getCasingMeta())))
                 .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
                         getTextureIndex(), 5))
-                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
+                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorCasingToMachineList,
                         getTextureIndex(), 6))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 7))

@@ -70,7 +70,7 @@ public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity
                         ofBlock(getCasingBlock(), getCasingMeta())))
                 .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
                         getTextureIndex(), 4))
-                .addElement('e', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEmitterToMachineList,
+                .addElement('e', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEmitterCasingToMachineList,
                         getTextureIndex(), 5))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 6))

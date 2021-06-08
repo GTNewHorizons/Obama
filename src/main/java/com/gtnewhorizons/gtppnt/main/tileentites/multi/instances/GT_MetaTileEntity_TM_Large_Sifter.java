@@ -2,7 +2,6 @@ package com.gtnewhorizons.gtppnt.main.tileentites.multi.instances;
 
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureCells;
-import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.mechanics.structure.StructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
@@ -71,7 +70,7 @@ public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Fact
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
                                 getTextureIndex(), 1)))
-                .addElement('s', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addFilterToMachineList,
+                .addElement('s', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addFilterCasingToMachineList,
                         getTextureIndex(), 1))
                 .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
                         getTextureIndex(), 2))

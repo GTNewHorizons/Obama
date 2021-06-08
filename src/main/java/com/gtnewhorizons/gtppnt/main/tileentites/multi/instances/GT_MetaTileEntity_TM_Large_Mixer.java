@@ -76,7 +76,7 @@ public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Facto
                         ofBlock(getCasingBlock(), getCasingMeta())))
                 .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
                         getTextureIndex(), 5))
-                .addElement('r', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addRotorToMachineList,
+                .addElement('r', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addRotorCasingToMachineList,
                         getTextureIndex(), 6))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 7))

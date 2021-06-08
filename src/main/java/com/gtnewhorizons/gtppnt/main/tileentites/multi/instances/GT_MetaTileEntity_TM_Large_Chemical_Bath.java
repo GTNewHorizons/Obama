@@ -55,9 +55,9 @@ public class GT_MetaTileEntity_TM_Large_Chemical_Bath extends GT_MetaTileEntity_
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
                                 getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
+                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorCasingToMachineList,
                         getTextureIndex(), 2))
-                .addElement('f', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpToMachineList,
+                .addElement('f', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpCasingToMachineList,
                         getTextureIndex(), 3))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 4))

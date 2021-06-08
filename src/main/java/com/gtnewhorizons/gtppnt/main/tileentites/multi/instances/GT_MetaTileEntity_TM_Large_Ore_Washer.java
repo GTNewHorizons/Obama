@@ -84,11 +84,11 @@ public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_
                         ofBlock(getCasingBlock(), getCasingMeta())))
                 .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
                         getTextureIndex(), 3))
-                .addElement('f', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpToMachineList,
+                .addElement('f', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpCasingToMachineList,
                         getTextureIndex(), 4))
                 .addElement('F', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
-                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpToMachineList,
+                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpCasingToMachineList,
                                 getTextureIndex(), 10)))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 5))

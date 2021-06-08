@@ -69,7 +69,7 @@ public class GT_MetaTileEntity_TM_Large_Electrolyzer extends GT_MetaTileEntity_T
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
                                 getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('w', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addWireToMachineList,
+                .addElement('w', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addWireCasingToMachineList,
                         getTextureIndex(), 2))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 3))

@@ -74,7 +74,7 @@ public class GT_MetaTileEntity_TM_Large_Autoclave extends GT_MetaTileEntity_TM_F
                                 getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('l', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpToMachineList,
+                .addElement('l', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpCasingToMachineList,
                         getTextureIndex(), 2))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 3))

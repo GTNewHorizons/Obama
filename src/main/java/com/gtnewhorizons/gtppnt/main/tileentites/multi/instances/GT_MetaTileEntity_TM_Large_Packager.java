@@ -67,9 +67,9 @@ public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Fa
                         getTextureIndex(), 2))
                 .addElement('O', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicOutputToMachineList,
                         getTextureIndex(), 3))
-                .addElement('a', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addArmToMachineList,
+                .addElement('a', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addArmCasingToMachineList,
                         getTextureIndex(), 4))
-                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
+                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorCasingToMachineList,
                         getTextureIndex(), 5))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 6))

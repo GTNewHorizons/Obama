@@ -78,9 +78,9 @@ public class GT_MetaTileEntity_TM_Large_Assembler extends GT_MetaTileEntity_TM_F
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicOutputToMachineList,
                                 getTextureIndex(), 3),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('a', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addArmToMachineList,
+                .addElement('a', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addArmCasingToMachineList,
                         getTextureIndex(), 4))
-                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
+                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorCasingToMachineList,
                         getTextureIndex(), 5))
                 .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
                         getTextureIndex(), 6))
