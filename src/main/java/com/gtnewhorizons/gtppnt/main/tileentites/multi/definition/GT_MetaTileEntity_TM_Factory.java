@@ -98,10 +98,10 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     @Override
     protected boolean checkMachine_EM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         functionalCasingsPreCheckMachine();
-        heatingCoilPreCheck();
+        heatingCoilPreCheckMachine();
         return checkMachine_TM(iGregTechTileEntity, itemStack) &&
                 functionalCasingsPostCheckMachine() &&
-                heatingCoilPostCheck(getCasingTier());
+                heatingCoilPostCheckMachine(getCasingTier());
     }
 
     @Override
@@ -127,10 +127,6 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     public int getMinParallel() {
         return 0;
     }
-
-    //public int getMinSlices() {
-    //    return 1;
-    //}
 
     public int getSliceCount() {
         return sliceCount;

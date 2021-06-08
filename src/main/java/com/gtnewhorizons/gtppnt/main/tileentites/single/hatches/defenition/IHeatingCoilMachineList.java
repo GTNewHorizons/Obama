@@ -3,18 +3,18 @@ package com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.defenition;
 import gregtech.api.interfaces.IHeatingCoil;
 import net.minecraft.block.Block;
 
-
 public interface IHeatingCoilMachineList {
-
     int getCoilTier();
 
     void setCoilTier(int tier);
 
-    default void heatingCoilPreCheck() {
+    default void heatingCoilPreCheckMachine() {
         setCoilTier(-1);
     }
 
-    default boolean heatingCoilPostCheck(int wantedTier) {
+    default boolean heatingCoilPostCheckMachine(int wantedTier) {
+        if (getCoilTier() == -1)
+            return true;
         return wantedTier == getCoilTier();
     }
 
