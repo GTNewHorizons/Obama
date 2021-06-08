@@ -42,62 +42,62 @@ public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Fact
     @Override
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_A,new String[][]{
-                        {"AppA","AAAA","A  A","A  A","A  A","A  A","~AAA","A  A"},
-                        {"cssc","A  A","    ","    ","    ","    ","A  A","    "},
-                        {"cssc","A  A","    ","    ","    ","    ","A  A","    "},
-                        {"AppA","AAAA","A  A","A  A","A  A","A  A","AAAA","A  A"},
+                .addShape(TM_STRUCTURE_A, new String[][]{
+                        {"AppA", "AAAA", "A  A", "A  A", "A  A", "A  A", "~AAA", "A  A"},
+                        {"cssc", "A  A", "    ", "    ", "    ", "    ", "A  A", "    "},
+                        {"cssc", "A  A", "    ", "    ", "    ", "    ", "A  A", "    "},
+                        {"AppA", "AAAA", "A  A", "A  A", "A  A", "A  A", "AAAA", "A  A"},
                 })
-                .addShape(TM_STRUCTURE_B,new String[][]{
-                        {" pp ","AAAA"},
-                        {"cssc","A  A","    ","    ","A  A","    "},
-                        {"cssc","A  A","    ","    ","A  A","    "},
-                        {"AppA","AAAA","A  A","A  A","AAAA","A  A"},
+                .addShape(TM_STRUCTURE_B, new String[][]{
+                        {" pp ", "AAAA"},
+                        {"cssc", "A  A", "    ", "    ", "A  A", "    "},
+                        {"cssc", "A  A", "    ", "    ", "A  A", "    "},
+                        {"AppA", "AAAA", "A  A", "A  A", "AAAA", "A  A"},
                 })
-                .addShape(TM_STRUCTURE_C,new String[][]{
+                .addShape(TM_STRUCTURE_C, new String[][]{
                         {" pp "},
-                        {"cssc","    ","A  A","    "},
-                        {"cssc","    ","A  A","    "},
-                        {"AppA","A  A","A  A","A  A"},
+                        {"cssc", "    ", "A  A", "    "},
+                        {"cssc", "    ", "A  A", "    "},
+                        {"AppA", "A  A", "A  A", "A  A"},
                 })
-                .addShape(TM_STRUCTURE_D,new String[][]{
-                        {"    "," pp "},
-                        {"    ","cssc"},
-                        {"    ","cssc"},
-                        {"AAAA","AppA","A  A"}
+                .addShape(TM_STRUCTURE_D, new String[][]{
+                        {"    ", " pp "},
+                        {"    ", "cssc"},
+                        {"    ", "cssc"},
+                        {"AAAA", "AppA", "A  A"}
 
                 })
-                .addElement('A',ofChain(
+                .addElement('A', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(),1)))
-                .addElement('s',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addFilterToMachineList,
-                        getTextureIndex(),1))
-                .addElement('p',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
-                        getTextureIndex(),2))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),3))
+                                getTextureIndex(), 1)))
+                .addElement('s', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addFilterToMachineList,
+                        getTextureIndex(), 1))
+                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
+                        getTextureIndex(), 2))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 3))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartOffsetA() {
-        return new Vec3Impl(0,6,0);
+        return new Vec3Impl(0, 6, 0);
     }
 
     @Override
     public Vec3Impl getStartOffsetB() {
-        return new Vec3Impl(0,4,-3);
+        return new Vec3Impl(0, 4, -3);
     }
 
     @Override
     public Vec3Impl getStartOffsetC() {
-        return new Vec3Impl(0,2,-6);
+        return new Vec3Impl(0, 2, -6);
     }
 
     @Override
     public Vec3Impl getStartOffsetD() {
-        return new Vec3Impl(0,1,-9);
+        return new Vec3Impl(0, 1, -9);
     }
 
     @Override
@@ -121,19 +121,20 @@ public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Fact
     }
 
     @Override
-    public void setParalellsABCD(int paralells) {
-        this.paralells = paralells;
+    public int getParalellsABCD() {
+        return paralells;
     }
 
     @Override
-    public int getParalellsABCD() {
-        return paralells;
+    public void setParalellsABCD(int paralells) {
+        this.paralells = paralells;
     }
 
     @Override
     public short getCasingMeta() {
         return EglinSteel.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

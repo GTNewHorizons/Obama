@@ -60,14 +60,13 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
     public static int cBaseTickrate = 20;
     public static int cBasePollution = 15;
     public static int cPollutionIncrease = 5;
-
+    private final long steamPerTier = steamPerTier(this.mTier);
+    private final float efficiency = calculateEfficiency(this.mTier);
     public int mTemperature = 20;
     public int mProcessingEnergy = 0;
     public int mLossTimer = 0;
     public FluidStack mSteam = null;
     public boolean mHadNoWater = false;
-    private final long steamPerTier = steamPerTier(this.mTier);
-    private final float efficiency = calculateEfficiency(this.mTier);
 
     public GT_MetaTileEntity_TieredBoiler(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
         super(aName, aTier, 4, aDescription, aTextures);
@@ -89,11 +88,6 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
         return MathUtils.ceilLong(((float) cBaseSteam * (1f + 0.5f * (float) (atier + 1))));
     }
 
-    @Override
-    public Object getServerGUI(int aID, InventoryPlayer aPlayerInventory, IGregTechTileEntity aBaseMetaTileEntity) {
-        return new GT_Container_TieredBoiler(aPlayerInventory, aBaseMetaTileEntity, this.getCapacity());
-    }
-
     private static int calculateVisualEfficency(int aTier) {
         float effAdjudste = calculateEfficiency(aTier);
         float pulses = effAdjudste * calculateSteamRateAndPollution(aTier)[0];
@@ -101,6 +95,11 @@ public class GT_MetaTileEntity_TieredBoiler extends GT_MetaTileEntity_BasicTank 
         float repulses = calculateSteamRateAndPollution(0)[0];
         float resteamOverall = repulses * steamPerTier(0);
         return (int) (100f * (resteamOverall / steamOverall));
+    }
+
+    @Override
+    public Object getServerGUI(int aID, InventoryPlayer aPlayerInventory, IGregTechTileEntity aBaseMetaTileEntity) {
+        return new GT_Container_TieredBoiler(aPlayerInventory, aBaseMetaTileEntity, this.getCapacity());
     }
 
     @Override

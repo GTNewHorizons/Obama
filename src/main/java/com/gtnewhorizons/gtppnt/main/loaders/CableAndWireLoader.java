@@ -42,6 +42,11 @@ import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.*;
 public class CableAndWireLoader {
 
     private final static String aTextWire1 = "wire.";
+    private static final String aTextCable1 = "cable.";
+    private static final String aTextWire2 = " Wire";
+    private static final String aTextCable2 = " Cable";
+    private CableAndWireLoader() {
+    }
 
     public static void load() {
         try {
@@ -50,13 +55,6 @@ public class CableAndWireLoader {
         } catch (Exception e) {
             GTAFMod.LOGGER.catching(e);
         }
-    }
-
-    private static final String aTextCable1 = "cable.";
-    private static final String aTextWire2 = " Wire";
-    private static final String aTextCable2 = " Cable";
-
-    private CableAndWireLoader() {
     }
 
     public static void loadOverrideIDs() throws Exception {

@@ -7,14 +7,14 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RecipeProgresion {
-    private GT_Recipe recipe;
-    private int euUsage;
+    private final GT_Recipe recipe;
+    private final int euUsage;
     private int time;
     private ItemStack[] items;
     private FluidStack[] fluids;
-    private int amount;
+    private final int amount;
 
-    public RecipeProgresion(GT_Recipe recipe, int amount,int time,int euUsage){
+    public RecipeProgresion(GT_Recipe recipe, int amount, int time, int euUsage) {
         this.recipe = recipe;
         this.time = time;
         this.euUsage = euUsage;
@@ -22,7 +22,7 @@ public class RecipeProgresion {
         processRecipe(amount);
     }
 
-    public int isRecipeDone(int time){
+    public int isRecipeDone(int time) {
         this.time -= time;
         return this.time;
     }
@@ -51,7 +51,7 @@ public class RecipeProgresion {
     private void processRecipe(int amount) {
         int totalStacks = getTotalStacks(amount);
         this.items = new ItemStack[totalStacks];
-        populateItemStack(recipe,amount);
+        populateItemStack(recipe, amount);
         fluids = new FluidStack[recipe.mFluidOutputs.length];
         populateFluidStack(amount);
     }
@@ -64,31 +64,31 @@ public class RecipeProgresion {
                 continue;
             int maxStackSize = item.getMaxStackSize();
             int total = item.stackSize * amount;
-            totalStacks += total/maxStackSize;
-            if (total%maxStackSize>0)
+            totalStacks += total / maxStackSize;
+            if (total % maxStackSize > 0)
                 totalStacks++;
         }
         return totalStacks;
     }
 
     //asumes this.items has a valid array
-    private void populateItemStack(GT_Recipe recipe,int amount) {
+    private void populateItemStack(GT_Recipe recipe, int amount) {
         int itemIndex = 0;
-        for (int i = 0; i < recipe.mOutputs.length;i++) {
+        for (int i = 0; i < recipe.mOutputs.length; i++) {
             ItemStack item = recipe.mOutputs[i];
             if (item == null)
                 continue;
-            int amountWithChance = getItemAmountWithChance(recipe,i,amount);
+            int amountWithChance = getItemAmountWithChance(recipe, i, amount);
             int maxStackSize = item.getMaxStackSize();
             int total = item.stackSize * amountWithChance;
-            int stackCount = total/maxStackSize;
+            int stackCount = total / maxStackSize;
             for (int j = 0; j < stackCount; j++) {
                 ItemStack copy = item.copy();
                 copy.stackSize = maxStackSize;
                 this.items[itemIndex] = copy;
                 itemIndex++;
             }
-            int rest = total%maxStackSize;
+            int rest = total % maxStackSize;
             if (rest > 0) {
                 ItemStack copy = item.copy();
                 copy.stackSize = rest;
@@ -104,9 +104,9 @@ public class RecipeProgresion {
         int successCount = amount;
         if (itemChance != 10000) {
             successCount = 0;
-            for (int j = 0;j<amount;j++) {
+            for (int j = 0; j < amount; j++) {
                 int rng = ThreadLocalRandom.current().nextInt(10000);
-                if (rng < itemChance){
+                if (rng < itemChance) {
                     successCount++;
                 }
             }

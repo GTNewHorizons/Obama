@@ -33,36 +33,36 @@ import java.util.ArrayList;
 
 public class MultiBlockUtils {
 
-    public static int isRecipeEqualAndRemoveParrallel(GT_Recipe recipe,ItemStack[] actaulItemInput, ItemStack[] inputItemsCombined ,FluidStack[] inputFluids,int maxParrallel,boolean removeItems) {
+    public static int isRecipeEqualAndRemoveParrallel(GT_Recipe recipe, ItemStack[] actaulItemInput, ItemStack[] inputItemsCombined, FluidStack[] inputFluids, int maxParrallel, boolean removeItems) {
         if (recipe.mFluidInputs.length > 0 && inputFluids == null) return 0;
         if (recipe.mInputs.length > 0 && inputItemsCombined == null) return 0;
 
 
-        maxParrallel = checkFluidParrallel(recipe,inputFluids,maxParrallel);
+        maxParrallel = checkFluidParrallel(recipe, inputFluids, maxParrallel);
         if (maxParrallel == 0) return 0;
-        maxParrallel = checkItemParrallel(recipe,inputItemsCombined,maxParrallel);
+        maxParrallel = checkItemParrallel(recipe, inputItemsCombined, maxParrallel);
         if (maxParrallel == 0) return 0;
 
         if (removeItems) {
-            removeInputParrallel(recipe,inputItemsCombined,actaulItemInput,inputFluids,maxParrallel);
+            removeInputParrallel(recipe, inputItemsCombined, actaulItemInput, inputFluids, maxParrallel);
         }
         return maxParrallel;
     }
 
-    public static RecipeProgresion getRecipeProgresionWithOC(GT_Recipe recipe, int recipeVoltage,int inputVolatge,int amount) {
+    public static RecipeProgresion getRecipeProgresionWithOC(GT_Recipe recipe, int recipeVoltage, int inputVolatge, int amount) {
         int recipeTime = recipe.mDuration;
-        int newVolatge = recipeVoltage<<2;
+        int newVolatge = recipeVoltage << 2;
         while (newVolatge < inputVolatge && recipeTime > 1) {
             recipeVoltage = newVolatge;
             newVolatge <<= 2;
             recipeTime >>= 1;
         }
-        return new RecipeProgresion(recipe,amount,recipeTime,recipeVoltage*amount);
+        return new RecipeProgresion(recipe, amount, recipeTime, recipeVoltage * amount);
     }
 
 
     public static void addItemOutputToList(GT_Recipe recipe, ArrayList<ItemStack> outputItems, int parrallel) {
-        for (int i = 0;i< recipe.mOutputs.length;++i) {
+        for (int i = 0; i < recipe.mOutputs.length; ++i) {
             ItemStack outputStack = recipe.getOutput(i);
             if (outputStack != null) {
                 int amount = outputStack.stackSize * parrallel;
@@ -82,7 +82,7 @@ public class MultiBlockUtils {
     }
 
     public static void addFluidoutputToList(GT_Recipe recipe, ArrayList<FluidStack> outputFluids, int parrallel) {
-        for (int i = 0;i<recipe.mFluidOutputs.length;++i) {
+        for (int i = 0; i < recipe.mFluidOutputs.length; ++i) {
             FluidStack outputFluid = recipe.getFluidOutput(i);
             if (outputFluid != null) {
                 outputFluid.amount = parrallel * outputFluid.amount;
@@ -92,24 +92,24 @@ public class MultiBlockUtils {
     }
 
     // remove fluids and items with parrallel
-    private static void removeInputParrallel(GT_Recipe recipe, ItemStack[] combinedStacks,ItemStack[] actaulItemInput, FluidStack[] inputFluids, int parrallel) {
-        ItemStack[] toRemoveItems = removeItemList(recipe,parrallel);
-        FluidStack[] toRemoveFluids = removeFluidList(recipe,parrallel);
-        removeFromCombinedStack(toRemoveItems,combinedStacks,parrallel);
-        removeItems(recipe,actaulItemInput,toRemoveItems);
-        removeFluids(recipe,inputFluids,toRemoveFluids);
+    private static void removeInputParrallel(GT_Recipe recipe, ItemStack[] combinedStacks, ItemStack[] actaulItemInput, FluidStack[] inputFluids, int parrallel) {
+        ItemStack[] toRemoveItems = removeItemList(recipe, parrallel);
+        FluidStack[] toRemoveFluids = removeFluidList(recipe, parrallel);
+        removeFromCombinedStack(toRemoveItems, combinedStacks, parrallel);
+        removeItems(recipe, actaulItemInput, toRemoveItems);
+        removeFluids(recipe, inputFluids, toRemoveFluids);
     }
 
     //items should already be unified here
     private static void removeFromCombinedStack(ItemStack[] itemRemoveList, ItemStack[] combined, int parrallel) {
         int removedItems = 0;
         int itemsToRemove = itemRemoveList.length;
-        for (int i = 0; i< combined.length;i++) {
+        for (int i = 0; i < combined.length; i++) {
             ItemStack toRemove = combined[i];
             if (toRemove == null)
                 continue;
             for (ItemStack removeListStack : itemRemoveList) {
-                if (GT_Utility.areStacksEqual(removeListStack,toRemove,true)) {
+                if (GT_Utility.areStacksEqual(removeListStack, toRemove, true)) {
                     toRemove.stackSize -= removeListStack.stackSize;
                     if (toRemove.stackSize == 0)
                         combined[i] = null;
@@ -123,10 +123,10 @@ public class MultiBlockUtils {
     }
 
     //genrate list to what and how many of the items needs to be removed
-    private static ItemStack[] removeItemList(GT_Recipe recipe,int parrallel) {
+    private static ItemStack[] removeItemList(GT_Recipe recipe, int parrallel) {
         ItemStack[] recipeItems = recipe.mInputs;
         ItemStack[] toRemoveItems = new ItemStack[recipeItems.length];
-        for (int i = 0; i< recipeItems.length;++i) {
+        for (int i = 0; i < recipeItems.length; ++i) {
             ItemStack item = getUnifiedWithStackSize(recipeItems[i]);
             if (item != null) {
                 item = shallowItemCopy(item);
@@ -138,10 +138,10 @@ public class MultiBlockUtils {
     }
 
     //genrate list to what and how many of the fluids needs to be removed
-    private static FluidStack[] removeFluidList(GT_Recipe recipe,int parrallel) {
+    private static FluidStack[] removeFluidList(GT_Recipe recipe, int parrallel) {
         FluidStack[] recipeFluids = recipe.mFluidInputs;
         FluidStack[] toRemoveFluids = new FluidStack[recipeFluids.length];
-        for (int i = 0; i< recipeFluids.length;++i) {
+        for (int i = 0; i < recipeFluids.length; ++i) {
             FluidStack fluid = recipeFluids[i];
             if (fluid != null) {
                 fluid = fluid.copy();
@@ -152,17 +152,17 @@ public class MultiBlockUtils {
         return toRemoveFluids;
     }
 
-    private static void removeItems(GT_Recipe recipe,ItemStack[] actaulItemInput, ItemStack[] toRemoveItems){
-        boolean checkNBT = recipe.GTppRecipeHelper;
+    private static void removeItems(GT_Recipe recipe, ItemStack[] actaulItemInput, ItemStack[] toRemoveItems) {
+        boolean checkNBT = GT_Recipe.GTppRecipeHelper;
         int completeCount = toRemoveItems.length;
         for (ItemStack inputItem : actaulItemInput) {
             ItemStack unified = GT_OreDictUnificator.get_nocopy(inputItem);
             if (unified == null)
                 unified = inputItem;
-            for (int i = 0;i<toRemoveItems.length;++i) {
+            for (int i = 0; i < toRemoveItems.length; ++i) {
                 ItemStack toRemove = toRemoveItems[i];
-                if (GT_Utility.areStacksEqual(toRemove,unified,false)) {
-                    if (checkNBT && !specialItemCheck(toRemove,unified)) {
+                if (GT_Utility.areStacksEqual(toRemove, unified, false)) {
+                    if (checkNBT && !specialItemCheck(toRemove, unified)) {
                         continue;
                     }
                     if (inputItem.stackSize < toRemove.stackSize) {
@@ -176,7 +176,7 @@ public class MultiBlockUtils {
                     break;
                 }
             }
-            if (completeCount <1)
+            if (completeCount < 1)
                 break;
         }
     }
@@ -184,9 +184,9 @@ public class MultiBlockUtils {
     private static void removeFluids(GT_Recipe recipe, FluidStack[] inputFluids, FluidStack[] toRemoveFluids) {
         int completeCount = toRemoveFluids.length;
         for (FluidStack inputFluid : inputFluids) {
-            for (int i = 0;i<toRemoveFluids.length;++i) {
+            for (int i = 0; i < toRemoveFluids.length; ++i) {
                 FluidStack toRemove = toRemoveFluids[i];
-                if (GT_Utility.areFluidsEqual(inputFluid,toRemove)) {
+                if (GT_Utility.areFluidsEqual(inputFluid, toRemove)) {
                     if (inputFluid.amount < toRemove.amount) {
                         toRemove.amount -= inputFluid.amount;
                         inputFluid.amount = 0;
@@ -204,7 +204,7 @@ public class MultiBlockUtils {
     }
 
     // checks if has all fluids and return how much it can do in parrallel
-    private static int checkFluidParrallel(GT_Recipe recipe, FluidStack[] inputFluids, int maxParrallel ) {
+    private static int checkFluidParrallel(GT_Recipe recipe, FluidStack[] inputFluids, int maxParrallel) {
         for (FluidStack recipeFluid : recipe.mFluidInputs) {
             if (recipeFluid != null) {
                 int recipeAmount = recipeFluid.amount;
@@ -212,11 +212,11 @@ public class MultiBlockUtils {
                 for (FluidStack inputFluid : inputFluids) {
                     if (inputFluid != null && inputFluid.isFluidEqual(recipeFluid)) {
                         if (recipeAmount > 0) {
-                            int parrallel = inputFluid.amount/recipeAmount;
+                            int parrallel = inputFluid.amount / recipeAmount;
                             if (parrallel < maxParrallel)
                                 maxParrallel = parrallel;
                             if (parrallel > 0) {
-                                 fondFluid = true;
+                                fondFluid = true;
                                 break;
                             }
                         } else {
@@ -230,23 +230,24 @@ public class MultiBlockUtils {
         }
         return maxParrallel;
     }
+
     // check if all items are there and how much it can do in parrallel
     // asumes inputItems is already unified and no duplicate stacks
-    private static int checkItemParrallel(GT_Recipe recipe,ItemStack[] inputItems, int maxParrallel) {
-        for (ItemStack recipeItem: recipe.mInputs) {
+    private static int checkItemParrallel(GT_Recipe recipe, ItemStack[] inputItems, int maxParrallel) {
+        for (ItemStack recipeItem : recipe.mInputs) {
             recipeItem = getUnifiedWithStackSize(recipeItem);
             boolean foundItem = false;
             if (recipeItem != null) {
                 int recipeAmount = recipeItem.stackSize;
                 for (ItemStack inputItem : inputItems) {
-                    if (GT_Utility.areStacksEqual(inputItem,recipeItem,true)) {
-                        if (recipe.GTppRecipeHelper) {//mentions somthing about removing when fix is out ask bart what it is
-                            if (!specialItemCheck(recipeItem,inputItem))
-                                continue;;
+                    if (GT_Utility.areStacksEqual(inputItem, recipeItem, true)) {
+                        if (GT_Recipe.GTppRecipeHelper) {//mentions somthing about removing when fix is out ask bart what it is
+                            if (!specialItemCheck(recipeItem, inputItem))
+                                continue;
                         }
 
                         if (recipeAmount > 0) {
-                            int parrallel = inputItem.stackSize/recipeAmount;
+                            int parrallel = inputItem.stackSize / recipeAmount;
                             if (parrallel < maxParrallel)
                                 maxParrallel = parrallel;
                             if (parrallel > 0) {
@@ -273,8 +274,8 @@ public class MultiBlockUtils {
             item = getUnifiedWithStackSize(item);
             if (item != null) {
                 boolean added = false;
-                for (ItemStack itemComb:combined) {
-                    if (itemComb != null && GT_Utility.areStacksEqual(itemComb,item)) {
+                for (ItemStack itemComb : combined) {
+                    if (itemComb != null && GT_Utility.areStacksEqual(itemComb, item)) {
                         itemComb.stackSize += item.stackSize;
                         added = true;
                         break;
@@ -288,10 +289,9 @@ public class MultiBlockUtils {
         return combined.toArray(new ItemStack[0]);
     }
 
-    public static Boolean specialItemCheck(ItemStack recipeItem,ItemStack inputItem) {
+    public static Boolean specialItemCheck(ItemStack recipeItem, ItemStack inputItem) {
         if (GT_Utility.areStacksEqual(inputItem, Ic2Items.FluidCell.copy(), true) || GT_Utility.areStacksEqual(inputItem, ItemList.Tool_DataStick.get(1L), true) || GT_Utility.areStacksEqual(inputItem, ItemList.Tool_DataOrb.get(1L), true)) {
-            if (GT_Utility.areStacksEqual(inputItem, recipeItem, false))
-                return false;
+            return !GT_Utility.areStacksEqual(inputItem, recipeItem, false);
         }
         return true;
     }
@@ -309,13 +309,11 @@ public class MultiBlockUtils {
 
     //make copy of item without copyingthe nbt
     public static ItemStack shallowItemCopy(ItemStack item) {
-        ItemStack copy = new ItemStack(item.getItem(),item.stackSize,item.getItemDamage());
+        ItemStack copy = new ItemStack(item.getItem(), item.stackSize, item.getItemDamage());
         if (item.hasTagCompound())
             copy.stackTagCompound = item.stackTagCompound;
         return copy;
     }
-
-
 
 
     //TODO Delete everything above here

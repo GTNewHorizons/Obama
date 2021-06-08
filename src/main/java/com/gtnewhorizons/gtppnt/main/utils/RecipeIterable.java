@@ -17,7 +17,7 @@ import static gregtech.api.enums.GT_Values.W;
 
 public class RecipeIterable implements Iterable<GT_Recipe> {
 
-    private static Item circuit = GT_Utility.getIntegratedCircuit(0).getItem();
+    private static final Item circuit = GT_Utility.getIntegratedCircuit(0).getItem();
 
     private GT_Recipe.GT_Recipe_Map mRecipeMap;
     private ItemStack[] mItems;
@@ -32,7 +32,7 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
     public RecipeIterable(GT_Recipe.GT_Recipe_Map aRecipeMap, GT_Recipe aRecipe, boolean aNotUnificated, boolean aDontCheckStackSizes, long aVoltage, FluidStack[] aFluids, ItemStack... aItems) {
         // No Recipes? Well, nothing to be found then.
         if (!aRecipeMap.mRecipeList.isEmpty()) {
-            if (isValid(aRecipeMap,aItems,aFluids)) {
+            if (isValid(aRecipeMap, aItems, aFluids)) {
                 if (aRecipeMap.mUsualInputCount > 0 && aItems != null)
                     mItemIterateble = Arrays.asList(aItems);
 
@@ -54,7 +54,7 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
         }
     }
 
-    private boolean isValid(GT_Recipe.GT_Recipe_Map recipeMap,ItemStack[] aItems, FluidStack[] aFluids) {
+    private boolean isValid(GT_Recipe.GT_Recipe_Map recipeMap, ItemStack[] aItems, FluidStack[] aFluids) {
         // Some Recipe Classes require a certain amount of Inputs of certain kinds. Like "at least 1 Fluid + 1 Stack" or "at least 2 Stacks" before they start searching for Recipes.
         // This improves Performance massively, especially if people leave things like Circuits, Molds or Shapes in their Machines to select Sub Recipes.
         if (GregTech_API.sPostloadFinished) {
@@ -68,7 +68,7 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
                 if (aItems == null) return false;
                 int tAmount = 0;
                 for (ItemStack aInput : aItems) if (aInput != null) tAmount++;
-                if (tAmount < recipeMap.mMinimalInputItems) return false;
+                return tAmount >= recipeMap.mMinimalInputItems;
             }
         }
         return true;
@@ -78,6 +78,7 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
     public Iterator<GT_Recipe> iterator() {
         return new RecipeIterator();
     }
+
     private class RecipeIterator implements Iterator<GT_Recipe> {
 
         Iterator<ItemStack> iItemIterator;

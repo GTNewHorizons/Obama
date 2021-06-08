@@ -41,8 +41,8 @@ public enum GeometricInstance {
         this.depthOffset = depthOffset;
     }
 
-    public <T> StructureDefinition.Builder<T> addToDefinition(StructureDefinition.Builder<T> definition){
-        return definition.addShape("main",structure);
+    public <T> StructureDefinition.Builder<T> addToDefinition(StructureDefinition.Builder<T> definition) {
+        return definition.addShape("main", structure);
     }
 
     public int getHorizontalOffset() {

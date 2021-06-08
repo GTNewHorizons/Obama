@@ -62,8 +62,8 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
                 .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
                         getTextureIndex(), 2))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),3))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 3))
                 .build();
     }
 

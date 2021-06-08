@@ -40,60 +40,60 @@ public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Fa
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START,new String[][]{
-                        {"~","B"},
-                        {"I","B"},
-                        {"A","B"}
+                .addShape(TM_STRUCTURE_START, new String[][]{
+                        {"~", "B"},
+                        {"I", "B"},
+                        {"A", "B"}
                 })
-                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
-                        {"c","G","B"},
-                        {"A","-","v"},
-                        {"c","a","B"}
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
+                        {"c", "G", "B"},
+                        {"A", "-", "v"},
+                        {"c", "a", "B"}
                 })
-                .addShape(TM_STRUCTURE_CAP,new String[][]{
-                        {"A","B"},
-                        {"O","B"},
-                        {"A","B"}
+                .addShape(TM_STRUCTURE_CAP, new String[][]{
+                        {"A", "B"},
+                        {"O", "B"},
+                        {"A", "B"}
                 })
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('B',ofChain(
+                .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicMaintenanceToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEnergyIOToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('I',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicInputToMachineList,
-                        getTextureIndex(),2))
-                .addElement('O',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicOutputToMachineList,
-                        getTextureIndex(),3))
-                .addElement('a',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addArmToMachineList,
-                        getTextureIndex(),4))
-                .addElement('v',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
-                        getTextureIndex(),5))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),6))
+                .addElement('I', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicInputToMachineList,
+                        getTextureIndex(), 2))
+                .addElement('O', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicOutputToMachineList,
+                        getTextureIndex(), 3))
+                .addElement('a', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addArmToMachineList,
+                        getTextureIndex(), 4))
+                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
+                        getTextureIndex(), 5))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 6))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(0,0,0);
+        return new Vec3Impl(0, 0, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(-1,1,0);
+        return new Vec3Impl(-1, 1, 0);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(-1,0,0);
+        return new Vec3Impl(-1, 0, 0);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0,-1,0);
+        return new Vec3Impl(0, -1, 0);
     }
 
     @Override
@@ -110,6 +110,7 @@ public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Fa
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

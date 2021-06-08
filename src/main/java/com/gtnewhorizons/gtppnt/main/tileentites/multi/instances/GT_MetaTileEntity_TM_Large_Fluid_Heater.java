@@ -41,46 +41,46 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START,new String[][]{
-                        {"BBB","B~B"},
+                .addShape(TM_STRUCTURE_START, new String[][]{
+                        {"BBB", "B~B"},
                 })
-                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
-                        {"hGh","BcB"}
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
+                        {"hGh", "BcB"}
                 })
-                .addShape(TM_STRUCTURE_CAP,new String[][]{
-                        {"BBB","BBB"}
+                .addShape(TM_STRUCTURE_CAP, new String[][]{
+                        {"BBB", "BBB"}
                 })
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('B',ofChain(
+                .addElement('B', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(),1)))
-                .addElement('h',ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
-                        ItemList.Casing_Coil_Cupronickel.getBlock(),0))
+                                getTextureIndex(), 1)))
+                .addElement('h', ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
+                        ItemList.Casing_Coil_Cupronickel.getBlock(), 0))
                 //for some reason using GT_Block_Casings5 doesent work so im using ItemList.Casing_Coil_Cupronickel.getBlock()
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),1))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 1))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(1,1,0);
+        return new Vec3Impl(1, 1, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(1,1,-1);
+        return new Vec3Impl(1, 1, -1);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0,0,-1);
+        return new Vec3Impl(0, 0, -1);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0,0,0);
+        return new Vec3Impl(0, 0, 0);
     }
 
     @Override
@@ -97,6 +97,7 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

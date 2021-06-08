@@ -42,49 +42,49 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START,new String[][]{
-                        {"AAA","AAA","A~A","AAA"},
+                .addShape(TM_STRUCTURE_START, new String[][]{
+                        {"AAA", "AAA", "A~A", "AAA"},
 
                 })
-                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
-                        {"cAA","mpG","mpG","cAA"},
-                        {"AAc","Gpm","Gpm","AAc"}
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
+                        {"cAA", "mpG", "mpG", "cAA"},
+                        {"AAc", "Gpm", "Gpm", "AAc"}
                 })
-                .addShape(TM_STRUCTURE_CAP,new String[][]{
-                        {"AAA","AAA","AAA","AAA"}
+                .addShape(TM_STRUCTURE_CAP, new String[][]{
+                        {"AAA", "AAA", "AAA", "AAA"}
                 })
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('A',ofChain(
+                .addElement('A', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(),1)))
-                .addElement('m',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
-                        getTextureIndex(),1))
-                .addElement('p',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
-                        getTextureIndex(),2))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),3))
+                                getTextureIndex(), 1)))
+                .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
+                        getTextureIndex(), 1))
+                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
+                        getTextureIndex(), 2))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 3))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(1,2,0);
+        return new Vec3Impl(1, 2, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(1,2,-1);
+        return new Vec3Impl(1, 2, -1);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0,0,-2);
+        return new Vec3Impl(0, 0, -2);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0,0,0);
+        return new Vec3Impl(0, 0, 0);
     }
 
     @Override
@@ -101,6 +101,7 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
     public short getCasingMeta() {
         return Titanium.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

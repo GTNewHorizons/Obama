@@ -39,45 +39,45 @@ public class GT_MetaTileEntity_TM_Large_Wiremill extends GT_MetaTileEntity_TM_Fa
     @Override
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START,new String[][]{
-                        {" AA ","A~AA","A  A"}
+                .addShape(TM_STRUCTURE_START, new String[][]{
+                        {" AA ", "A~AA", "A  A"}
                 })
-                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
-                        {"cmmc","AmmA"},
-                        {" AA ","AAAA"}
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
+                        {"cmmc", "AmmA"},
+                        {" AA ", "AAAA"}
                 })
-                .addShape(TM_STRUCTURE_CAP,new String[][]{
+                .addShape(TM_STRUCTURE_CAP, new String[][]{
                         {"A  A"}
                 })
-                .addElement('A',ofChain(
+                .addElement('A', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(),1)))
-                .addElement('m',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
-                        getTextureIndex(),1))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),2))
+                                getTextureIndex(), 1)))
+                .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
+                        getTextureIndex(), 1))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 2))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(1,1,0);
+        return new Vec3Impl(1, 1, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(1,1,-1);
+        return new Vec3Impl(1, 1, -1);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0,0,-2);
+        return new Vec3Impl(0, 0, -2);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0,-2,1);
+        return new Vec3Impl(0, -2, 1);
     }
 
     @Override
@@ -94,6 +94,7 @@ public class GT_MetaTileEntity_TM_Large_Wiremill extends GT_MetaTileEntity_TM_Fa
     public short getCasingMeta() {
         return BlueSteel.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

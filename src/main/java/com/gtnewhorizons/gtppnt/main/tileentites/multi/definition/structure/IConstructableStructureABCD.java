@@ -28,9 +28,9 @@ public interface IConstructableStructureABCD extends IConstructableStructure {
         return getParalellsABCD();
     }
 
-    void setParalellsABCD(int paralells);
-
     int getParalellsABCD();
+
+    void setParalellsABCD(int paralells);
 
     int getParalellsA();
 

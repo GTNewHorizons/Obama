@@ -35,7 +35,7 @@ import static com.github.technus.tectech.util.CommonValues.VN;
 
 //TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_MultiblockBase_EM implements
-        IConstructableStructure,IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl,
+        IConstructableStructure, IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl,
         IHeatingCoilMachineList {
     private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
     private byte casingTier = 0;
@@ -46,7 +46,6 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     private RecipeProgresion[] runningRecipes = new RecipeProgresion[0];
     private int parrallelRunning = 0;
     private int newProgressTime = Integer.MAX_VALUE;
-
 
 
     //region Constructors
@@ -189,7 +188,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
 
     //TODO test without null check
     void recipeControll() {
-        int progressTime = this.mProgresstime +1;
+        int progressTime = this.mProgresstime + 1;
         if (this.mMaxProgresstime > 0 && progressTime >= this.mMaxProgresstime && runningRecipes != null) {
             // if all new or remaning recipes are more then 100 ticks long it will still recheck a recipe in 100 ticks
             newProgressTime = 100;
@@ -198,9 +197,9 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
             int totalFluidStacks = 0;
             //put all finished recipes in a array and remove then from running
             //get count of how many item and fluid stacks will be needed on output
-            for (int i = 0; i < runningRecipes.length ; i++) {
+            for (int i = 0; i < runningRecipes.length; i++) {
                 RecipeProgresion runningRecipe = runningRecipes[i];
-                if (runningRecipe != null ) {
+                if (runningRecipe != null) {
                     int timeLeft = runningRecipe.isRecipeDone(progressTime);
                     if (timeLeft <= 0) {
                         finishedRecipes.add(runningRecipe);
@@ -208,7 +207,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         totalFluidStacks += runningRecipe.getFluids().length;
                         runningRecipes[i] = null;
                     } else {
-                        newProgressTime = Math.min(newProgressTime,timeLeft);
+                        newProgressTime = Math.min(newProgressTime, timeLeft);
                     }
                 }
             }
@@ -248,7 +247,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                     }
                 }
                 //remove all null from array
-                RecipeProgresion[] newRunning = new RecipeProgresion[runningRecipes.length-finishedRecipes.size()];
+                RecipeProgresion[] newRunning = new RecipeProgresion[runningRecipes.length - finishedRecipes.size()];
                 int newIndex = 0;
                 for (RecipeProgresion runningRecipe : runningRecipes) {
                     if (runningRecipe != null)
@@ -260,8 +259,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                 mOutputFluids = outputFluids;
                 parrallelRunning -= freedParrallel;
                 mEUt += freedPower;
-                if (!getBaseMetaTileEntity().isAllowedToWork())
-                {
+                if (!getBaseMetaTileEntity().isAllowedToWork()) {
                     mMaxProgresstime = newProgressTime;
                     mProgresstime = 0;
                 }
@@ -291,26 +289,26 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                 int parrallel = getMaxParalells() - parrallelRunning;
                 int parrallelDone = 0;
                 int voltage = (int) getMaxVoltage();
-                int amps = (int) getMaxInputEnergy()/voltage;
+                int amps = (int) getMaxInputEnergy() / voltage;
                 if (amps < parrallel) {
                     parrallel = amps;
                 }
                 ArrayList<RecipeProgresion> newRecipes = new ArrayList<>();
-                for (GT_Recipe recipe: recipes) {
+                for (GT_Recipe recipe : recipes) {
                     if (recipe != null) {
                         if (recipe.mCanBeBuffered) {
                             this.buffered_Recipe = recipe;
                         }
 
-                        parrallelDone = checkAndConsumeRecipe(recipe,inputItems,combinedItems,inputFluids,parrallel);
+                        parrallelDone = checkAndConsumeRecipe(recipe, inputItems, combinedItems, inputFluids, parrallel);
 
                         if (parrallelDone > 0) {
 
-                            RecipeProgresion processedRecipe = getRecipeProgresionWithOC(recipe, voltage,parrallelDone);
+                            RecipeProgresion processedRecipe = getRecipeProgresionWithOC(recipe, voltage, parrallelDone);
                             newRecipes.add(processedRecipe);
                             totalEUUsage -= processedRecipe.getEUUsage();
 
-                            newProgressTime = Math.min(newProgressTime,processedRecipe.getTimeLeft());
+                            newProgressTime = Math.min(newProgressTime, processedRecipe.getTimeLeft());
                             parrallelRunning += parrallelDone;
                             parrallel -= parrallelDone;
                             canRunRecipe = true;
@@ -325,7 +323,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                 }
             }
         }
-        canRunRecipe = setEnergy(newProgressTime,totalEUUsage) && this.runningRecipes.length>0;
+        canRunRecipe = setEnergy(newProgressTime, totalEUUsage) && this.runningRecipes.length > 0;
         if (!canRunRecipe)
             turnOff();
         else {
@@ -342,7 +340,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     public int checkAndConsumeRecipe(GT_Recipe recipe, ItemStack[] inputItems, ItemStack[] combinedItems,
                                      FluidStack[] inputFluids, int parrallel) {
         return MultiBlockUtils.isRecipeEqualAndRemoveParrallel(recipe,
-                inputItems,combinedItems,inputFluids,parrallel,true);
+                inputItems, combinedItems, inputFluids, parrallel, true);
     }
 
     //allows multies to overide this incase more special OC is needid
@@ -356,12 +354,12 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
 
 
     public int getRecipeVoltage(GT_Recipe recipe) {
-        return recipe.mEUt/getRecipeMap().mAmperage;
+        return recipe.mEUt / getRecipeMap().mAmperage;
     }
 
     public void turnOn() {
         if (!getBaseMetaTileEntity().isActive())
-        setFunctionalCasingActivity(true);
+            setFunctionalCasingActivity(true);
     }
 
     public void turnOff() {
@@ -373,7 +371,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
             setFunctionalCasingActivity(false);
     }
 
-    public void addNewRunningRecipes(RecipeProgresion[] newRunningRecipes){
+    public void addNewRunningRecipes(RecipeProgresion[] newRunningRecipes) {
         RecipeProgresion[] newList = new RecipeProgresion[this.runningRecipes.length + newRunningRecipes.length];
         int index = 0;
         for (RecipeProgresion runningRecipe : this.runningRecipes) {
@@ -385,7 +383,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         this.runningRecipes = newList;
     }
 
-    private boolean setEnergy(int time,int euUsage) {
+    private boolean setEnergy(int time, int euUsage) {
         this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
         this.mEfficiencyIncrease = 10000;
         this.mEUt = euUsage;
@@ -486,7 +484,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                 "PowerPass: " + EnumChatFormatting.BLUE + ePowerPass + EnumChatFormatting.RESET +
                         " SafeVoid: " + EnumChatFormatting.BLUE + eSafeVoid,
                 "Computation: " + EnumChatFormatting.GREEN + eAvailableData + EnumChatFormatting.RESET + " / " + EnumChatFormatting.YELLOW + eRequiredData + EnumChatFormatting.RESET,
-                "Max Parrallel: "+ EnumChatFormatting.GREEN + getMaxParalells()
+                "Max Parrallel: " + EnumChatFormatting.GREEN + getMaxParalells()
         };
     }
 }

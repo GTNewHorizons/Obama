@@ -42,66 +42,66 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START,new String[][]{
-                        {" BBB ","B   B","B   ~","B   B"},
-                        {" AOA ","AOOOA","AO-OA","AOOOA"},
-                        {" --- "," --- "," --- ","AAAAA"},
-                        {" AAA ","A---A","A---A","AAAAA"},
-                        {" --- "," --- "," --- ","AAAAA"},
-                        {" AAA ","A---A","A---A","AAAAA"},
-                        {" --- "," --- "," --- ","AAAAA"},
-                        {" III ","IAAAI","IA-AI","IAAAI"}
+                .addShape(TM_STRUCTURE_START, new String[][]{
+                        {" BBB ", "B   B", "B   ~", "B   B"},
+                        {" AOA ", "AOOOA", "AO-OA", "AOOOA"},
+                        {" --- ", " --- ", " --- ", "AAAAA"},
+                        {" AAA ", "A---A", "A---A", "AAAAA"},
+                        {" --- ", " --- ", " --- ", "AAAAA"},
+                        {" AAA ", "A---A", "A---A", "AAAAA"},
+                        {" --- ", " --- ", " --- ", "AAAAA"},
+                        {" III ", "IAAAI", "IA-AI", "IAAAI"}
                 })
-                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
-                        {" hhh ","h---h","Gp-pG","ccAcc"}
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
+                        {" hhh ", "h---h", "Gp-pG", "ccAcc"}
                 })
-                .addShape(TM_STRUCTURE_CAP,new String[][]{
-                        {" BBB ","BBBBB","BBBBB","BBBBB"}
+                .addShape(TM_STRUCTURE_CAP, new String[][]{
+                        {" BBB ", "BBBBB", "BBBBB", "BBBBB"}
                 })
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('B',ofChain(
+                .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicMaintenanceToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEnergyIOToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('I',ofChain(
+                .addElement('I', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicInputToMachineList,
-                                getTextureIndex(),2),
-                        ofBlock(getCasingBlock(),getCasingMeta())))
-                .addElement('O',ofChain(
+                                getTextureIndex(), 2),
+                        ofBlock(getCasingBlock(), getCasingMeta())))
+                .addElement('O', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicOutputToMachineList,
-                                getTextureIndex(),3),
-                        ofBlock(getCasingBlock(),getCasingMeta())))
-                .addElement('p',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),4))
-                .addElement('h',ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
-                        ItemList.Casing_Coil_Cupronickel.getBlock(),0))
+                                getTextureIndex(), 3),
+                        ofBlock(getCasingBlock(), getCasingMeta())))
+                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 4))
+                .addElement('h', ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList,
+                        ItemList.Casing_Coil_Cupronickel.getBlock(), 0))
 
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),5))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 5))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(4,2,0);
+        return new Vec3Impl(4, 2, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(4,2,-8);
+        return new Vec3Impl(4, 2, -8);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0,0,-1);
+        return new Vec3Impl(0, 0, -1);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0,0,0);
+        return new Vec3Impl(0, 0, 0);
     }
 
     @Override
@@ -118,6 +118,7 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

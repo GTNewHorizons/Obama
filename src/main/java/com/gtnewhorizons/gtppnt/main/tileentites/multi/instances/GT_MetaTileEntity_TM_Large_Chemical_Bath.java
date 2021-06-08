@@ -40,48 +40,48 @@ public class GT_MetaTileEntity_TM_Large_Chemical_Bath extends GT_MetaTileEntity_
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START,new String[][]{
-                        {"-GG-","B~BB","BBBB"}
+                .addShape(TM_STRUCTURE_START, new String[][]{
+                        {"-GG-", "B~BB", "BBBB"}
                 })
-                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
-                        {"GGGG","f--A","cvvc"}
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
+                        {"GGGG", "f--A", "cvvc"}
                 })
-                .addShape(TM_STRUCTURE_CAP,new String[][]{
-                        {"-GG-","BBBB","BBBB"}
+                .addShape(TM_STRUCTURE_CAP, new String[][]{
+                        {"-GG-", "BBBB", "BBBB"}
                 })
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('B',ofChain(
+                .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('v',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
-                        getTextureIndex(),2))
-                .addElement('f',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpToMachineList,
-                        getTextureIndex(),3))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),4))
+                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
+                        getTextureIndex(), 2))
+                .addElement('f', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpToMachineList,
+                        getTextureIndex(), 3))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 4))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(1,1,0);
+        return new Vec3Impl(1, 1, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(1,1,-1);
+        return new Vec3Impl(1, 1, -1);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0,0,-1);
+        return new Vec3Impl(0, 0, -1);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0,0,0);
+        return new Vec3Impl(0, 0, 0);
     }
 
     @Override
@@ -103,6 +103,7 @@ public class GT_MetaTileEntity_TM_Large_Chemical_Bath extends GT_MetaTileEntity_
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

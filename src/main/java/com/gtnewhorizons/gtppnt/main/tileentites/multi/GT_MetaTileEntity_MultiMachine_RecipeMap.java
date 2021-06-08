@@ -63,15 +63,12 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
             .addElement('F', ofHatchAdderOptional(
                     GT_MetaTileEntity_MultiMachine_RecipeMap::addFunctionalCasingToMachineList,
                     def.getTextureIndex(), 8, def.getSpecialBlock(), def.getMetaSpecialBlock()));
-
-
-    private GT_Recipe buffered_Recipe;
-    private final ArrayList<GT_MetaTileEntity_TM_HatchCasing> mFunctionalCasings = new ArrayList<>();
-    private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
-    private MultiBlockDefinition multiBlockDefinition;
-
     private static final Map<String, Textures.BlockIcons.CustomIcon> ScreensOFF = new HashMap<>();
     private static final Map<String, Textures.BlockIcons.CustomIcon> ScreensON = new HashMap<>();
+    private final ArrayList<GT_MetaTileEntity_TM_HatchCasing> mFunctionalCasings = new ArrayList<>();
+    private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
+    private GT_Recipe buffered_Recipe;
+    private MultiBlockDefinition multiBlockDefinition;
 
     public GT_MetaTileEntity_MultiMachine_RecipeMap(int aID,
                                                     String aName,

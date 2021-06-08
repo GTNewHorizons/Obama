@@ -14,7 +14,7 @@ import static com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.IStruct
 //TODO locale for descriptions
 public enum MultiBlockDefinition {
     //region Instances
-     LARGE_CENTRIFUGE(DefaultStructureDefinition.LARGE_CENTRIFUGE,
+    LARGE_CENTRIFUGE(DefaultStructureDefinition.LARGE_CENTRIFUGE,
             GT_Recipe.GT_Recipe_Map.sCentrifugeRecipes,
             false,
             1,
@@ -253,7 +253,7 @@ public enum MultiBlockDefinition {
     private final int maxParalellsPerTier;
     private final IStructureDefinition<?> structureDefinition;
 
-    <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks>  MultiBlockDefinition(
+    <T extends GT_MetaTileEntity_MultiblockBase_EM & IAddsBlocks> MultiBlockDefinition(
             DefaultStructureDefinition structure,
             GT_Recipe.GT_Recipe_Map recipe_map,
             boolean isPerfectOC,
@@ -275,7 +275,7 @@ public enum MultiBlockDefinition {
             boolean isPerfectOC,
             int maxParalellsPerTier,
             List<String> tooltipLines) {
-        this(structure,recipe_map,isPerfectOC,maxParalellsPerTier,tooltipLines,IDENTITY);
+        this(structure, recipe_map, isPerfectOC, maxParalellsPerTier, tooltipLines, IDENTITY);
     }
 
     private String[] getDescription(List<String> tooltipLines) {

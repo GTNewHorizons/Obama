@@ -71,6 +71,27 @@ public enum DefaultStructureDefinition {
     public static final char OPTIONAL_MAINTENANCE = 'M';
     public static final char OPTIONAL_BLOCK = 'B';
     public static final char OPTIONAL_SPECIAL_BLOCK = 'S';
+    private final GeometricInstance geometrics;
+    private final Block toBuildWith;
+    private final int metaToBuildWith;
+    private final Block specialBlock;
+    private final int metaSpecialBlock;
+    private final int textureIndex;
+    private final Map<IStructureExpander<?>, IStructureDefinition<?>> map = new HashMap<>();
+    DefaultStructureDefinition(GeometricInstance geometrics,
+                               Block toBuildWith, int metaToBuildWith,
+                               Block specialBlock, int metaSpecialBlock, int textureIndex) {
+        this.geometrics = geometrics;
+        this.toBuildWith = toBuildWith;
+        this.metaToBuildWith = metaToBuildWith;
+        this.specialBlock = specialBlock;
+        this.metaSpecialBlock = metaSpecialBlock;
+        this.textureIndex = textureIndex;
+    }
+
+    DefaultStructureDefinition(GeometricInstance geometrics, Block toBuildWith, int metaToBuildWith, int textureIndex) {
+        this(geometrics, toBuildWith, metaToBuildWith, toBuildWith, metaToBuildWith, textureIndex);
+    }
 
     /**
      * Creates a Multiblock Definition
@@ -84,29 +105,30 @@ public enum DefaultStructureDefinition {
      * <p> 6 Muffler Hatch</p>
      * <p> 7 Maintenance Hatch</p>
      * <p> 8 Special Block</p>
-     *
+     * <p>
      * for structures you should make a new String[][]
      *
-     *                     <p>each internal String[] defines a layer</p>
-     *                     <p>each string the blocks of the layer</p>
-     *                     <p>each char is a block definition</p>
-     *                     <p></p>
-     *                     <p>Allowed Characters, Uppercase means OPTIONAL:</p>
-     *                     <p>c = any Input/Output Hatch/Bus or Energy Input Hatch</p>
-     *                     <p>i = Input Hatch/Bus</p>
-     *                     <p>o = Output Hatch/Bus</p>
-     *                     <p>e = Energy Input Hatch</p>
-     *                     <p>d = Dynamo Hatch</p>
-     *                     <p>p = Muffler Hatch</p>
-     *                     <p>m = Maintenance Hatch</p>
-     *                     <p>s = Special Block (i.e. Coils)</p>
-     *                     <p>b = Block</p>
-     *                     <p></p>
-     *                     <p>- = air</p>
-     *                     <p>+ = non-air</p>
-     *                     <p>~ = controller</p>
-     *                     <p>(and other defined in expander)</p>
-     *                     <p></p>
+     * <p>each internal String[] defines a layer</p>
+     * <p>each string the blocks of the layer</p>
+     * <p>each char is a block definition</p>
+     * <p></p>
+     * <p>Allowed Characters, Uppercase means OPTIONAL:</p>
+     * <p>c = any Input/Output Hatch/Bus or Energy Input Hatch</p>
+     * <p>i = Input Hatch/Bus</p>
+     * <p>o = Output Hatch/Bus</p>
+     * <p>e = Energy Input Hatch</p>
+     * <p>d = Dynamo Hatch</p>
+     * <p>p = Muffler Hatch</p>
+     * <p>m = Maintenance Hatch</p>
+     * <p>s = Special Block (i.e. Coils)</p>
+     * <p>b = Block</p>
+     * <p></p>
+     * <p>- = air</p>
+     * <p>+ = non-air</p>
+     * <p>~ = controller</p>
+     * <p>(and other defined in expander)</p>
+     * <p></p>
+     *
      * @param textureIndex the texture for the hatches
      * @param setCasing    Casing Block which is used to build the Multiblock
      * @param setMeta      Casing Block Meta which is used to build the Multiblock
@@ -189,29 +211,6 @@ public enum DefaultStructureDefinition {
                         7,
                         setCasing,
                         setMeta));
-    }
-
-    private final GeometricInstance geometrics;
-    private final Block toBuildWith;
-    private final int metaToBuildWith;
-    private final Block specialBlock;
-    private final int metaSpecialBlock;
-    private final int textureIndex;
-    private final Map<IStructureExpander<?>,IStructureDefinition<?>> map=new HashMap<>();
-
-    DefaultStructureDefinition(GeometricInstance geometrics,
-                               Block toBuildWith, int metaToBuildWith,
-                               Block specialBlock, int metaSpecialBlock, int textureIndex) {
-        this.geometrics = geometrics;
-        this.toBuildWith = toBuildWith;
-        this.metaToBuildWith = metaToBuildWith;
-        this.specialBlock = specialBlock;
-        this.metaSpecialBlock = metaSpecialBlock;
-        this.textureIndex = textureIndex;
-    }
-
-    DefaultStructureDefinition(GeometricInstance geometrics, Block toBuildWith, int metaToBuildWith, int textureIndex) {
-        this(geometrics, toBuildWith, metaToBuildWith, toBuildWith, metaToBuildWith, textureIndex);
     }
 
     @SuppressWarnings("unchecked")

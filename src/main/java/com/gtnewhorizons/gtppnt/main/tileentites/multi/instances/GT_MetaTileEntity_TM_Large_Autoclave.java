@@ -43,16 +43,16 @@ public class GT_MetaTileEntity_TM_Large_Autoclave extends GT_MetaTileEntity_TM_F
         //TODO Add tiered bartworks glass
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START,new String[][]{
-                        {" GGG "," B~B "},
-                        {"G   G","BBBBB"},
-                        {"G   G","BBBBB"},
-                        {"G   G","BBBBB"},
-                        {"A   A","BBBBB"},
-                        {"AclcA","BBBBB"}
+                .addShape(TM_STRUCTURE_START, new String[][]{
+                        {" GGG ", " B~B "},
+                        {"G   G", "BBBBB"},
+                        {"G   G", "BBBBB"},
+                        {"G   G", "BBBBB"},
+                        {"A   A", "BBBBB"},
+                        {"AclcA", "BBBBB"}
 
                 })
-                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
                         {" GGG "},
                         {"G   G"},
                         {"G - G"},
@@ -60,45 +60,45 @@ public class GT_MetaTileEntity_TM_Large_Autoclave extends GT_MetaTileEntity_TM_F
                         {"A   A"},
                         {"AclcA"}
                 })
-                .addShape(TM_STRUCTURE_CAP,new String[][]{
-                        {" BBB "," GGG "},
-                        {"BBBBB","G   G"},
-                        {"BBBBB","G A G"},
-                        {"BBBBB","G   G"},
-                        {"BBBBB","A   A"},
-                        {"BBBBB","AclcA"}
+                .addShape(TM_STRUCTURE_CAP, new String[][]{
+                        {" BBB ", " GGG "},
+                        {"BBBBB", "G   G"},
+                        {"BBBBB", "G A G"},
+                        {"BBBBB", "G   G"},
+                        {"BBBBB", "A   A"},
+                        {"BBBBB", "AclcA"}
                 })
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
-                .addElement('B',ofChain(
+                .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('l',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpToMachineList,
-                        getTextureIndex(),2))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),3))
+                .addElement('l', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpToMachineList,
+                        getTextureIndex(), 2))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 3))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(2,1,0);
+        return new Vec3Impl(2, 1, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(2,2,0);
+        return new Vec3Impl(2, 2, 0);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0,1,0);
+        return new Vec3Impl(0, 1, 0);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0,1,0);
+        return new Vec3Impl(0, 1, 0);
     }
 
     @Override
@@ -125,6 +125,7 @@ public class GT_MetaTileEntity_TM_Large_Autoclave extends GT_MetaTileEntity_TM_F
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

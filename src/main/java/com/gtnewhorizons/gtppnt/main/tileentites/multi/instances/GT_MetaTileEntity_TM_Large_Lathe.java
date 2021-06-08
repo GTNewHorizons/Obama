@@ -39,43 +39,43 @@ public class GT_MetaTileEntity_TM_Large_Lathe extends GT_MetaTileEntity_TM_Facto
     @Override
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START,new String[][]{
-                        {"         ","~--------","BBBBBBBBA"},
-                        {"A        ","mAAAAAAAA","AA------A"},
-                        {"         ","p--------","cBBBBBBBA"},
+                .addShape(TM_STRUCTURE_START, new String[][]{
+                        {"         ", "~--------", "BBBBBBBBA"},
+                        {"A        ", "mAAAAAAAA", "AA------A"},
+                        {"         ", "p--------", "cBBBBBBBA"},
                 })
-                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
-                        {" ","A","B"},
-                        {"A","m","A"},
-                        {" ","p","c"},
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
+                        {" ", "A", "B"},
+                        {"A", "m", "A"},
+                        {" ", "p", "c"},
                 })
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
-                .addElement('B',ofChain(
+                .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('m',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
-                        getTextureIndex(),2))
-                .addElement('p',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
-                        getTextureIndex(),3))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),4))
+                .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
+                        getTextureIndex(), 2))
+                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
+                        getTextureIndex(), 3))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 4))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(0,1,0);
+        return new Vec3Impl(0, 1, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(1,1,0);
+        return new Vec3Impl(1, 1, 0);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(1,0,0);
+        return new Vec3Impl(1, 0, 0);
     }
 
     @Override
@@ -102,6 +102,7 @@ public class GT_MetaTileEntity_TM_Large_Lathe extends GT_MetaTileEntity_TM_Facto
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

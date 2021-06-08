@@ -13,8 +13,6 @@ import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialR
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.*;
 
 public class CasingTextureLoader {
-    public CasingTextureLoader() {
-    }
     public static final byte texturePage = 0; //Using the [0][64-127] - GT++ page since the mods are mutually exclusive
     private static final byte START_INDEX = 64; // 64 offset for the base GT textures
     private static final Map<Short, Byte> basicWerkstoffCasingToTexurePageID = new HashMap<>();
@@ -39,6 +37,9 @@ public class CasingTextureLoader {
         basicWerkstoffCasingToTexurePageID.put(MaragingSteel300.getmID(), (byte) (START_INDEX + 15));
         basicWerkstoffCasingToTexurePageID.put(MaragingSteel350.getmID(), (byte) (START_INDEX + 16));
         advancedWerkstoffCasingToTexurePageID.put(Staballoy.getmID(), (byte) (START_INDEX + 17));
+    }
+
+    public CasingTextureLoader() {
     }
 
     public static void load() {

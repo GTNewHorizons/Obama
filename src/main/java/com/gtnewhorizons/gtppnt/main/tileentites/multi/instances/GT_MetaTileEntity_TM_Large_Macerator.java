@@ -39,54 +39,54 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
     @Override
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_START,new String[][]{
-                        {" AAA ","AAAAA","AA~AA","AAAAA"," AAA "}
+                .addShape(TM_STRUCTURE_START, new String[][]{
+                        {" AAA ", "AAAAA", "AA~AA", "AAAAA", " AAA "}
                 })
-                .addShape(TM_STRUCTURE_MIDDLE,new String[][]{
-                        {" mBp ","c---c","B---B","c---c"," pBm "}
+                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
+                        {" mBp ", "c---c", "B---B", "c---c", " pBm "}
                 })
-                .addShape(TM_STRUCTURE_CAP,new String[][]{
-                        {" AAA ","AAAAA","AAAAA","AAAAA"," AAA "}
+                .addShape(TM_STRUCTURE_CAP, new String[][]{
+                        {" AAA ", "AAAAA", "AAAAA", "AAAAA", " AAA "}
                 })
-                .addElement('A',ofChain(
+                .addElement('A', ofChain(
                         ofBlock(getCasingBlock(), getCasingMeta()),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMaintenanceToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEnergyIOToMachineList,
-                                getTextureIndex(),1)))
-                .addElement('B',ofChain(
+                                getTextureIndex(), 1)))
+                .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addInputToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addOutputToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('m',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
-                        getTextureIndex(),2))
-                .addElement('p',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
-                        getTextureIndex(),3))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),4))
+                .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
+                        getTextureIndex(), 2))
+                .addElement('p', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPistonCasingToMachineList,
+                        getTextureIndex(), 3))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 4))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(2,2,0);
+        return new Vec3Impl(2, 2, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(2,2,-1);
+        return new Vec3Impl(2, 2, -1);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(0,0,-1);
+        return new Vec3Impl(0, 0, -1);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0,0,0);
+        return new Vec3Impl(0, 0, 0);
     }
 
     @Override
@@ -103,6 +103,7 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
     public short getCasingMeta() {
         return TungstenCarbide.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

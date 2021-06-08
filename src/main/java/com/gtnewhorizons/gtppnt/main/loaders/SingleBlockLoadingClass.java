@@ -38,15 +38,6 @@ import static gregtech.api.enums.GT_Values.*;
 @SuppressWarnings("ALL")
 public class SingleBlockLoadingClass {
 
-    private SingleBlockLoadingClass() {
-    }
-
-    //Helper Name Arrays
-    public static ItemStack[] GTTieredBoilers = new ItemStack[VN.length];
-    public static ItemStack[] GTBasicChests = new ItemStack[VN.length];
-    public static ItemStack[] SimpleWashing = new ItemStack[VN.length];
-    public static ItemStack[] SemiFluidGenerator = new ItemStack[3];
-    public static ItemStack[] ThermalGenerator = new ItemStack[3];
     //Recipe Object Arrays
     private static final Object[] SIMPLEWASHERRECIPE = new Object[]{
             "LPL",
@@ -57,9 +48,17 @@ public class SingleBlockLoadingClass {
             'L', GT_MetaTileEntity_BasicMachine_GT_Recipe.X.PLATE,
             'X', GT_MetaTileEntity_BasicMachine_GT_Recipe.X.PIPE,
             'C', GT_MetaTileEntity_BasicMachine_GT_Recipe.X.CIRCUIT};
+    //Helper Name Arrays
+    public static ItemStack[] GTTieredBoilers = new ItemStack[VN.length];
+    public static ItemStack[] GTBasicChests = new ItemStack[VN.length];
+    public static ItemStack[] SimpleWashing = new ItemStack[VN.length];
+    public static ItemStack[] SemiFluidGenerator = new ItemStack[3];
+    public static ItemStack[] ThermalGenerator = new ItemStack[3];
     //Machines
     public static ItemStack[] GTBasicTanks = new ItemStack[VN.length];
     public static ItemStack[] EnhancedMixer = new ItemStack[VN.length];
+    private SingleBlockLoadingClass() {
+    }
 
     public static void load() {
         try {

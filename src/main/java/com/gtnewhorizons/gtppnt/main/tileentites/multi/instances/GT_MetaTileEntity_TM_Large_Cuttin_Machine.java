@@ -63,50 +63,50 @@ public class GT_MetaTileEntity_TM_Large_Cuttin_Machine extends GT_MetaTileEntity
                         {"  ", "AA", "A ", "A ", "AO"},
                 })
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
-                .addElement('B',ofChain(
+                .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicMaintenanceToMachineList,
-                            getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('I',ofChain(
+                .addElement('I', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicInputToMachineList,
-                                getTextureIndex(),8),
-                        ofBlock(getCasingBlock(),getCasingMeta())))
-                .addElement('O',ofChain(
+                                getTextureIndex(), 8),
+                        ofBlock(getCasingBlock(), getCasingMeta())))
+                .addElement('O', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicOutputToMachineList,
-                                getTextureIndex(),3),
-                        ofBlock(getCasingBlock(),getCasingMeta())))
-                .addElement('P',ofChain(
+                                getTextureIndex(), 3),
+                        ofBlock(getCasingBlock(), getCasingMeta())))
+                .addElement('P', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEnergyIOToMachineList,
-                                getTextureIndex(),4),
-                        ofBlock(getCasingBlock(),getCasingMeta())))
-                .addElement('m',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
-                        getTextureIndex(),5))
-                .addElement('v',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
-                        getTextureIndex(),6))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),7))
+                                getTextureIndex(), 4),
+                        ofBlock(getCasingBlock(), getCasingMeta())))
+                .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
+                        getTextureIndex(), 5))
+                .addElement('v', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorToMachineList,
+                        getTextureIndex(), 6))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 7))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(1,4,0);
+        return new Vec3Impl(1, 4, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(-2,4,0);
+        return new Vec3Impl(-2, 4, 0);
     }
 
     @Override
     public Vec3Impl getPerSliceOffset() {
-        return new Vec3Impl(-1,0,0);
+        return new Vec3Impl(-1, 0, 0);
     }
 
     @Override
     public Vec3Impl getCapStructureOffset() {
-        return new Vec3Impl(0,0,0);
+        return new Vec3Impl(0, 0, 0);
     }
 
     @Override
@@ -133,6 +133,7 @@ public class GT_MetaTileEntity_TM_Large_Cuttin_Machine extends GT_MetaTileEntity
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }
+
     @Override
     @SideOnly(Side.CLIENT)
     public String[] getStructureDescription(ItemStack itemStack) {

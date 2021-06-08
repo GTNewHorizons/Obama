@@ -27,6 +27,11 @@ public class GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler extends GT_MetaTileEnt
     private final List<String> description = Arrays.stream(String.format(localizedDescFormat, pollutionReduction)
             .split("\\R")).collect(Collectors.toList());
 
+    //TODO make this cleaner?
+    {
+        description.add(CommonValues.TM_MARK);
+    }
+
     public GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(int aID, int aTier) {
         super(aID, "singlemachine.tm.catalytic_muffler_hatch_" + VN[aTier],
                 "Catalytic Muffler Hatch (" + VN[aTier] + ")", aTier);
@@ -35,11 +40,6 @@ public class GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler extends GT_MetaTileEnt
     public GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(String aName, int aTier, String[] aDescription,
                                                         ITexture[][][] aTextures) {
         super(aName, aTier, aDescription, aTextures);
-    }
-
-    //TODO make this cleaner?
-    {
-        description.add(CommonValues.TM_MARK);
     }
 
     @Override

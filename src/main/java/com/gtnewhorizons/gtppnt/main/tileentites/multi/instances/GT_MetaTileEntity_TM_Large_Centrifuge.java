@@ -45,70 +45,70 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     public IStructureDefinition<? extends GT_MetaTileEntity_MultiblockBase_EM> getMachineStructure() {
         Block reinforcedGlass = Block.getBlockFromName("IC2:blockAlloyGlass");
         return StructureDefinition.<GT_MetaTileEntity_TM_Factory>builder()
-                .addShape(TM_STRUCTURE_A,new String[][]{
-                        {" cc "," A~ "," BB "},
-                        {"cmmc","A--A","BBBB"},
-                        {"cmmc","A--A","BBBB"},
-                        {" cc "," AA "," BB "}
+                .addShape(TM_STRUCTURE_A, new String[][]{
+                        {" cc ", " A~ ", " BB "},
+                        {"cmmc", "A--A", "BBBB"},
+                        {"cmmc", "A--A", "BBBB"},
+                        {" cc ", " AA ", " BB "}
                 })
-                .addShape(TM_STRUCTURE_B,new String[][]{
-                        {" cBc "," A~A "," cBc "},
-                        {"cmmmc","A---A","cBBBc"},
-                        {"BmmmB","A---A","BBBBB"},
-                        {"cmmmc","A---A","cBBBc"},
-                        {" cBc "," AAA "," cBc "}
+                .addShape(TM_STRUCTURE_B, new String[][]{
+                        {" cBc ", " A~A ", " cBc "},
+                        {"cmmmc", "A---A", "cBBBc"},
+                        {"BmmmB", "A---A", "BBBBB"},
+                        {"cmmmc", "A---A", "cBBBc"},
+                        {" cBc ", " AAA ", " cBc "}
                 })
-                .addShape(TM_STRUCTURE_C,new String[][]{
-                        {"  ccc  ","  A~A  ","  ccc  "},
-                        {" cmmmc "," A---A "," cBBBc "},
-                        {"cmmBmmc","A-----A","cBBBBBc"},
-                        {"cmBBBmc","A-----A","cBBBBBc"},
-                        {"cmmBmmc","A-----A","cBBBBBc"},
-                        {" cmmmc "," A---A "," cBBBc "},
-                        {"  ccc  ","  AAA  ","  ccc  "}
+                .addShape(TM_STRUCTURE_C, new String[][]{
+                        {"  ccc  ", "  A~A  ", "  ccc  "},
+                        {" cmmmc ", " A---A ", " cBBBc "},
+                        {"cmmBmmc", "A-----A", "cBBBBBc"},
+                        {"cmBBBmc", "A-----A", "cBBBBBc"},
+                        {"cmmBmmc", "A-----A", "cBBBBBc"},
+                        {" cmmmc ", " A---A ", " cBBBc "},
+                        {"  ccc  ", "  AAA  ", "  ccc  "}
                 })
-                .addShape(TM_STRUCTURE_D,new String[][]{
-                        {"  ccccc  ","  AA~AA  ","  ccccc  "},
-                        {" ccmmmcc "," A-----A "," ccmmmcc "},
-                        {"ccmBBBmcc","A-------A","ccmBBBmcc"},
-                        {"cmBBBBBmc","A-------A","cmBBBBBmc"},
-                        {"cmBBBBBmc","A-------A","cmBBBBBmc"},
-                        {"cmBBBBBmc","A-------A","cmBBBBBmc"},
-                        {"ccmBBBmcc","A-------A","ccmBBBmcc"},
-                        {" ccmmmcc "," A-----A "," ccmmmcc "},
-                        {"  ccccc  ","  AAAAA  ","  ccccc  "}
+                .addShape(TM_STRUCTURE_D, new String[][]{
+                        {"  ccccc  ", "  AA~AA  ", "  ccccc  "},
+                        {" ccmmmcc ", " A-----A ", " ccmmmcc "},
+                        {"ccmBBBmcc", "A-------A", "ccmBBBmcc"},
+                        {"cmBBBBBmc", "A-------A", "cmBBBBBmc"},
+                        {"cmBBBBBmc", "A-------A", "cmBBBBBmc"},
+                        {"cmBBBBBmc", "A-------A", "cmBBBBBmc"},
+                        {"ccmBBBmcc", "A-------A", "ccmBBBmcc"},
+                        {" ccmmmcc ", " A-----A ", " ccmmmcc "},
+                        {"  ccccc  ", "  AAAAA  ", "  ccccc  "}
                 })
                 .addElement('A', ofBlock(getCasingBlock(), getCasingMeta()))
                 .addElement('G', ofBlockAnyMeta(reinforcedGlass))
-                .addElement('B',ofChain(
+                .addElement('B', ofChain(
                         ofHatchAdder(GT_MetaTileEntity_TM_Factory::addClassicToMachineList,
-                                getTextureIndex(),1),
+                                getTextureIndex(), 1),
                         ofBlock(getCasingBlock(), getCasingMeta())))
-                .addElement('m',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
-                        getTextureIndex(),2))
-                .addElement('c',ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
-                        getTextureIndex(),3))
+                .addElement('m', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList,
+                        getTextureIndex(), 2))
+                .addElement('c', ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList,
+                        getTextureIndex(), 3))
                 .build();
     }
 
     @Override
     public Vec3Impl getStartOffsetA() {
-        return new Vec3Impl(2,1,0);
+        return new Vec3Impl(2, 1, 0);
     }
 
     @Override
     public Vec3Impl getStartOffsetB() {
-        return new Vec3Impl(2,1,0);
+        return new Vec3Impl(2, 1, 0);
     }
 
     @Override
     public Vec3Impl getStartOffsetC() {
-        return new Vec3Impl(3,1,0);
+        return new Vec3Impl(3, 1, 0);
     }
 
     @Override
     public Vec3Impl getStartOffsetD() {
-        return new Vec3Impl(4,1,0);
+        return new Vec3Impl(4, 1, 0);
     }
 
     @Override
@@ -132,13 +132,13 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     }
 
     @Override
-    public void setParalellsABCD(int paralells) {
-        this.paralells = paralells;
+    public int getParalellsABCD() {
+        return paralells;
     }
 
     @Override
-    public int getParalellsABCD() {
-        return paralells;
+    public void setParalellsABCD(int paralells) {
+        this.paralells = paralells;
     }
 
     @Override

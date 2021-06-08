@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 public interface IHeatingCoilMachineList {
 
     int getCoilTier();
+
     void setCoilTier(int tier);
 
     default void heatingCoilPreCheck() {
@@ -29,9 +30,7 @@ public interface IHeatingCoilMachineList {
             tier = coilTier;
             setCoilTier(tier);
         } else {
-            if (tier != coilTier) {
-                return false;
-            }
+            return tier == coilTier;
         }
         return true;
     }

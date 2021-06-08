@@ -65,7 +65,7 @@ public class GTAFMod {
         MultiBlockLoader.load();
         HatchCasingLoader.load();
 
-        if (DEBUG){
+        if (DEBUG) {
             IntStream.range(0, GregTech_API.METATILEENTITIES.length).
                     filter(i -> GregTech_API.METATILEENTITIES[i] != null).forEach(LOGGER::info);
         }

@@ -32,14 +32,14 @@ public class GT_MetaTileEntity_TM_HatchCasing extends GT_MetaTileEntity_Hatch {
         this.function = function;
     }
 
-    @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity iGregTechTileEntity) {
-        return new GT_MetaTileEntity_TM_HatchCasing(mName, mTier, mDescription, mTextures, function);
-    }
-
     public GT_MetaTileEntity_TM_HatchCasing(String aName, int aTier, String aDescription, ITexture[][][] aTextures, CasingFunction function) {
         super(aName, aTier, 0, aDescription, aTextures);
         this.function = function;
+    }
+
+    @Override
+    public IMetaTileEntity newMetaEntity(IGregTechTileEntity iGregTechTileEntity) {
+        return new GT_MetaTileEntity_TM_HatchCasing(mName, mTier, mDescription, mTextures, function);
     }
 
     @Override

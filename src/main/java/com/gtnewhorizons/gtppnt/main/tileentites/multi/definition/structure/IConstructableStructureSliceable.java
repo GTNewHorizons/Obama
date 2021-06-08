@@ -18,9 +18,9 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
 
     Vec3Impl getPerSliceOffset();
 
-    void setCurrentStructureOffset(Vec3Impl structureOffset);
-
     Vec3Impl getCurrentStructureOffset();
+
+    void setCurrentStructureOffset(Vec3Impl structureOffset);
 
     int getMaxSlices();
 
@@ -55,7 +55,7 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
     @Override
     default void construct(ItemStack itemStack, boolean hintsOnly) {
         IConstructableStructureImpl.super.construct(itemStack, hintsOnly);
-        int blueprintCount = (itemStack.stackSize -1) + getMinSlices();
+        int blueprintCount = (itemStack.stackSize - 1) + getMinSlices();
         int sliceCount = Math.min(blueprintCount, getMaxSlices());
         setCurrentStructureOffset(getSliceStructureOffset());
 
