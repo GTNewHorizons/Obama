@@ -33,7 +33,7 @@ import java.util.ArrayList;
 
 public class MultiBlockUtils {
 
-    public static int isRecipeEqualAndRemoveParrallel(GT_Recipe recipe, ItemStack[] actaulItemInput, ItemStack[] inputItemsCombined, FluidStack[] inputFluids, int maxParrallel, boolean removeItems) {
+    public static int isRecipeEqualAndRemoveParallel(GT_Recipe recipe, ItemStack[] actaulItemInput, ItemStack[] inputItemsCombined, FluidStack[] inputFluids, int maxParrallel, boolean removeItems) {
         if (recipe.mFluidInputs.length > 0 && inputFluids == null) return 0;
         if (recipe.mInputs.length > 0 && inputItemsCombined == null) return 0;
 
@@ -44,12 +44,12 @@ public class MultiBlockUtils {
         if (maxParrallel == 0) return 0;
 
         if (removeItems) {
-            removeInputParrallel(recipe, inputItemsCombined, actaulItemInput, inputFluids, maxParrallel);
+            removeInputParallel(recipe, inputItemsCombined, actaulItemInput, inputFluids, maxParrallel);
         }
         return maxParrallel;
     }
 
-    public static RecipeProgresion getRecipeProgresionWithOC(GT_Recipe recipe, int recipeVoltage, int inputVolatge, int amount) {
+    public static RecipeProgresion getRecipeProgressionWithOC(GT_Recipe recipe, int recipeVoltage, int inputVolatge, int amount) {
         int recipeTime = recipe.mDuration;
         int newVolatge = recipeVoltage << 2;
         while (newVolatge < inputVolatge && recipeTime > 1) {
@@ -91,8 +91,8 @@ public class MultiBlockUtils {
         }
     }
 
-    // remove fluids and items with parrallel
-    private static void removeInputParrallel(GT_Recipe recipe, ItemStack[] combinedStacks, ItemStack[] actaulItemInput, FluidStack[] inputFluids, int parrallel) {
+    // remove fluids and items with parallel
+    private static void removeInputParallel(GT_Recipe recipe, ItemStack[] combinedStacks, ItemStack[] actaulItemInput, FluidStack[] inputFluids, int parrallel) {
         ItemStack[] toRemoveItems = removeItemList(recipe, parrallel);
         FluidStack[] toRemoveFluids = removeFluidList(recipe, parrallel);
         removeFromCombinedStack(toRemoveItems, combinedStacks, parrallel);
@@ -316,7 +316,7 @@ public class MultiBlockUtils {
     }
 
 
-    //TODO Delete everything above here
+    //TODO Delete, old Bart code.
     @Deprecated
     public static ItemStack[] sortItemStacks(ArrayList<ItemStack> tInputList) {
         int tInputList_sS = tInputList.size();
@@ -337,39 +337,7 @@ public class MultiBlockUtils {
         return tInputList.toArray(new ItemStack[0]);
     }
 
-    public static ItemStack[] sortInputItemStacks(ArrayList<ItemStack> inputList) {
-        //ArrayList<ItemStack> outputList = new ArrayList<>();
-        //for (ItemStack itemStack : inputList) {
-        //    OptionalInt outputIndex = IntStream.range(0, outputList.size())
-        //            .filter(i -> GT_Utility.areStacksEqual(outputList.get(i), itemStack) ||
-        //                    outputList.get(i).stackSize > itemStack.stackSize)
-        //            .findFirst();
-        //    if (outputIndex.isPresent()) {
-        //        outputList.set(outputIndex.getAsInt(), itemStack);
-        //    } else {
-        //        outputList.add(itemStack);
-        //    }
-        //}
-        //return outputList.toArray(new ItemStack[0]);
-        return inputList.toArray(new ItemStack[0]);
-    }
-
-    public static ItemStack[] sortOutputItemStacks(ArrayList<ItemStack> inputList) {
-        //ArrayList<ItemStack> outputList = new ArrayList<>();
-        //for (ItemStack itemStack : inputList) {
-        //    OptionalInt outputIndex = IntStream.range(0, outputList.size())
-        //            .filter(i -> GT_Utility.areStacksEqual(outputList.get(i), itemStack))
-        //            .findFirst();
-        //    if (outputIndex.isPresent()) {
-        //        outputList.get(outputIndex.getAsInt()).stackSize += itemStack.stackSize;
-        //    } else {
-        //        outputList.add(itemStack);
-        //    }
-        //}
-        //return outputList.toArray(new ItemStack[0]);
-        return inputList.toArray(new ItemStack[0]);
-    }
-
+    //TODO Delete, old Bart code.
     @Deprecated
     public static FluidStack[] sortFluidStacks(ArrayList<FluidStack> tFluidList) {
         int tFluidList_sS = tFluidList.size();
@@ -388,38 +356,5 @@ public class MultiBlockUtils {
             }
         }
         return tFluidList.toArray(new FluidStack[0]);
-    }
-
-    public static FluidStack[] sortInputFluidStacks(ArrayList<FluidStack> inputList) {
-        //ArrayList<FluidStack> outputList = new ArrayList<>();
-        //for (FluidStack fluidStack : inputList) {
-        //    OptionalInt outputIndex = IntStream.range(0, outputList.size())
-        //            .filter(i -> GT_Utility.areFluidsEqual(outputList.get(i), fluidStack) ||
-        //                    outputList.get(i).amount > fluidStack.amount)
-        //            .findFirst();
-        //    if (outputIndex.isPresent()) {
-        //        outputList.set(outputIndex.getAsInt(), fluidStack);
-        //    } else {
-        //        outputList.add(fluidStack);
-        //    }
-        //}
-        //return outputList.toArray(new FluidStack[0]);
-        return inputList.toArray(new FluidStack[0]);
-    }
-
-    public static FluidStack[] sortOutputFluidStacks(ArrayList<FluidStack> inputList) {
-        //ArrayList<FluidStack> outputList = new ArrayList<>();
-        //for (FluidStack fluidStack : inputList) {
-        //    OptionalInt outputIndex = IntStream.range(0, outputList.size())
-        //            .filter(i -> GT_Utility.areFluidsEqual(outputList.get(i), fluidStack))
-        //            .findFirst();
-        //    if (outputIndex.isPresent()) {
-        //        outputList.get(outputIndex.getAsInt()).amount += fluidStack.amount;
-        //    } else {
-        //        outputList.add(fluidStack);
-        //    }
-        //}
-        //return outputList.toArray(new FluidStack[0]);
-        return inputList.toArray(new FluidStack[0]);
     }
 }

@@ -29,7 +29,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-//TODO: Test, Make Textures
+//TODO Verify function, tidy up.
 public class GT_MetaTileEntity_SteamConverter extends GT_MetaTileEntity_BasicTank {
 
     private FluidStack mOutputStack = new FluidStack(FluidRegistry.WATER, 0);

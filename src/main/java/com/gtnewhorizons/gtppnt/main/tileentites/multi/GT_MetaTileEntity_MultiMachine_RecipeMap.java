@@ -52,7 +52,8 @@ import static com.github.technus.tectech.mechanics.structure.StructureUtility.of
 import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.texturePage;
 
 
-//TODO: Test this SHIT
+//TODO Delete this Bart code
+@Deprecated
 public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_MultiblockBase_EM implements
         IAddsBlocks, IConstructable/* this interface adds blueprinting option*/ {
 

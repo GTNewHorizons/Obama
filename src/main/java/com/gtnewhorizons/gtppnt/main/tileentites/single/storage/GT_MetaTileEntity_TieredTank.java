@@ -30,6 +30,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 
+//TODO Cross verify with the original tiered tanks from GT5
 public class GT_MetaTileEntity_TieredTank extends GT_MetaTileEntity_BasicTank {
 
     public GT_MetaTileEntity_TieredTank(int aID, String aName, String aNameRegional, int aTier) {

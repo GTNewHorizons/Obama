@@ -2,7 +2,6 @@ package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition;
 
 import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
-import com.github.technus.tectech.thing.metaTileEntity.hatch.GT_MetaTileEntity_Hatch_EnergyMulti;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.util.CommonValues;
 import com.github.technus.tectech.util.Vec3Impl;
@@ -19,8 +18,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Hatch_Energy;
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_MultiBlockBase;
 import gregtech.api.util.GT_Recipe;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -28,10 +25,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.*;
-
-import static com.github.technus.tectech.util.CommonValues.VN;
 
 //TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_MultiblockBase_EM implements
@@ -222,15 +218,15 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
             if (finishedRecipes.size() > 0) {
                 ItemStack[] outputItems;
                 FluidStack[] outputFluids;
-                int freedParrallel = 0;
+                int freedParallel = 0;
                 int freedPower = 0;
 
-                //get output items, fluids,parrallel and power from finished recipes
+                //get output items, fluids, parallel and power from finished recipes
                 if (finishedRecipes.size() == 1) {//if only 1 recipe is done avoid the extra processing
                     RecipeProgresion finishedRecipe = finishedRecipes.get(0);
                     outputItems = finishedRecipe.getItems();
                     outputFluids = finishedRecipe.getFluids();
-                    freedParrallel = finishedRecipe.getAmount();
+                    freedParallel = finishedRecipe.getAmount();
                     freedPower = finishedRecipe.getEUUsage();
                 } else {
                     outputItems = new ItemStack[totalItemStacks];
@@ -249,7 +245,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         for (int i = 0; i < fluidLen; i++) {
                             outputFluids[i + fluidIndex] = fluids[i];
                         }
-                        freedParrallel += finishedRecipe.getAmount();
+                        freedParallel += finishedRecipe.getAmount();
                         freedPower += finishedRecipe.getEUUsage();
                     }
                 }
@@ -264,7 +260,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                 runningRecipes = newRunning;
                 mOutputItems = outputItems;
                 mOutputFluids = outputFluids;
-                parallelRunning -= freedParrallel;
+                parallelRunning -= freedParallel;
                 mEUt += freedPower;
                 if (!getBaseMetaTileEntity().isAllowedToWork()) {
                     mMaxProgresstime = newProgressTime;
@@ -346,13 +342,13 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     //allows multies to overide this incase more special recipe check is needid
     public int checkAndConsumeRecipe(GT_Recipe recipe, ItemStack[] inputItems, ItemStack[] combinedItems,
                                      FluidStack[] inputFluids, int parrallel) {
-        return MultiBlockUtils.isRecipeEqualAndRemoveParrallel(recipe,
+        return MultiBlockUtils.isRecipeEqualAndRemoveParallel(recipe,
                 inputItems, combinedItems, inputFluids, parrallel, true);
     }
 
     //allows multies to overide this incase more special OC is needid
     public RecipeProgresion getRecipeProgresionWithOC(GT_Recipe recipe, int voltage, int parrallelDone) {
-        return MultiBlockUtils.getRecipeProgresionWithOC(
+        return MultiBlockUtils.getRecipeProgressionWithOC(
                 recipe,
                 getRecipeVoltage(recipe),
                 voltage,
@@ -408,7 +404,6 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     @Override
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         super.onPostTick(aBaseMetaTileEntity, aTick);
-        //TODO Dont Call This Evry Tick
     }
 
     @Override
@@ -442,42 +437,10 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         return functionalCasings;
     }
 
-    //TODO Clean up info data
     @Override
     public String[] getInfoData() {
-        long storedEnergy = 0;
-        long maxEnergy = 0;
-        for (GT_MetaTileEntity_Hatch_Energy tHatch : mEnergyHatches) {
-            if (GT_MetaTileEntity_MultiBlockBase.isValidMetaTileEntity(tHatch)) {
-                storedEnergy += tHatch.getBaseMetaTileEntity().getStoredEU();
-                maxEnergy += tHatch.getBaseMetaTileEntity().getEUCapacity();
-            }
-        }
-        for (GT_MetaTileEntity_Hatch_EnergyMulti tHatch : eEnergyMulti) {
-            if (GT_MetaTileEntity_MultiBlockBase.isValidMetaTileEntity(tHatch)) {
-                storedEnergy += tHatch.getBaseMetaTileEntity().getStoredEU();
-                maxEnergy += tHatch.getBaseMetaTileEntity().getEUCapacity();
-            }
-        }
-
-        return new String[]{
-                "Progress:",
-                EnumChatFormatting.GREEN + Integer.toString(mProgresstime / 20) + EnumChatFormatting.RESET + " s / " +
-                        EnumChatFormatting.YELLOW + mMaxProgresstime / 20 + EnumChatFormatting.RESET + " s",
-                "Energy Hatches:",
-                EnumChatFormatting.GREEN + Long.toString(storedEnergy) + EnumChatFormatting.RESET + " EU / " +
-                        EnumChatFormatting.YELLOW + maxEnergy + EnumChatFormatting.RESET + " EU",
-                (mEUt * eAmpereFlow <= 0 ? "Probably uses: " : "Probably makes: ") +
-                        EnumChatFormatting.RED + Math.abs(mEUt) + EnumChatFormatting.RESET + " EU/t at " +
-                        EnumChatFormatting.RED + eAmpereFlow + EnumChatFormatting.RESET + " A",
-                "Tier Rating: " + EnumChatFormatting.YELLOW + VN[getMaxEnergyInputTier_EM()] + EnumChatFormatting.RESET + " / " + EnumChatFormatting.GREEN + VN[getMinEnergyInputTier_EM()] + EnumChatFormatting.RESET +
-                        " Amp Rating: " + EnumChatFormatting.GREEN + eMaxAmpereFlow + EnumChatFormatting.RESET + " A",
-                "Problems: " + EnumChatFormatting.RED + (getIdealStatus() - getRepairStatus()) + EnumChatFormatting.RESET +
-                        " Efficiency: " + EnumChatFormatting.YELLOW + mEfficiency / 100.0F + EnumChatFormatting.RESET + " %",
-                "PowerPass: " + EnumChatFormatting.BLUE + ePowerPass + EnumChatFormatting.RESET +
-                        " SafeVoid: " + EnumChatFormatting.BLUE + eSafeVoid,
-                "Computation: " + EnumChatFormatting.GREEN + eAvailableData + EnumChatFormatting.RESET + " / " + EnumChatFormatting.YELLOW + eRequiredData + EnumChatFormatting.RESET,
-                "Max Parrallel: " + EnumChatFormatting.GREEN + getMaxParalells()
-        };
+        return ArrayUtils.add(super.getInfoData(),
+                "Max Parallel: " + EnumChatFormatting.GREEN + getMaxParalells() + EnumChatFormatting.RESET +
+                        " / " + EnumChatFormatting.YELLOW + parallelRunning + EnumChatFormatting.RESET);
     }
 }
