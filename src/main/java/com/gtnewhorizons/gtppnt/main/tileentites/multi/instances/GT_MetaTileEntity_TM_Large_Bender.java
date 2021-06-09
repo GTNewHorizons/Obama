@@ -104,6 +104,11 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
     }
 
     @Override
+    public int getMinParallel() {
+        return 0;
+    }
+
+    @Override
     public short getCasingMeta() {
         return Titanium.getmID();
     }

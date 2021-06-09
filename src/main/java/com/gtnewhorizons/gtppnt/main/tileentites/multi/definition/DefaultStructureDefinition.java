@@ -95,7 +95,7 @@ public enum DefaultStructureDefinition {
 
     /**
      * Creates a Multiblock Definition
-     * <p></p>
+     *
      * <p>Hints are: </p>
      * <p> 1 Any hatch?/Bus</p>
      * <p> 2 Input Hatch/Bus</p>
@@ -105,13 +105,13 @@ public enum DefaultStructureDefinition {
      * <p> 6 Muffler Hatch</p>
      * <p> 7 Maintenance Hatch</p>
      * <p> 8 Special Block</p>
-     * <p>
+     *
      * for structures you should make a new String[][]
      *
      * <p>each internal String[] defines a layer</p>
      * <p>each string the blocks of the layer</p>
      * <p>each char is a block definition</p>
-     * <p></p>
+     *
      * <p>Allowed Characters, Uppercase means OPTIONAL:</p>
      * <p>c = any Input/Output Hatch/Bus or Energy Input Hatch</p>
      * <p>i = Input Hatch/Bus</p>
@@ -122,16 +122,16 @@ public enum DefaultStructureDefinition {
      * <p>m = Maintenance Hatch</p>
      * <p>s = Special Block (i.e. Coils)</p>
      * <p>b = Block</p>
-     * <p></p>
+     *
      * <p>- = air</p>
      * <p>+ = non-air</p>
      * <p>~ = controller</p>
      * <p>(and other defined in expander)</p>
-     * <p></p>
      *
-     * @param textureIndex the texture for the hatches
-     * @param setCasing    Casing Block which is used to build the Multiblock
-     * @param setMeta      Casing Block Meta which is used to build the Multiblock
+     * @param <T>           The multiblock type to extend
+     * @param textureIndex  The texture for the hatches
+     * @param setCasing     Casing Block which is used to build the Multiblock
+     * @param setMeta       Casing Block Meta which is used to build the Multiblock
      * @return IStructureDefinition for your Multiblock
      */
     @SuppressWarnings("deprecation")

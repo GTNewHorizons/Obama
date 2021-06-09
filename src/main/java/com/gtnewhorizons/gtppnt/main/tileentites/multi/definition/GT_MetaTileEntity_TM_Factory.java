@@ -39,14 +39,15 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         IHeatingCoilMachineList {
     private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
     private byte casingTier = 0;
-    private int paralellsABCD = 0;
     private int coilTier = 0;
     private Vec3Impl structureOffset;
-    private int sliceCount = 0;
     private GT_Recipe buffered_Recipe;
     private RecipeProgresion[] runningRecipes = new RecipeProgresion[0];
     private int parallelRunning = 0;
     private int newProgressTime = Integer.MAX_VALUE;
+
+    private int structureCounter = 0;
+    private int maxParalells = 0;
 
     //region Constructors
     public GT_MetaTileEntity_TM_Factory(int aID, String aName, String aNameRegional) {
@@ -115,35 +116,35 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     }
     //endregion
 
-    //region Sliceable Shape Interface
+    //region Shape Interface
+    @Override
     public void setCurrentStructureOffset(Vec3Impl structureOffset) {
         this.structureOffset = structureOffset;
     }
 
+    @Override
     public Vec3Impl getCurrentStructureOffset() {
         return this.structureOffset;
     }
 
-    public int getMinParallel() {
-        return 0;
+    @Override
+    public int getStructureCounter() {
+        return structureCounter;
     }
 
-    public int getSliceCount() {
-        return sliceCount;
+    @Override
+    public void setStructureCounter(int structureCounter) {
+        this.structureCounter = structureCounter;
     }
 
-    public void setSliceCount(int sliceCount) {
-        this.sliceCount = sliceCount;
-    }
-    //endregion
-
-    //region ABCD Shape Interface
-    public int getParalellsABCD() {
-        return paralellsABCD;
+    @Override
+    public int getMaxParalells() {
+        return maxParalells;
     }
 
-    public void setParalellsABCD(int paralells) {
-        this.paralellsABCD = paralells;
+    @Override
+    public void setMaxParalells(int maxParalells) {
+        this.maxParalells = maxParalells;
     }
     //endregion
 
@@ -188,12 +189,12 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
 
     @Override
     public boolean onRunningTick(ItemStack aStack) {
-        recipeControll();
+        recipeControl();
         return super.onRunningTick(aStack);
     }
 
     //TODO test without null check
-    void recipeControll() {
+    void recipeControl() {
         int progressTime = this.mProgresstime + 1;
         if (this.mMaxProgresstime > 0 && progressTime >= this.mMaxProgresstime && runningRecipes != null) {
             // if all new or remaning recipes are more then 100 ticks long it will still recheck a recipe in 100 ticks
@@ -278,7 +279,7 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         boolean canRunRecipe = false;
         int totalEUUsage = this.mEUt;
         int maxTotalRecipes = getMaxUniqueRecipes() - runningRecipes.length;
-        //check if we can actualy add any new recipes
+        //check if we can actually add any new recipes
         if (this.getEUVar() > this.getMaxInputVoltage() && maxTotalRecipes > 0) {
             ItemStack[] inputItems = this.getStoredInputs().toArray(new ItemStack[0]);
             FluidStack[] inputFluids = this.getStoredFluids().toArray(new FluidStack[0]);
@@ -292,12 +293,12 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                         this.getMaxInputVoltage(),
                         inputFluids,
                         inputItems);
-                int parrallel = getMaxParalells() - parallelRunning;
-                int parrallelDone = 0;
+                int parallel = getMaxParalells() - parallelRunning;
+                int parallelDone = 0;
                 int voltage = (int) getMaxVoltage();
                 int amps = (int) getMaxInputEnergy() / voltage;
-                if (amps < parrallel) {
-                    parrallel = amps;
+                if (amps < parallel) {
+                    parallel = amps;
                 }
                 ArrayList<RecipeProgresion> newRecipes = new ArrayList<>();
                 for (GT_Recipe recipe : recipes) {
@@ -306,21 +307,21 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
                             this.buffered_Recipe = recipe;
                         }
 
-                        parrallelDone = checkAndConsumeRecipe(recipe, inputItems, combinedItems, inputFluids, parrallel);
+                        parallelDone = checkAndConsumeRecipe(recipe, inputItems, combinedItems, inputFluids, parallel);
 
-                        if (parrallelDone > 0) {
+                        if (parallelDone > 0) {
 
-                            RecipeProgresion processedRecipe = getRecipeProgresionWithOC(recipe, voltage, parrallelDone);
+                            RecipeProgresion processedRecipe = getRecipeProgresionWithOC(recipe, voltage, parallelDone);
                             newRecipes.add(processedRecipe);
                             totalEUUsage -= processedRecipe.getEUUsage();
 
                             newProgressTime = Math.min(newProgressTime, processedRecipe.getTimeLeft());
-                            parallelRunning += parrallelDone;
-                            parrallel -= parrallelDone;
+                            parallelRunning += parallelDone;
+                            parallel -= parallelDone;
                             canRunRecipe = true;
                         }
                     }
-                    if (parrallel < 1 || maxTotalRecipes < newRecipes.size())
+                    if (parallel < 1 || maxTotalRecipes < newRecipes.size())
                         break;
                 }
                 if (canRunRecipe) {
@@ -416,21 +417,6 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
     }
     //endregion
 
-//    @Override
-//    public int getSliceCount() {
-//        return sliceCount;
-//    }
-
-//    @Override
-//    public void setSliceCount(int sliceCount) {
-//        this.sliceCount = sliceCount;
-//    }
-
-//    @Override
-//    public int getMinSlices() {
-//        return 1;
-//    }
-
     @Override
     public byte getCasingTier() {
         return casingTier;
@@ -456,8 +442,9 @@ public abstract class GT_MetaTileEntity_TM_Factory extends GT_MetaTileEntity_Mul
         return functionalCasings;
     }
 
+    //TODO Clean up info data
     @Override
-    public String[] getInfoData() {//TODO Do it
+    public String[] getInfoData() {
         long storedEnergy = 0;
         long maxEnergy = 0;
         for (GT_MetaTileEntity_Hatch_Energy tHatch : mEnergyHatches) {

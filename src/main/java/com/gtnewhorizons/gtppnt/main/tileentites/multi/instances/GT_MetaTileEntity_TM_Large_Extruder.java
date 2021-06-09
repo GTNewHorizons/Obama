@@ -119,6 +119,11 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
     }
 
     @Override
+    public int getMinParallel() {
+        return 0;
+    }
+
+    @Override
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }

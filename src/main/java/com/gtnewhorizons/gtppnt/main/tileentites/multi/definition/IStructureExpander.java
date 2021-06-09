@@ -10,8 +10,9 @@ public interface IStructureExpander<T> {
     /**
      * Used to Expand definition, applying more shapes is not really that well supported...
      *
-     * @param toExpand definition builder to expand on
-     * @return expanded structure
+     * @param definition    initial definition
+     * @param toExpand      definition builder to expand on
+     * @return              expanded structure
      */
     StructureDefinition.Builder<T> apply(DefaultStructureDefinition definition, StructureDefinition.Builder<T> toExpand);
 }

@@ -4,7 +4,15 @@ package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.item.ItemStack;
 
+/**
+ * <p>The shape constructable structure interface implementation used to construct and check machines.
+ *
+ * <p>It is meant to be used for extensible multiblocks, where different sizes require a different 'shape' be built.
+ */
 public interface IConstructableStructureShapes extends IConstructableStructureABCD {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     default boolean checkMachine_TM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         if (checkMachineD())
@@ -19,6 +27,9 @@ public interface IConstructableStructureShapes extends IConstructableStructureAB
         return checkMachineA();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     default void construct(ItemStack itemStack, boolean hintsOnly) {
         int shape = Math.min(itemStack.stackSize, 4);

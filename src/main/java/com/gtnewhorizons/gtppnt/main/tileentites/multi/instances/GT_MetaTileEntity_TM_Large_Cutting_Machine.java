@@ -120,12 +120,12 @@ public class GT_MetaTileEntity_TM_Large_Cutting_Machine extends GT_MetaTileEntit
     }
 
     @Override
-    public int getMinParallel() {
+    public int getParalellsPerSlice() {
         return 16;
     }
 
     @Override
-    public int getParalellsPerSlice() {
+    public int getMinParallel() {
         return 16;
     }
 

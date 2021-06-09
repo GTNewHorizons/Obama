@@ -119,13 +119,13 @@ public class GT_MetaTileEntity_TM_Large_Assembler extends GT_MetaTileEntity_TM_F
     }
 
     @Override
-    public int getMinParallel() {
-        return 32;
+    public int getParalellsPerSlice() {
+        return 48;
     }
 
     @Override
-    public int getParalellsPerSlice() {
-        return 48;
+    public int getMinParallel() {
+        return 32;
     }
 
     @Override

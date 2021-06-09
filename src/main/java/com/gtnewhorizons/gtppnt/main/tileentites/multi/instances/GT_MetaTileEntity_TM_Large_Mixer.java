@@ -120,6 +120,11 @@ public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Facto
     }
 
     @Override
+    public int getMinParallel() {
+        return 0;
+    }
+
+    @Override
     public short getCasingMeta() {
         return ZirconiumCarbide.getmID();
     }

@@ -113,13 +113,13 @@ public class GT_MetaTileEntity_TM_Large_Autoclave extends GT_MetaTileEntity_TM_F
     }
 
     @Override
-    public int getMinParallel() {
-        return 32;
+    public int getParalellsPerSlice() {
+        return 16;
     }
 
     @Override
-    public int getParalellsPerSlice() {
-        return 16;
+    public int getMinParallel() {
+        return 32;
     }
 
     @Override

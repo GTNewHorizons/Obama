@@ -3,102 +3,204 @@ package com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.structure;
 import com.github.technus.tectech.util.Vec3Impl;
 import net.minecraft.item.ItemStack;
 
+/**
+ * <p>The abstract ABCD constructable structure interface used to construct and check machines.
+ */
 public interface IConstructableStructureABCD extends IConstructableStructure {
     String TM_STRUCTURE_A = "A";
     String TM_STRUCTURE_B = "B";
     String TM_STRUCTURE_C = "C";
     String TM_STRUCTURE_D = "D";
 
+    /**
+     * <p>Gets start offset for shape A.
+     * 
+     * <p>Intended to be defined by the final machine class implementation.
+     *
+     * @return the start offset
+     */
     Vec3Impl getStartOffsetA();
 
+    /**
+     * <p>Gets start offset for shape B.
+     * 
+     * <p>Intended to be defined by the final machine class implementation.
+     *
+     * @return the start offset
+     */
     default Vec3Impl getStartOffsetB() {
         return null;
     }
 
+    /**
+     * <p>Gets start offset for shape C.
+     * 
+     * <p>Intended to be defined by the final machine class implementation.
+     *
+     * @return the start offset
+     */
     default Vec3Impl getStartOffsetC() {
         return null;
     }
 
+    /**
+     * <p>Gets start offset for shape D.
+     * 
+     * <p>Intended to be defined by the final machine class implementation.
+     *
+     * @return the start offset
+     */
     default Vec3Impl getStartOffsetD() {
         return null;
     }
 
-    @Override
-    default int getMaxParalells() {
-        return getParalellsABCD();
-    }
-
-    int getParalellsABCD();
-
-    void setParalellsABCD(int paralells);
-
+    /**
+     * <p>Gets paralells for shape A.
+     * 
+     * <p>Intended to be defined by the final machine class implementation.
+     *
+     * @return the paralells
+     */
     int getParalellsA();
 
+    /**
+     * <p>Gets paralells for shape B.
+     * 
+     * <p>Intended to be defined by the final machine class implementation.
+     *
+     * @return the paralells
+     */
     default int getParalellsB() {
-        return getParalellsA();
+        return 0;
     }
 
+    /**
+     * <p>Gets paralells for shape C.
+     * 
+     * <p>Intended to be defined by the final machine class implementation.
+     *
+     * @return the paralells
+     */
     default int getParalellsC() {
-        return getParalellsA();
+        return 0;
     }
 
+    /**
+     * <p>Gets paralells for shape D.
+     * 
+     * <p>Intended to be defined by the final machine class implementation.
+     *
+     * @return the paralells
+     */
     default int getParalellsD() {
-        return getParalellsA();
+        return 0;
     }
 
-    default boolean checkMachineABCD(String piece, Vec3Impl offset) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default boolean structureCheck_TM(String piece, Vec3Impl offset) {
         if (offset == null)
             return false;
-        return structureCheck_TM(piece, offset);
+        return IConstructableStructure.super.structureCheck_TM(piece, offset);
     }
 
+    /**
+     * <p>Check machine shape A and sets appropriate parallel count.
+     *
+     * @return true if shape valid
+     */
     default boolean checkMachineA() {
-        if (!checkMachineABCD(TM_STRUCTURE_A, getStartOffsetA()))
+        if (!structureCheck_TM(TM_STRUCTURE_A, getStartOffsetA()))
             return false;
-        setParalellsABCD(getParalellsA());
+        setMaxParalells(getParalellsA());
         return true;
     }
 
+    /**
+     * <p>Check machine shape B and sets appropriate parallel count.
+     *
+     * @return true if shape valid
+     */
     default boolean checkMachineB() {
-        if (!checkMachineABCD(TM_STRUCTURE_B, getStartOffsetB()))
+        if (!structureCheck_TM(TM_STRUCTURE_B, getStartOffsetB()))
             return false;
-        setParalellsABCD(getParalellsB());
+        setMaxParalells(getParalellsB());
         return true;
     }
 
+    /**
+     * <p>Check machine shape C and sets appropriate parallel count.
+     *
+     * @return true if shape valid
+     */
     default boolean checkMachineC() {
-        if (!checkMachineABCD(TM_STRUCTURE_C, getStartOffsetC()))
+        if (!structureCheck_TM(TM_STRUCTURE_C, getStartOffsetC()))
             return false;
-        setParalellsABCD(getParalellsC());
+        setMaxParalells(getParalellsC());
         return true;
     }
 
+    /**
+     * <p>Check machine shape D and sets appropriate parallel count.
+     *
+     * @return true if shape valid
+     */
     default boolean checkMachineD() {
-        if (!checkMachineABCD(TM_STRUCTURE_D, getStartOffsetD()))
+        if (!structureCheck_TM(TM_STRUCTURE_D, getStartOffsetD()))
             return false;
-        setParalellsABCD(getParalellsD());
+        setMaxParalells(getParalellsD());
         return true;
     }
 
-    default void constructMachineLetterABCD(String piece, Vec3Impl offset, boolean hintsOnly, ItemStack trigger) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default boolean structureBuild_TM(String piece, Vec3Impl offset, boolean hintsOnly, ItemStack trigger) {
         if (offset == null)
-            return;
-        structureBuild_TM(piece, offset, hintsOnly, trigger);
+            return false;
+        return IConstructableStructure.super.structureBuild_TM(piece, offset, hintsOnly, trigger);
     }
 
+    /**
+     * <p>Construct machine for shape A.
+     *
+     * @param hintsOnly the hints only switch
+     * @param trigger   the trigger item
+     */
     default void constructMachineA(boolean hintsOnly, ItemStack trigger) {
-        constructMachineLetterABCD(TM_STRUCTURE_A, getStartOffsetA(), hintsOnly, trigger);
+        structureBuild_TM(TM_STRUCTURE_A, getStartOffsetA(), hintsOnly, trigger);
     }
 
+    /**
+     * <p>Construct machine for shape B.
+     *
+     * @param hintsOnly the hints only switch
+     * @param trigger   the trigger item
+     */
     default void constructMachineB(boolean hintsOnly, ItemStack trigger) {
-        constructMachineLetterABCD(TM_STRUCTURE_B, getStartOffsetB(), hintsOnly, trigger);
+        structureBuild_TM(TM_STRUCTURE_B, getStartOffsetB(), hintsOnly, trigger);
     }
 
+    /**
+     * <p>Construct machine for shape C.
+     *
+     * @param hintsOnly the hints only switch
+     * @param trigger   the trigger item
+     */
     default void constructMachineC(boolean hintsOnly, ItemStack trigger) {
-        constructMachineLetterABCD(TM_STRUCTURE_C, getStartOffsetC(), hintsOnly, trigger);
+        structureBuild_TM(TM_STRUCTURE_C, getStartOffsetC(), hintsOnly, trigger);
     }
 
+    /**
+     * <p>Construct machine for shape D.
+     *
+     * @param hintsOnly the hints only switch
+     * @param trigger   the trigger item
+     */
     default void constructMachineD(boolean hintsOnly, ItemStack trigger) {
-        constructMachineLetterABCD(TM_STRUCTURE_D, getStartOffsetD(), hintsOnly, trigger);
+        structureBuild_TM(TM_STRUCTURE_D, getStartOffsetD(), hintsOnly, trigger);
     }
 }

@@ -90,12 +90,12 @@ public class GT_MetaTileEntity_TM_Large_Lathe extends GT_MetaTileEntity_TM_Facto
     }
 
     @Override
-    public int getMinParallel() {
+    public int getParalellsPerSlice() {
         return 16;
     }
 
     @Override
-    public int getParalellsPerSlice() {
+    public int getMinParallel() {
         return 16;
     }
 

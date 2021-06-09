@@ -106,6 +106,11 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
     }
 
     @Override
+    public int getMinParallel() {
+        return 0;
+    }
+
+    @Override
     public short getCasingMeta() {
         return TungstenCarbide.getmID();
     }

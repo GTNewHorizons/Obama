@@ -182,19 +182,27 @@ tasks.withType<Jar> {
     }
 }
 
-val sourcesJar by tasks.creating(Jar::class) {
-    this.from(sourceSets.main.get().allSource)
-    this.archiveClassifier.set("sources")
-}
+tasks {
+    val sourcesJar by creating(Jar::class) {
+        this.from(sourceSets.main.get().allSource)
+        this.archiveClassifier.set("sources")
+    }
 
-val devJar by tasks.creating(Jar::class) {
-    this.from(sourceSets.main.get().output)
-    this.archiveClassifier.set("dev")
-}
+    val javadocJar by creating(Jar::class) {
+        dependsOn.add(javadoc)
+        archiveClassifier.set("javadoc")
+        from(javadoc)
+    }
 
-artifacts {
-    this.archives(sourcesJar)
-    this.archives(devJar)
+    val devJar by creating(Jar::class) {
+        from(sourceSets.main.get().output)
+        archiveClassifier.set("dev")
+    }
+    artifacts {
+        archives(sourcesJar)
+        archives(javadocJar)
+        archives(devJar)
+    }
 }
 
 //Fixes texture loading during 'Minecraft Client' debugging

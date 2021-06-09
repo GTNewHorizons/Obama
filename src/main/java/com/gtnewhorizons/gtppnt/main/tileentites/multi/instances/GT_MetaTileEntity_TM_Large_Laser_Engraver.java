@@ -109,6 +109,11 @@ public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity
     }
 
     @Override
+    public int getMinParallel() {
+        return 0;
+    }
+
+    @Override
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }

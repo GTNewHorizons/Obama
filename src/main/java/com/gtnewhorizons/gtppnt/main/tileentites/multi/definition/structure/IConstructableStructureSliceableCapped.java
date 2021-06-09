@@ -4,11 +4,29 @@ import com.github.technus.tectech.util.Vec3Impl;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.item.ItemStack;
 
+/**
+ * <p>The sliceable capped constructable structure interface implementation used to construct and check machines.
+ *
+ * <p>It is meant to be used for extensible multiblocks, where a machine is extended with identical 'slices'.
+ * Compared with the regular sliceable structure, this expects an end 'cap' after the final slice.
+ */
 public interface IConstructableStructureSliceableCapped extends IConstructableStructureSliceable {
     String TM_STRUCTURE_CAP = "CAP";
 
+    /**
+     * <p>Gets cap structure offset.
+     *
+     * <p>Defines the vector by which the cap will be offset from the final checked slice.
+     *
+     * <p>Intended to be defined by the final machine class implementation.
+     *
+     * @return the cap structure offset
+     */
     Vec3Impl getCapStructureOffset();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     default boolean checkMachine_TM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         if (!IConstructableStructureSliceable.super.checkMachine_TM(iGregTechTileEntity, itemStack))
@@ -17,6 +35,9 @@ public interface IConstructableStructureSliceableCapped extends IConstructableSt
         return structureCheck_TM(TM_STRUCTURE_CAP, getCurrentStructureOffset());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     default void construct(ItemStack itemStack, boolean hintsOnly) {
         IConstructableStructureSliceable.super.construct(itemStack, hintsOnly);

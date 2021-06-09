@@ -100,6 +100,11 @@ public class GT_MetaTileEntity_TM_Large_Chemical_Bath extends GT_MetaTileEntity_
     }
 
     @Override
+    public int getMinParallel() {
+        return 0;
+    }
+
+    @Override
     public short getCasingMeta() {
         return MaragingSteel250.getmID();
     }

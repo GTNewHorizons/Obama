@@ -98,6 +98,11 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
     }
 
     @Override
+    public int getMinParallel() {
+        return 0;
+    }
+
+    @Override
     public int getParalellsPerSlice() {
         return 48;
     }
