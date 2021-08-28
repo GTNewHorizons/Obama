@@ -124,17 +124,6 @@ public class GT_MetaTileEntity_TM_Large_Chemical_Bath extends GT_MetaTileEntity_
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "1 - Classic Hatches",
-                "2 - Conveyor Casing",
-                "3 - Pump Casing",
-                "4 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_CHEMICAL_BATH";
     }

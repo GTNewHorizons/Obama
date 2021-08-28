@@ -141,19 +141,6 @@ public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEn
         return MaragingSteel250.getmID();
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "1 - Maintenance Hatch",
-                "2 - Energy Hatch",
-                "3 - Input Hatch",
-                "4 - Output Hatch",
-                "5 - Motor Casing",
-                "6 - Circuit Casing",
-                "Coil - Coil of tier"
-        };
-    }
 
     @Override
     @SideOnly(Side.CLIENT)

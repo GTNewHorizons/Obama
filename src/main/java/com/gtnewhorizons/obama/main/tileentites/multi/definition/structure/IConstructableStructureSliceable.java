@@ -1,6 +1,7 @@
 package com.gtnewhorizons.obama.main.tileentites.multi.definition.structure;
 
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import net.minecraft.item.ItemStack;
 
 /**
  * <p>The sliceable constructable structure interface implementation used to construct and check machines.
@@ -102,19 +103,19 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
 //        return true;
 //    }
 //
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    default void construct(ItemStack itemStack, boolean hintsOnly) {
-//        IConstructableStructureSimple.super.construct(itemStack, hintsOnly);
-//        int blueprintCount = (itemStack.stackSize - 1) + getMinSlices();
-//        int sliceCount = Math.min(blueprintCount, getMaxSlices());
-//        setCurrentStructureOffset(getSliceStructureOffset());
-//
-//        for (int i = 0; i < sliceCount; i++) {
-////            structureBuild(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset(), hintsOnly, itemStack);
-//            setCurrentStructureOffset(getCurrentStructureOffset().add(getPerSliceOffset()));
-//        }
-//    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default void construct(ItemStack itemStack, boolean hintsOnly) {
+        IConstructableStructureSimple.super.construct(itemStack, hintsOnly);
+        int blueprintCount = (itemStack.stackSize - 1) + getMinSlices();
+        int sliceCount = Math.min(blueprintCount, getMaxSlices());
+        setCurrentStructureOffset(getSliceStructureOffset());
+
+        for (int i = 0; i < sliceCount; i++) {
+            buildPiece(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset(), hintsOnly, itemStack);
+            setCurrentStructureOffset(getCurrentStructureOffset().add(getPerSliceOffset()));
+        }
+    }
 }

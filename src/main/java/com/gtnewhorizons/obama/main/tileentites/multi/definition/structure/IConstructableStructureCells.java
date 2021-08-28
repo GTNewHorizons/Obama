@@ -1,5 +1,7 @@
 package com.gtnewhorizons.obama.main.tileentites.multi.definition.structure;
 
+import net.minecraft.item.ItemStack;
+
 /**
  * <p>The cell constructable structure interface implementation used to construct and check machines.
  *
@@ -24,22 +26,22 @@ public interface IConstructableStructureCells extends IConstructableStructureABC
 //        return true;
 //    }
 //
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    default void construct(ItemStack itemStack, boolean hintsOnly) {
-//        int progression = Math.min(itemStack.stackSize, 4);
-//
-//        constructMachineA(hintsOnly, itemStack);
-//        if (progression == 1)
-//            return;
-//        constructMachineB(hintsOnly, itemStack);
-//        if (progression == 2)
-//            return;
-//        constructMachineC(hintsOnly, itemStack);
-//        if (progression == 3)
-//            return;
-//        constructMachineD(hintsOnly, itemStack);
-//    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default void construct(ItemStack itemStack, boolean hintsOnly) {
+        int progression = Math.min(itemStack.stackSize, 4);
+
+        constructMachineA(hintsOnly, itemStack);
+        if (progression == 1)
+            return;
+        constructMachineB(hintsOnly, itemStack);
+        if (progression == 2)
+            return;
+        constructMachineC(hintsOnly, itemStack);
+        if (progression == 3)
+            return;
+        constructMachineD(hintsOnly, itemStack);
+    }
 }

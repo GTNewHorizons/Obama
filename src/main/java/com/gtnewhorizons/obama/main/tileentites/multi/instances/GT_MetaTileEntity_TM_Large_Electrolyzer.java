@@ -135,16 +135,6 @@ public class GT_MetaTileEntity_TM_Large_Electrolyzer extends GT_MetaTileEntity_T
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "1 - Classic Hatches",
-                "2 - Wire Casing",
-                "3 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_ELECTROLYZER";
     }

@@ -123,18 +123,6 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "Casing - Energy/Maintenance Hatch",
-                "1 - Input/Output Hatch",
-                "2 - Motor Casing",
-                "3 - Piston Casing",
-                "4 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_MACERATOR";
     }

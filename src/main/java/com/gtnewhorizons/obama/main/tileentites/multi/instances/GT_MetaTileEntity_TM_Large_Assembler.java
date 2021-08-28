@@ -140,19 +140,6 @@ public class GT_MetaTileEntity_TM_Large_Assembler extends GT_MetaTileEntity_TM_F
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "1 - Maintenance/Energy Hatch",
-                "2 - Input Hatch",
-                "3 - Output Hatch",
-                "4 - Robot Arm Casing",
-                "5 - Conveyor Casing",
-                "6 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_ASSEMBLING_MACHINE";
     }

@@ -124,17 +124,6 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "Casing - Classic Hatches",
-                "1 - Motor Casing",
-                "2 - Piston Casing",
-                "3 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_BENDING_MACHINE";
     }

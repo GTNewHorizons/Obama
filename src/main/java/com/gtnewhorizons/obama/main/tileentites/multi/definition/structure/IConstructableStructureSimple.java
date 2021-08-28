@@ -1,6 +1,7 @@
 package com.gtnewhorizons.obama.main.tileentites.multi.definition.structure;
 
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import net.minecraft.item.ItemStack;
 
 /**
  * <p>The simple constructable structure interface implementation used to construct and check machines.
@@ -30,13 +31,10 @@ public interface IConstructableStructureSimple extends IConstructableStructure {
     /**
      * {@inheritDoc}
      *
-     * <p>Construct the machine.
-     *
-     * @param itemStack the player held item stack
-     * @param hintsOnly the hints only mode switch
      */
-//    @Override
-//    default void construct(ItemStack itemStack, boolean hintsOnly) {
-//        structureBuild(TM_STRUCTURE_START, getStartStructureOffset(), hintsOnly, itemStack);
-//    }
+    @Override
+    default void construct(ItemStack itemStack, boolean hintsOnly) {
+        buildPiece(TM_STRUCTURE_START, getStartStructureOffset(), hintsOnly, itemStack);
+    }
+    
 }
