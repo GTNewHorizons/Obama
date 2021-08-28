@@ -1,6 +1,7 @@
 package com.gtnewhorizons.obama.main.tileentites.multi.definition.structure;
 
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import net.minecraft.item.ItemStack;
 
 /**
  * <p>The abstract ABCD constructable structure interface used to construct and check machines.
@@ -163,43 +164,43 @@ public interface IConstructableStructureABCD extends IConstructableStructure {
 //        return IConstructableStructure.super.structureBuild(piece, offset, hintsOnly, trigger);
 //    }
 
-//    /**
-//     * <p>Construct machine for shape A.
-//     *
-//     * @param hintsOnly the hints only switch
-//     * @param trigger   the trigger item
-//     */
-//    default void constructMachineA(boolean hintsOnly, ItemStack trigger) {
-//        structureBuild(TM_STRUCTURE_A, getStartOffsetA(), hintsOnly, trigger);
-//    }
-//
-//    /**
-//     * <p>Construct machine for shape B.
-//     *
-//     * @param hintsOnly the hints only switch
-//     * @param trigger   the trigger item
-//     */
-//    default void constructMachineB(boolean hintsOnly, ItemStack trigger) {
-//        structureBuild(TM_STRUCTURE_B, getStartOffsetB(), hintsOnly, trigger);
-//    }
-//
-//    /**
-//     * <p>Construct machine for shape C.
-//     *
-//     * @param hintsOnly the hints only switch
-//     * @param trigger   the trigger item
-//     */
-//    default void constructMachineC(boolean hintsOnly, ItemStack trigger) {
-//        structureBuild(TM_STRUCTURE_C, getStartOffsetC(), hintsOnly, trigger);
-//    }
-//
-//    /**
-//     * <p>Construct machine for shape D.
-//     *
-//     * @param hintsOnly the hints only switch
-//     * @param trigger   the trigger item
-//     */
-//    default void constructMachineD(boolean hintsOnly, ItemStack trigger) {
-//        structureBuild(TM_STRUCTURE_D, getStartOffsetD(), hintsOnly, trigger);
-//    }
+    /**
+     * <p>Construct machine for shape A.
+     *
+     * @param hintsOnly the hints only switch
+     * @param trigger   the trigger item
+     */
+    default void constructMachineA(boolean hintsOnly, ItemStack trigger) {
+        buildPiece(TM_STRUCTURE_A, getStartOffsetA(), hintsOnly, trigger);
+    }
+
+    /**
+     * <p>Construct machine for shape B.
+     *
+     * @param hintsOnly the hints only switch
+     * @param trigger   the trigger item
+     */
+    default void constructMachineB(boolean hintsOnly, ItemStack trigger) {
+        buildPiece(TM_STRUCTURE_B, getStartOffsetB(), hintsOnly, trigger);
+    }
+
+    /**
+     * <p>Construct machine for shape C.
+     *
+     * @param hintsOnly the hints only switch
+     * @param trigger   the trigger item
+     */
+    default void constructMachineC(boolean hintsOnly, ItemStack trigger) {
+        buildPiece(TM_STRUCTURE_C, getStartOffsetC(), hintsOnly, trigger);
+    }
+
+    /**
+     * <p>Construct machine for shape D.
+     *
+     * @param hintsOnly the hints only switch
+     * @param trigger   the trigger item
+     */
+    default void constructMachineD(boolean hintsOnly, ItemStack trigger) {
+        buildPiece(TM_STRUCTURE_D, getStartOffsetD(), hintsOnly, trigger);
+    }
 }

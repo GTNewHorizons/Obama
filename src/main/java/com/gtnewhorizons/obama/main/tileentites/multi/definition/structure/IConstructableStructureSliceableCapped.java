@@ -1,6 +1,7 @@
 package com.gtnewhorizons.obama.main.tileentites.multi.definition.structure;
 
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import net.minecraft.item.ItemStack;
 
 /**
  * <p>The sliceable capped constructable structure interface implementation used to construct and check machines.
@@ -33,13 +34,13 @@ public interface IConstructableStructureSliceableCapped extends IConstructableSt
 //        return structureCheck(TM_STRUCTURE_CAP, getCurrentStructureOffset());
 //    }
 
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    default void construct(ItemStack itemStack, boolean hintsOnly) {
-//        IConstructableStructureSliceable.super.construct(itemStack, hintsOnly);
-//        setCurrentStructureOffset(getCurrentStructureOffset().add(getCapStructureOffset()));
-//        structureBuild(TM_STRUCTURE_CAP, getCurrentStructureOffset(), hintsOnly, itemStack);
-//    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default void construct(ItemStack itemStack, boolean hintsOnly) {
+        IConstructableStructureSliceable.super.construct(itemStack, hintsOnly);
+        setCurrentStructureOffset(getCurrentStructureOffset().add(getCapStructureOffset()));
+        buildPiece(TM_STRUCTURE_CAP, getCurrentStructureOffset(), hintsOnly, itemStack);
+    }
 }

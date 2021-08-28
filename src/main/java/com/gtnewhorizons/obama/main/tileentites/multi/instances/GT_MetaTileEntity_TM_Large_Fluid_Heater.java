@@ -120,16 +120,6 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "1 - Classic Hatch",
-                "2 - Heating Coils",
-                "3 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_FLUID_HEATER";
     }

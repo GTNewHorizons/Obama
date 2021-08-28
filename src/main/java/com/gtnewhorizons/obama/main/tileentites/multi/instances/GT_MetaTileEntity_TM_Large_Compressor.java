@@ -128,16 +128,6 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "1 - Classic Hatches",
-                "2 - Piston Casing",
-                "3 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_COMPRESSOR";
     }

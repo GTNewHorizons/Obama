@@ -144,21 +144,6 @@ public class GT_MetaTileEntity_TM_Large_Cutting_Machine extends GT_MetaTileEntit
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        //TODO Locelise this
-        return new String[]{
-                "1 - Maintenance hatch",
-                "2 - Input Hatch",
-                "3 - Output Hatch",
-                "4 - Energy Hatch",
-                "5 - Motor Casing",
-                "6 - Conveyor Casing",
-                "7 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_CUTTING_MACHINE";
     }

@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSimple.TM_STRUCTURE_START;
+
 //TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_TM_Factory<T>> extends GT_MetaTileEntity_EnhancedMultiBlockBase<T> implements
         IConstructableStructure, IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl,
@@ -90,6 +92,11 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
     @Override
     public Block getCasingBlock() {
         return WerkstoffLoader.BWBlockCasings;
+    }
+
+    @Override
+    public final boolean buildPiece(String piece, Vec3Impl offset, boolean hintsOnly, ItemStack trigger) {
+        return buildPiece(piece, trigger, hintsOnly, offset.get0(), offset.get1(), offset.get2());
     }
 
     @Override
@@ -476,11 +483,11 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
     public boolean explodesOnComponentBreak(ItemStack aStack) {
         return false;
     }
-
-    @Override
-    public void construct(ItemStack stackSize, boolean hintsOnly) {
-
-    }
-
-    
+//
+//    @Override
+//    public void construct(ItemStack stackSize, boolean hintsOnly) {
+//        buildPiece(TM_STRUCTURE_START, getStartStructureOffset(), hintsOnly, stackSize);
+//    }
+//
+//    
 }

@@ -133,17 +133,6 @@ public class GT_MetaTileEntity_TM_Large_Forming_Press extends GT_MetaTileEntity_
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "1 - Energy/Input/Maintenance Hatch",
-                "2 - Input Hatch",
-                "3 - Piston Casing",
-                "4 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_FORMING_PRESS";
     }

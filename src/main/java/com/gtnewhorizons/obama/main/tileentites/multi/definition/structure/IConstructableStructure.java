@@ -5,6 +5,7 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_EnhancedMultiBlockBase;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -198,4 +199,16 @@ public interface IConstructableStructure extends IStructure, IConstructable {
 //    default boolean structureBuild(String piece, Vec3Impl offset, boolean hintsOnly, ItemStack trigger) {
 //        return structureBuild(piece, offset.get0(), offset.get1(), offset.get2(), hintsOnly, trigger);
 //    }
+    
+    boolean buildPiece(String piece, Vec3Impl offset, boolean hintsOnly, ItemStack trigger);
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Construct the machine.
+     *
+     * @param itemStack the player held item stack
+     * @param hintsOnly the hints only mode switch
+     */
+    void construct(ItemStack itemStack, boolean hintsOnly);
 }

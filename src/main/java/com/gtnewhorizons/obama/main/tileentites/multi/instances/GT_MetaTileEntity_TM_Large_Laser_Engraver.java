@@ -128,19 +128,6 @@ public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "1 - Energy/Maintenance Hatch",
-                "2 - Input Hatch",
-                "3 - Output Hatch",
-                "4 - Piston Casing",
-                "5 - Emitter Casing",
-                "6 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_PRECISION_LASER_ENGRAVER";
     }

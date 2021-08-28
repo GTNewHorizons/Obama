@@ -139,20 +139,6 @@ public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Facto
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String[] getStructureDescription(ItemStack itemStack) {
-        return new String[]{
-                "1 - Maintenance Hatch",
-                "2 - Energy Hatch",
-                "3 - Input Hatch",
-                "4 - Output Hatch",
-                "5 - Motor Casing",
-                "6 - Rotor Casing(heating atm)",
-                "7 - Circuit Casing"
-        };
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public String getMachineTextureName() {
         return "TM_LARGE_MIXER";
     }
