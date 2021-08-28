@@ -35,6 +35,10 @@ java {
     this.targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+configurations.all {
+    isTransitive = false
+}
+
 //Set standard encoding
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
@@ -126,12 +130,8 @@ dependencies {
     val codechickencoreVersion: String by project
     val neiVersion: String by project
     val wailaVersion: String by project
-    val galacticraftVersion: String by project
-    val galacticGregVersion: String by project
-    val buildcraftVersion: String by project
-    val forestryVersion: String by project
-    val enderioVersion: String by project
-    val enderCoreVersion: String by project
+    val structlibVersion: String by project
+    val bartworksVersion: String by project
 
     //Hard Dependencies
     compile("net.industrial-craft:industrialcraft-2:$ic2Version:dev")
@@ -139,6 +139,8 @@ dependencies {
         exclude("net.industrial-craft", "industrialcraft-2")
     }
     compile("eu.usrv:YAMCore:$yamcoreVersion:deobf")
+    compile("com.github.GTNewHorizons:StructureLib:$structlibVersion:deobf")
+    compile("com.github.GTNewHorizons:bartworks:$bartworksVersion:dev")
 
     //Compile Dependencies
     compileOnly("li.cil.oc:OpenComputers:$opencomputersVersion:dev")
@@ -147,22 +149,11 @@ dependencies {
     compile("thaumcraft:Thaumcraft:$thaumcraftVersion:dev")
     compile("codechicken:CodeChickenLib:$codechickenlibVersion:dev")
     compile("codechicken:CodeChickenCore:$codechickencoreVersion:dev")
-    compile("codechicken:NotEnoughItems:$neiVersion:dev")
+    compile("com.github.GTNewHorizons:NotEnoughItems:$neiVersion:dev")
 
     //Optional Libraries for Testing
     runtimeOnly("mcp.mobius.waila:Waila:$wailaVersion")
 
-    //runtimeOnly("micdoodle8.mods:MicdoodleCore:$galacticraftVersion:Dev")
-    //runtimeOnly("micdoodle8.mods:GalacticraftCore:$galacticraftVersion:Dev")
-    //runtimeOnly("micdoodle8.mods:Galacticraft-Planets:$galacticraftVersion:Dev")
-    //runtimeOnly("com.github.GTNewHorizons:GalacticGregGT5:$galacticGregVersion")
-    //runtimeOnly("com.mod-buildcraft:buildcraft:$buildcraftVersion:dev")
-    //runtimeOnly("net.sengir.forestry:forestry_1.7.10:$forestryVersion:dev")
-    //runtimeOnly("com.enderio.core:EnderCore:$enderCoreVersion:dev")
-    //runtimeOnly("com.enderio:EnderIO:$enderioVersion:dev"){
-    //    exclude("com.enderio.core", "EnderCore")
-    //    exclude("mcp.mobius.waila", "Waila")
-    //}
 }
 
 tasks.withType<Jar> {
@@ -204,10 +195,10 @@ tasks {
         archives(devJar)
     }
 }
-
-//Fixes texture loading during 'Minecraft Client' debugging
-sourceSets {
-    this.main {
-        output.setResourcesDir(output.classesDirs.asPath)
-    }
-}
+//
+////Fixes texture loading during 'Minecraft Client' debugging
+//sourceSets {
+//    this.main {
+//        output.setResourcesDir(output.classesDirs.asPath)
+//    }
+//}
