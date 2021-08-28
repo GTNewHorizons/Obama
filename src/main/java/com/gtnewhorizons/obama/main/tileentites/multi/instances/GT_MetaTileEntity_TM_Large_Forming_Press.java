@@ -34,10 +34,6 @@ public class GT_MetaTileEntity_TM_Large_Forming_Press extends GT_MetaTileEntity_
         return new GT_MetaTileEntity_TM_Large_Forming_Press(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{""};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Forming_Press>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Forming_Press>>() {
         @Override

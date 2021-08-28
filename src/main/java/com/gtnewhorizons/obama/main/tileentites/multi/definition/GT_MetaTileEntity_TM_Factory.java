@@ -47,7 +47,7 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
     private int structureCounter = 0;
     private int maxParallels = 0;
 
-    //region Constructors
+    // region Constructors
     public GT_MetaTileEntity_TM_Factory(int aID, String aName, String aNameRegional) {
         super(aID, aName, aNameRegional);
         setRepairFlags();
@@ -74,11 +74,9 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
         this.mCrowbar = true;
     }
 
-    @Override
-    public abstract String[] getDescription();
-    //endregion
+    // endregion
 
-    //region Structure
+    // region Structure
     @Override
     public int getTextureIndex() {
         return CasingTextureLoader.getBasicCasingTextureIndex(getCasingMeta());
@@ -114,7 +112,7 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
 //    }
     //endregion
 
-    //region Shape Interface
+    // region Shape Interface
     @Override
     public void setCurrentStructureOffset(Vec3Impl structureOffset) {
         this.structureOffset = structureOffset;
@@ -144,9 +142,9 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
     public void setMaxParallels(int maxParallels) {
         this.maxParallels = maxParallels;
     }
-    //endregion
+    // endregion
 
-    //region Textures
+    // region Textures
     @Override
     public void registerIcons(IIconRegister aBlockIconRegister) {
         super.registerIcons(aBlockIconRegister);
@@ -159,17 +157,17 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
                                  boolean aActive, boolean aRedstone) {
         return getTexture_TM(aSide, aFacing, aActive);
     }
-    //endregion
+    // endregion
 
-//    //region Sounds
+//    // region Sounds
 //    @Override
 //    @SideOnly(Side.CLIENT)
 //    protected ResourceLocation getActivitySound() {
 //        return getActivitySound_TM();
 //    }
-//    //endregion
+//    // endregion
 
-    //region On Tick
+    // region On Tick
     @Override
     public abstract GT_Recipe.GT_Recipe_Map getRecipeMap();
 
@@ -191,7 +189,7 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
         return super.onRunningTick(aStack);
     }
 
-    //TODO test without null check
+    // TODO test without null check
     void recipeControl() {
         int progressTime = this.mProgresstime + 1;
         if (this.mMaxProgresstime > 0 && progressTime >= this.mMaxProgresstime && runningRecipes != null) {
@@ -284,7 +282,7 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
         boolean canRunRecipe = false;
         int totalEUUsage = this.mEUt;
         int maxTotalRecipes = getMaxUniqueRecipes() - runningRecipes.length;
-        //check if we can actually add any new recipes
+        // check if we can actually add any new recipes
         if (this.getEUVar() > this.getMaxInputVoltage() && maxTotalRecipes > 0) {
             ItemStack[] inputItems = this.getStoredInputs().toArray(new ItemStack[0]);
             FluidStack[] inputFluids = this.getStoredFluids().toArray(new FluidStack[0]);
@@ -348,14 +346,14 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
         return 8;
     }
 
-    //allows multies to overide this incase more special recipe check is needid
+    // allows multies to overide this incase more special recipe check is needid
     public int checkAndConsumeRecipe(GT_Recipe recipe, ItemStack[] inputItems, ItemStack[] combinedItems,
                                      FluidStack[] inputFluids, int parrallel) {
         return MultiBlockUtils.isRecipeEqualAndRemoveParallel(recipe,
                 inputItems, combinedItems, inputFluids, parrallel, true);
     }
 
-    //allows multies to overide this incase more special OC is needid
+    // allows multies to overide this incase more special OC is needed
     public RecipeProgresion getRecipeProgresionWithOC(GT_Recipe recipe, int voltage, int parrallelDone) {
         return MultiBlockUtils.getRecipeProgressionWithOC(
                 recipe,

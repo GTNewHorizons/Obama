@@ -36,10 +36,6 @@ public class GT_MetaTileEntity_TM_Large_Chemical_Bath extends GT_MetaTileEntity_
         return new GT_MetaTileEntity_TM_Large_Chemical_Bath(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"Large Chemical Bath desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Chemical_Bath>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Chemical_Bath>>() {
         @Override
@@ -73,7 +69,11 @@ public class GT_MetaTileEntity_TM_Large_Chemical_Bath extends GT_MetaTileEntity_
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Chemical Bath")
+            .addInfo("Controller block for the Large Chemical Bath")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
 

@@ -38,10 +38,6 @@ public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity
         return new GT_MetaTileEntity_TM_Large_Laser_Engraver(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"laser engrave desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Laser_Engraver>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Laser_Engraver>>() {
         @Override
@@ -83,7 +79,11 @@ public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Laser Engraver")
+            .addInfo("Controller block for the Large Laser Engraver")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

@@ -38,10 +38,6 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
         return new GT_MetaTileEntity_TM_Large_Extruder(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large extruder desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Extruder>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Extruder>>() {
         @Override
@@ -90,7 +86,11 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Forming Press")
+            .addInfo("Controller block for the Large Forming Press")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     

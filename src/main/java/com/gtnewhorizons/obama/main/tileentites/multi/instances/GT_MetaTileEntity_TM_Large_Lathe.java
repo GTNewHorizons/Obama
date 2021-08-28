@@ -34,10 +34,6 @@ public class GT_MetaTileEntity_TM_Large_Lathe extends GT_MetaTileEntity_TM_Facto
         return new GT_MetaTileEntity_TM_Large_Lathe(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large lathe desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Lathe>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Lathe>>() {
         @Override
@@ -71,7 +67,11 @@ public class GT_MetaTileEntity_TM_Large_Lathe extends GT_MetaTileEntity_TM_Facto
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Lathe")
+            .addInfo("Controller block for the Large Lathe")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

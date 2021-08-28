@@ -36,10 +36,6 @@ public class GT_MetaTileEntity_TM_Large_Electrolyzer extends GT_MetaTileEntity_T
         return new GT_MetaTileEntity_TM_Large_Electrolyzer(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large electrolyzer desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Electrolyzer>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Electrolyzer>>() {
         @Override
@@ -85,7 +81,11 @@ public class GT_MetaTileEntity_TM_Large_Electrolyzer extends GT_MetaTileEntity_T
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Electrolyzer")
+            .addInfo("Controller block for the Large Electrolyzer")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

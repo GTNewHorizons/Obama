@@ -33,11 +33,6 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
     }
 
     @Override
-    public String[] getDescription() {
-        return new String[]{"description?"};//TODO Set proper description + .lang
-    }
-
-    @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity iGregTechTileEntity) {
         return new GT_MetaTileEntity_TM_Large_Centrifuge(mName);
     }
@@ -97,7 +92,11 @@ public class GT_MetaTileEntity_TM_Large_Centrifuge extends GT_MetaTileEntity_TM_
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Centrifuge")
+            .addInfo("Controller block for the Large Centrifuge")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     

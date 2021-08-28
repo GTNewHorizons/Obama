@@ -37,10 +37,6 @@ public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Facto
         return new GT_MetaTileEntity_TM_Large_Mixer(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large mixed desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Mixer>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Mixer>>() {
         @Override
@@ -89,7 +85,11 @@ public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Facto
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Mixer")
+            .addInfo("Controller block for the Large Mixer")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

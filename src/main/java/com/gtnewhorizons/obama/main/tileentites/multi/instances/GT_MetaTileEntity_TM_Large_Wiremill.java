@@ -34,11 +34,6 @@ public class GT_MetaTileEntity_TM_Large_Wiremill extends GT_MetaTileEntity_TM_Fa
         return new GT_MetaTileEntity_TM_Large_Wiremill(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large wiremill desc"};
-    }
-
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Wiremill>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Wiremill>>() {
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Wiremill> computeValue(Class<?> type) {
@@ -70,7 +65,11 @@ public class GT_MetaTileEntity_TM_Large_Wiremill extends GT_MetaTileEntity_TM_Fa
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Wiremill")
+            .addInfo("Controller block for the Large Wiremill")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
 

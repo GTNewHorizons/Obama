@@ -34,10 +34,6 @@ public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Fact
         return new GT_MetaTileEntity_TM_Large_Sifter(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large sifter desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Sifter>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Sifter>>() {
         @Override
@@ -85,7 +81,11 @@ public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Fact
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Sifter")
+            .addInfo("Controller block for the Large Sifter")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override
