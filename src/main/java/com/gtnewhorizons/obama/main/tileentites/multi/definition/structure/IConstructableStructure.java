@@ -2,7 +2,6 @@ package com.gtnewhorizons.obama.main.tileentites.multi.definition.structure;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_EnhancedMultiBlockBase;
 import net.minecraft.block.Block;

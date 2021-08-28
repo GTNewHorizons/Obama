@@ -39,7 +39,13 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static com.gtnewhorizons.obama.main.utils.IC2CellGetter.*;
+import static com.gtnewhorizons.obama.main.utils.IC2CellGetter.COOLANT;
+import static com.gtnewhorizons.obama.main.utils.IC2CellGetter.DISTILLED_WATER;
+import static com.gtnewhorizons.obama.main.utils.IC2CellGetter.HOT_COOLANT;
+import static com.gtnewhorizons.obama.main.utils.IC2CellGetter.LAVA;
+import static com.gtnewhorizons.obama.main.utils.IC2CellGetter.PAHOEHOELAVA;
+import static com.gtnewhorizons.obama.main.utils.IC2CellGetter.STEAM;
+import static com.gtnewhorizons.obama.main.utils.IC2CellGetter.SUPERHEATEDSTEAM;
 import static com.gtnewhorizons.obama.main.utils.MaterialsUtils.applyToAllMaterialsAndWerkstoffe;
 import static gregtech.api.enums.GT_Values.RES_PATH_GUI;
 

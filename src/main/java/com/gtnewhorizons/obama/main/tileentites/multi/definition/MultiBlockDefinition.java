@@ -1,7 +1,6 @@
 package com.gtnewhorizons.obama.main.tileentites.multi.definition;
 
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-
 import com.gtnewhorizons.obama.main.utils.IAddsBlocks;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_EnhancedMultiBlockBase;
 import gregtech.api.util.GT_Recipe;

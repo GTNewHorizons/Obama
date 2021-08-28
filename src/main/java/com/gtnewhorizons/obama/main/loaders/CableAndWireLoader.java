@@ -35,8 +35,33 @@ import gregtech.api.util.GT_OreDictUnificator;
 
 import java.util.Optional;
 
-import static gregtech.api.enums.Materials.*;
-import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.*;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Atysal;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.AtysalYT;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.EglinSteel;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Hereford690;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Hereford792;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel300;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel350;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.NickmolX;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Pikyonium64B;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Potin;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Staballoy;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.TriniumNaquadahCarbonite;
+import static gregtech.api.enums.Materials.Bronze;
+import static gregtech.api.enums.Materials.Clay;
+import static gregtech.api.enums.Materials.Copper;
+import static gregtech.api.enums.Materials.DarkSteel;
+import static gregtech.api.enums.Materials.Europium;
+import static gregtech.api.enums.Materials.Lead;
+import static gregtech.api.enums.Materials.Plastic;
+import static gregtech.api.enums.Materials.Polytetrafluoroethylene;
+import static gregtech.api.enums.Materials.RedstoneAlloy;
+import static gregtech.api.enums.Materials.StainlessSteel;
+import static gregtech.api.enums.Materials.Steel;
+import static gregtech.api.enums.Materials.Titanium;
+import static gregtech.api.enums.Materials.Tungsten;
+import static gregtech.api.enums.Materials.TungstenSteel;
+import static gregtech.api.enums.Materials.Void;
 
 @SuppressWarnings("ALL")
 public class CableAndWireLoader {

@@ -24,9 +24,12 @@ package com.gtnewhorizons.obama.main.compat.bartworks;
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
 import com.gtnewhorizons.obama.main.ObamaMod;
 
-import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.*;
-import static gregtech.api.enums.Materials.*;
-import static gregtech.api.enums.OrePrefixes.*;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Tumbaga;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.TumbagaMix;
+import static gregtech.api.enums.Materials.Copper;
+import static gregtech.api.enums.Materials.Gold;
+import static gregtech.api.enums.Materials.RoseGold;
+import static gregtech.api.enums.OrePrefixes.dust;
 import static gregtech.api.util.GT_ModHandler.RecipeBits;
 import static gregtech.api.util.GT_ModHandler.addShapelessCraftingRecipe;
 
