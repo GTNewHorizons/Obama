@@ -20,11 +20,11 @@
 
 package com.gtnewhorizons.obama.preloader.preGT;
 
-import com.gtnewhorizons.obama.main.GTAFMod;
+import com.gtnewhorizons.obama.main.ObamaMod;
 import cpw.mods.fml.common.Mod;
 
 @SuppressWarnings("unused")
-@Mod(modid = GTAFPreloaderII.MODID, name = GTAFMod.NAME + " PreGT Preloader", version = GTAFMod.VERSION,
+@Mod(modid = ObamaPreloaderII.MODID, name = ObamaMod.NAME + " PreGT Preloader", version = ObamaMod.VERSION,
         dependencies =
                 "required-after:IC2;"
                         + "required-before:gregtech;"
@@ -33,6 +33,6 @@ import cpw.mods.fml.common.Mod;
                         + "required-before:obama;"
                         + "required-before:obamap1;"
 )
-public class GTAFPreloaderII {
+public class ObamaPreloaderII {
     static final String MODID = "obamap2";
 }

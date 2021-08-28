@@ -21,7 +21,7 @@
 package com.gtnewhorizons.obama.main.loaders;
 
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
-import com.gtnewhorizons.obama.main.GTAFMod;
+import com.gtnewhorizons.obama.main.ObamaMod;
 import com.gtnewhorizons.obama.main.config.ConfigHandler;
 import com.gtnewhorizons.obama.preloader.postGT.loaders.EnumExtender;
 import gregtech.api.enums.Materials;
@@ -53,7 +53,7 @@ public class CableAndWireLoader {
             loadOverrideIDs();
             loadNewIDs();
         } catch (Exception e) {
-            GTAFMod.LOGGER.catching(e);
+            ObamaMod.LOGGER.catching(e);
         }
     }
 

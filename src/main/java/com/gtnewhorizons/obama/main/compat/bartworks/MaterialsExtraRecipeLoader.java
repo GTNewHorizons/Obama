@@ -22,7 +22,7 @@ package com.gtnewhorizons.obama.main.compat.bartworks;
 
 
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
-import com.gtnewhorizons.obama.main.GTAFMod;
+import com.gtnewhorizons.obama.main.ObamaMod;
 
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.*;
 import static gregtech.api.enums.Materials.*;
@@ -37,7 +37,7 @@ public class MaterialsExtraRecipeLoader {
         try {
             executeExtraRecipes();
         } catch (Exception e) {
-            GTAFMod.LOGGER.catching(e);
+            ObamaMod.LOGGER.catching(e);
         }
     }
 

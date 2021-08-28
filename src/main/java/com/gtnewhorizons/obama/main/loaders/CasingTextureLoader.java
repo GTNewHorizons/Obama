@@ -3,7 +3,7 @@ package com.gtnewhorizons.obama.main.loaders;
 import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGeneratedBlocks_CasingAdvanced_TE;
 import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGeneratedBlocks_Casing_TE;
 
-import com.gtnewhorizons.obama.main.GTAFMod;
+import com.gtnewhorizons.obama.main.ObamaMod;
 import gregtech.api.enums.Textures;
 
 import java.util.HashMap;
@@ -46,7 +46,7 @@ public class CasingTextureLoader {
         try {
             patchTexturePage();
         } catch (Exception e) {
-            GTAFMod.LOGGER.catching(e);
+            ObamaMod.LOGGER.catching(e);
         }
     }
 
