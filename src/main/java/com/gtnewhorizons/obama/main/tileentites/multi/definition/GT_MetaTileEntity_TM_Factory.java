@@ -223,8 +223,8 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
                 int freedParallel = 0;
                 int freedPower = 0;
 
-                //get output items, fluids, parallel and power from finished recipes
-                if (finishedRecipes.size() == 1) {//if only 1 recipe is done avoid the extra processing
+                // get output items, fluids, parallel and power from finished recipes
+                if (finishedRecipes.size() == 1) { // if only 1 recipe is done avoid the extra processing
                     RecipeProgresion finishedRecipe = finishedRecipes.get(0);
                     outputItems = finishedRecipe.getItems();
                     outputFluids = finishedRecipe.getFluids();
@@ -238,15 +238,11 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
                     for (RecipeProgresion finishedRecipe : finishedRecipes) {
                         ItemStack[] items = finishedRecipe.getItems();
                         int itemLen = items.length;
-                        for (int i = 0; i < itemLen; i++) {
-                            outputItems[i + itemIndex] = items[i];
-                        }
+                        System.arraycopy(items, 0, outputItems, itemIndex, itemLen);
                         itemIndex += itemLen;
                         FluidStack[] fluids = finishedRecipe.getFluids();
                         int fluidLen = fluids.length;
-                        for (int i = 0; i < fluidLen; i++) {
-                            outputFluids[i + fluidIndex] = fluids[i];
-                        }
+                        System.arraycopy(fluids, 0, outputFluids, 0, fluidLen);
                         freedParallel += finishedRecipe.getAmount();
                         freedPower += finishedRecipe.getEUUsage();
                     }

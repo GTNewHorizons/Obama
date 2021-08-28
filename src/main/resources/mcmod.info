@@ -1,8 +1,8 @@
 [
 {
-  "modid": "gtppnt",
-  "name": "GT-AF",
-  "description": "An alkaline free addon for GregTech 5u",
+  "modid": "obama",
+  "name": "Obama",
+  "description": "Obama, an addon for GregTech 5u",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
@@ -14,7 +14,7 @@
     "DreamMasterXXL",
     "mitchej123"
   ],
-  "credits": "basdxz, bartimaeusnek, tec, DreamMasterXXL, bigbass, mitchej123",
+  "credits": "basdxz, bartimaeusnek, tec, DreamMasterXXL, mitchej123",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
