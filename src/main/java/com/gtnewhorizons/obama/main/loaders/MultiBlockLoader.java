@@ -20,7 +20,7 @@
 
 package com.gtnewhorizons.obama.main.loaders;
 
-import com.gtnewhorizons.obama.main.GTAFMod;
+import com.gtnewhorizons.obama.main.ObamaMod;
 import com.gtnewhorizons.obama.main.tileentites.multi.instances.*;
 
 import static com.gtnewhorizons.obama.main.items.CustomItemList.*;
@@ -34,7 +34,7 @@ public class MultiBlockLoader {
             loadOverrideIDs();
             loadNewIDs();
         } catch (Exception e) {
-            GTAFMod.LOGGER.catching(e);
+            ObamaMod.LOGGER.catching(e);
         }
     }
 

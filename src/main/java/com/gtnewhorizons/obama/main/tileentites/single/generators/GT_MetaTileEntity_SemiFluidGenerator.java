@@ -20,7 +20,7 @@
 
 package com.gtnewhorizons.obama.main.tileentites.single.generators;
 
-import com.gtnewhorizons.obama.main.utils.GTAFGeneratorUtils;
+import com.gtnewhorizons.obama.main.utils.ObamaGeneratorUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ConfigCategories;
@@ -96,7 +96,7 @@ public class GT_MetaTileEntity_SemiFluidGenerator extends GT_MetaTileEntity_Basi
 
     @Override
     public int getFuelValue(ItemStack aStack) {
-        return GTAFGeneratorUtils.getFuelValueGenerator(aStack, this, () -> {
+        return ObamaGeneratorUtils.getFuelValueGenerator(aStack, this, () -> {
             double rValue = Math.max(GT_ModHandler.getFuelCanValue(aStack) * 4D / 5D, super.getFuelValue(aStack));
             if (ItemList.Fuel_Can_Plastic_Filled.isStackEqual(aStack, false, true)) {
                 rValue = Math.max(rValue, GameRegistry.getFuelValue(aStack) * 1.5D);

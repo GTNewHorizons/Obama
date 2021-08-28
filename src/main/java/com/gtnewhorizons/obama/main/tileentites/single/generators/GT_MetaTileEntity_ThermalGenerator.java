@@ -21,8 +21,8 @@
 package com.gtnewhorizons.obama.main.tileentites.single.generators;
 
 import com.github.bartimaeusnek.bartworks.util.MathUtils;
-import com.gtnewhorizons.obama.main.utils.GTAFGeneratorUtils;
-import com.gtnewhorizons.obama.main.utils.GTAFRecipes;
+import com.gtnewhorizons.obama.main.utils.ObamaGeneratorUtils;
+import com.gtnewhorizons.obama.main.utils.ObamaRecipes;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ConfigCategories;
 import gregtech.api.enums.GT_Values;
@@ -75,7 +75,7 @@ public class GT_MetaTileEntity_ThermalGenerator extends GT_MetaTileEntity_BasicG
 
     @Override
     public GT_Recipe.GT_Recipe_Map getRecipes() {
-        return GTAFRecipes.getThermalgeneratorFuels();
+        return ObamaRecipes.getThermalgeneratorFuels();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class GT_MetaTileEntity_ThermalGenerator extends GT_MetaTileEntity_BasicG
 
     @Override
     public int getFuelValue(ItemStack aStack) {
-        return GTAFGeneratorUtils.getFuelValueGenerator(aStack, this, () -> {
+        return ObamaGeneratorUtils.getFuelValueGenerator(aStack, this, () -> {
             double rValue = super.getFuelValue(aStack);
             if (GT_Utility.areStacksEqual(new ItemStack(Items.lava_bucket), aStack)) {
                 rValue = super.getFuelValue(Materials.Lava.getFluid(1000));

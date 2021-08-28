@@ -27,8 +27,8 @@ import net.minecraft.item.ItemStack;
 
 import java.util.function.Supplier;
 
-public class GTAFGeneratorUtils {
-    private GTAFGeneratorUtils() {
+public class ObamaGeneratorUtils {
+    private ObamaGeneratorUtils() {
     }
 
     public static int getFuelValueGenerator(ItemStack aStack, GT_MetaTileEntity_BasicGenerator selfReference, Supplier<Double> customGeneratorLogic) {

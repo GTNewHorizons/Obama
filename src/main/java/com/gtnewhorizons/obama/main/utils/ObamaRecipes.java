@@ -24,7 +24,7 @@ import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
 import com.github.bartimaeusnek.bartworks.util.BW_Util;
 import com.github.bartimaeusnek.bartworks.util.NonNullWrappedHashSet;
 import com.github.bartimaeusnek.bartworks.util.Pair;
-import com.gtnewhorizons.obama.main.GTAFMod;
+import com.gtnewhorizons.obama.main.ObamaMod;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GT_OreDictUnificator;
@@ -43,11 +43,11 @@ import static com.gtnewhorizons.obama.main.utils.IC2CellGetter.*;
 import static com.gtnewhorizons.obama.main.utils.MaterialsUtils.applyToAllMaterialsAndWerkstoffe;
 import static gregtech.api.enums.GT_Values.RES_PATH_GUI;
 
-public class GTAFRecipes {
+public class ObamaRecipes {
 
     private static final GT_Recipe.GT_Recipe_Map SIMPLE_WASHER_MAP =
             new GT_Recipe.GT_Recipe_Map(new NonNullWrappedHashSet<>(),
-                    "GTAF.map.simpleWasher", "Simple Washer Recipes",
+                    "Obama.map.simpleWasher", "Simple Washer Recipes",
                     "Simple Washer Recipes", RES_PATH_GUI + "basicmachines/Default",
                     1, 1, 1, 1, 1,
                     "", 1, "", true, true
@@ -55,7 +55,7 @@ public class GTAFRecipes {
 
     private static final GT_Recipe.GT_Recipe_Map_Fuel THERMALGENERATOR_FUELS =
             new GT_Recipe.GT_Recipe_Map_Fuel(new NonNullWrappedHashSet<>(),
-                    "GTAF.map.thermal", "Thermal Generator Fuels",
+                    "Obama.map.thermal", "Thermal Generator Fuels",
                     "Thermal Generator Fuels", RES_PATH_GUI + "basicmachines/Default",
                     1, 1, 0, 0, 1,
                     "Fuel Value: ", 1000, " EU", true, true
@@ -63,7 +63,7 @@ public class GTAFRecipes {
 
     private static final GT_Recipe.GT_Recipe_Map ENHANCED_MIXER_MAP =
             new GT_Recipe.GT_Recipe_Map(new NonNullWrappedHashSet<>(),
-                    "GTAF.map.enhancedMixer", "Enhanced Mixer Recipes",
+                    "Obama.map.enhancedMixer", "Enhanced Mixer Recipes",
                     "Enhanced Mixer Recipes", RES_PATH_GUI + "basicmachines/Default",
                     4, 4, 1, 1, 1,
                     "", 1, "", true, true
@@ -91,34 +91,34 @@ public class GTAFRecipes {
 
     /*-------------------- ACTUAL CODE  --------------------*/
 
-    public static void executeGTAFRecipes() {
-        GTAFMod.LOGGER.info("Starting GTAFRecipes");
+    public static void executeObamaRecipes() {
+        ObamaMod.LOGGER.info("Starting ObamaRecipes");
 
         executeMultiThreadedRecipeTasks();
         executeSingleThreadedRecipeTasks();
 
-        GTAFMod.LOGGER.info("GTAFRecipes registered!");
+        ObamaMod.LOGGER.info("ObamaRecipes registered!");
     }
 
     private static void executeMultiThreadedRecipeTasks() {
-        Thread gtafRecipeRegistrationThread = new Thread(() -> {
+        Thread obamaRecipeRegistrationThread = new Thread(() -> {
             synchronized (SIMPLE_WASHER_MAP) {
                 //lock whatever is inside here
                 fillSimpleWasherMap();
                 fillThermalGeneratorMap();
             }
-            GTAFMod.LOGGER.info("GTAF recipe registration threaded ended!");
+            ObamaMod.LOGGER.info("Obama recipe registration threaded ended!");
         });
 
-        gtafRecipeRegistrationThread.setName("GTAF recipe registration thread"); //rename the thread
-        gtafRecipeRegistrationThread.start(); //start it in the background
-        GTAFMod.LOGGER.info("GTAF recipe registration threaded started!");
+        obamaRecipeRegistrationThread.setName("Obama recipe registration thread"); //rename the thread
+        obamaRecipeRegistrationThread.start(); //start it in the background
+        ObamaMod.LOGGER.info("Obama recipe registration threaded started!");
     }
 
     private static void executeSingleThreadedRecipeTasks() {
-        GTAFMod.LOGGER.info("GTAF recipe registration single threaded target started!");
+        ObamaMod.LOGGER.info("Obama recipe registration single threaded target started!");
         fillEnhancedMixerMap();
-        GTAFMod.LOGGER.info("GTAF recipe registration single threaded target ended!");
+        ObamaMod.LOGGER.info("Obama recipe registration single threaded target ended!");
     }
 
     private static void fillSimpleWasherMap() {
@@ -134,7 +134,7 @@ public class GTAFRecipes {
     }
 
     private static void fillEnhancedMixerMap() {
-        GT_Recipe.GT_Recipe_Map.sMixerRecipes.mRecipeList.forEach(GTAFRecipes::getEnhancedMixerLogic);
+        GT_Recipe.GT_Recipe_Map.sMixerRecipes.mRecipeList.forEach(ObamaRecipes::getEnhancedMixerLogic);
         ENHANCED_MIXER_MAP.reInit();
     }
 

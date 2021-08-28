@@ -20,7 +20,7 @@
 
 package com.gtnewhorizons.obama.main.loaders;
 
-import com.gtnewhorizons.obama.main.GTAFMod;
+import com.gtnewhorizons.obama.main.ObamaMod;
 import com.gtnewhorizons.obama.main.config.ConfigHandler;
 import com.gtnewhorizons.obama.main.tileentites.single.generators.GT_MetaTileEntity_SemiFluidGenerator;
 import com.gtnewhorizons.obama.main.tileentites.single.generators.GT_MetaTileEntity_ThermalGenerator;
@@ -28,7 +28,7 @@ import com.gtnewhorizons.obama.main.tileentites.single.generators.GT_MetaTileEnt
 import com.gtnewhorizons.obama.main.tileentites.single.misc.GT_MetaTileEntity_SteamConverter;
 import com.gtnewhorizons.obama.main.tileentites.single.storage.GT_MetaTileEntity_TieredTank;
 import com.gtnewhorizons.obama.main.tileentites.single.storage.GT_MetaTileEntity_TiredChest;
-import com.gtnewhorizons.obama.main.utils.GTAFRecipes;
+import com.gtnewhorizons.obama.main.utils.ObamaRecipes;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine_GT_Recipe;
 import net.minecraft.item.ItemStack;
 
@@ -65,7 +65,7 @@ public class SingleBlockLoadingClass {
             loadOverrideIDs();
             loadNewIDs();
         } catch (Exception e) {
-            GTAFMod.LOGGER.catching(e);
+            ObamaMod.LOGGER.catching(e);
         }
     }
 
@@ -74,63 +74,63 @@ public class SingleBlockLoadingClass {
         for (int i = 0; i < 4; i++) {
             GTBasicTanks[i] = new GT_MetaTileEntity_TieredTank(
                     817 + i,
-                    "GTAF.basic.tank." + i,
+                    "Obama.basic.tank." + i,
                     VOLTAGE_NAMES[i] + " Fluid Tank",
                     i
             ).getStackForm(1L);
 
             SimpleWashing[1 + i] = new GT_MetaTileEntity_BasicMachine_GT_Recipe(
-                    31017 + i,
-                    "GTAF.simple.washer." + (1 + i),
-                    "Simple Washer " + ROMAN_LETTERS[1 + i],
-                    1 + i,
-                    "",
-                    GTAFRecipes.getSimpleWasherMap(),
-                    1, 1,
-                    8000 * (1 + i),
-                    0, 0,
-                    "OreWasher.png",
-                    "",
-                    false, false,
-                    0, "ORE_WASHER",
-                    SIMPLEWASHERRECIPE.clone()
+                31017 + i,
+                "Obama.simple.washer." + (1 + i),
+                "Simple Washer " + ROMAN_LETTERS[1 + i],
+                1 + i,
+                "",
+                ObamaRecipes.getSimpleWasherMap(),
+                1, 1,
+                8000 * (1 + i),
+                0, 0,
+                "OreWasher.png",
+                "",
+                false, false,
+                0, "ORE_WASHER",
+                SIMPLEWASHERRECIPE.clone()
             ).getStackForm(1);
 
             if (i != 0)
                 GTTieredBoilers[i] = new GT_MetaTileEntity_TieredBoiler(
                         752 + i,
-                        "GTAF.tiered.boiler." + i,
+                        "Obama.tiered.boiler." + i,
                         VOLTAGE_NAMES[i] + " Boiler",
                         i
                 ).getStackForm(1L);
         }
 
         SimpleWashing[0] = new GT_MetaTileEntity_BasicMachine_GT_Recipe(
-                767,
-                "GTAF.simple.washer.0",
-                "Simple Washer " + ROMAN_LETTERS[0],
-                0,
-                "",
-                GTAFRecipes.getSimpleWasherMap(),
-                1, 1,
-                8000,
-                0, 1,
-                "OreWasher.png", "",
-                false, false,
-                0, "ORE_WASHER", SIMPLEWASHERRECIPE.clone()
+            767,
+            "Obama.simple.washer.0",
+            "Simple Washer " + ROMAN_LETTERS[0],
+            0,
+            "",
+            ObamaRecipes.getSimpleWasherMap(),
+            1, 1,
+            8000,
+            0, 1,
+            "OreWasher.png", "",
+            false, false,
+            0, "ORE_WASHER", SIMPLEWASHERRECIPE.clone()
         ).getStackForm(1);
 
         for (int i = 0; i < 3; i++) {
             SemiFluidGenerator[i] = new GT_MetaTileEntity_SemiFluidGenerator(
                     837 + i,
-                    "GTAF.generator.semifluid." + i + 1,
+                    "Obama.generator.semifluid." + i + 1,
                     MACHINE_PREFIXES[i + 1] + " Semi-Fluid Generator",
                     i + 1,
                     "Burns all the impure Fuels! Why? Cause f*** the enviroment!"
             ).getStackForm(1L);
             ThermalGenerator[i] = new GT_MetaTileEntity_ThermalGenerator(
                     830 + i,
-                    "GTAF.generator.thermal." + i + 1,
+                    "Obama.generator.thermal." + i + 1,
                     MACHINE_PREFIXES[i + 1] + " Thermal Generator",
                     i + 4,
                     "Cools down hot liquids and makes power."
@@ -139,7 +139,7 @@ public class SingleBlockLoadingClass {
 
         for (int i = 0; i < 5; i++) {
             GTBasicChests[i] = new GT_MetaTileEntity_TiredChest(946 + i,
-                    "GTAF.basic.chest." + i,
+                    "Obama.basic.chest." + i,
                     VOLTAGE_NAMES[i] + " Chest",
                     i
             ).getStackForm(1L);
@@ -147,19 +147,19 @@ public class SingleBlockLoadingClass {
 
         for (int i = 0; i < 8; i++) {
             EnhancedMixer[i] = new GT_MetaTileEntity_BasicMachine_GT_Recipe(
-                    851 + i,
-                    "GTAF.enhanced.mixer." + i,
-                    "Enhanced Mixer " + ROMAN_LETTERS[i], i + 1,
-                    "Mixing stuff at a whole new Level",
-                    GTAFRecipes.getEnhancedMixerMap(),
-                    4, 4,
-                    8000 * i,
-                    0, 1,
-                    "Mixer.png",
-                    "",
-                    false, false,
-                    0, "MIXER",
-                    new Object[]{
+                851 + i,
+                "Obama.enhanced.mixer." + i,
+                "Enhanced Mixer " + ROMAN_LETTERS[i], i + 1,
+                "Mixing stuff at a whole new Level",
+                ObamaRecipes.getEnhancedMixerMap(),
+                4, 4,
+                8000 * i,
+                0, 1,
+                "Mixer.png",
+                "",
+                false, false,
+                0, "MIXER",
+                new Object[]{
                             "GRG",
                             "CEC",
                             "CMC",
@@ -176,23 +176,23 @@ public class SingleBlockLoadingClass {
     public static void loadNewIDs() throws Exception {
         for (int i = 5; i < VN.length; i++) {
             SimpleWashing[i] = new GT_MetaTileEntity_BasicMachine_GT_Recipe(
-                    ConfigHandler.IDOFFSET + 20 + i,
-                    "GTAF.simple.washer." + (i),
-                    "Simple Washer " + ROMAN_LETTERS[i],
-                    i, "",
-                    GTAFRecipes.getSimpleWasherMap(),
-                    1, 1,
-                    8000 * i,
-                    0, 0,
-                    "OreWasher.png", "",
-                    false, false,
-                    0, "ORE_WASHER",
-                    SIMPLEWASHERRECIPE.clone()
+                ConfigHandler.IDOFFSET + 20 + i,
+                "Obama.simple.washer." + (i),
+                "Simple Washer " + ROMAN_LETTERS[i],
+                i, "",
+                ObamaRecipes.getSimpleWasherMap(),
+                1, 1,
+                8000 * i,
+                0, 0,
+                "OreWasher.png", "",
+                false, false,
+                0, "ORE_WASHER",
+                SIMPLEWASHERRECIPE.clone()
             ).getStackForm(1);
 
             GTBasicChests[i] = new GT_MetaTileEntity_TiredChest(
                     ConfigHandler.IDOFFSET + 31 + i,
-                    "GTAF.basic.chest." + i,
+                    "Obama.basic.chest." + i,
                     VOLTAGE_NAMES[i] + " Chest",
                     i
             ).getStackForm(1L);
@@ -201,13 +201,13 @@ public class SingleBlockLoadingClass {
         for (int i = 4; i < VN.length; i++) {
             GTBasicTanks[i] = new GT_MetaTileEntity_TieredTank(
                     ConfigHandler.IDOFFSET - 4 + i,
-                    "GTAF.basic.tank." + i,
+                    "Obama.basic.tank." + i,
                     VOLTAGE_NAMES[i] + " Fluid Tank",
                     i
             ).getStackForm(1L);
             GTTieredBoilers[i] = new GT_MetaTileEntity_TieredBoiler(
                     ConfigHandler.IDOFFSET + 9 + i,
-                    "GTAF.tiered.boiler." + i,
+                    "Obama.tiered.boiler." + i,
                     VOLTAGE_NAMES[i] + " Boiler",
                     i
             ).getStackForm(1L);
@@ -215,7 +215,7 @@ public class SingleBlockLoadingClass {
 
         GTTieredBoilers[0] = new GT_MetaTileEntity_TieredBoiler(
                 ConfigHandler.IDOFFSET + 12,
-                "GTAF.tiered.boiler.0",
+                "Obama.tiered.boiler.0",
                 VOLTAGE_NAMES[0] + " Boiler",
                 0
         ).getStackForm(1L);

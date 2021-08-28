@@ -20,13 +20,13 @@
 
 package com.gtnewhorizons.obama.preloader.postGT;
 
-import com.gtnewhorizons.obama.main.GTAFMod;
+import com.gtnewhorizons.obama.main.ObamaMod;
 import com.gtnewhorizons.obama.preloader.postGT.loaders.EnumExtender;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @SuppressWarnings("unused")
-@Mod(modid = GTAFPreloaderI.MODID, name = GTAFMod.NAME + " PostGT Preloader", version = GTAFMod.VERSION,
+@Mod(modid = ObamaPreloaderI.MODID, name = ObamaMod.NAME + " PostGT Preloader", version = ObamaMod.VERSION,
         dependencies =
                 "required-after:IC2;"
                         + "required-after:gregtech;"
@@ -35,7 +35,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
                         + "required-before:bartworks;"
                         + "required-before:obama;"
 )
-public class GTAFPreloaderI {
+public class ObamaPreloaderI {
     static final String MODID = "obamap1";
 
     @Mod.EventHandler
