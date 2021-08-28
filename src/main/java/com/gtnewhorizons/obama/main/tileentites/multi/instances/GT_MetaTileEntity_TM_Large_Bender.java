@@ -36,11 +36,6 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
         return new GT_MetaTileEntity_TM_Large_Bender(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{""};
-    }
-
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Bender>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Bender>>() {
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Bender> computeValue(Class<?> type) {
@@ -75,7 +70,11 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Bender")
+            .addInfo("Controller block for the Large Bender")
+            .toolTipFinisher("Obama");
+        return tt;
     }
     
     @Override

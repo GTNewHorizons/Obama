@@ -36,10 +36,6 @@ public class GT_MetaTileEntity_TM_Large_Autoclave extends GT_MetaTileEntity_TM_F
         return new GT_MetaTileEntity_TM_Large_Autoclave(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large autoclave desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Autoclave>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Autoclave>>() {
         @Override
@@ -88,7 +84,11 @@ public class GT_MetaTileEntity_TM_Large_Autoclave extends GT_MetaTileEntity_TM_F
     
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Autoclave")
+            .addInfo("Controller block for the Large Autoclave")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

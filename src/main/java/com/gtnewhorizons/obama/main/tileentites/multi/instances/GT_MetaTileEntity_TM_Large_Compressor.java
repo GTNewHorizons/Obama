@@ -37,10 +37,6 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
         return new GT_MetaTileEntity_TM_Large_Compressor(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large comp desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Compressor>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Compressor>>() {
         @Override
@@ -78,7 +74,11 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Compressor")
+            .addInfo("Controller block for the Large Compressor")
+            .toolTipFinisher("Obama");
+        return tt;
     }
     
     @Override

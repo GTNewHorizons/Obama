@@ -38,10 +38,6 @@ public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEn
         return new GT_MetaTileEntity_TM_Large_Thermal_Centrifuge(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"thermal centrifuge desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Thermal_Centrifuge>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Thermal_Centrifuge>>() {
         @Override
@@ -93,7 +89,11 @@ public class GT_MetaTileEntity_TM_Large_Thermal_Centrifuge extends GT_MetaTileEn
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Thermal Centrifuge")
+            .addInfo("Controller block for the Large Thermal Centrifuge")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

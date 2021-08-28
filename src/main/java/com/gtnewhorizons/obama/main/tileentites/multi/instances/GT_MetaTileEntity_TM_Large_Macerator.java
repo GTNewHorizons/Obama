@@ -34,11 +34,6 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
         return new GT_MetaTileEntity_TM_Large_Macerator(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large macerator desc"};
-    }
-
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Macerator>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Macerator>>() {
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Macerator> computeValue(Class<?> type) {
@@ -74,7 +69,11 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Macerator")
+            .addInfo("Controller block for the Large Macerator")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

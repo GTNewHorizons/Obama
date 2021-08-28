@@ -35,11 +35,6 @@ public class GT_MetaTileEntity_TM_Large_Assembler extends GT_MetaTileEntity_TM_F
         return new GT_MetaTileEntity_TM_Large_Assembler(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large assembler desc"};
-    }
-
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Assembler>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Assembler>>() {
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Assembler> computeValue(Class<?> type) {
@@ -91,7 +86,11 @@ public class GT_MetaTileEntity_TM_Large_Assembler extends GT_MetaTileEntity_TM_F
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Assembler")
+            .addInfo("Controller block for the Large Assembler")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

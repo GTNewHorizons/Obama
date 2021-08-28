@@ -36,10 +36,6 @@ public class GT_MetaTileEntity_TM_Large_Cutting_Machine extends GT_MetaTileEntit
         return new GT_MetaTileEntity_TM_Large_Cutting_Machine(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large saw mill dec"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Cutting_Machine>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Cutting_Machine>>() {
         @Override
@@ -94,7 +90,11 @@ public class GT_MetaTileEntity_TM_Large_Cutting_Machine extends GT_MetaTileEntit
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Cutting Machine")
+            .addInfo("Controller block for the Large Cutting Machine")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

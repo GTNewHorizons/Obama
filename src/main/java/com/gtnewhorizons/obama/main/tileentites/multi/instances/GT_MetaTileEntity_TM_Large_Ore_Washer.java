@@ -37,10 +37,6 @@ public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_
         return new GT_MetaTileEntity_TM_Large_Ore_Washer(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"large washer desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Ore_Washer>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Ore_Washer>>() {
         @Override
@@ -98,7 +94,11 @@ public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Ore Washer")
+            .addInfo("Controller block for the Large Ore Washer")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

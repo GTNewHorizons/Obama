@@ -38,10 +38,6 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
         return new GT_MetaTileEntity_TM_Large_Fluid_Heater(mName);
     }
 
-    @Override
-    public String[] getDescription() {
-        return new String[]{"Large Fluid Heater desc"};
-    }
 
     private static final ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Fluid_Heater>> STRUCTURE_DEFINITION  = new ClassValue<IStructureDefinition<GT_MetaTileEntity_TM_Large_Fluid_Heater>>() {
         @Override
