@@ -1,5 +1,6 @@
 package com.gtnewhorizons.obama.main.utils;
 
+import com.sun.istack.internal.NotNull;
 import gregtech.api.GregTech_API;
 import gregtech.api.objects.GT_ItemStack;
 import gregtech.api.util.GT_OreDictUnificator;
@@ -75,6 +76,7 @@ public class RecipeIterable implements Iterable<GT_Recipe> {
     }
 
     @Override
+    @NotNull
     public Iterator<GT_Recipe> iterator() {
         return new RecipeIterator();
     }

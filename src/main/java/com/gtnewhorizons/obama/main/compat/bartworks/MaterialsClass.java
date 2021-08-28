@@ -1,22 +1,9 @@
 /*
- * Copyright 2019 The GTNH Team
+ * Copyright 2021 The GTNH Team
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
- * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
- * CONTRACT, TORT  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
- * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *  See LICENSE.md, COPYING, and COPYING.LESSER
  */
+
 
 package com.gtnewhorizons.obama.main.compat.bartworks;
 
@@ -85,10 +72,10 @@ public class MaterialsClass implements Runnable {
       TODO: use material range from 30000-Short.MAX_VALUE-1 (Done)
       TODO: use Hexadecimal shorts for the color. It looks nicer. (Done)
     */
-    /*public static final Werkstoff AlkalineFree = new Werkstoff(
+    /*public static final Werkstoff ObamaMaterial = new Werkstoff(
             new short[]{0xFF, 0x00, 0xFF},//color IN HEXADECIMAL!
-            "Alkaline Free", //name
-            "I am free of Alkalines!", //tooltip, if none is provided, it will be generated from the Contents of this Werkstoff
+            "Obama Material", //name
+            "Obama, Save us", //tooltip, if none is provided, it will be generated from the Contents of this Werkstoff
             new Werkstoff.Stats().setCentrifuge(true).setBlastFurnace(true).setMeltingPoint(250).setToxic(true), //chain of stuff that controls its behavior
             MIXTURE, // default stats, currently used in just a few things, basically,
             // use MIXTURE for ALLOYS and COMPOUND or BIOLOGICAL for materials that should be electrolysed.
