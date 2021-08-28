@@ -36,8 +36,10 @@ import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_Recipe;
 import net.minecraft.item.ItemStack;
 
+//TODO Verify function, tidy up.
 public class GT_MetaTileEntity_SemiFluidGenerator extends GT_MetaTileEntity_BasicGenerator {
 
+    //TODO move to a base class
     private int mEfficiency;
 
     public GT_MetaTileEntity_SemiFluidGenerator(int aID, String aName, String aNameRegional, int aTier, String aDescription, ITexture... aTextures) {
@@ -53,7 +55,8 @@ public class GT_MetaTileEntity_SemiFluidGenerator extends GT_MetaTileEntity_Basi
     public void onConfigLoad() {
         this.mEfficiency = GregTech_API.sMachineFile.get(ConfigCategories.machineconfig, "SemiFluidGenerator.efficiency.tier." + this.mTier, (100 - this.mTier * 5));
     }
-    
+
+    //TODO ffs use proper description
     @Override
     @SuppressWarnings("deprecation")
     public String[] getDescription() {
@@ -102,6 +105,7 @@ public class GT_MetaTileEntity_SemiFluidGenerator extends GT_MetaTileEntity_Basi
         });
     }
 
+    //TODO Put this in a seperate thing?
     @Override
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         if (aTick % 100 == 0 && mFluid != null && mFluid.amount > this.getCapacity()) {

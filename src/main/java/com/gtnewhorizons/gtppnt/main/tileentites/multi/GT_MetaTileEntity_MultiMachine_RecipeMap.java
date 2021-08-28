@@ -25,9 +25,11 @@ import com.github.technus.tectech.mechanics.constructable.IConstructable;
 import com.github.technus.tectech.mechanics.structure.IStructureDefinition;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.IStructureExpander;
+import com.gtnewhorizons.gtppnt.main.tileentites.multi.definition.MultiBlockDefinition;
+import com.gtnewhorizons.gtppnt.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import com.gtnewhorizons.gtppnt.main.utils.IAddsBlocks;
 import com.gtnewhorizons.gtppnt.main.utils.MultiBlockUtils;
-import com.gtnewhorizons.gtppnt.main.utils.TT_Utils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Textures;
@@ -45,29 +47,39 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdder;
+import static com.github.technus.tectech.mechanics.structure.StructureUtility.ofHatchAdderOptional;
 import static com.gtnewhorizons.gtppnt.main.loaders.CasingTextureLoader.texturePage;
 
 
-//TODO: Test this SHIT
+//TODO Delete this Bart code
+@Deprecated
 public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_MultiblockBase_EM implements
         IAddsBlocks, IConstructable/* this interface adds blueprinting option*/ {
 
-    private GT_Recipe buffered_Recipe;
-    private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
-    private TT_Utils.MultiBlockDefinition multiBlockDefinition;
-
+    public static final IStructureExpander<GT_MetaTileEntity_MultiMachine_RecipeMap> FUNCTIONAL_CASING_STRUCTURE_EXPANDER = (def, builder) -> builder
+            .addElement('f', ofHatchAdder(
+                    GT_MetaTileEntity_MultiMachine_RecipeMap::addFunctionalCasingToMachineList,
+                    def.getTextureIndex(), 8))
+            .addElement('F', ofHatchAdderOptional(
+                    GT_MetaTileEntity_MultiMachine_RecipeMap::addFunctionalCasingToMachineList,
+                    def.getTextureIndex(), 8, def.getSpecialBlock(), def.getMetaSpecialBlock()));
     private static final Map<String, Textures.BlockIcons.CustomIcon> ScreensOFF = new HashMap<>();
     private static final Map<String, Textures.BlockIcons.CustomIcon> ScreensON = new HashMap<>();
+    private final ArrayList<GT_MetaTileEntity_TM_HatchCasing> mFunctionalCasings = new ArrayList<>();
+    private final List<Pair<Block, Integer>> mSpecialBlocks = new ArrayList<>();
+    private GT_Recipe buffered_Recipe;
+    private MultiBlockDefinition multiBlockDefinition;
 
     public GT_MetaTileEntity_MultiMachine_RecipeMap(int aID,
                                                     String aName,
                                                     String aNameRegional,
-                                                    TT_Utils.MultiBlockDefinition multiBlockDefinition) {
+                                                    MultiBlockDefinition multiBlockDefinition) {
         super(aID, aName, aNameRegional);
         this.multiBlockDefinition = multiBlockDefinition;
     }
 
-    public GT_MetaTileEntity_MultiMachine_RecipeMap(String aName, TT_Utils.MultiBlockDefinition multiBlockDefinition) {
+    public GT_MetaTileEntity_MultiMachine_RecipeMap(String aName, MultiBlockDefinition multiBlockDefinition) {
         super(aName);
         this.multiBlockDefinition = multiBlockDefinition;
     }
@@ -111,7 +123,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
         super.loadNBTData(aNBT);
-        multiBlockDefinition = TT_Utils.MultiBlockDefinition.valueOf(aNBT.getString("definition"));
+        multiBlockDefinition = MultiBlockDefinition.valueOf(aNBT.getString("definition"));
     }
 
     @Override
@@ -155,7 +167,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
             );
 
             if (!gt_recipe.isPresent())
-                return ret.get();
+                return false;
 
             gt_recipe
                     .filter(recipe -> recipe.mCanBeBuffered)
@@ -211,6 +223,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
                         this.mMaxProgresstime = Math.max(1, this.mMaxProgresstime);
                         updateSlots();
                         ret.set(true);
+                        mFunctionalCasings.forEach(mte -> mte.getBaseMetaTileEntity().setActive(true));
                     });
         }
         return ret.get();
@@ -218,11 +231,17 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
 
     @Override
     public IStructureDefinition<GT_MetaTileEntity_MultiMachine_RecipeMap> getStructure_EM() {
-        return multiBlockDefinition.getStructure().getStructureDefinition();
+        return multiBlockDefinition.getStructureDefinition();
     }
 
     public GT_Recipe.GT_Recipe_Map getRecipeMap() {
         return multiBlockDefinition.getRecipe_map();
+    }
+
+    @Override
+    public void stopMachine() {
+        super.stopMachine();
+        mFunctionalCasings.forEach(mte -> mte.getBaseMetaTileEntity().setActive(false));
     }
 
     @Override
@@ -232,7 +251,7 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
 
     @Override
     public Pair<Block, Integer> getRequiredSpecialBlock() {
-        return multiBlockDefinition.getStructure().getSpecialBlock();
+        return multiBlockDefinition.getStructure().getSpecialBlockPair();
     }
 
     @Override
@@ -247,5 +266,18 @@ public class GT_MetaTileEntity_MultiMachine_RecipeMap extends GT_MetaTileEntity_
     @Override
     public String[] getStructureDescription(ItemStack itemStack) {
         return new String[0];//todo description on blueprint?
+    }
+
+    public final boolean addFunctionalCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        boolean flag = false;
+        if (aTileEntity != null) {
+            IMetaTileEntity mte = aTileEntity.getMetaTileEntity();
+            if (mte instanceof GT_MetaTileEntity_TM_HatchCasing) {
+                GT_MetaTileEntity_TM_HatchCasing hatch = ((GT_MetaTileEntity_TM_HatchCasing) mte);
+                hatch.updateTexture(aBaseCasingIndex);
+                flag = this.mFunctionalCasings.add(hatch);
+            }
+        }
+        return flag;
     }
 }

@@ -34,10 +34,10 @@ import java.util.stream.Stream;
 public class MaterialsUtils {
 
     /**
-     * Applies a filter to the Werkstoff & Materials Map and executes a Consumer on it
+     * Applies a filter to the Werkstoff &amp; Materials Map and executes a Consumer on it
      *
-     * @param filter  a Predicate, (a bool function), like "materials -> GT_OreDictUnificator.get(OrePrefixes.rod, materials, 1) != null"
-     * @param toApply an Consumer ("a void function"), like "materials -> concurrentmap.add(materials)"
+     * @param filter  a Predicate, (a bool function), like "materials -&gt; GT_OreDictUnificator.get(OrePrefixes.rod, materials, 1) != null"
+     * @param toApply an Consumer ("a void function"), like "materials -&gt; concurrentmap.add(materials)"
      */
     public static void applyToAllMaterialsAndWerkstoffeAsync(Predicate<Materials> filter, Consumer<Materials> toApply) {
         new Thread(                                                     //create a new thread
@@ -48,10 +48,10 @@ public class MaterialsUtils {
     }
 
     /**
-     * Applies a filter to the Werkstoff & Materials Map and executes a Consumer on it
+     * Applies a filter to the Werkstoff &amp; Materials Map and executes a Consumer on it
      *
-     * @param filter  a Predicate, (a bool function), like "materials -> GT_OreDictUnificator.get(OrePrefixes.rod, materials, 1) != null"
-     * @param toApply an Consumer ("a void function"), like "materials -> concurrentmap.add(materials)"
+     * @param filter  a Predicate, (a bool function), like "materials -&gt; GT_OreDictUnificator.get(OrePrefixes.rod, materials, 1) != null"
+     * @param toApply an Consumer ("a void function"), like "materials -&gt; concurrentmap.add(materials)"
      */
     public static void applyToAllMaterialsAndWerkstoffe(Predicate<Materials> filter, Consumer<Materials> toApply) {
         applyToAllWerkstoffe(filter, toApply);
@@ -59,10 +59,10 @@ public class MaterialsUtils {
     }
 
     /**
-     * Applies a filter to the Werkstoff & Materials Map and executes a Consumer on it
+     * Applies a filter to the Werkstoff &amp; Materials Map and executes a Consumer on it
      *
-     * @param filter  a Predicate, (a bool function), like "materials -> GT_OreDictUnificator.get(OrePrefixes.rod, materials, 1) != null"
-     * @param toApply an Consumer ("a void function"), like "materials -> concurrentmap.add(materials)"
+     * @param filter  a Predicate, (a bool function), like "materials -&gt; GT_OreDictUnificator.get(OrePrefixes.rod, materials, 1) != null"
+     * @param toApply an Consumer ("a void function"), like "materials -&gt; concurrentmap.add(materials)"
      */
     public static void applyToAllWerkstoffe(Predicate<Materials> filter, Consumer<Materials> toApply) {
         Werkstoff.werkstoffHashSet.stream()                 //get ALL the Werkstoffe
@@ -72,10 +72,10 @@ public class MaterialsUtils {
     }
 
     /**
-     * Applies a filter to the Werkstoff & Materials Map and executes a Consumer on it
+     * Applies a filter to the Werkstoff &amp; Materials Map and executes a Consumer on it
      *
-     * @param filter  a Predicate, (a bool function), like "materials -> GT_OreDictUnificator.get(OrePrefixes.rod, materials, 1) != null"
-     * @param toApply an Consumer ("a void function"), like "materials -> concurrentmap.add(materials)"
+     * @param filter  a Predicate, (a bool function), like "materials -&gt; GT_OreDictUnificator.get(OrePrefixes.rod, materials, 1) != null"
+     * @param toApply an Consumer ("a void function"), like "materials -&gt; concurrentmap.add(materials)"
      */
     public static void applyToAllMaterials(Predicate<Materials> filter, Consumer<Materials> toApply) {
         Materials.getMaterialsMap().values().stream()       //get ALL the Materials

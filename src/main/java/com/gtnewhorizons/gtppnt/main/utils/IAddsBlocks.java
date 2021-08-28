@@ -28,7 +28,7 @@ import net.minecraft.block.Block;
 import java.util.List;
 
 public interface IAddsBlocks {
-    static boolean addBlockToMachine(IAddsBlocks iAddsBlocks,Block block, Integer meta) {
+    static boolean addBlockToMachine(IAddsBlocks iAddsBlocks, Block block, Integer meta) {
         Pair<Block, Integer> compareAgainst = iAddsBlocks.getRequiredSpecialBlock();
         if (meta.equals(compareAgainst.getValue()) && block.equals(compareAgainst.getKey())) {
             iAddsBlocks.getSpecialBlocks().add(new Pair<>(block, meta));

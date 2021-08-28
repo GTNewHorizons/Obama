@@ -6,5 +6,6 @@ public final class GTppnt_Container_Casings {
     public static Block sBlockCasingsDT0;
     public static Block sBlockCasingsDT1;
 
-    private GTppnt_Container_Casings() {}
+    private GTppnt_Container_Casings() {
+    }
 }

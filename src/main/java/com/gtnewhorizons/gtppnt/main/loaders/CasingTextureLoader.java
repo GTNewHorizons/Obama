@@ -3,8 +3,8 @@ package com.gtnewhorizons.gtppnt.main.loaders;
 import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGeneratedBlocks_CasingAdvanced_TE;
 import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGeneratedBlocks_Casing_TE;
 
+import com.gtnewhorizons.gtppnt.main.GTAFMod;
 import gregtech.api.enums.Textures;
-import net.minecraft.block.Block;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +12,7 @@ import java.util.Map;
 import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.*;
 import static com.gtnewhorizons.gtppnt.main.compat.bartworks.MaterialsClass.*;
 
-//TODO Delete this whole class! Bart there HAS to be a better solution but I have NO FUCKING CLUE what it is!
 public class CasingTextureLoader {
-    public CasingTextureLoader() {
-    }
     public static final byte texturePage = 0; //Using the [0][64-127] - GT++ page since the mods are mutually exclusive
     private static final byte START_INDEX = 64; // 64 offset for the base GT textures
     private static final Map<Short, Byte> basicWerkstoffCasingToTexurePageID = new HashMap<>();
@@ -42,19 +39,30 @@ public class CasingTextureLoader {
         advancedWerkstoffCasingToTexurePageID.put(Staballoy.getmID(), (byte) (START_INDEX + 17));
     }
 
-    public static void patchTexturePage() {
+    public CasingTextureLoader() {
+    }
+
+    public static void load() {
+        try {
+            patchTexturePage();
+        } catch (Exception e) {
+            GTAFMod.LOGGER.catching(e);
+        }
+    }
+
+    private static void patchTexturePage() {
         BW_MetaGeneratedBlocks_Casing_TE casing_basic_te = new BW_MetaGeneratedBlocks_Casing_TE();
         for (Map.Entry<Short, Byte> Rx : basicWerkstoffCasingToTexurePageID.entrySet()) {
             casing_basic_te.mMetaData = Rx.getKey();
             Textures.BlockIcons.casingTexturePages[texturePage][Rx.getValue()] =
-                    (casing_basic_te.getTexture(Block.getBlockById(0), (byte) 0))[1];
+                    casing_basic_te.getTexture(null, (byte) 0)[1];
         }
 
         BW_MetaGeneratedBlocks_CasingAdvanced_TE casingAdvancedTe = new BW_MetaGeneratedBlocks_CasingAdvanced_TE();
         for (Map.Entry<Short, Byte> Rx : advancedWerkstoffCasingToTexurePageID.entrySet()) {
             casingAdvancedTe.mMetaData = Rx.getKey();
             Textures.BlockIcons.casingTexturePages[texturePage][Rx.getValue()] =
-                    (casingAdvancedTe.getTexture(Block.getBlockById(0), (byte) 0))[1];
+                    casingAdvancedTe.getTexture(null, (byte) 0)[1];
         }
     }
 

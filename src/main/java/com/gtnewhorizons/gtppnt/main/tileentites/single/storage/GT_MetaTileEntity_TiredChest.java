@@ -35,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 
+//TODO Cross verify with the original tiered quantum chests from GT5
 public class GT_MetaTileEntity_TiredChest extends GT_MetaTileEntity_TieredMachineBlock {
 
     public int mItemCount = 0;

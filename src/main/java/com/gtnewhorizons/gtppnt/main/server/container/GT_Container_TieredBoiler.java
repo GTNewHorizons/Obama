@@ -30,11 +30,11 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 
 public class GT_Container_TieredBoiler extends GT_ContainerMetaTile_Machine {
+    private final int STEAM_CAPACITY;
     public int mWaterAmount = 0;
     public int mSteamAmount = 0;
     public int mProcessingEnergy = 0;
     public int mTemperature = 2;
-    private final int STEAM_CAPACITY;
 
     public GT_Container_TieredBoiler(InventoryPlayer aInventoryPlayer, IGregTechTileEntity aTileEntity, int aSteamCapacity) {
         super(aInventoryPlayer, aTileEntity);
