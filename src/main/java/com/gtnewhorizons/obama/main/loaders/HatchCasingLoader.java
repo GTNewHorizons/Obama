@@ -6,7 +6,44 @@ import com.gtnewhorizons.obama.main.tileentites.single.hatches.GT_MetaTileEntity
 import com.gtnewhorizons.obama.main.tileentites.single.hatches.GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler;
 import com.gtnewhorizons.obama.main.tileentites.single.hatches.defenition.CasingFunction;
 
-import static com.gtnewhorizons.obama.main.items.CustomItemList.*;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.ARM_CASING_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.ARM_CASING_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.ARM_CASING_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CATALYTIC_MUFFLER_EV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CATALYTIC_MUFFLER_IV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CATALYTIC_MUFFLER_LuV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CATALYTIC_MUFFLER_UV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CATALYTIC_MUFFLER_ZPM;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CIRCUIT_CASING_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CIRCUIT_CASING_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CIRCUIT_CASING_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CONVEYOR_CASING_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CONVEYOR_CASING_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.CONVEYOR_CASING_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.EMITTER_CASING_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.EMITTER_CASING_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.EMITTER_CASING_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.FILTER_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.FILTER_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.FILTER_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.GRINDING_CASING_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.GRINDING_CASING_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.GRINDING_CASING_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.MOTOR_CASING_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.MOTOR_CASING_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.MOTOR_CASING_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.PISTON_CASING_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.PISTON_CASING_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.PISTON_CASING_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.PUMP_CASING_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.PUMP_CASING_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.PUMP_CASING_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.ROTOR_CASING_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.ROTOR_CASING_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.ROTOR_CASING_MV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.WIRE_HV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.WIRE_LV;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.WIRE_MV;
 
 public class HatchCasingLoader {
     private HatchCasingLoader() {

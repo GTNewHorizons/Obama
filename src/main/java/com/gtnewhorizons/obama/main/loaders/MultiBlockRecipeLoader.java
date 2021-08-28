@@ -2,9 +2,13 @@ package com.gtnewhorizons.obama.main.loaders;
 
 import com.gtnewhorizons.obama.main.items.CustomItemList;
 
-import static gregtech.api.enums.Materials.*;
-import static gregtech.api.enums.OrePrefixes.*;
-import static gregtech.api.util.GT_ModHandler.*;
+import static gregtech.api.enums.Materials.EnderPearl;
+import static gregtech.api.enums.Materials.Glass;
+import static gregtech.api.enums.Materials.IronMagnetic;
+import static gregtech.api.enums.OrePrefixes.gem;
+import static gregtech.api.enums.OrePrefixes.plate;
+import static gregtech.api.util.GT_ModHandler.RecipeBits;
+import static gregtech.api.util.GT_ModHandler.addCraftingRecipe;
 
 public class MultiBlockRecipeLoader {
 

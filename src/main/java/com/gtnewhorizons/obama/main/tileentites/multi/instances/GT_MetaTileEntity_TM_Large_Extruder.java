@@ -3,7 +3,6 @@ package com.gtnewhorizons.obama.main.tileentites.multi.instances;
 
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
-
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
@@ -17,9 +16,13 @@ import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
 import net.minecraft.item.ItemStack;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.*;
-import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAdder;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
+import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
 public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Factory<GT_MetaTileEntity_TM_Large_Extruder> implements IConstructableStructureSliceableCapped {
     public GT_MetaTileEntity_TM_Large_Extruder(int aID) {

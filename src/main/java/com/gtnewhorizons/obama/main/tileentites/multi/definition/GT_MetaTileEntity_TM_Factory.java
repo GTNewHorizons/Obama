@@ -27,7 +27,9 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 //TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_TM_Factory<T>> extends GT_MetaTileEntity_EnhancedMultiBlockBase<T> implements

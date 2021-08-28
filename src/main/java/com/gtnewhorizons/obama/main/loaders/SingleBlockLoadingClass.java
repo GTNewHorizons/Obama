@@ -32,8 +32,10 @@ import com.gtnewhorizons.obama.main.utils.ObamaRecipes;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine_GT_Recipe;
 import net.minecraft.item.ItemStack;
 
-import static com.gtnewhorizons.obama.main.CommonValues.*;
-import static gregtech.api.enums.GT_Values.*;
+import static com.gtnewhorizons.obama.main.CommonValues.MACHINE_PREFIXES;
+import static com.gtnewhorizons.obama.main.CommonValues.ROMAN_LETTERS;
+import static gregtech.api.enums.GT_Values.VN;
+import static gregtech.api.enums.GT_Values.VOLTAGE_NAMES;
 
 @SuppressWarnings("ALL")
 public class SingleBlockLoadingClass {

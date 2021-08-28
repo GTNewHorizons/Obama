@@ -1,7 +1,6 @@
 package com.gtnewhorizons.obama.main.tileentites.multi.definition;
 
 import com.github.bartimaeusnek.bartworks.util.Pair;
-
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizons.obama.main.utils.IAddsBlocks;
@@ -19,13 +18,31 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.*;
-import static com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader.*;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.*;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.BlueSteel;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.RedSteel;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.Titanium;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.TungstenCarbide;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.TungstenSteel;
+import static com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader.BWBlockCasings;
+import static com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader.BWBlockCasingsAdvanced;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAdder;
 import static com.gtnewhorizons.obama.main.CommonValues.TM_MARK;
-import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.*;
-import static com.gtnewhorizons.obama.main.loaders.CasingTextureLoader.*;
-import static com.gtnewhorizons.obama.main.tileentites.multi.definition.GeometricInstance.*;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Complainium;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.EglinSteel;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Elwoodite;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Hereford690;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel300;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel350;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.NickmolX;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Rezron100;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Staballoy;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.ZirconiumCarbide;
+import static com.gtnewhorizons.obama.main.loaders.CasingTextureLoader.getAdvancedCasingTextureIndex;
+import static com.gtnewhorizons.obama.main.loaders.CasingTextureLoader.getBasicCasingTextureIndex;
+import static com.gtnewhorizons.obama.main.tileentites.multi.definition.GeometricInstance.CUBE_3x3x3_WithFunctional;
+import static com.gtnewhorizons.obama.main.tileentites.multi.definition.GeometricInstance.CUBE_3x3x3_WithMuffler;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdderOptional;
 

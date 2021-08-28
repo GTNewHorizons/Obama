@@ -2,15 +2,28 @@ package com.gtnewhorizons.obama.main.loaders;
 
 import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGeneratedBlocks_CasingAdvanced_TE;
 import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGeneratedBlocks_Casing_TE;
-
 import com.gtnewhorizons.obama.main.ObamaMod;
 import gregtech.api.enums.Textures;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.*;
-import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.*;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.BlueSteel;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.RedSteel;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.Titanium;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.TungstenCarbide;
+import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.TungstenSteel;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Complainium;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.EglinSteel;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Elwoodite;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Hereford690;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel300;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel350;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.NickmolX;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Rezron100;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Staballoy;
+import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.ZirconiumCarbide;
 
 public class CasingTextureLoader {
     public static final byte texturePage = 0; //Using the [0][64-127] - GT++ page since the mods are mutually exclusive

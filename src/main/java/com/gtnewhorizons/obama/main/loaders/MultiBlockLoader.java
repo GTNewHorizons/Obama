@@ -21,9 +21,47 @@
 package com.gtnewhorizons.obama.main.loaders;
 
 import com.gtnewhorizons.obama.main.ObamaMod;
-import com.gtnewhorizons.obama.main.tileentites.multi.instances.*;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Assembler;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Autoclave;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Bender;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Centrifuge;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Chemical_Bath;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Compressor;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Cutting_Machine;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Electrolyzer;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Extruder;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Fluid_Heater;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Forming_Press;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Laser_Engraver;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Lathe;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Macerator;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Mixer;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Ore_Washer;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Packager;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Sifter;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Thermal_Centrifuge;
+import com.gtnewhorizons.obama.main.tileentites.multi.instances.GT_MetaTileEntity_TM_Large_Wiremill;
 
-import static com.gtnewhorizons.obama.main.items.CustomItemList.*;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_ASSEMBLING_MACHINE;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_AUTOCLAVE;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_BENDING_MACHINE;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_CENTRIFUGE;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_CHEMICAL_BATH;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_COMPRESSOR;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_CUTTING_MACHINE;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_ELECTROLYZER;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_EXTRUDER;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_FLUID_HEATER;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_FORMING_PRESS;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_LATHE;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_MACERATOR;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_MIXER;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_ORE_WASHING_PLANT;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_PACKAGER;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_PRECISION_LASER_ENGRAVER;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_SIFTING_MACHINE;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_THERMAL_CENTRIFUGE;
+import static com.gtnewhorizons.obama.main.items.CustomItemList.LARGE_WIREMILL;
 
 public class MultiBlockLoader {
     private MultiBlockLoader() {

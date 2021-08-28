@@ -1,12 +1,11 @@
 package com.gtnewhorizons.obama.main.tileentites.multi.instances;
 
 
-import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
-import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
-
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
+import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,7 +16,10 @@ import gregtech.api.util.GT_Recipe;
 import net.minecraft.item.ItemStack;
 
 import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.Titanium;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.*;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
 public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Factory<GT_MetaTileEntity_TM_Large_Bender> implements IConstructableStructureSliceableCapped {

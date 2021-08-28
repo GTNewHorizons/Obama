@@ -20,8 +20,8 @@
 
 package com.gtnewhorizons.obama.preloader.postGT.loaders;
 
-import gregtech.api.enums.OrePrefixes;
 import com.github.bartimaeusnek.bartworks.util.EnumUtils;
+import gregtech.api.enums.OrePrefixes;
 
 public class EnumExtender {
     public static OrePrefixes pipeHexadecuple;
