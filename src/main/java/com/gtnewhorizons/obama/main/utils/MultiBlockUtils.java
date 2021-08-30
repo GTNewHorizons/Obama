@@ -6,7 +6,7 @@
 
 package com.gtnewhorizons.obama.main.utils;
 
-import com.gtnewhorizons.obama.main.tileentites.multi.definition.RecipeProgresion;
+import com.gtnewhorizons.obama.main.tileentities.multi.definition.RecipeProgresion;
 import gregtech.api.enums.ItemList;
 import gregtech.api.util.GT_OreDictUnificator;
 import gregtech.api.util.GT_Recipe;
