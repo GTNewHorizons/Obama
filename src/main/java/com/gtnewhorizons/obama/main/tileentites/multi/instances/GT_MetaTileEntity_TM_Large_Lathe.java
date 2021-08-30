@@ -6,17 +6,18 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceable;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
@@ -39,16 +40,16 @@ public class GT_MetaTileEntity_TM_Large_Lathe extends GT_MetaTileEntity_TM_Facto
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Lathe> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Lathe>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {"         ", "~--------", "BBBBBBBBA"},
-                    {"A        ", "mAAAAAAAA", "AA------A"},
-                    {"         ", "p--------", "cBBBBBBBA"},
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                    {" ", "A", "B"},
-                    {"A", "m", "A"},
-                    {" ", "p", "c"},
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {  // Right
+                    {"         ", "A        ", "         "},
+                    {"~--------", "mAAAAAAAA", "p--------"},
+                    {"BBBBBBBBA", "AA------A", "cBBBBBBBA"},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] {  // Left
+                    {" ", "A", " "},
+                    {"A", "m", "p"},
+                    {"B", "A", "c"},
+                }))
                 .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('B', lazy(t -> ofChain(
                     ofHatchAdder(GT_MetaTileEntity_TM_Factory::addToMachineList, t.getTextureIndex(), 1),
@@ -70,6 +71,23 @@ public class GT_MetaTileEntity_TM_Large_Lathe extends GT_MetaTileEntity_TM_Facto
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Lathe")
             .addInfo("Controller block for the Large Lathe")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(9 + getMinSlices(), 9 + getMaxSlices(), 3, 3, 3, 3,  true)
+            .addController("Middle Layer")
+            .addCasingInfo("Large Lathe Casing", 10) // TODO (Count, and name)
+            .addEnergyHatch("Bottom Front/Rear casings", 1)
+            .addInputHatch("Bottom Front/Rear casings", 1)
+            .addOutputHatch("Bottom Front/Rear casings", 1)
+            .addInputBus("Bottom Front/Rear casings", 1)
+            .addOutputBus("Bottom Front/Rear casings", 1)
+            .addMaintenanceHatch("Bottom Front/Rear casings", 1)
+            .addDynamoHatch("Bottom Front/Rear casings", 1)
+            .addOtherStructurePart(ObamaTooltips.TT_motorCasing, "Center Middle", 2)
+            .addOtherStructurePart(ObamaTooltips.TT_pistonCasing, "Back Middle", 3)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Back Bottom", 4)
+            
             .toolTipFinisher("Obama");
         return tt;
     }

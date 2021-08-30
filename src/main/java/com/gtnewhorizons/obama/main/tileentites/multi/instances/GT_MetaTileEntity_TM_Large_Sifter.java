@@ -6,17 +6,18 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureCells;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.EglinSteel;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
@@ -39,31 +40,35 @@ public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Fact
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Sifter> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Sifter>builder()
-                .addShape(TM_STRUCTURE_A, new String[][]{
-                    {"AppA", "AAAA", "A  A", "A  A", "A  A", "A  A", "~AAA", "A  A"},
-                    {"cssc", "A  A", "    ", "    ", "    ", "    ", "A  A", "    "},
-                    {"cssc", "A  A", "    ", "    ", "    ", "    ", "A  A", "    "},
-                    {"AppA", "AAAA", "A  A", "A  A", "A  A", "A  A", "AAAA", "A  A"},
-                })
-                .addShape(TM_STRUCTURE_B, new String[][]{
-                    {" pp ", "AAAA"},
-                    {"cssc", "A  A", "    ", "    ", "A  A", "    "},
-                    {"cssc", "A  A", "    ", "    ", "A  A", "    "},
-                    {"AppA", "AAAA", "A  A", "A  A", "AAAA", "A  A"},
-                })
-                .addShape(TM_STRUCTURE_C, new String[][]{
-                    {" pp "},
-                    {"cssc", "    ", "A  A", "    "},
-                    {"cssc", "    ", "A  A", "    "},
-                    {"AppA", "A  A", "A  A", "A  A"},
-                })
-                .addShape(TM_STRUCTURE_D, new String[][]{
-                    {"    ", " pp "},
-                    {"    ", "cssc"},
-                    {"    ", "cssc"},
-                    {"AAAA", "AppA", "A  A"}
-
-                })
+                .addShape(TM_STRUCTURE_A, transpose(new String[][] {
+                    {"AppA", "cssc", "cssc", "AppA"},
+                    {"AAAA", "A  A", "A  A", "AAAA"},
+                    {"A  A", "    ", "    ", "A  A"},
+                    {"A  A", "    ", "    ", "A  A"},
+                    {"A  A", "    ", "    ", "A  A"},
+                    {"A  A", "    ", "    ", "A  A"},
+                    {"~AAA", "A  A", "A  A", "AAAA"},
+                    {"A  A", "    ", "    ", "A  A"},
+                }))
+                .addShape(TM_STRUCTURE_B, transpose(new String[][] {
+                    {" pp ", "cssc", "cssc", "AppA"},
+                    {"AAAA", "A  A", "A  A", "AAAA"},
+                    {"    ", "    ", "    ", "A  A"},
+                    {"    ", "    ", "    ", "A  A"},
+                    {"    ", "A  A", "A  A", "AAAA"},
+                    {"    ", "    ", "    ", "A  A"},
+                }))
+                .addShape(TM_STRUCTURE_C, transpose(new String[][] {
+                    {" pp ", "cssc", "cssc", "AppA"},
+                    {"    ", "    ", "    ", "A  A"},
+                    {"    ", "A  A", "A  A", "A  A"},
+                    {"    ", "    ", "    ", "A  A"},
+                }))
+                .addShape(TM_STRUCTURE_D, transpose(new String[][] {
+                    {"    ", "    ", "    ", "AAAA"},
+                    {" pp ", "cssc", "cssc", "AppA"},
+                    {"    ", "    ", "    ", "A  A"},
+                }))
                 .addElement('A', lazy(t -> ofChain(
                     ofBlock(t.getCasingBlock(), t.getCasingMeta()),
                     ofHatchAdder(GT_MetaTileEntity_TM_Factory::addToMachineList, t.getTextureIndex(), 0))))
@@ -84,6 +89,21 @@ public class GT_MetaTileEntity_TM_Large_Sifter extends GT_MetaTileEntity_TM_Fact
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Sifter")
             .addInfo("Controller block for the Large Sifter")
+            .addInfo("Extensible Multiblock")
+            .addInfo(String.format("Parallels: %d, %d, %d, %d", getParalellsA(), getParalellsB(), getParalellsC(), getParalellsD()))
+            .addSeparator()
+            .beginVariableStructureBlock(4, 4, 8, 8, 4, 13,  true)
+            .addController("Front Left, Second layer from bottom")
+            .addEnergyHatch("Any casing")
+            .addInputHatch("Any casing")
+            .addOutputHatch("Any casing")
+            .addInputBus("Any casing")
+            .addOutputBus("Any casing")
+            .addMaintenanceHatch("Any casing")
+            .addDynamoHatch("Any casing")
+            .addOtherStructurePart(ObamaTooltips.TT_filterCasing, "Top Layers", 1)
+            .addOtherStructurePart(ObamaTooltips.TT_pistonCasing, "Top Layers", 2)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Top Layers", 3)
             .toolTipFinisher("Obama");
         return tt;
     }

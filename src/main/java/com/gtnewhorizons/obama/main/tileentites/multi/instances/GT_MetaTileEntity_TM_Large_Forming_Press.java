@@ -6,18 +6,19 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.Titanium;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
 public class GT_MetaTileEntity_TM_Large_Forming_Press extends GT_MetaTileEntity_TM_Factory<GT_MetaTileEntity_TM_Large_Forming_Press> implements IConstructableStructureSliceableCapped {
@@ -39,28 +40,17 @@ public class GT_MetaTileEntity_TM_Large_Forming_Press extends GT_MetaTileEntity_
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Forming_Press> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Forming_Press>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {"cIIIc", "A---A", "B~BBB"},
-                    {"I-p-I", "-----", "BBBBB"},
-                    {"IpApI", "-----", "BBBBB"},
-                    {"I-p-I", "-----", "BBBBB"},
-                    {"cIIIc", "A---A", "BBBBB"}
-
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                    {"c---c"},
-                    {"--p--"},
-                    {"-pAp-"},
-                    {"--p--"},
-                    {"c---c"}
-                })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                    {"A A"},
-                    {"AAA"},
-                    {" A "},
-                    {"AAA"},
-                    {"A A"}
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {
+                    {"cIIIc", "I-p-I", "IpApI", "I-p-I", "cIIIc"},
+                    {"A---A", "-----", "-----", "-----", "A---A"},
+                    {"BB~BB", "BBBBB", "BBBBB", "BBBBB", "BBBBB"},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] {
+                    {"c---c", "--p--", "-pAp-", "--p--", "c---c"},
+                }))
+                .addShape(TM_STRUCTURE_CAP, transpose(new String[][] {
+                    {"A A", "AAA", " A ", "AAA", "A A"},
+                }))
                 .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('B', lazy(t -> ofChain(
                     ofHatchAdder(GT_MetaTileEntity_TM_Factory::addEnergyInputToMachineList, t.getTextureIndex(), 1),
@@ -83,17 +73,34 @@ public class GT_MetaTileEntity_TM_Large_Forming_Press extends GT_MetaTileEntity_
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Forming Press")
+            .addInfo("Controller block for the Large Forming Press")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(5, 5, 4, 4 + getMaxSlices(), 5, 5,  false)
+            .addController("Front Bottom")
+            .addCasingInfo("Large Forming Press Casing", 10) // TODO (Count, and name)
+            .addMaintenanceHatch("Bottom Layer Casings", 1)
+            .addEnergyHatch("Bottom Layer Casings", 1)
+            .addOutputHatch("Bottom Layer Casings", 1)
+            .addInputHatch("Third Layer Casings", 2)
+            .addOtherStructurePart(ObamaTooltips.TT_pistonCasing, "Middle Center Ring", 3)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Middle Layer Corners", 4)
+            .addStructureInfo("Reinforced Glass")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(1, 2, 0);
+        return new Vec3Impl(2, 2, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(1, 3, 0);
+        return new Vec3Impl(2, 3, 0);
     }
 
     @Override

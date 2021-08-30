@@ -1,4 +1,4 @@
-#Multiblocks
+# Multiblocks
 gt.blockmachines.multimachine.tm.large_centrifuge.name=Large Centrifuge
 gt.blockmachines.multimachine.tm.large_bending_machine.name=Large Bending Machine
 gt.blockmachines.multimachine.tm.large_electrolyzer.name=Large Electrolyzer
@@ -37,3 +37,16 @@ gt.blockmachines.multimachine.tm.large_fluid_canner.name=Large Fluid Canner
 gt.blockmachines.multimachine.tm.large_brewery.name=Large Brewery
 gt.blockmachines.multimachine.tm.large_canning_machine.name=Large Canning Machine
 gt.blockmachines.multimachine.tm.large_forge_hammer.name=Large Forge Hammer
+
+# Multiblock Tooltips
+Obama.MBTT.RobotArmCasing=Robot Arm Casing
+Obama.MBTT.ConveyorCasing=Conveyor Casing
+Obama.MBTT.CircuitCasing=Circuit Casing
+Obama.MBTT.PumpCasing=Electric Pump Casing
+Obama.MBTT.PistonCasing=Electric Piston Casing
+Obama.MBTT.MotorCasing=Electric Motor Casing
+Obama.MBTT.WireCasing=Wire Casing
+Obama.MBTT.EmitterCasing=Emitter Casing
+Obama.MBTT.RotorCasing=Rotor Casing
+Obama.MBTT.FilterCasing=Filter Casing
+

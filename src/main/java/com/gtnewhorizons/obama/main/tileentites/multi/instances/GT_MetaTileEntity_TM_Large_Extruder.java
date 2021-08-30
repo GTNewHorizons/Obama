@@ -6,6 +6,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -14,13 +15,13 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAdder;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
@@ -43,22 +44,24 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Extruder> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Extruder>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {" BBB ", "B   B", "B   ~", "B   B"},
-                    {" AOA ", "AOOOA", "AO-OA", "AOOOA"},
-                    {" --- ", " --- ", " --- ", "AAAAA"},
-                    {" AAA ", "A---A", "A---A", "AAAAA"},
-                    {" --- ", " --- ", " --- ", "AAAAA"},
-                    {" AAA ", "A---A", "A---A", "AAAAA"},
-                    {" --- ", " --- ", " --- ", "AAAAA"},
-                    {" III ", "IAAAI", "IA-AI", "IAAAI"}
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                    {" hhh ", "h---h", "Gp-pG", "ccAcc"}
-                })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                    {" BBB ", "BBBBB", "BBBBB", "BBBBB"}
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] { // Front
+                    {" BBB ", " AOA ", " --- ", " AAA ", " --- ", " AAA ", " --- ", " III "},
+                    {"B   B", "AOOOA", " --- ", "A---A", " --- ", "A---A", " --- ", "IAAAI"},
+                    {"B   ~", "AO-OA", " --- ", "A---A", " --- ", "A---A", " --- ", "IA-AI"},
+                    {"B   B", "AOOOA", "AAAAA", "AAAAA", "AAAAA", "AAAAA", "AAAAA", "IAAAI"},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] { // Middle
+                    {" hhh "},
+                    {"h---h"},
+                    {"Gp-pG"},
+                    {"ccAcc"},
+                }))
+                .addShape(TM_STRUCTURE_CAP, transpose(new String[][] { // Back
+                    {" BBB "},
+                    {"BBBBB"},
+                    {"BBBBB"},
+                    {"BBBBB"},
+                }))
                 .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('B', lazy(t -> ofChain(
@@ -72,8 +75,8 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
                     ofHatchAdder(GT_MetaTileEntity_TM_Factory::addOutputToMachineList, t.getTextureIndex(), 3),
                     ofBlock(t.getCasingBlock(), t.getCasingMeta()))))
                 .addElement('p', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 4)))
-                .addElement('h', lazy(t -> ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList, ItemList.Casing_Coil_Cupronickel.getBlock(), 0)))
                 .addElement('c', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 5)))
+                .addElement('h', lazy(t -> ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList, ItemList.Casing_Coil_Cupronickel.getBlock(), 0)))
                 .build();
         }
     };
@@ -87,8 +90,23 @@ public class GT_MetaTileEntity_TM_Large_Extruder extends GT_MetaTileEntity_TM_Fa
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
-        tt.addMachineType("Forming Press")
-            .addInfo("Controller block for the Large Forming Press")
+        tt.addMachineType("Extruder")
+            .addInfo("Controller block for the Large Extruder")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(5, 5, 4, 4, 9 + getMinSlices(), 9 + getMaxSlices(),  true)
+            .addController("Right Side")
+            .addCasingInfo("Large Extruder Casing", 10) // TODO (Count, and name)
+            .addMaintenanceHatch("Front or Back casings", 1)
+            .addEnergyHatch("Front or Back casings", 1)
+            .addInputHatch("Middle Ring", 2)
+            .addInputBus("Middle Ring", 2)
+            .addOutputHatch("Front Face", 3)
+            .addOutputBus("Front Face", 3)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Back Wall", 4, 5)
+            .addOtherStructurePart("Cupronickel Coil Block", "Slice Top")
+            .addStructureInfo("Reinforced Glass")
             .toolTipFinisher("Obama");
         return tt;
     }

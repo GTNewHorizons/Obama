@@ -6,6 +6,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,13 +14,13 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.Titanium;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
 public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Factory<GT_MetaTileEntity_TM_Large_Bender> implements IConstructableStructureSliceableCapped {
@@ -41,17 +42,24 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Bender> computeValue(Class<?> type) {
 
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Bender>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {"AAA", "AAA", "A~A", "AAA"},
-
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                    {"cAA", "mpG", "mpG", "cAA"},
-                    {"AAc", "Gpm", "Gpm", "AAc"}
-                })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                    {"AAA", "AAA", "AAA", "AAA"}
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {
+                    {"AAA"},
+                    {"AAA"},
+                    {"A~A"},
+                    {"AAA"},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] {
+                    {"cAA", "AAc"},
+                    {"mpG", "Gpm"},
+                    {"mpG", "Gpm"},
+                    {"cAA", "AAc"},
+                }))
+                .addShape(TM_STRUCTURE_CAP, transpose(new String[][] {
+                    {"AAA"},
+                    {"AAA"},
+                    {"AAA"},
+                    {"AAA"},
+                }))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('A', lazy(t -> ofChain(
                     ofBlock(t.getCasingBlock(), t.getCasingMeta()),
@@ -73,6 +81,23 @@ public class GT_MetaTileEntity_TM_Large_Bender extends GT_MetaTileEntity_TM_Fact
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Bender")
             .addInfo("Controller block for the Large Bender")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(3, 3, 4, 4, 4, 4+(2*getMaxSlices()), false)
+            .addController("Front Middle, one up from the bottom")
+            .addCasingInfo("Large Bender Casing", 10) // TODO (Count, and name)
+            .addEnergyHatch("Any casing", 1)
+            .addInputHatch("Any casing", 1)
+            .addOutputHatch("Any Casing", 1)
+            .addInputBus("Any Casing", 1)
+            .addOutputBus("Any Casing", 1)
+            .addMaintenanceHatch("Any Casing", 1)
+            .addDynamoHatch("Any Casing", 1)
+            .addOtherStructurePart(ObamaTooltips.TT_motorCasing, "Side of the slices", 1)
+            .addOtherStructurePart(ObamaTooltips.TT_pistonCasing, "Middle of the slice", 2)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Slice Corners", 3)
+            .addStructureInfo("Reinforced Glass")
             .toolTipFinisher("Obama");
         return tt;
     }

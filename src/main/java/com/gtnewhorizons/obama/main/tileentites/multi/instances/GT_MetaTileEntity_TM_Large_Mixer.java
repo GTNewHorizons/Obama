@@ -6,6 +6,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,12 +14,12 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.ZirconiumCarbide;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
@@ -42,21 +43,33 @@ public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Facto
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Mixer> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Mixer>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {" BBB ", "B   B", "B ~ B", "B   B", " BBB ", "E   E", "E   E"},
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                    {" cmc ", "cAAAc", "mAAAm", "cAAAc", " cmc "}
-                })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                    {"         ", "         ", "   AAA   ", "  A   A  ", "  A A A  ", "  A   A  ", "   AAA   ", "         ", "         "},
-                    {"         ", "         ", "  A   A  ", "         ", "    A    ", "         ", "  A   A  ", "         ", "         "},
-                    {"   AAA   ", " AAAAAAA ", " AA   AA ", "AA     AA", "AA  A  AA", "AA     AA", " AA   AA ", "AAAAAAAAA", "A  AAA  A"},
-                    {"   AAA   ", " AAAAAAA ", " AAAAAAA ", "IAAAAAAAI", "IAAAAAAAI", "IAAAAAAAI", " AAAAAAA ", " AAAAAAA ", "   OOO   "},
-                    {"   AAA   ", " AAAAAAA ", " AA   AA ", "IA  r  AI", "IA rrr AI", "IA  r  AI", " AA   AA ", " AAAAAAA ", "   OOO   "},
-                    {"   AAA   ", " AAAAAAA ", " AAGGGAA ", "AAGGGGGAA", "AAGGGGGAA", "AAGGGGGAA", " AAGGGAA ", " AAAAAAA ", "   AAA   "},
-                    {"   AAA   ", " AAAAAAA ", " AA   AA ", "AA     AA", "AA     AA", "AA     AA", " AA   AA ", "AAAAAAAAA", "A  AAA  A"},
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {
+                    {" BBB "},
+                    {"B   B"},
+                    {"B ~ B"},
+                    {"B   B"},
+                    {" BBB "},
+                    {"E   E"},
+                    {"E   E"},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] {
+                    {" cmc "},
+                    {"cAAAc"},
+                    {"mAAAm"},
+                    {"cAAAc"},
+                    {" cmc "},
+                }))
+                .addShape(TM_STRUCTURE_CAP, transpose(new String[][] {
+                    {"         ", "         ", "   AAA   ", "   AAA   ", "   AAA   ", "   AAA   ", "   AAA   "},
+                    {"         ", "         ", " AAAAAAA ", " AAAAAAA ", " AAAAAAA ", " AAAAAAA ", " AAAAAAA "},
+                    {"   AAA   ", "  A   A  ", " AA   AA ", " AAAAAAA ", " AA   AA ", " AAGGGAA ", " AA   AA "},
+                    {"  A   A  ", "         ", "AA     AA", "IAAAAAAAI", "IA  r  AI", "AAGGGGGAA", "AA     AA"},
+                    {"  A A A  ", "    A    ", "AA  A  AA", "IAAAAAAAI", "IA rrr AI", "AAGGGGGAA", "AA     AA"},
+                    {"  A   A  ", "         ", "AA     AA", "IAAAAAAAI", "IA  r  AI", "AAGGGGGAA", "AA     AA"},
+                    {"   AAA   ", "  A   A  ", " AA   AA ", " AAAAAAA ", " AA   AA ", " AAGGGAA ", " AA   AA "},
+                    {"         ", "         ", "AAAAAAAAA", " AAAAAAA ", " AAAAAAA ", " AAAAAAA ", "AAAAAAAAA"},
+                    {"         ", "         ", "A  AAA  A", "   OOO   ", "   OOO   ", "   AAA   ", "A  AAA  A"},
+                }))
                 .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('B', lazy(t -> ofChain(
@@ -88,6 +101,22 @@ public class GT_MetaTileEntity_TM_Large_Mixer extends GT_MetaTileEntity_TM_Facto
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Mixer")
             .addInfo("Controller block for the Large Mixer")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(9, 9, 9, 9, 8 + getMinSlices(), 8 + getMaxSlices(),  true)
+            .addController("Front Center")
+            .addCasingInfo("Mixer Casing", 10) // TODO (Count, and name)
+            .addMaintenanceHatch("Front Top", 1)
+            .addEnergyHatch("Front Bottom", 2)
+            .addInputHatch("Left/Right Middle", 3)
+            .addInputBus("Left/Right Middle", 3)
+            .addOutputHatch("Bottom Middle", 4)
+            .addOutputBus("Bottom Middle", 4)
+            .addOtherStructurePart(ObamaTooltips.TT_motorCasing, "Back Wall", 5)
+            .addOtherStructurePart(ObamaTooltips.TT_rotorCasing, "Back Wall", 6)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Back Wall", 7)
+            .addStructureInfo("Reinforced Glass")
             .toolTipFinisher("Obama");
         return tt;
     }

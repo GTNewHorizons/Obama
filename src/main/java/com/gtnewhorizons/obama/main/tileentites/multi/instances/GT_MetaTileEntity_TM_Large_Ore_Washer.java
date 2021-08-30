@@ -6,6 +6,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureCells;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,17 +14,16 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
-public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_Factory<GT_MetaTileEntity_TM_Large_Ore_Washer> implements
-        IConstructableStructureCells {
+public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_Factory<GT_MetaTileEntity_TM_Large_Ore_Washer> implements IConstructableStructureCells {
     public GT_MetaTileEntity_TM_Large_Ore_Washer(int aID) {
         super(aID, "multimachine.tm.large_ore_washing_plant", "Large Ore Washing Plant");
     }
@@ -42,31 +42,40 @@ public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Ore_Washer> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Ore_Washer>builder()
-                .addShape(TM_STRUCTURE_A, new String[][]{
-                    {"   Acc ", "   AGG ", "AGG~cc ", "BBBAAA "},
-                    {"   A--c", "   f--G", "G--f--c", "BBBAmmA"},
-                    {"   A--c", "   f--G", "G--f--c", "BBBAmmA"},
-                    {"   AFF ", "   AAI ", "AGGAAI ", "BBBAAA "}
-                })
-                .addShape(TM_STRUCTURE_B, new String[][]{
-                    {"AAA ", "Aff ", "Aff ", "    ", "    ", "    "},
-                    {"F--c", "A--G", "A--c", "AmmA", "    ", "    "},
-                    {"F--c", "I--G", "I--c", "AmmA", "    ", "    "},
-                    {" cc ", " GG ", " cc ", " AA ", "A  A", "A  A"}
-                })
-                .addShape(TM_STRUCTURE_C, new String[][]{
-                    {" FFA", " IA ", " IA ", " AA ", "A   ", "A   ", "A   ", "A   "},
-                    {"c--A", "G--f", "c--f", "Amm ", "    ", "    ", "    ", "    "},
-                    {"c--A", "G--f", "c--f", "Amm ", "    ", "    ", "    ", "    "},
-                    {" cc ", " GG ", " cc ", " AA ", "A   ", "A   ", "A   ", "A   "}
-
-                })
-                .addShape(TM_STRUCTURE_D, new String[][]{
-                    {" cc ", " GG ", " cc ", " AA ", "A  A", "A  A", "A   ", "A   "},
-                    {"c--A", "G--I", "c--I", "AmmA"},
-                    {"c--A", "G--A", "c--A", "AmmA"},
-                    {" AA ", " ff ", " ff ", "    "}
-                })
+                .addShape(TM_STRUCTURE_A, transpose(new String[][] {
+                    {"   Acc ", "   A--c", "   A--c", "   AFF "},
+                    {"   AGG ", "   f--G", "   f--G", "   AAI "},
+                    {"AGG~cc ", "G--f--c", "G--f--c", "AGGAAI "},
+                    {"BBBAAA ", "BBBAmmA", "BBBAmmA", "BBBAAA "},
+                }))
+                .addShape(TM_STRUCTURE_B, transpose(new String[][] {
+                    {"AAA ", "F--c", "F--c", " cc "},
+                    {"Aff ", "A--G", "I--G", " GG "},
+                    {"Aff ", "A--c", "I--c", " cc "},
+                    {"    ", "AmmA", "AmmA", " AA "},
+                    {"    ", "    ", "    ", "A  A"},
+                    {"    ", "    ", "    ", "A  A"},
+                }))
+                .addShape(TM_STRUCTURE_C, transpose(new String[][] {
+                    {" FFA", "c--A", "c--A", " cc "},
+                    {" IA ", "G--f", "G--f", " GG "},
+                    {" IA ", "c--f", "c--f", " cc "},
+                    {" AA ", "Amm ", "Amm ", " AA "},
+                    {"A   ", "    ", "    ", "A   "},
+                    {"A   ", "    ", "    ", "A   "},
+                    {"A   ", "    ", "    ", "A   "},
+                    {"A   ", "    ", "    ", "A   "},
+                }))
+                .addShape(TM_STRUCTURE_D, transpose(new String[][] {
+                    {" cc ", "c--A", "c--A", " AA "},
+                    {" GG ", "G--I", "G--A", " ff "},
+                    {" cc ", "c--I", "c--A", " ff "},
+                    {" AA ", "AmmA", "AmmA", "    "},
+                    {"A  A", "    ", "    ", "    "},
+                    {"A  A", "    ", "    ", "    "},
+                    {"A   ", "    ", "    ", "    "},
+                    {"A   ", "    ", "    ", "    "},
+                }))
                 .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('B', lazy(t -> ofChain(
@@ -79,10 +88,10 @@ public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_
                     ofBlock(t.getCasingBlock(), t.getCasingMeta()))))
                 .addElement('m', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMotorCasingToMachineList, t.getTextureIndex(), 3)))
                 .addElement('f', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpCasingToMachineList, t.getTextureIndex(), 4)))
+                .addElement('c', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 5)))
                 .addElement('F', lazy(t -> ofChain(
                     ofBlock(t.getCasingBlock(), t.getCasingMeta()),
-                    ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpCasingToMachineList, t.getTextureIndex(), 10))))
-                .addElement('c', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 5)))
+                    ofHatchAdder(GT_MetaTileEntity_TM_Factory::addPumpCasingToMachineList, t.getTextureIndex(), 6))))
                 .build();
         }
     };
@@ -97,6 +106,22 @@ public class GT_MetaTileEntity_TM_Large_Ore_Washer extends GT_MetaTileEntity_TM_
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Ore Washer")
             .addInfo("Controller block for the Large Ore Washer")
+            .addInfo("Extensible Multiblock")
+            .addInfo(String.format("Parallels: %d, %d, %d, %d", getParalellsA(), getParalellsB(), getParalellsC(), getParalellsD()))
+            .addSeparator()
+            .beginVariableStructureBlock(7, 7, 4, 10, 4, 7,  true)
+            .addController("Front Center Second from Bottom")
+            .addCasingInfo("Ore Washer Casing", 10) // TODO (Count, and name)
+            .addEnergyHatch("Bottom Layer", 1)
+            .addMaintenanceHatch("Bottom Layer", 1)
+            .addOutputBus("Bottom Layer", 1)
+            .addOutputHatch("Bottom Layer", 1)
+            .addInputBus("Front Right", 2)
+            .addInputHatch("Front Right", 2)
+            .addOtherStructurePart(ObamaTooltips.TT_motorCasing, "", 3)
+            .addOtherStructurePart(ObamaTooltips.TT_pumpCasing, "", 4)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "", 5)
+            .addStructureInfo("Reinforced Glass")
             .toolTipFinisher("Obama");
         return tt;
     }
