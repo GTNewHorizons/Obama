@@ -8,12 +8,12 @@ package com.gtnewhorizons.obama.main.loaders;
 
 import com.gtnewhorizons.obama.main.ObamaMod;
 import com.gtnewhorizons.obama.main.config.ConfigHandler;
-import com.gtnewhorizons.obama.main.tileentites.single.generators.GT_MetaTileEntity_SemiFluidGenerator;
-import com.gtnewhorizons.obama.main.tileentites.single.generators.GT_MetaTileEntity_ThermalGenerator;
-import com.gtnewhorizons.obama.main.tileentites.single.generators.GT_MetaTileEntity_TieredBoiler;
-import com.gtnewhorizons.obama.main.tileentites.single.misc.GT_MetaTileEntity_SteamConverter;
-import com.gtnewhorizons.obama.main.tileentites.single.storage.GT_MetaTileEntity_TieredTank;
-import com.gtnewhorizons.obama.main.tileentites.single.storage.GT_MetaTileEntity_TiredChest;
+import com.gtnewhorizons.obama.main.tileentities.single.generators.GT_MetaTileEntity_SemiFluidGenerator;
+import com.gtnewhorizons.obama.main.tileentities.single.generators.GT_MetaTileEntity_ThermalGenerator;
+import com.gtnewhorizons.obama.main.tileentities.single.generators.GT_MetaTileEntity_TieredBoiler;
+import com.gtnewhorizons.obama.main.tileentities.single.misc.GT_MetaTileEntity_SteamConverter;
+import com.gtnewhorizons.obama.main.tileentities.single.storage.GT_MetaTileEntity_TieredTank;
+import com.gtnewhorizons.obama.main.tileentities.single.storage.GT_MetaTileEntity_TiredChest;
 import com.gtnewhorizons.obama.main.utils.ObamaRecipes;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine_GT_Recipe;
 import net.minecraft.item.ItemStack;

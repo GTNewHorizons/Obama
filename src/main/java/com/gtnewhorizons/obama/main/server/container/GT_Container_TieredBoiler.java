@@ -6,7 +6,7 @@
 
 package com.gtnewhorizons.obama.main.server.container;
 
-import com.gtnewhorizons.obama.main.tileentites.single.generators.GT_MetaTileEntity_TieredBoiler;
+import com.gtnewhorizons.obama.main.tileentities.single.generators.GT_MetaTileEntity_TieredBoiler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.gui.GT_ContainerMetaTile_Machine;

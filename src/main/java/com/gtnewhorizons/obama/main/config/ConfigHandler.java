@@ -6,7 +6,7 @@
 
 package com.gtnewhorizons.obama.main.config;
 
-import com.gtnewhorizons.obama.main.tileentites.single.generators.GT_MetaTileEntity_TieredBoiler;
+import com.gtnewhorizons.obama.main.tileentities.single.generators.GT_MetaTileEntity_TieredBoiler;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
