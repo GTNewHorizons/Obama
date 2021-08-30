@@ -1,4 +1,4 @@
-package com.gtnewhorizons.obama.main.tileentites.single.hatches.defenition;
+package com.gtnewhorizons.obama.main.tileentites.single.hatches.definition;
 
 import static com.gtnewhorizons.obama.main.CommonValues.MACHINE_PREFIXES;
 

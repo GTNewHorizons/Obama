@@ -1,6 +1,6 @@
 package com.gtnewhorizons.obama.main.tileentites.single.hatches;
 
-import com.gtnewhorizons.obama.main.tileentites.single.hatches.defenition.CasingFunction;
+import com.gtnewhorizons.obama.main.tileentites.single.hatches.definition.CasingFunction;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Textures;

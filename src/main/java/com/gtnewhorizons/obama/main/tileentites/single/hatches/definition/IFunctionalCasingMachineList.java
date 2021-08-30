@@ -1,4 +1,4 @@
-package com.gtnewhorizons.obama.main.tileentites.single.hatches.defenition;
+package com.gtnewhorizons.obama.main.tileentites.single.hatches.definition;
 
 import com.gtnewhorizons.obama.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;

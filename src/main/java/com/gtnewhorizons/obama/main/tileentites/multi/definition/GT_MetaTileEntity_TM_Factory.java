@@ -7,8 +7,8 @@ import com.gtnewhorizons.obama.main.tileentites.multi.definition.sound.ISoundPro
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructure;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.texture.ITextureProviderImpl;
 import com.gtnewhorizons.obama.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
-import com.gtnewhorizons.obama.main.tileentites.single.hatches.defenition.IFunctionalCasingMachineList;
-import com.gtnewhorizons.obama.main.tileentites.single.hatches.defenition.IHeatingCoilMachineList;
+import com.gtnewhorizons.obama.main.tileentites.single.hatches.definition.IFunctionalCasingMachineList;
+import com.gtnewhorizons.obama.main.tileentites.single.hatches.definition.IHeatingCoilMachineList;
 import com.gtnewhorizons.obama.main.utils.MultiBlockUtils;
 import com.gtnewhorizons.obama.main.utils.RecipeIterable;
 import cpw.mods.fml.relauncher.Side;
@@ -101,8 +101,9 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
     public boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         functionalCasingsPreCheckMachine();
         heatingCoilPreCheckMachine();
-        return checkMachine(iGregTechTileEntity, itemStack) &&
-                functionalCasingsPostCheckMachine() &&
+        
+        // This used to call checkMachine_TM  
+        return  functionalCasingsPostCheckMachine() &&
                 heatingCoilPostCheckMachine(getCasingTier());
     }
 

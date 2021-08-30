@@ -4,7 +4,7 @@ import com.gtnewhorizons.obama.main.ObamaMod;
 import com.gtnewhorizons.obama.main.items.CustomItemList;
 import com.gtnewhorizons.obama.main.tileentites.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
 import com.gtnewhorizons.obama.main.tileentites.single.hatches.GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler;
-import com.gtnewhorizons.obama.main.tileentites.single.hatches.defenition.CasingFunction;
+import com.gtnewhorizons.obama.main.tileentites.single.hatches.definition.CasingFunction;
 
 import static com.gtnewhorizons.obama.main.items.CustomItemList.ARM_CASING_HV;
 import static com.gtnewhorizons.obama.main.items.CustomItemList.ARM_CASING_LV;
