@@ -22,20 +22,20 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 
 //TODO Cross verify with the original tiered quantum chests from GT5
-public class GT_MetaTileEntity_TiredChest extends GT_MetaTileEntity_TieredMachineBlock {
+public class Obama_MetaTileEntity_TiredChest extends GT_MetaTileEntity_TieredMachineBlock {
 
     public int mItemCount = 0;
     public ItemStack mItemStack = null;
 
-    public GT_MetaTileEntity_TiredChest(int aID, String aName, String aNameRegional, int aTier) {
+    public Obama_MetaTileEntity_TiredChest(int aID, String aName, String aNameRegional, int aTier) {
         super(aID, aName, aNameRegional, aTier, 3, "This Chest stores " + CommonSizeCompute(aTier) + " Blocks");
     }
 
-    public GT_MetaTileEntity_TiredChest(String aName, int aTier, String aDescription, ITexture[][][] aTextures) {
+    public Obama_MetaTileEntity_TiredChest(String aName, int aTier, String aDescription, ITexture[][][] aTextures) {
         super(aName, aTier, 3, aDescription, aTextures);
     }
 
-    public GT_MetaTileEntity_TiredChest(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
+    public Obama_MetaTileEntity_TiredChest(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
         super(aName, aTier, 3, aDescription, aTextures);
     }
 
@@ -60,7 +60,7 @@ public class GT_MetaTileEntity_TiredChest extends GT_MetaTileEntity_TieredMachin
     }
 
     public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntity_TiredChest(this.mName, this.mTier, this.mDescriptionArray, this.mTextures);
+        return new Obama_MetaTileEntity_TiredChest(this.mName, this.mTier, this.mDescriptionArray, this.mTextures);
     }
 
     public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {

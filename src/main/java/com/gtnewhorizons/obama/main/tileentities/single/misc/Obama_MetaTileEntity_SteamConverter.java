@@ -17,16 +17,16 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 //TODO Verify function, tidy up.
-public class GT_MetaTileEntity_SteamConverter extends GT_MetaTileEntity_BasicTank {
+public class Obama_MetaTileEntity_SteamConverter extends GT_MetaTileEntity_BasicTank {
 
     private FluidStack mOutputStack = new FluidStack(FluidRegistry.WATER, 0);
 
-    public GT_MetaTileEntity_SteamConverter(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount, String aDescription, ITexture... aTextures) {
+    public Obama_MetaTileEntity_SteamConverter(int aID, String aName, String aNameRegional, int aTier, int aInvSlotCount, String aDescription, ITexture... aTextures) {
         super(aID, aName, aNameRegional, aTier, aInvSlotCount, aDescription, aTextures);
         this.mFluid = IC2CellGetter.STEAM.getFluidStack(0);
     }
 
-    public GT_MetaTileEntity_SteamConverter(String aName, int aTier, int aInvSlotCount, String aDescription, ITexture[][][] aTextures) {
+    public Obama_MetaTileEntity_SteamConverter(String aName, int aTier, int aInvSlotCount, String aDescription, ITexture[][][] aTextures) {
         super(aName, aTier, aInvSlotCount, aDescription, aTextures);
         this.mFluid = IC2CellGetter.STEAM.getFluidStack(0);
     }
@@ -105,7 +105,7 @@ public class GT_MetaTileEntity_SteamConverter extends GT_MetaTileEntity_BasicTan
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity iGregTechTileEntity) {
-        return new GT_MetaTileEntity_SteamConverter(this.mName, this.mTier, this.mInventory.length, this.mDescription, this.mTextures);
+        return new Obama_MetaTileEntity_SteamConverter(this.mName, this.mTier, this.mInventory.length, this.mDescription, this.mTextures);
     }
 
     @Override

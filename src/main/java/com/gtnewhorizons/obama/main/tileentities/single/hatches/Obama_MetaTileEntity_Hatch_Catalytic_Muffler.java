@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import static gregtech.api.enums.GT_Values.VN;
 
 
-public class GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler extends GT_MetaTileEntity_Hatch_Muffler {
+public class Obama_MetaTileEntity_Hatch_Catalytic_Muffler extends GT_MetaTileEntity_Hatch_Muffler {
     //TODO physically looks untidy.
     private static final String localizedDescFormat = GT_LanguageManager.addStringLocalization(
             "gt.blockmachines.hatch.muffler.desc.format",
@@ -29,15 +29,15 @@ public class GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler extends GT_MetaTileEnt
 
     //TODO make this cleaner?
     {
-        description.add(CommonValues.TM_MARK);
+        description.add(CommonValues.OBAMA_MARK);
     }
 
-    public GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(int aID, int aTier) {
-        super(aID, "singlemachine.tm.catalytic_muffler_hatch_" + VN[aTier],
+    public Obama_MetaTileEntity_Hatch_Catalytic_Muffler(int aID, int aTier) {
+        super(aID, "singlemachine.obama.catalytic_muffler_hatch_" + VN[aTier],
                 "Catalytic Muffler Hatch (" + VN[aTier] + ")", aTier);
     }
 
-    public GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(String aName, int aTier, String[] aDescription,
+    public Obama_MetaTileEntity_Hatch_Catalytic_Muffler(String aName, int aTier, String[] aDescription,
                                                         ITexture[][][] aTextures) {
         super(aName, aTier, aDescription, aTextures);
     }
@@ -72,8 +72,8 @@ public class GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler extends GT_MetaTileEnt
 
     @Override
     public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(this.mName, this.mTier, this.mDescriptionArray,
-                this.mTextures);
+        return new Obama_MetaTileEntity_Hatch_Catalytic_Muffler(this.mName, this.mTier, this.mDescriptionArray,
+                                                                this.mTextures);
     }
 
     public ItemStack getItem() {

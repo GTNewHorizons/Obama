@@ -20,25 +20,25 @@ import java.util.Map;
 
 import static com.gtnewhorizons.obama.main.CommonValues.COMPONENT_COLORS;
 
-public class GT_MetaTileEntity_TM_HatchCasing extends GT_MetaTileEntity_Hatch {
+public class Obama_MetaTileEntity_HatchCasing extends GT_MetaTileEntity_Hatch {
     private static final Map<String, Textures.BlockIcons.CustomIcon> FacingTiered = new HashMap<>();
     private static final Map<String, Textures.BlockIcons.CustomIcon> FacingInactive = new HashMap<>();
     private static final Map<String, Textures.BlockIcons.CustomIcon> FacingActive = new HashMap<>();
     public CasingFunction function;
 
-    public GT_MetaTileEntity_TM_HatchCasing(int aID, CasingFunction function, int aTier) {
+    public Obama_MetaTileEntity_HatchCasing(int aID, CasingFunction function, int aTier) {
         super(aID, function.getUnlocalizedName(aTier), function.getLocalizedName(aTier), aTier, 0, "");
         this.function = function;
     }
 
-    public GT_MetaTileEntity_TM_HatchCasing(String aName, int aTier, String aDescription, ITexture[][][] aTextures, CasingFunction function) {
+    public Obama_MetaTileEntity_HatchCasing(String aName, int aTier, String aDescription, ITexture[][][] aTextures, CasingFunction function) {
         super(aName, aTier, 0, aDescription, aTextures);
         this.function = function;
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity iGregTechTileEntity) {
-        return new GT_MetaTileEntity_TM_HatchCasing(mName, mTier, mDescription, mTextures, function);
+        return new Obama_MetaTileEntity_HatchCasing(mName, mTier, mDescription, mTextures, function);
     }
 
     @Override
