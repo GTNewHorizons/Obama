@@ -11,9 +11,9 @@ import com.gtnewhorizons.obama.main.config.ConfigHandler;
 import com.gtnewhorizons.obama.main.tileentities.single.generators.GT_MetaTileEntity_SemiFluidGenerator;
 import com.gtnewhorizons.obama.main.tileentities.single.generators.GT_MetaTileEntity_ThermalGenerator;
 import com.gtnewhorizons.obama.main.tileentities.single.generators.GT_MetaTileEntity_TieredBoiler;
-import com.gtnewhorizons.obama.main.tileentities.single.misc.GT_MetaTileEntity_SteamConverter;
-import com.gtnewhorizons.obama.main.tileentities.single.storage.GT_MetaTileEntity_TieredTank;
-import com.gtnewhorizons.obama.main.tileentities.single.storage.GT_MetaTileEntity_TiredChest;
+import com.gtnewhorizons.obama.main.tileentities.single.misc.Obama_MetaTileEntity_SteamConverter;
+import com.gtnewhorizons.obama.main.tileentities.single.storage.Obama_MetaTileEntity_TieredTank;
+import com.gtnewhorizons.obama.main.tileentities.single.storage.Obama_MetaTileEntity_TiredChest;
 import com.gtnewhorizons.obama.main.utils.ObamaRecipes;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine_GT_Recipe;
 import net.minecraft.item.ItemStack;
@@ -60,7 +60,7 @@ public class SingleBlockLoadingClass {
     //TODO: Textures for the Simple Washer & own GUI Texture
     public static void loadOverrideIDs() throws Exception {
         for (int i = 0; i < 4; i++) {
-            GTBasicTanks[i] = new GT_MetaTileEntity_TieredTank(
+            GTBasicTanks[i] = new Obama_MetaTileEntity_TieredTank(
                     817 + i,
                     "Obama.basic.tank." + i,
                     VOLTAGE_NAMES[i] + " Fluid Tank",
@@ -126,10 +126,10 @@ public class SingleBlockLoadingClass {
         }
 
         for (int i = 0; i < 5; i++) {
-            GTBasicChests[i] = new GT_MetaTileEntity_TiredChest(946 + i,
-                    "Obama.basic.chest." + i,
-                    VOLTAGE_NAMES[i] + " Chest",
-                    i
+            GTBasicChests[i] = new Obama_MetaTileEntity_TiredChest(946 + i,
+                                                                   "Obama.basic.chest." + i,
+                                                                   VOLTAGE_NAMES[i] + " Chest",
+                                                                   i
             ).getStackForm(1L);
         }
 
@@ -158,7 +158,7 @@ public class SingleBlockLoadingClass {
                             'G', GT_MetaTileEntity_BasicMachine_GT_Recipe.X.GLASS}
             ).getStackForm(1L);
         }
-        new GT_MetaTileEntity_SteamConverter(769, "SteamConderserShitWhatever", "SteamConderserShitWhatever", 0, 3, "");
+        new Obama_MetaTileEntity_SteamConverter(769, "SteamConderserShitWhatever", "SteamConderserShitWhatever", 0, 3, "");
     }
 
     public static void loadNewIDs() throws Exception {
@@ -178,7 +178,7 @@ public class SingleBlockLoadingClass {
                 SIMPLEWASHERRECIPE.clone()
             ).getStackForm(1);
 
-            GTBasicChests[i] = new GT_MetaTileEntity_TiredChest(
+            GTBasicChests[i] = new Obama_MetaTileEntity_TiredChest(
                     ConfigHandler.IDOFFSET + 31 + i,
                     "Obama.basic.chest." + i,
                     VOLTAGE_NAMES[i] + " Chest",
@@ -187,7 +187,7 @@ public class SingleBlockLoadingClass {
         }
 
         for (int i = 4; i < VN.length; i++) {
-            GTBasicTanks[i] = new GT_MetaTileEntity_TieredTank(
+            GTBasicTanks[i] = new Obama_MetaTileEntity_TieredTank(
                     ConfigHandler.IDOFFSET - 4 + i,
                     "Obama.basic.tank." + i,
                     VOLTAGE_NAMES[i] + " Fluid Tank",

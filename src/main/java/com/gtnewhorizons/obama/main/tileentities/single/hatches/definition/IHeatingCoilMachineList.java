@@ -24,7 +24,7 @@ public interface IHeatingCoilMachineList {
 
         IHeatingCoil coil = (IHeatingCoil) block;
         int tier = getCoilTier();
-        int coilTier = coil.getCoilHeat(meta).getTier() + 1; // for soem reason the tier given is tier - 1 so for HV it gives 2 back
+        int coilTier = coil.getCoilHeat(meta).getTier() + 1; // for some reason the tier given is tier - 1 so for HV it gives 2 back
 
         if (tier < 0) {
             tier = coilTier;

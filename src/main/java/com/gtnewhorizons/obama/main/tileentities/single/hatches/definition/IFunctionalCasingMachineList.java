@@ -1,13 +1,13 @@
 package com.gtnewhorizons.obama.main.tileentities.single.hatches.definition;
 
-import com.gtnewhorizons.obama.main.tileentities.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
+import com.gtnewhorizons.obama.main.tileentities.single.hatches.Obama_MetaTileEntity_HatchCasing;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
 import java.util.Set;
 
 public interface IFunctionalCasingMachineList {
-    Set<GT_MetaTileEntity_TM_HatchCasing> getFunctionalCasings();
+    Set<Obama_MetaTileEntity_HatchCasing> getFunctionalCasings();
 
     default void clearFunctionalCasings() {
         getFunctionalCasings().clear();
@@ -26,10 +26,10 @@ public interface IFunctionalCasingMachineList {
             return false;
 
         IMetaTileEntity mte = aTileEntity.getMetaTileEntity();
-        if (!(mte instanceof GT_MetaTileEntity_TM_HatchCasing))
+        if (!(mte instanceof Obama_MetaTileEntity_HatchCasing))
             return false;
 
-        GT_MetaTileEntity_TM_HatchCasing hatch = ((GT_MetaTileEntity_TM_HatchCasing) mte);
+        Obama_MetaTileEntity_HatchCasing hatch = ((Obama_MetaTileEntity_HatchCasing) mte);
         if (hatch.function != function)
             return false;
 
@@ -96,7 +96,7 @@ public interface IFunctionalCasingMachineList {
             return false;
 
         byte tier = -1;
-        for (GT_MetaTileEntity_TM_HatchCasing casing : getFunctionalCasings()) {
+        for (Obama_MetaTileEntity_HatchCasing casing : getFunctionalCasings()) {
             if (tier == -1) {
                 tier = casing.mTier;
             } else if (tier != casing.mTier) {

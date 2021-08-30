@@ -6,7 +6,7 @@ import com.gtnewhorizons.obama.main.loaders.CasingTextureLoader;
 import com.gtnewhorizons.obama.main.tileentities.multi.definition.sound.ISoundProviderImpl;
 import com.gtnewhorizons.obama.main.tileentities.multi.definition.structure.IConstructableStructure;
 import com.gtnewhorizons.obama.main.tileentities.multi.definition.texture.ITextureProviderImpl;
-import com.gtnewhorizons.obama.main.tileentities.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
+import com.gtnewhorizons.obama.main.tileentities.single.hatches.Obama_MetaTileEntity_HatchCasing;
 import com.gtnewhorizons.obama.main.tileentities.single.hatches.definition.IFunctionalCasingMachineList;
 import com.gtnewhorizons.obama.main.tileentities.single.hatches.definition.IHeatingCoilMachineList;
 import com.gtnewhorizons.obama.main.utils.MultiBlockUtils;
@@ -35,7 +35,7 @@ import java.util.Set;
 public abstract class Obama_MetaTileEntity_Factory<T extends Obama_MetaTileEntity_Factory<T>> extends GT_MetaTileEntity_EnhancedMultiBlockBase<T> implements
         IConstructableStructure, IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl,
         IHeatingCoilMachineList {
-    private final Set<GT_MetaTileEntity_TM_HatchCasing> functionalCasings = new HashSet<>();
+    private final Set<Obama_MetaTileEntity_HatchCasing> functionalCasings = new HashSet<>();
     private byte casingTier = 0;
     private int coilTier = 0;
     private Vec3Impl structureOffset;
@@ -213,7 +213,7 @@ public abstract class Obama_MetaTileEntity_Factory<T extends Obama_MetaTileEntit
                     if (timeLeft <= 0) {
                         finishedRecipes.add(runningRecipe);
                         totalItemStacks += runningRecipe.getItems().length;
-                        totalFluidStacks += runningRecipe.getFluids().length;
+                        totalFluidStacks += runningRecipe.getFluids().length;   
                         runningRecipes[i] = null;
                     } else {
                         newProgressTime = Math.min(newProgressTime, timeLeft);
@@ -446,7 +446,7 @@ public abstract class Obama_MetaTileEntity_Factory<T extends Obama_MetaTileEntit
     }
 
     @Override
-    public Set<GT_MetaTileEntity_TM_HatchCasing> getFunctionalCasings() {
+    public Set<Obama_MetaTileEntity_HatchCasing> getFunctionalCasings() {
         return functionalCasings;
     }
 

@@ -17,13 +17,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 
 //TODO Cross verify with the original tiered tanks from GT5
-public class GT_MetaTileEntity_TieredTank extends GT_MetaTileEntity_BasicTank {
+public class Obama_MetaTileEntity_TieredTank extends GT_MetaTileEntity_BasicTank {
 
-    public GT_MetaTileEntity_TieredTank(int aID, String aName, String aNameRegional, int aTier) {
+    public Obama_MetaTileEntity_TieredTank(int aID, String aName, String aNameRegional, int aTier) {
         super(aID, aName, aNameRegional, aTier, 3, "Stores " + CommonSizeCompute(aTier) + "L of fluid");
     }
 
-    public GT_MetaTileEntity_TieredTank(String aName, int aTier, String aDescription, ITexture[][][] aTextures) {
+    public Obama_MetaTileEntity_TieredTank(String aName, int aTier, String aDescription, ITexture[][][] aTextures) {
         super(aName, aTier, 3, aDescription, aTextures);
     }
 
@@ -42,7 +42,7 @@ public class GT_MetaTileEntity_TieredTank extends GT_MetaTileEntity_BasicTank {
     @Override
     @SuppressWarnings("deprecation")
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity iGregTechTileEntity) {
-        return new GT_MetaTileEntity_TieredTank(this.mName, this.mTier, this.mDescription, this.mTextures);
+        return new Obama_MetaTileEntity_TieredTank(this.mName, this.mTier, this.mDescription, this.mTextures);
     }
 
     public void saveNBTData(NBTTagCompound aNBT) {

@@ -2,8 +2,8 @@ package com.gtnewhorizons.obama.main.loaders;
 
 import com.gtnewhorizons.obama.main.ObamaMod;
 import com.gtnewhorizons.obama.main.items.CustomItemList;
-import com.gtnewhorizons.obama.main.tileentities.single.hatches.GT_MetaTileEntity_TM_HatchCasing;
-import com.gtnewhorizons.obama.main.tileentities.single.hatches.GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler;
+import com.gtnewhorizons.obama.main.tileentities.single.hatches.Obama_MetaTileEntity_HatchCasing;
+import com.gtnewhorizons.obama.main.tileentities.single.hatches.Obama_MetaTileEntity_Hatch_Catalytic_Muffler;
 import com.gtnewhorizons.obama.main.tileentities.single.hatches.definition.CasingFunction;
 
 import static com.gtnewhorizons.obama.main.items.CustomItemList.ARM_CASING_HV;
@@ -85,16 +85,16 @@ public class HatchCasingLoader {
         aID = setMultipleCasingTiered(CasingFunction.FILTER, aID, FILTER_LV, FILTER_MV, FILTER_HV);
 
 
-        CATALYTIC_MUFFLER_EV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 4).getItem());
-        CATALYTIC_MUFFLER_IV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 5).getItem());
-        CATALYTIC_MUFFLER_LuV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 6).getItem());
-        CATALYTIC_MUFFLER_ZPM.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 7).getItem());
-        CATALYTIC_MUFFLER_UV.set(new GT_MetaTileEntity_TM_Hatch_Catalytic_Muffler(aID++, 8).getItem());
+        CATALYTIC_MUFFLER_EV.set(new Obama_MetaTileEntity_Hatch_Catalytic_Muffler(aID++, 4).getItem());
+        CATALYTIC_MUFFLER_IV.set(new Obama_MetaTileEntity_Hatch_Catalytic_Muffler(aID++, 5).getItem());
+        CATALYTIC_MUFFLER_LuV.set(new Obama_MetaTileEntity_Hatch_Catalytic_Muffler(aID++, 6).getItem());
+        CATALYTIC_MUFFLER_ZPM.set(new Obama_MetaTileEntity_Hatch_Catalytic_Muffler(aID++, 7).getItem());
+        CATALYTIC_MUFFLER_UV.set(new Obama_MetaTileEntity_Hatch_Catalytic_Muffler(aID++, 8).getItem());
     }
 
     private static int setMultipleCasingTiered(CasingFunction function, int aID, CustomItemList... itemList) {
         for (int i = 0; i < itemList.length; i++) {
-            itemList[i].set(new GT_MetaTileEntity_TM_HatchCasing(aID++, function, (i + 1)).getItem());
+            itemList[i].set(new Obama_MetaTileEntity_HatchCasing(aID++, function, (i + 1)).getItem());
         }
         return aID;
     }
