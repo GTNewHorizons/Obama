@@ -21,8 +21,7 @@ public interface IFunctionalCasingMachineList {
 
     void setCasingTier(byte casingTier);
 
-    default boolean addFunctionalCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex,
-                                                     CasingFunction function) {
+    default boolean addFunctionalCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex, CasingFunction function) {
         if (aTileEntity == null)
             return false;
 
@@ -67,8 +66,8 @@ public interface IFunctionalCasingMachineList {
         return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.EMITTER);
     }
 
-    default boolean addArmCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.ARM);
+    default boolean addRobotArmCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        return addFunctionalCasingToMachineList(aTileEntity, aBaseCasingIndex, CasingFunction.ROBOT_ARM);
     }
 
     default boolean addWireCasingToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {

@@ -31,8 +31,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSimple.TM_STRUCTURE_START;
-
 //TODO Slot recipe handling into its own interface
 public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_TM_Factory<T>> extends GT_MetaTileEntity_EnhancedMultiBlockBase<T> implements
         IConstructableStructure, IFunctionalCasingMachineList, ITextureProviderImpl, ISoundProviderImpl,
@@ -252,14 +250,14 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
                         freedPower += finishedRecipe.getEUUsage();
                     }
                 }
-                //remove all null from array
+                // remove all null from array
                 RecipeProgresion[] newRunning = new RecipeProgresion[runningRecipes.length - finishedRecipes.size()];
                 int newIndex = 0;
                 for (RecipeProgresion runningRecipe : runningRecipes) {
                     if (runningRecipe != null)
                         newRunning[newIndex++] = runningRecipe;
                 }
-                //re set values so they are correct with recipes gone
+                // re-set values so they are correct with recipes gone
                 runningRecipes = newRunning;
                 mOutputItems = outputItems;
                 mOutputFluids = outputFluids;
@@ -483,11 +481,5 @@ public abstract class GT_MetaTileEntity_TM_Factory<T extends GT_MetaTileEntity_T
     public boolean explodesOnComponentBreak(ItemStack aStack) {
         return false;
     }
-//
-//    @Override
-//    public void construct(ItemStack stackSize, boolean hintsOnly) {
-//        buildPiece(TM_STRUCTURE_START, getStartStructureOffset(), hintsOnly, stackSize);
-//    }
-//
-//    
+    
 }

@@ -6,6 +6,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,12 +14,12 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
@@ -41,21 +42,19 @@ public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Fa
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Packager> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Packager>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {"~", "B"},
-                    {"I", "B"},
-                    {"A", "B"}
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                    {"c", "G", "B"},
-                    {"A", "-", "v"},
-                    {"c", "a", "B"}
-                })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                    {"A", "B"},
-                    {"O", "B"},
-                    {"A", "B"}
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {  // Left
+                    {"~", "I", "A"},
+                    {"B", "B", "B"},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] {  // Middle
+                    {"c", "A", "c"},
+                    {"G", "-", "a"},
+                    {"B", "v", "B"},
+                }))
+                .addShape(TM_STRUCTURE_CAP, transpose(new String[][] {  // Right
+                    {"A", "O", "A"},
+                    {"B", "B", "B"},
+                }))
                 .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('B', lazy(t -> ofChain(
@@ -64,7 +63,7 @@ public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Fa
                     ofBlock(t.getCasingBlock(), t.getCasingMeta()))))
                 .addElement('I', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addInputToMachineList, t.getTextureIndex(), 2)))
                 .addElement('O', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addOutputToMachineList, t.getTextureIndex(), 3)))
-                .addElement('a', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addArmCasingToMachineList, t.getTextureIndex(), 4)))
+                .addElement('a', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addRobotArmCasingToMachineList, t.getTextureIndex(), 4)))
                 .addElement('v', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addConveyorCasingToMachineList, t.getTextureIndex(), 5)))
                 .addElement('c', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 6)))
                 .build();
@@ -81,6 +80,21 @@ public class GT_MetaTileEntity_TM_Large_Packager extends GT_MetaTileEntity_TM_Fa
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Packager")
             .addInfo("Controller block for the Large Packager")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(2 + getMinSlices(), 2 + getMaxSlices(), 3, 3, 3, 3, true)
+            .addController("Left Side")
+            .addMaintenanceHatch("Bottom Layer", 1)
+            .addEnergyHatch("Bottom Layer", 1)
+            .addInputHatch("Left Middle", 2)
+            .addInputBus("Left Middle", 2)
+            .addOutputHatch("Right Middle", 3)
+            .addOutputBus("Right Middle", 3)
+            .addOtherStructurePart(ObamaTooltips.TT_robotArmCasing, "", 4)
+            .addOtherStructurePart(ObamaTooltips.TT_conveyorCasing, "", 5)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "", 6)
+            .addStructureInfo("Reinforced Glass")
             .toolTipFinisher("Obama");
         return tt;
     }

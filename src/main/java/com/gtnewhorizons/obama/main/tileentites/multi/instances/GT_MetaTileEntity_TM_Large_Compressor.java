@@ -6,6 +6,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,13 +14,12 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
@@ -43,21 +43,30 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Compressor> computeValue(Class<?> type) {
 
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Compressor>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                        {" AAAAA ", "AGGGGGA", "AGGGGGA", "AGGGGGA", "BBBB~BB"},
-                        {" AAAAA ", "A-A-A-A", "A-A-A-A", "A-A-A-A", "BAAAAAB"}
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                        {" AAAAA ", "cpA-Apc", "A-A-A-A", "A-A-A-A", " AAAAA "},
-                        {" AAAAA ", "A-A-A-A", "cpA-Apc", "A-A-A-A", " AAAAA "}
-                })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                        {"", "", "", "", "BAAAAAB"},
-                        {" AAAAA ", "AGGGGGA", "AGGGGGA", "AGGGGGA", "BBBBBBB"}
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {
+                    {" AAAAA ", " AAAAA "},
+                    {"AGGGGGA", "A-A-A-A"},
+                    {"AGGGGGA", "A-A-A-A"},
+                    {"AGGGGGA", "A-A-A-A"},
+                    {"BBB~BBB", "BAAAAAB"},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] {
+                    {" AAAAA ", " AAAAA "},
+                    {"cpA-Apc", "A-A-A-A"},
+                    {"A-A-A-A", "cpA-Apc"},
+                    {"A-A-A-A", "A-A-A-A"},
+                    {" AAAAA ", " AAAAA "},
+                }))
+                .addShape(TM_STRUCTURE_CAP, transpose(new String[][] {
+                    {"",        " AAAAA "},
+                    {"",        "AGGGGGA"},
+                    {"",        "AGGGGGA"},
+                    {"",        "AGGGGGA"},
+                    {"BAAAAAB", "BBBBBBB"},
+                }))
                 .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('B', lazy(t -> ofChain(
-                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addToMachineList, t.getTextureIndex(), Block.getBlockFromName("gt.blockhintTT"), 1),
+                        ofHatchAdder(GT_MetaTileEntity_TM_Factory::addToMachineList, t.getTextureIndex(), 1),
                         ofBlock(t.getCasingBlock(), t.getCasingMeta())
                 )))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
@@ -77,18 +86,34 @@ public class GT_MetaTileEntity_TM_Large_Compressor extends GT_MetaTileEntity_TM_
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Compressor")
             .addInfo("Controller block for the Large Compressor")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(7, 7, 5, 5, 3 + getMinSlices(), 3 + getMaxSlices(),  true)
+            .addController("Front Bottom Middle")
+            .addCasingInfo("Large Compressor Casing", 10) // TODO (Count, and name)
+            .addEnergyHatch("Any casing", 1)
+            .addInputHatch("Any casing", 1)
+            .addOutputHatch("Any Casing", 1)
+            .addInputBus("Any Casing", 1)
+            .addOutputBus("Any Casing", 1)
+            .addMaintenanceHatch("Any Casing", 1)
+            .addDynamoHatch("Any Casing", 1)
+            .addOtherStructurePart(ObamaTooltips.TT_pistonCasing, "Inside Middle", 2)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Outside Middle", 3)
+            .addStructureInfo("Reinforced Glass")
             .toolTipFinisher("Obama");
         return tt;
     }
     
     @Override
     public Vec3Impl getStartStructureOffset() {
-        return new Vec3Impl(4, 4, 0);
+        return new Vec3Impl(3, 4, 0);
     }
 
     @Override
     public Vec3Impl getSliceStructureOffset() {
-        return new Vec3Impl(4, 4, -2);
+        return new Vec3Impl(3, 4, -2);
     }
 
     @Override

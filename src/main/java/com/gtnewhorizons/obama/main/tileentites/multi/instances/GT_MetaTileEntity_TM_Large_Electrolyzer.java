@@ -6,6 +6,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,12 +14,12 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.Elwoodite;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
@@ -41,28 +42,15 @@ public class GT_MetaTileEntity_TM_Large_Electrolyzer extends GT_MetaTileEntity_T
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Electrolyzer> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Electrolyzer>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {"BBB~BBB"},
-                    {"BBBBBBB"},
-                    {"BBBBBBB"},
-                    {"BBBBBBB"},
-                    {"BBBBBBB"},
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-
-                    {"GGGGGGG"},
-                    {"c-w-w-c"},
-                    {"A-----A"},
-                    {"c-w-w-c"},
-                    {"GGGGGGG"},
-                })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                    {"BBBBBBB"},
-                    {"BBBBBBB"},
-                    {"BBBBBBB"},
-                    {"BBBBBBB"},
-                    {"BBBBBBB"}
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {
+                    {"BBB~BBB", "BBBBBBB", "BBBBBBB", "BBBBBBB", "BBBBBBB"}, // Bottom
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] {
+                    {"GGGGGGG", "c-w-w-c", "A-----A", "c-w-w-c", "GGGGGGG"}, // Middle
+                }))
+                .addShape(TM_STRUCTURE_CAP, transpose(new String[][] {
+                    {"BBBBBBB", "BBBBBBB", "BBBBBBB", "BBBBBBB", "BBBBBBB"}, // Top
+                }))
                 .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('B', lazy(t -> ofChain(
@@ -84,6 +72,22 @@ public class GT_MetaTileEntity_TM_Large_Electrolyzer extends GT_MetaTileEntity_T
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Electrolyzer")
             .addInfo("Controller block for the Large Electrolyzer")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(5, 5*(getMaxSlices()+1), 5, 5, 5, 5, false)
+            .addController("Bottom Center")
+            .addCasingInfo("Large Electrolyzer Casing", 10) // TODO (Count, and name)
+            .addEnergyHatch("Any top/bottom casing", 1)
+            .addInputHatch("Any top/bottom casing", 1)
+            .addOutputHatch("Any top/bottom casing", 1)
+            .addInputBus("Any top/bottom casing", 1)
+            .addOutputBus("Any top/bottom casing", 1)
+            .addMaintenanceHatch("Any top/bottom casing", 1)
+            .addDynamoHatch("Any top/bottom casing", 1)
+            .addOtherStructurePart(ObamaTooltips.TT_wireCasing, "Somewhere", 2)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Somewhere", 3)
+            .addStructureInfo("Reinforced Glass")
             .toolTipFinisher("Obama");
         return tt;
     }

@@ -6,6 +6,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceable;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,12 +14,12 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
@@ -43,16 +44,19 @@ public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Laser_Engraver> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Laser_Engraver>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {"B", "A", "~", "B"},
-                    {"A", "G", "A", "A"},
-                    {"B", "A", "A", "B"}
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                    {"c ", "pB", "GA", "IA", "BB"},
-                    {"c ", "eA", "-G", "-A", "AA"},
-                    {"c ", "pB", "GA", "OA", "BB"},
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {  // Left
+                    {"B", "A", "B"},
+                    {"A", "G", "A"},
+                    {"~", "A", "A"},
+                    {"B", "A", "B"},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] { // Right
+                    {"c ", "c ", "c "},
+                    {"pB", "eA", "pB"},
+                    {"GA", "-G", "GA"},
+                    {"IA", "-A", "OA"},
+                    {"BB", "AA", "BB"},
+                }))
                 .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('B', lazy(t -> ofChain(
                     ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMaintenanceToMachineList, t.getTextureIndex(), 1),
@@ -82,6 +86,22 @@ public class GT_MetaTileEntity_TM_Large_Laser_Engraver extends GT_MetaTileEntity
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Laser Engraver")
             .addInfo("Controller block for the Large Laser Engraver")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(3, 3 + (2 * getMaxSlices()), 4, 4, 3, 3,  false)
+            .addController("Left Bottom")
+            .addCasingInfo("Laser Engraver Casing", 10) // TODO (Count, and name)
+            .addMaintenanceHatch("Bottom Layer", 1)
+            .addEnergyHatch("Bottom Layer", 1)
+            .addInputBus("Second Layer from Bottom", 2)
+            .addInputHatch("Second Layer from Bottom", 2)
+            .addOutputBus("Second Layer from Bottom", 3)
+            .addOutputHatch("Second Layer from Bottom", 3)
+            .addOtherStructurePart(ObamaTooltips.TT_pistonCasing, "Second Layer from Top", 4)
+            .addOtherStructurePart(ObamaTooltips.TT_emitterCasing, "Second Layer from Top - middle", 5)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Top", 6)
+            .addStructureInfo("Reinforced Glass")
             .toolTipFinisher("Obama");
         return tt;
     }

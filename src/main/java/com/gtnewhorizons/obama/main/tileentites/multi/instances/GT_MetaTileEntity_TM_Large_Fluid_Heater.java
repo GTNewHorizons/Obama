@@ -6,6 +6,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -14,13 +15,13 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAdder;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static com.gtnewhorizons.obama.main.compat.bartworks.MaterialsClass.MaragingSteel250;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
@@ -43,22 +44,26 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Fluid_Heater> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Fluid_Heater>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {"BBB", "B~B"},
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                    {"hGh", "BcB"}
-                })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                    {"BBB", "BBB"}
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {
+                    {"BBB"},
+                    {"B~B"},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] {
+                    {"hGh"},
+                    {"BcB"},
+                }))
+                .addShape(TM_STRUCTURE_CAP, transpose(new String[][] {
+                    {"BBB"},
+                    {"BBB"},
+                }))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('B', lazy(t -> ofChain(
                     ofBlock(t.getCasingBlock(), t.getCasingMeta()),
                     ofHatchAdder(GT_MetaTileEntity_TM_Factory::addToMachineList, t.getTextureIndex(), 1))))
+                .addElement('c', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 2)))
+                // for some reason using GT_Block_Casings5 doesent work so im using ItemList.Casing_Coil_Cupronickel.getBlock()
+                // TODO: Unclear if this was meant to be Nichrome (defaultMeta: 2), or if they were going for aDots: 2
                 .addElement('h', lazy(t -> ofBlockAdder(GT_MetaTileEntity_TM_Factory::addCoilToMachineList, ItemList.Casing_Coil_Cupronickel.getBlock(), 2)))
-                //for some reason using GT_Block_Casings5 doesent work so im using ItemList.Casing_Coil_Cupronickel.getBlock()
-                .addElement('c', lazy(t -> ofHatchAdder(GT_MetaTileEntity_TM_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 3)))
                 .build();
         }
     };
@@ -70,7 +75,27 @@ public class GT_MetaTileEntity_TM_Large_Fluid_Heater extends GT_MetaTileEntity_T
 
     @Override
     protected GT_Multiblock_Tooltip_Builder createTooltip() {
-        return null;
+        GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
+        tt.addMachineType("Fluid Heater")
+            .addInfo("Controller block for the Large Fluid Heater")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(3, 3, 2, 2, 2 + getMinSlices(), 2 + getMaxSlices(),  false)
+            .addController("Front Bottom")
+            .addCasingInfo("Large Fluid Heater Casing", 10) // TODO (Count, and name)
+            .addEnergyHatch("Any casing", 1)
+            .addInputHatch("Any casing", 1)
+            .addOutputHatch("Any Casing", 1)
+            .addInputBus("Any Casing", 1)
+            .addOutputBus("Any Casing", 1)
+            .addMaintenanceHatch("Any Casing", 1)
+            .addDynamoHatch("Any Casing", 1)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Slice bottom Middle", 2)
+            .addOtherStructurePart("Nichrome Coil Block", "Slice Top Outside")
+            .addStructureInfo("Reinforced Glass")
+            .toolTipFinisher("Obama");
+        return tt;
     }
 
     @Override

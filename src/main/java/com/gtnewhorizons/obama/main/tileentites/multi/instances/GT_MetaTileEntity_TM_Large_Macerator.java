@@ -6,18 +6,19 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.GT_MetaTileEntity_TM_Factory;
 import com.gtnewhorizons.obama.main.tileentites.multi.definition.structure.IConstructableStructureSliceableCapped;
+import com.gtnewhorizons.obama.main.utils.ObamaTooltips;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
-import net.minecraft.item.ItemStack;
 
 import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.TungstenCarbide;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
 
 public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_Factory<GT_MetaTileEntity_TM_Large_Macerator> implements IConstructableStructureSliceableCapped {
@@ -38,15 +39,27 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
         @Override
         protected IStructureDefinition<GT_MetaTileEntity_TM_Large_Macerator> computeValue(Class<?> type) {
             return StructureDefinition.<GT_MetaTileEntity_TM_Large_Macerator>builder()
-                .addShape(TM_STRUCTURE_START, new String[][]{
-                    {" AAA ", "AAAAA", "AA~AA", "AAAAA", " AAA "}
-                })
-                .addShape(TM_STRUCTURE_MIDDLE, new String[][]{
-                    {" mBp ", "c---c", "B---B", "c---c", " pBm "}
-                })
-                .addShape(TM_STRUCTURE_CAP, new String[][]{
-                    {" AAA ", "AAAAA", "AAAAA", "AAAAA", " AAA "}
-                })
+                .addShape(TM_STRUCTURE_START, transpose(new String[][] {
+                    {" AAA "},
+                    {"AAAAA"},
+                    {"AA~AA"},
+                    {"AAAAA"},
+                    {" AAA "},
+                }))
+                .addShape(TM_STRUCTURE_MIDDLE, transpose(new String[][] {
+                    {" mBp "},
+                    {"c---c"},
+                    {"B---B"},
+                    {"c---c"},
+                    {" pBm "},
+                }))
+                .addShape(TM_STRUCTURE_CAP, transpose(new String[][] {
+                    {" AAA "},
+                    {"AAAAA"},
+                    {"AAAAA"},
+                    {"AAAAA"},
+                    {" AAA "},
+                }))
                 .addElement('A', lazy(t -> ofChain(
                     ofBlock(t.getCasingBlock(), t.getCasingMeta()),
                     ofHatchAdder(GT_MetaTileEntity_TM_Factory::addMaintenanceToMachineList, t.getTextureIndex(), 0),
@@ -72,6 +85,21 @@ public class GT_MetaTileEntity_TM_Large_Macerator extends GT_MetaTileEntity_TM_F
         GT_Multiblock_Tooltip_Builder tt = new GT_Multiblock_Tooltip_Builder();
         tt.addMachineType("Macerator")
             .addInfo("Controller block for the Large Macerator")
+            .addInfo(String.format("Slicable - Min: %d  Max: %d", getMinSlices(), getMaxSlices()))
+            .addInfo(String.format("Parallels per Slice: %d", getParalellsPerSlice()))
+            .addSeparator()
+            .beginVariableStructureBlock(5, 5, 5, 5, 2 + getMinSlices(), 2 + getMaxSlices(),  true)
+            .addController("Front Center")
+            .addCasingInfo("Large Macerator Casing", 10) // TODO (Count, and name)
+            .addEnergyHatch("Front/Block Casings")
+            .addMaintenanceHatch("Front/Block Casings")
+            .addInputHatch("Middle of Top/Bottom/Left/Right", 1)
+            .addInputBus("Middle of Top/Bottom/Left/Right", 1)
+            .addOutputHatch("Middle of Top/Bottom/Left/Right", 1)
+            .addOutputBus("Middle of Top/Bottom/Left/Right", 1)
+            .addOtherStructurePart(ObamaTooltips.TT_motorCasing, "Bottom/Top", 2)
+            .addOtherStructurePart(ObamaTooltips.TT_pistonCasing, "Bottom/Top", 3)
+            .addOtherStructurePart(ObamaTooltips.TT_circuitCasing, "Left/Right", 4)
             .toolTipFinisher("Obama");
         return tt;
     }
