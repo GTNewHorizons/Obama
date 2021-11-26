@@ -1,5 +1,6 @@
 package com.gtnewhorizons.obama.main.tileentities.multi.definition.structure;
 
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -8,24 +9,24 @@ import net.minecraft.item.ItemStack;
  * <p>It is meant to be used for extensible multiblocks, where different sizes will add another 'cell' structure.
  */
 public interface IConstructableStructureCells extends IConstructableStructureABCD {
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    default boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
-//        if (!checkMachineA())
-//            return false;
-//
-//        if (!checkMachineB())
-//            return true;
-//
-//        if (!checkMachineC())
-//            return true;
-//
-//        checkMachineD();
-//        return true;
-//    }
-//
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
+        if (!checkMachineA())
+            return false;
+
+        if (!checkMachineB())
+            return true;
+
+        if (!checkMachineC())
+            return true;
+
+        checkMachineD();
+        return true;
+    }
+
     /**
      * {@inheritDoc}
      */

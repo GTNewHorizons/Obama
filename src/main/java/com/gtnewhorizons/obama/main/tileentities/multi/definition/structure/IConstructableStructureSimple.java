@@ -1,6 +1,7 @@
 package com.gtnewhorizons.obama.main.tileentities.multi.definition.structure;
 
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -36,5 +37,13 @@ public interface IConstructableStructureSimple extends IConstructableStructure {
     default void construct(ItemStack itemStack, boolean hintsOnly) {
         buildPiece(TM_STRUCTURE_START, getStartStructureOffset(), hintsOnly, itemStack);
     }
-    
+
+    /**
+     *  Check the machine
+     *
+     */
+    @Override
+    default boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
+        return structureCheck(TM_STRUCTURE_START, getStartStructureOffset());
+    }
 }
