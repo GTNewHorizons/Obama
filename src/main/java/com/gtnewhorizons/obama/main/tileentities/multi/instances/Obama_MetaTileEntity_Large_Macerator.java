@@ -13,10 +13,10 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
+import net.minecraft.item.ItemStack;
 
 import static com.github.bartimaeusnek.bartworks.system.material.BW_GT_MaterialReference.TungstenCarbide;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.util.GT_StructureUtility.ofHatchAdder;
@@ -28,6 +28,12 @@ public class Obama_MetaTileEntity_Large_Macerator extends Obama_MetaTileEntity_F
 
     public Obama_MetaTileEntity_Large_Macerator(String aName) {
         super(aName);
+    }
+
+    @Override
+    public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        preLoadCheck();
+        return IConstructableStructureSliceableCapped.super.checkMachine(aBaseMetaTileEntity, aStack) && additionalCheck();
     }
 
     @Override
@@ -61,13 +67,13 @@ public class Obama_MetaTileEntity_Large_Macerator extends Obama_MetaTileEntity_F
                     {" AAA "},
                 }))
                 .addElement('A', lazy(t -> ofChain(
-                    ofBlock(t.getCasingBlock(), t.getCasingMeta()),
+                    addTileCasing(t.getCasingBlock(), t.getCasingMeta()),
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addMaintenanceToMachineList, t.getTextureIndex(), 0),
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addEnergyInputToMachineList, t.getTextureIndex(), 0))))
                 .addElement('B', lazy(t -> ofChain(
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addInputToMachineList, t.getTextureIndex(), 1),
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addOutputToMachineList, t.getTextureIndex(), 1),
-                    ofBlock(t.getCasingBlock(), t.getCasingMeta()))))
+                    addTileCasing(t.getCasingBlock(), t.getCasingMeta()))))
                 .addElement('m', lazy(t -> ofHatchAdder(Obama_MetaTileEntity_Factory::addMotorCasingToMachineList, t.getTextureIndex(), 2)))
                 .addElement('p', lazy(t -> ofHatchAdder(Obama_MetaTileEntity_Factory::addPistonCasingToMachineList, t.getTextureIndex(), 3)))
                 .addElement('c', lazy(t -> ofHatchAdder(Obama_MetaTileEntity_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 4)))

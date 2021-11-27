@@ -13,9 +13,9 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
+import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
@@ -30,6 +30,12 @@ public class Obama_MetaTileEntity_Large_Autoclave extends Obama_MetaTileEntity_F
 
     public Obama_MetaTileEntity_Large_Autoclave(String aName) {
         super(aName);
+    }
+
+    @Override
+    public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        preLoadCheck();
+        return IConstructableStructureSliceableCapped.super.checkMachine(aBaseMetaTileEntity, aStack) && additionalCheck();
     }
 
     @Override
@@ -56,11 +62,10 @@ public class Obama_MetaTileEntity_Large_Autoclave extends Obama_MetaTileEntity_F
                     {" BBB ", "BBBBB", "BBBBB", "BBBBB", "BBBBB", "BBBBB"},
                     {" GGG ", "G   G", "G A G", "G   G", "A   A", "AclcA"},
                 }))
-                
-                .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
+                .addElement('A', lazy(t -> addTileCasing(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('B', lazy(t -> ofChain(
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addToMachineList, t.getTextureIndex(), 1),
-                    ofBlock(t.getCasingBlock(), t.getCasingMeta()))))
+                    addTileCasing(t.getCasingBlock(), t.getCasingMeta()))))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('l', lazy(t -> ofHatchAdder(Obama_MetaTileEntity_Factory::addPumpCasingToMachineList, t.getTextureIndex(), 2)))
                 .addElement('c', lazy(t -> ofHatchAdder(Obama_MetaTileEntity_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 3)))

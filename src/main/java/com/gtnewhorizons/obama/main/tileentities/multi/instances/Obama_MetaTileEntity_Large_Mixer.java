@@ -14,9 +14,9 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
+import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
@@ -31,6 +31,12 @@ public class Obama_MetaTileEntity_Large_Mixer extends Obama_MetaTileEntity_Facto
 
     public Obama_MetaTileEntity_Large_Mixer(String aName) {
         super(aName);
+    }
+
+    @Override
+    public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        preLoadCheck();
+        return IConstructableStructureSliceableCapped.super.checkMachine(aBaseMetaTileEntity, aStack) && additionalCheck();
     }
 
     @Override
@@ -70,20 +76,20 @@ public class Obama_MetaTileEntity_Large_Mixer extends Obama_MetaTileEntity_Facto
                     {"         ", "         ", "AAAAAAAAA", " AAAAAAA ", " AAAAAAA ", " AAAAAAA ", "AAAAAAAAA"},
                     {"         ", "         ", "A  AAA  A", "   OOO   ", "   OOO   ", "   AAA   ", "A  AAA  A"},
                 }))
-                .addElement('A', lazy(t -> ofBlock(t.getCasingBlock(), t.getCasingMeta())))
+                .addElement('A', lazy(t -> addTileCasing(t.getCasingBlock(), t.getCasingMeta())))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('B', lazy(t -> ofChain(
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addMaintenanceToMachineList, t.getTextureIndex(), 1),
-                    ofBlock(t.getCasingBlock(), t.getCasingMeta()))))
+                    addTileCasing(t.getCasingBlock(), t.getCasingMeta()))))
                 .addElement('E', lazy(t -> ofChain(
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addEnergyInputToMachineList, t.getTextureIndex(), 2),
-                    ofBlock(t.getCasingBlock(), t.getCasingMeta()))))
+                    addTileCasing(t.getCasingBlock(), t.getCasingMeta()))))
                 .addElement('I', lazy(t -> ofChain(
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addInputToMachineList, t.getTextureIndex(), 3),
-                    ofBlock(t.getCasingBlock(), t.getCasingMeta()))))
+                    addTileCasing(t.getCasingBlock(), t.getCasingMeta()))))
                 .addElement('O', lazy(t -> ofChain(
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addOutputToMachineList, t.getTextureIndex(), 4),
-                    ofBlock(t.getCasingBlock(), t.getCasingMeta()))))
+                    addTileCasing(t.getCasingBlock(), t.getCasingMeta()))))
                 .addElement('m', lazy(t -> ofHatchAdder(Obama_MetaTileEntity_Factory::addMotorCasingToMachineList, t.getTextureIndex(), 5)))
                 .addElement('r', lazy(t -> ofHatchAdder(Obama_MetaTileEntity_Factory::addRotorCasingToMachineList, t.getTextureIndex(), 6)))
                 .addElement('c', lazy(t -> ofHatchAdder(Obama_MetaTileEntity_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 7)))

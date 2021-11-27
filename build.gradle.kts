@@ -10,7 +10,7 @@ buildscript {
         maven("https://jitpack.io")
     }
     dependencies {
-        classpath("com.github.GTNH2:ForgeGradle:FG_1.2-SNAPSHOT")
+        classpath("com.github.GTNewHorizons:ForgeGradle:1.2.4")
     }
 }
 

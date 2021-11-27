@@ -1,6 +1,7 @@
 package com.gtnewhorizons.obama.main.tileentities.multi.definition.structure;
 
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -77,32 +78,32 @@ public interface IConstructableStructureSliceable extends IConstructableStructur
      */
     int getParalellsPerSlice();
 
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    default boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
-//        if (!IConstructableStructureSimple.super.checkMachine(iGregTechTileEntity, itemStack))
-//            return false;
-//
-//        setStructureCounter(0);
-//        setCurrentStructureOffset(getSliceStructureOffset());
-//        for (int i = 0; i < getMaxSlices(); i++) {
-//            if (structureCheck(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset())) {
-//                setStructureCounter(getStructureCounter() + 1);
-//                setCurrentStructureOffset(getCurrentStructureOffset().add(getPerSliceOffset()));
-//            } else {
-//                break;
-//            }
-//        }
-//
-//        if (getStructureCounter() < getMinSlices())
-//            return false;
-//
-//        setMaxParallels(getStructureCounter() * getParalellsPerSlice() + getMinParallel());
-//        return true;
-//    }
-//
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
+        if (!IConstructableStructureSimple.super.checkMachine(iGregTechTileEntity, itemStack))
+            return false;
+
+        setStructureCounter(0);
+        setCurrentStructureOffset(getSliceStructureOffset());
+        for (int i = 0; i < getMaxSlices(); i++) {
+            if (structureCheck(TM_STRUCTURE_MIDDLE, getCurrentStructureOffset())) {
+                setStructureCounter(getStructureCounter() + 1);
+                setCurrentStructureOffset(getCurrentStructureOffset().add(getPerSliceOffset()));
+            } else {
+                break;
+            }
+        }
+
+        if (getStructureCounter() < getMinSlices())
+            return false;
+
+        setMaxParallels(getStructureCounter() * getParalellsPerSlice() + getMinParallel());
+        return true;
+    }
+
     /**
      * {@inheritDoc}
      */

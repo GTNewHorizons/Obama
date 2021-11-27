@@ -15,9 +15,9 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
 import gregtech.api.util.GT_Recipe;
+import net.minecraft.item.ItemStack;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAdder;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
@@ -32,6 +32,12 @@ public class Obama_MetaTileEntity_Large_Fluid_Heater extends Obama_MetaTileEntit
 
     public Obama_MetaTileEntity_Large_Fluid_Heater(String aName) {
         super(aName);
+    }
+
+    @Override
+    public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        preLoadCheck();
+        return IConstructableStructureSliceableCapped.super.checkMachine(aBaseMetaTileEntity, aStack) && additionalCheck();
     }
 
     @Override
@@ -58,7 +64,7 @@ public class Obama_MetaTileEntity_Large_Fluid_Heater extends Obama_MetaTileEntit
                 }))
                 .addElement('G', ofBlockAnyMeta(GameRegistry.findBlock("IC2", "blockAlloyGlass")))
                 .addElement('B', lazy(t -> ofChain(
-                    ofBlock(t.getCasingBlock(), t.getCasingMeta()),
+                    addTileCasing(t.getCasingBlock(), t.getCasingMeta()),
                     ofHatchAdder(Obama_MetaTileEntity_Factory::addToMachineList, t.getTextureIndex(), 1))))
                 .addElement('c', lazy(t -> ofHatchAdder(Obama_MetaTileEntity_Factory::addCircuitCasingToMachineList, t.getTextureIndex(), 2)))
                 // for some reason using GT_Block_Casings5 doesent work so im using ItemList.Casing_Coil_Cupronickel.getBlock()
