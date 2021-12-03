@@ -1,6 +1,12 @@
 package com.gtnewhorizons.obama.main.tileentities.multi.definition;
 
+import com.github.bartimaeusnek.bartworks.API.SideReference;
+import com.github.bartimaeusnek.bartworks.client.textures.PrefixTextureLinker;
+import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGenerated_Block_TE;
+import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
 import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
+import com.gtnewhorizon.structurelib.StructureLibAPI;
+import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
 import com.gtnewhorizons.obama.main.loaders.CasingTextureLoader;
 import com.gtnewhorizons.obama.main.tileentities.multi.definition.sound.ISoundProviderImpl;
@@ -14,6 +20,8 @@ import com.gtnewhorizons.obama.main.utils.RecipeIterable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.GT_Values;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.TextureSet;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_EnhancedMultiBlockBase;
@@ -24,12 +32,12 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 //TODO Slot recipe handling into its own interface
 public abstract class Obama_MetaTileEntity_Factory<T extends Obama_MetaTileEntity_Factory<T>> extends GT_MetaTileEntity_EnhancedMultiBlockBase<T> implements
@@ -98,13 +106,8 @@ public abstract class Obama_MetaTileEntity_Factory<T extends Obama_MetaTileEntit
     }
 
     @Override
-    public boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
-        functionalCasingsPreCheckMachine();
-        heatingCoilPreCheckMachine();
-        
-        // This used to call checkMachine_TM  
-        return  functionalCasingsPostCheckMachine() &&
-                heatingCoilPostCheckMachine(getCasingTier());
+    public final boolean structureCheck(String piece, Vec3Impl offset) {
+        return checkPiece(piece, offset.get0(), offset.get1(), offset.get2());
     }
 
 //    @Override
@@ -289,7 +292,7 @@ public abstract class Obama_MetaTileEntity_Factory<T extends Obama_MetaTileEntit
         int totalEUUsage = this.mEUt;
         int maxTotalRecipes = getMaxUniqueRecipes() - runningRecipes.length;
         // check if we can actually add any new recipes
-        if (this.getEUVar() > this.getMaxInputVoltage() && maxTotalRecipes > 0) {
+        if (this.getMaxInputEnergy() - totalEUUsage > 0 && maxTotalRecipes > 0) {
             ItemStack[] inputItems = this.getStoredInputs().toArray(new ItemStack[0]);
             FluidStack[] inputFluids = this.getStoredFluids().toArray(new FluidStack[0]);
             if (inputItems.length > 0 || inputFluids.length > 0) {
@@ -311,15 +314,12 @@ public abstract class Obama_MetaTileEntity_Factory<T extends Obama_MetaTileEntit
                 }
                 ArrayList<RecipeProgresion> newRecipes = new ArrayList<>();
                 for (GT_Recipe recipe : recipes) {
-                    if (recipe != null) {
+                    if (recipe != null && recipe.mEUt < this.getMaxInputEnergy() - totalEUUsage) {
                         if (recipe.mCanBeBuffered) {
                             this.buffered_Recipe = recipe;
                         }
-
                         parallelDone = checkAndConsumeRecipe(recipe, inputItems, combinedItems, inputFluids, parallel);
-
                         if (parallelDone > 0) {
-
                             RecipeProgresion processedRecipe = getRecipeProgresionWithOC(recipe, voltage, parallelDone);
                             newRecipes.add(processedRecipe);
                             totalEUUsage -= processedRecipe.getEUUsage();
@@ -352,14 +352,14 @@ public abstract class Obama_MetaTileEntity_Factory<T extends Obama_MetaTileEntit
         return 8;
     }
 
-    // allows multies to overide this incase more special recipe check is needid
+    // allows multies to override this in case more special recipe check is needed
     public int checkAndConsumeRecipe(GT_Recipe recipe, ItemStack[] inputItems, ItemStack[] combinedItems,
                                      FluidStack[] inputFluids, int parrallel) {
         return MultiBlockUtils.isRecipeEqualAndRemoveParallel(recipe,
                 inputItems, combinedItems, inputFluids, parrallel, true);
     }
 
-    // allows multies to overide this incase more special OC is needed
+    // allows multies to override this in case more special OC is needed
     public RecipeProgresion getRecipeProgresionWithOC(GT_Recipe recipe, int voltage, int parrallelDone) {
         return MultiBlockUtils.getRecipeProgressionWithOC(
                 recipe,
@@ -482,5 +482,72 @@ public abstract class Obama_MetaTileEntity_Factory<T extends Obama_MetaTileEntit
     public boolean explodesOnComponentBreak(ItemStack aStack) {
         return false;
     }
-    
+
+    //For BW Casing
+    public static <T> IStructureElement<T> addTileCasing(Block aCasing, int aMeta) {
+        return new IStructureElement<T>() {
+            private IIcon[] mIcons;
+            private final short[] DEFAULT = new short[]{255, 255, 255, 0};
+            @Override
+            public boolean check(T t, World world, int x, int y, int z) {
+                Block tBlock = world.getBlock(x, y, z);
+                return tBlock == aCasing && aMeta == tBlock.getDamageValue(world, x, y, z);
+            }
+
+            @Override
+            public boolean spawnHint(T t, World world, int x, int y, int z, ItemStack trigger) {
+                Werkstoff aMaterial = Werkstoff.werkstoffHashMap.get((short) aMeta);
+                if (mIcons == null) {
+                    mIcons = new IIcon[6];
+                    if (WerkstoffLoader.BWBlockCasings.equals(aCasing)) {
+                        Arrays.fill(mIcons, getTexture(WerkstoffLoader.blockCasing));
+                    }
+                    else if (WerkstoffLoader.BWBlockCasingsAdvanced.equals(aCasing)) {
+                        Arrays.fill(mIcons, getTexture(WerkstoffLoader.blockCasingAdvanced));
+                    }
+                    else Arrays.fill(mIcons, TextureSet.SET_NONE.mTextures[OrePrefixes.block.mTextureIndex].getIcon());
+                }
+                StructureLibAPI.hintParticleTinted(world, x, y, z, mIcons, aMaterial == null ? DEFAULT : aMaterial.getRGBA());
+                return true;
+            }
+
+            @Override
+            public boolean placeBlock(T t, World world, int x, int y, int z, ItemStack trigger) {
+                world.setBlock(x, y, z, aCasing, aMeta,2);
+                try {
+                    Thread.sleep(1);
+                    //Fucking Minecraft TE settings.  --by Mitchej123
+                } catch (InterruptedException ignored) {}
+                Optional.ofNullable(world.getTileEntity(x,y,z))
+                        .filter(te -> te instanceof BW_MetaGenerated_Block_TE)
+                        .map(te -> (BW_MetaGenerated_Block_TE) te)
+                        .ifPresent(te -> te.mMetaData = (short) aMeta);
+                return true;
+            }
+
+            public IIcon getTexture(OrePrefixes aBlock) {
+                if (SideReference.Side.Client) {
+                    Werkstoff aMaterial = Werkstoff.werkstoffHashMap.get((short) aMeta);
+                    if ((aMaterial != null)) {
+                        TextureSet set = aMaterial.getTexSet();
+                        return PrefixTextureLinker.texMapBlocks.get(aBlock)
+                                .getOrDefault(set, TextureSet.SET_NONE.mTextures[OrePrefixes.block.mTextureIndex]).getIcon();
+                    }
+                }
+                return TextureSet.SET_NONE.mTextures[OrePrefixes.block.mTextureIndex].getIcon();
+            }
+        };
+    }
+
+    @Override
+    public void preLoadCheck() {
+        functionalCasingsPreCheckMachine();
+        heatingCoilPreCheckMachine();
+    }
+
+    @Override
+    public boolean additionalCheck() {
+        return functionalCasingsPostCheckMachine() &&
+               heatingCoilPostCheckMachine(getCasingTier());
+    }
 }

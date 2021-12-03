@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.render.TextureFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,8 +50,7 @@ public interface ITextureProviderImpl extends ITextureProvider {
      * @return the texture
      */
     default ITexture getTextureFromMap(String texture) {
-        return null;
-//        return new TT_RenderedExtendedFacingTexture(screenTextures.get(texture));
+        return TextureFactory.of(screenTextures.get(texture));
     }
 
     /**

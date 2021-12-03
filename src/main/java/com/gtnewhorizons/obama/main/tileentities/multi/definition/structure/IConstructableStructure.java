@@ -3,6 +3,7 @@ package com.gtnewhorizons.obama.main.tileentities.multi.definition.structure;
 import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_EnhancedMultiBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -134,18 +135,18 @@ public interface IConstructableStructure extends IStructure, IConstructable {
      */
     short getCasingMeta();
 
-//    /**
-//     * <p>Check machine structure.
-//     *
-//     * @param iGregTechTileEntity the GregTech tile entity
-//     * @param itemStack           the internal item stack
-//     * @return true if check machine succeeds
-//     */
-//    boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack);
-//
+    /**
+     * <p>Check machine structure.
+     *
+     * @param iGregTechTileEntity the GregTech tile entity
+     * @param itemStack           the internal item stack
+     * @return true if check machine succeeds
+     */
+    boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack);
+
 //    /**
 //     * <p>Checks the machine structure.
-//     *  
+//     *
 //     * <p>The expected implementation is delegation to structureCheck(String, int, int, int) from the
 //     * GT_MetaTileEntity_MultiblockBase_EM located in TecTech.
 //     *
@@ -156,20 +157,18 @@ public interface IConstructableStructure extends IStructure, IConstructable {
 //     * @return true if structure check succeeds
 //     */
 //    boolean structureCheck(String piece, int horizontalOffset, int verticalOffset, int depthOffset);
-//
-//    /**
-//     * <p>Checks the machine structure.
-//     *  
-//     * <p>A delegate to the other method of same name.
-//     *
-//     * @param piece  the piece to check
-//     * @param offset the offset vector
-//     * @return true if structure check succeeds
-//     */
-//    default boolean structureCheck(String piece, Vec3Impl offset) {
-//        return structureCheck(piece, offset.get0(), offset.get1(), offset.get2());
-//    }
-//
+
+    /**
+     * <p>Checks the machine structure.
+     *
+     * <p>A delegate to the other method of same name.
+     *
+     * @param piece  the piece to check
+     * @param offset the offset vector
+     * @return true if structure check succeeds
+     */
+    boolean structureCheck(String piece, Vec3Impl offset);
+
 //    /**
 //     * <p>Builds the machine structure.
 //     *  
@@ -212,4 +211,17 @@ public interface IConstructableStructure extends IStructure, IConstructable {
      * @param hintsOnly the hints only mode switch
      */
     void construct(ItemStack itemStack, boolean hintsOnly);
+
+    /**
+     * <p>For hatch list clear, reset heat coil status or etc.
+     * <p>It will be loaded right before the structure check.
+     */
+    void preLoadCheck();
+
+    /**
+     * <p>Can be used for checking hatch's tier/size, coil tier or etc.
+     * <p>It will loaded right after the structure check.
+     * @return
+     */
+    boolean additionalCheck();
 }

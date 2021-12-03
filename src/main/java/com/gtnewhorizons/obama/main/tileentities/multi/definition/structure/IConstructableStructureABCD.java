@@ -95,7 +95,7 @@ public interface IConstructableStructureABCD extends IConstructableStructure {
     default int getParalellsD() {
         return 0;
     }
-//
+
 //    /**
 //     * {@inheritDoc}
 //     */
@@ -106,53 +106,53 @@ public interface IConstructableStructureABCD extends IConstructableStructure {
 //        return IConstructableStructure.super.structureCheck(piece, offset);
 //    }
 
-//    /**
-//     * <p>Check machine shape A and sets appropriate parallel count.
-//     *
-//     * @return true if shape valid
-//     */
-//    default boolean checkMachineA() {
-//        if (!structureCheck(TM_STRUCTURE_A, getStartOffsetA()))
-//            return false;
-//        setMaxParallels(getParalellsA());
-//        return true;
-//    }
-//
-//    /**
-//     * <p>Check machine shape B and sets appropriate parallel count.
-//     *
-//     * @return true if shape valid
-//     */
-//    default boolean checkMachineB() {
-//        if (!structureCheck(TM_STRUCTURE_B, getStartOffsetB()))
-//            return false;
-//        setMaxParallels(getParalellsB());
-//        return true;
-//    }
-//
-//    /**
-//     * <p>Check machine shape C and sets appropriate parallel count.
-//     *
-//     * @return true if shape valid
-//     */
-//    default boolean checkMachineC() {
-//        if (!structureCheck(TM_STRUCTURE_C, getStartOffsetC()))
-//            return false;
-//        setMaxParallels(getParalellsC());
-//        return true;
-//    }
-//
-//    /**
-//     * <p>Check machine shape D and sets appropriate parallel count.
-//     *
-//     * @return true if shape valid
-//     */
-//    default boolean checkMachineD() {
-//        if (!structureCheck(TM_STRUCTURE_D, getStartOffsetD()))
-//            return false;
-//        setMaxParallels(getParalellsD());
-//        return true;
-//    }
+    /**
+     * <p>Check machine shape A and sets appropriate parallel count.
+     *
+     * @return true if shape valid
+     */
+    default boolean checkMachineA() {
+        if (!structureCheck(TM_STRUCTURE_A, getStartOffsetA()))
+            return false;
+        setMaxParallels(getParalellsA());
+        return true;
+    }
+
+    /**
+     * <p>Check machine shape B and sets appropriate parallel count.
+     *
+     * @return true if shape valid
+     */
+    default boolean checkMachineB() {
+        if (!structureCheck(TM_STRUCTURE_B, getStartOffsetB()))
+            return false;
+        setMaxParallels(getParalellsB());
+        return true;
+    }
+
+    /**
+     * <p>Check machine shape C and sets appropriate parallel count.
+     *
+     * @return true if shape valid
+     */
+    default boolean checkMachineC() {
+        if (!structureCheck(TM_STRUCTURE_C, getStartOffsetC()))
+            return false;
+        setMaxParallels(getParalellsC());
+        return true;
+    }
+
+    /**
+     * <p>Check machine shape D and sets appropriate parallel count.
+     *
+     * @return true if shape valid
+     */
+    default boolean checkMachineD() {
+        if (!structureCheck(TM_STRUCTURE_D, getStartOffsetD()))
+            return false;
+        setMaxParallels(getParalellsD());
+        return true;
+    }
 
 //    /**
 //     * {@inheritDoc}

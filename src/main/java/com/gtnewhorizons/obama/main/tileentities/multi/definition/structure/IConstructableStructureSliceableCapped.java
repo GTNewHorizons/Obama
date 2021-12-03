@@ -1,6 +1,7 @@
 package com.gtnewhorizons.obama.main.tileentities.multi.definition.structure;
 
 import com.gtnewhorizon.structurelib.util.Vec3Impl;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -23,16 +24,16 @@ public interface IConstructableStructureSliceableCapped extends IConstructableSt
      */
     Vec3Impl getCapStructureOffset();
 
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    default boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
-//        if (!IConstructableStructureSliceable.super.checkMachine(iGregTechTileEntity, itemStack))
-//            return false;
-//        setCurrentStructureOffset(getCurrentStructureOffset().add(getCapStructureOffset()));
-//        return structureCheck(TM_STRUCTURE_CAP, getCurrentStructureOffset());
-//    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    default boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
+        if (!IConstructableStructureSliceable.super.checkMachine(iGregTechTileEntity, itemStack))
+            return false;
+        setCurrentStructureOffset(getCurrentStructureOffset().add(getCapStructureOffset()));
+        return structureCheck(TM_STRUCTURE_CAP, getCurrentStructureOffset());
+    }
 
     /**
      * {@inheritDoc}

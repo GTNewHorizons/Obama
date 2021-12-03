@@ -252,7 +252,7 @@ public class MultiBlockUtils {
         return maxParrallel;
     }
 
-    // combines itemSTacks that are the same and unifie them
+    // combines itemStacks that are the same and unify them
     public static ItemStack[] combineStacks(ItemStack[] inputs) {
         ArrayList<ItemStack> combined = new ArrayList<>();
         for (ItemStack item : inputs) {
