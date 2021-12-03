@@ -47,7 +47,7 @@ public class RecipeProgresion {
         return fluids;
     }
 
-    //TODO multi thread this??? if it consumes any significan amount of time
+    //TODO multi thread this??? if it consumes any significant amount of time
     private void processRecipe(int amount) {
         int totalStacks = getTotalStacks(amount);
         this.items = new ItemStack[totalStacks];
@@ -71,7 +71,7 @@ public class RecipeProgresion {
         return totalStacks;
     }
 
-    //asumes this.items has a valid array
+    //assumes this.items has a valid array
     private void populateItemStack(GT_Recipe recipe, int amount) {
         int itemIndex = 0;
         for (int i = 0; i < recipe.mOutputs.length; i++) {
@@ -98,7 +98,7 @@ public class RecipeProgresion {
         }
     }
 
-    //i hate this but dont know of a better faster way
+    //i hate this but don't know of a better faster way
     private int getItemAmountWithChance(GT_Recipe recipe, int index, int amount) {
         int itemChance = recipe.getOutputChance(index);
         int successCount = amount;
